@@ -2,8 +2,12 @@
 
 ## Licensing of contributions
 
-Unless explicitly stated otherwise, contributions intentionally submitted
-for inclusion in this repository are licensed under the Apache License 2.0.
+The license of this repository is an open decision in `docs/PROJECT_BRIEF.md`.
+Until that decision exists, treat new contributions as all rights reserved.
+Do not assume Apache-2.0 applies to game design, code or assets.
+
+A `LICENSE` file carrying Apache-2.0 text remains from the docs-first model
+extraction. That file is not a decision that RE:WIND is open source.
 
 ## Required reading
 
@@ -42,12 +46,15 @@ Doing it anyway is the failure this rule exists to prevent.
 - Express state in content and in the collection index. A filename is an
   address, not a status field.
 
-## The baseline is frozen
+## Frozen trees
 
-Nothing under `baseline/` is ever edited, for any reason, including obvious
-typos. It is evidence of what the source model said on a specific date, and its
-value is that it can be verified against a tag. Corrections belong in this
-project's own documents, and the difference belongs in `extraction/ledger.md`.
+Nothing under `docs/baseline/` is ever edited. It is provenance for the
+working model, and its value is that it can be verified against a tag.
+
+Nothing under `docs/concepts_sandbox/legacy-rewind/` that was imported from
+the previous project is ever edited. Corrections belong in this project's own
+documents. Inventory and conflict-register files written by this project may
+be added there; they are still not authority.
 
 ## Writing standards
 
@@ -60,6 +67,7 @@ project's own documents, and the difference belongs in `extraction/ledger.md`.
 
 ## Verification
 
-This repository has no tooling yet. Until the validator exists, verification is
-manual review plus `git diff --check`, and every task states which checks it ran
-and which it could not.
+This repository has no tooling yet. Until an Unreal project exists, no build,
+test or automation gate may be claimed. Verification is manual review plus
+`git diff --check`, and every task states which checks it ran and which it
+could not.

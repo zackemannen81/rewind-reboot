@@ -39,8 +39,11 @@ branches.
 
 The register allocates identity only. It carries no status column: task state
 already has owners in `docs/CURRENT_TASK.md` and `docs/finished/`, and a
-trunk-level statement about active work would contradict the one-active-task
-rule.
+trunk-level statement about how much work is in progress would contradict the
+one-active-task rule.
+
+The prefix in force is `REW`. Historical `DFC-` identities remain valid
+addresses.
 
 ## Routing Discovered Work
 
@@ -77,7 +80,8 @@ done unchanged.
 
 - Verify in proportion to risk. State what was not verified and why.
 - Update every affected owning document in the same change.
-- Archive the task under `docs/finished/` as `DFC-NNNN_task-slug.md`, unmodified.
+- Archive the task under `docs/finished/` as `REW-NNNN_task-slug.md`,
+  unmodified, or under the prefix the identity was claimed with.
 - Restore `docs/CURRENT_TASK.md` from the template, or fill it with the next
   approved task.
 - Add a dated, signed journal entry.

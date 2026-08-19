@@ -4,6 +4,39 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-19 — REW-0001 canonical project state
+
+- Date: 2026-08-19
+- Author: Grok
+- Task: REW-0001
+- Branch: `main`
+- Change: this repository is now a RE:WIND docs-first instance rather than a
+  leftover protocol-extraction tree. DFC-0001 is cancelled and archived.
+  Live documents that still described the protocol were restated. The Unity
+  project at `C:\code\reWiND` commit `9f959140e25163bddef390979f23f352e8f0c2f6`
+  was inventoried from source into
+  `docs/concepts_sandbox/legacy-rewind/code-inventory.md`. Twelve design
+  contradictions are registered in
+  `docs/concepts_sandbox/legacy-rewind/design-conflicts.md`. The Five Loops
+  Test is proposed, not activated, in `docs/backlog/five-loops-test.md`.
+  `.gitignore` exists for an Unreal project that does not yet exist.
+- Verification: relative links and fenced blocks checked on twenty-four live
+  documents; `git diff --check` clean; Unity managers, Chapter 1 scripts and
+  `Chapter1_Blockout.unity` GUIDs read; Unreal Engine 5.8 present at
+  `C:\Program Files\Epic Games\UE_5.8`. Unity Editor was not launched. No
+  Unreal project was created. `docs/baseline/` was not edited and its broken
+  internal links were not repaired.
+- Finding that was not in the recovery notes: TimeManager, KnowledgeManager
+  and AnchorManager are not instantiated in the committed Unity scene, so
+  `LoopStartEvent` is never published there.
+- Exception: REW-0001 was completed without merging the identity claim to
+  `main` first. The charter recorded that exception while still editable.
+- Handoff: `docs/CURRENT_TASK.md` is restored from the template. Next work is
+  not activated. The candidate is `docs/backlog/five-loops-test.md`, which
+  depends on open decisions in `docs/PROJECT_BRIEF.md`. This working tree is
+  not committed.
+- Signature: Grok
+
 ## 2026-08-19 — Repository bootstrap from a frozen baseline
 
 - Date: 2026-08-19
