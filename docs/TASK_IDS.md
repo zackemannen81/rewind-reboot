@@ -28,4 +28,6 @@ by records that cannot be edited.
 
 | Task ID | Title | Owner | Claimed | Work |
 | --- | --- | --- | --- | --- |
-| DFC-0001 | protocol specification, C-01 to C-18 | unassigned | 2026-08-19 | not started |
+| DFC-0001 | protocol specification, C-01 to C-18 | unassigned | 2026-08-19 | docs/finished/DFC-0001_protocol-specification.md |
+| REW-0001 | establish canonical project state | Grok | 2026-08-19 | docs/finished/REW-0001_establish-canonical-project-state.md |
+| REW-0002 | Five Loops Test authority | Grok | 2026-08-19 | docs/CURRENT_TASK.md |
