@@ -27,6 +27,17 @@ ARewindCharacter::ARewindCharacter()
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	FollowCamera->bUsePawnControlRotation = false;
+	AutoPossessPlayer = EAutoReceiveInput::Disabled;
+}
+
+void ARewindCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 8.f, FColor::White,
+			TEXT("RE:WIND 4C  |  WASD move  E interact  digits at lock"));
+	}
 }
 
 void ARewindCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

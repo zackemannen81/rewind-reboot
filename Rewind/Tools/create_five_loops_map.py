@@ -1,15 +1,17 @@
 import unreal
 
-MAP = "/Game/Maps/FiveLoops"
+MAP_PATH = "/Game/Maps"
+MAP_NAME = "FiveLoops"
+MAP = MAP_PATH + "/" + MAP_NAME
 
 if unreal.EditorAssetLibrary.does_asset_exist(MAP):
-    unreal.EditorLevelLibrary.load_level(MAP)
+    unreal.EditorAssetLibrary.delete_asset(MAP)
+
+factory = unreal.WorldFactory()
+asset_tools = unreal.AssetToolsHelpers.get_asset_tools()
+world = asset_tools.create_asset(MAP_NAME, MAP_PATH, unreal.World, factory)
+if world is None:
+    unreal.log_error("Rewind: failed to create " + MAP)
 else:
-    unreal.EditorLevelLibrary.new_level(MAP)
-
-world_settings = unreal.get_editor_world().get_world_settings()
-if world_settings:
-    world_settings.set_editor_property("enable_world_composition", False)
-
-unreal.EditorLevelLibrary.save_current_level()
-unreal.log("Rewind: saved " + MAP)
+    unreal.EditorAssetLibrary.save_asset(MAP)
+    unreal.log("Rewind: created basic (non-partition) map " + MAP)

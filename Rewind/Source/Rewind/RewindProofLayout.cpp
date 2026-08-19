@@ -9,7 +9,13 @@
 #include "RewindPatrol.h"
 #include "RewindRadio.h"
 #include "RewindTurnstile.h"
+#include "Components/DirectionalLightComponent.h"
+#include "Components/PointLightComponent.h"
+#include "Components/SkyLightComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Engine/DirectionalLight.h"
+#include "Engine/SkyLight.h"
+#include "Engine/PointLight.h"
 #include "EngineUtils.h"
 #include "UObject/ConstructorHelpers.h"
 
@@ -79,6 +85,88 @@ void ARewindProofLayout::EnsureContents()
 	if (Generator)
 	{
 		Generator->SetLinks(FuseBox, Gate);
+	}
+
+	EnsureLights();
+}
+
+void ARewindProofLayout::EnsureLights()
+{
+	UWorld* World = GetWorld();
+	if (!World)
+	{
+		return;
+	}
+
+	FActorSpawnParameters Params;
+	Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+	bool bHasSun = false;
+	for (TActorIterator<ADirectionalLight> It(World); It; ++It)
+	{
+		bHasSun = true;
+		break;
+	}
+	if (!bHasSun)
+	{
+		ADirectionalLight* Sun = World->SpawnActor<ADirectionalLight>(
+			FVector(0.f, 0.f, 800.f), FRotator(-50.f, -35.f, 0.f), Params);
+		if (Sun)
+		{
+			if (UDirectionalLightComponent* Light = Cast<UDirectionalLightComponent>(Sun->GetLightComponent()))
+			{
+				Light->SetMobility(EComponentMobility::Stationary);
+				Light->SetLightUnits(ELightUnits::Unitless);
+				Light->SetIntensity(12.f);
+				Light->bUseTemperature = true;
+				Light->Temperature = 5500.f;
+				Light->SetAtmosphereSunLight(true);
+			}
+		}
+	}
+
+	bool bHasSky = false;
+	for (TActorIterator<ASkyLight> It(World); It; ++It)
+	{
+		bHasSky = true;
+		break;
+	}
+	if (!bHasSky)
+	{
+		ASkyLight* Sky = World->SpawnActor<ASkyLight>(FVector(0.f, 0.f, 400.f), FRotator::ZeroRotator, Params);
+		if (Sky)
+		{
+			if (USkyLightComponent* Light = Sky->GetLightComponent())
+			{
+				Light->SetMobility(EComponentMobility::Stationary);
+				Light->SetIntensity(1.5f);
+				Light->bLowerHemisphereIsBlack = false;
+				Light->LowerHemisphereColor = FLinearColor(0.15f, 0.16f, 0.2f);
+				Light->RecaptureSky();
+			}
+		}
+	}
+
+	bool bHasPoint = false;
+	for (TActorIterator<APointLight> It(World); It; ++It)
+	{
+		bHasPoint = true;
+		break;
+	}
+	if (!bHasPoint)
+	{
+		APointLight* Lamp = World->SpawnActor<APointLight>(
+			FVector(0.f, 0.f, 220.f), FRotator::ZeroRotator, Params);
+		if (Lamp)
+		{
+			if (UPointLightComponent* Light = Cast<UPointLightComponent>(Lamp->GetLightComponent()))
+			{
+				Light->SetMobility(EComponentMobility::Stationary);
+				Light->SetLightUnits(ELightUnits::Candelas);
+				Light->SetIntensity(2000.f);
+				Light->SetAttenuationRadius(1800.f);
+			}
+		}
 	}
 }
 

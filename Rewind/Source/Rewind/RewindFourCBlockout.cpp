@@ -58,7 +58,7 @@ void ARewindFourCBlockout::BeginPlay()
 
 FVector ARewindFourCBlockout::GetLoopStartLocation()
 {
-	return FVector(-150.f, 0.f, 92.f);
+	return FVector(-150.f, 0.f, 96.f);
 }
 
 FRotator ARewindFourCBlockout::GetLoopStartRotation()

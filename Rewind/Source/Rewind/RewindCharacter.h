@@ -12,6 +12,7 @@ class REWIND_API ARewindCharacter : public ACharacter
 
 public:
 	ARewindCharacter();
+	virtual void BeginPlay() override;
 
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 

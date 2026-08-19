@@ -12,6 +12,7 @@ class REWIND_API ARewindProofLayout : public AActor
 public:
 	ARewindProofLayout();
 	void EnsureContents();
+	void EnsureLights();
 
 private:
 	template <typename T>
