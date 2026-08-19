@@ -16,7 +16,7 @@ wrong and must be corrected.
 | `docs/adr/ADR-0005_asset-storage.md` | Accepted. Unreal binaries via Git LFS. No `.uasset` in history yet |
 | `docs/adr/ADR-0006_cpp-and-blueprint.md` | Accepted. C++ owns FL systems; Blueprint may place and present |
 | `Rewind/Rewind.uproject` | Unreal Engine 5.8 C++ project. Loop clock, apply order, session save, CleanSave |
-| `Rewind/Content/Maps/FiveLoops.umap` | Default map. Apartment 4C blockout and LoopStart spawn are C++ (`ARewindFourCBlockout`) |
+| `Rewind/Content/Maps/FiveLoops.umap` | Default map. 4C, courtyard, street, hub blockout plus radio, lock, fuse, generator, gate, patrol, turnstile, Anchor board |
 | `docs/design/` | Five accepted documents. Ownership in `docs/design/README.md` |
 | `docs/acceptance/five-loops-test.md` | Accepted. Criteria FL-01 to FL-16. None of them have been run |
 | `docs/concepts_sandbox/legacy-rewind/` | Imported design, roadmaps and task files from the previous project, plus a verified code inventory and a conflict register. Non-authority |
@@ -27,17 +27,12 @@ wrong and must be corrected.
 
 ## What does not exist
 
-Nothing below has been started. None of it may be described as available, in
-progress, or nearly ready.
-
-- **Authored Five Loops space beyond 4C spawn.** Apartment 4C blockout and
-  LoopStart exist. No radio, fuse, generator, gate, patrol or turnstile.
-  FL-01 to FL-16 have not been run.
+- **Run acceptance.** Puzzle actors exist in C++ and RewindEditor compiles.
+  FL-01 to FL-16 have not been playtested from a clean save.
 - **Echo, Insight as a later system, and Chapters 2 to 5.** Not written, and
   not required by the first product proof.
-- **Run acceptance.** FL-01 to FL-16 exist. None of them have been played.
-- **A packaged build.** Editor compile is not claimed until a build log is
-  attached to this task.
+- **A packaged game build.** Editor Win64 Development compiled; a cooked
+  package has not been made.
 - **A license decision.** A `LICENSE` file with Apache-2.0 text remains from
   the docs-first extraction. That is not a decision that RE:WIND is open
   source. The intended safe default for the game is all rights reserved, and

@@ -1,6 +1,7 @@
 #include "RewindWorldStateSubsystem.h"
 
 #include "RewindFourCBlockout.h"
+#include "RewindProofLayout.h"
 #include "RewindLoopParticipant.h"
 #include "RewindSessionSubsystem.h"
 #include "EngineUtils.h"
@@ -24,23 +25,21 @@ void URewindWorldStateSubsystem::EnsureAuthoredSpace()
 		return;
 	}
 
-	ARewindFourCBlockout* Blockout = nullptr;
-	for (TActorIterator<ARewindFourCBlockout> It(World); It; ++It)
+	ARewindProofLayout* Layout = nullptr;
+	for (TActorIterator<ARewindProofLayout> It(World); It; ++It)
 	{
-		Blockout = *It;
+		Layout = *It;
 		break;
 	}
-
-	if (!Blockout)
+	if (!Layout)
 	{
 		FActorSpawnParameters Params;
 		Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-		Blockout = World->SpawnActor<ARewindFourCBlockout>(FVector::ZeroVector, FRotator::ZeroRotator, Params);
+		Layout = World->SpawnActor<ARewindProofLayout>(FVector::ZeroVector, FRotator::ZeroRotator, Params);
 	}
-
-	if (Blockout)
+	if (Layout)
 	{
-		Blockout->EnsureLoopStart();
+		Layout->EnsureContents();
 	}
 }
 

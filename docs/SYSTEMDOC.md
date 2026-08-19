@@ -98,11 +98,13 @@ knowledge, the one legal Anchor identifier, a USaveGame slot, and a
 reachable `Rewind.CleanSave` command. World clocks are required to read
 `URewindLoopSubsystem::GetElapsedLoopTime`, not engine time.
 
-Apartment 4C is a C++ blockout (`ARewindFourCBlockout`) on
-`/Game/Maps/FiveLoops`. Loop start is a `PlayerStart` tagged `LoopStart`
-inside 4C. There is no radio, gate, patrol or turnstile. Apply order has no
-LoopWorld puzzle participants yet besides teleporting the pawn to that
-start.
+`/Game/Maps/FiveLoops` loads `ARewindProofLayout`, which spawns 4C,
+courtyard, street and hub blockout plus radio, code lock, fuse, generator,
+gate, patrol, turnstile and an Anchor board. LoopWorld participants restore
+from baseline on loop start; the gate honors `courtyard_gate_open`. Patrol
+and turnstile phase read elapsed loop time. Interact is E. Digits type a
+code at the lock. The board commits the gate Anchor only if this loop
+opened the gate. FL-01 to FL-16 have not been run.
 FL-01 to FL-16 have not been run.
 
 The previous Unity project, inventoried in

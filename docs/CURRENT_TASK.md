@@ -128,9 +128,9 @@ a stable path before anything immutable cites it.
 - [x] Write ADR-0006, Blueprint versus C++, when the first gameplay type
       is added
 - [x] Implement loop start/end, apply order, clean save
-- [ ] Implement authored 4C, radio/`7312`, fuse, generator, gate, patrol,
+- [x] Implement authored 4C, radio/`7312`, fuse, generator, gate, patrol,
       turnstile
-- [ ] Implement explicit `courtyard_gate_open` commit
+- [x] Implement explicit `courtyard_gate_open` commit
 - [ ] Run FL-01 to FL-16 from a clean save and record evidence
 - [ ] Update status, system document, file map
 - [ ] Add a signed journal entry and archive this task
@@ -179,11 +179,10 @@ Only non-semantic corrections are allowed after `Ready`.
 
 ## Handoff and Follow-ups
 
-- Current state: In Progress. Loop clock, apply order, session save and
-  `Rewind.CleanSave` exist in C++. No authored space. Compile and FL
-  playtests have not been recorded.
-- Next recommended step: radio and `7312` lock in 4C, then fuse,
-  generator, gate, patrol and turnstile as C++ loop participants.
+- Current state: In Progress. Authored chain exists in C++ on FiveLoops.
+  RewindEditor compiles. FL-01 to FL-16 have not been playtested.
+- Next recommended step: PIE from `Rewind.CleanSave` and record evidence
+  for FL-01 to FL-16.
 - Blockers: none.
 - Child tasks: none.
 - Resume condition: not applicable.

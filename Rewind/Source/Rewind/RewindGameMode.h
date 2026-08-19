@@ -10,6 +10,7 @@ class REWIND_API ARewindGameMode : public AGameModeBase
 	GENERATED_BODY()
 
 public:
+	ARewindGameMode();
 	virtual void StartPlay() override;
 	virtual void RestartPlayer(AController* NewPlayer) override;
 };

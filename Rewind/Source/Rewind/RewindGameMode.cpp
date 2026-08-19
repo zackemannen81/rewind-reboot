@@ -1,6 +1,12 @@
 #include "RewindGameMode.h"
 
+#include "RewindCharacter.h"
 #include "RewindWorldStateSubsystem.h"
+
+ARewindGameMode::ARewindGameMode()
+{
+	DefaultPawnClass = ARewindCharacter::StaticClass();
+}
 
 void ARewindGameMode::StartPlay()
 {
