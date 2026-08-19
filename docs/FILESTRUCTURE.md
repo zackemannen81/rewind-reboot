@@ -13,7 +13,7 @@ rewind-reboot/
 │   ├── Rewind.uproject             engine 5.8, module Rewind
 │   ├── Source/Rewind/              loop, session, world-state, game mode, clock tests
 │   ├── Config/                     default engine, game, input, editor
-│   └── Content/                    empty; binaries via LFS when they arrive
+│   └── Content/Maps/FiveLoops.umap empty level; 4C blockout spawned in C++
 ├── docs/
 │   ├── CURRENT_TASK.md             the active task, one per branch
 │   ├── template_CURRENT_TASK.md    the charter form

@@ -98,9 +98,11 @@ knowledge, the one legal Anchor identifier, a USaveGame slot, and a
 reachable `Rewind.CleanSave` command. World clocks are required to read
 `URewindLoopSubsystem::GetElapsedLoopTime`, not engine time.
 
-There is no authored 4C space, no gate actor, no radio, no patrol, no
-turnstile. Apply order has no LoopWorld participants yet besides teleporting
-an existing pawn to a PlayerStart tagged `LoopStart` when one exists.
+Apartment 4C is a C++ blockout (`ARewindFourCBlockout`) on
+`/Game/Maps/FiveLoops`. Loop start is a `PlayerStart` tagged `LoopStart`
+inside 4C. There is no radio, gate, patrol or turnstile. Apply order has no
+LoopWorld puzzle participants yet besides teleporting the pawn to that
+start.
 FL-01 to FL-16 have not been run.
 
 The previous Unity project, inventoried in

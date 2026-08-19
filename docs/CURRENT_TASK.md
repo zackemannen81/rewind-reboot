@@ -182,9 +182,8 @@ Only non-semantic corrections are allowed after `Ready`.
 - Current state: In Progress. Loop clock, apply order, session save and
   `Rewind.CleanSave` exist in C++. No authored space. Compile and FL
   playtests have not been recorded.
-- Next recommended step: compile RewindEditor, then implement authored
-  4C, radio/`7312`, fuse, generator, gate, patrol and turnstile as C++
-  participants of the apply order.
+- Next recommended step: radio and `7312` lock in 4C, then fuse,
+  generator, gate, patrol and turnstile as C++ loop participants.
 - Blockers: none.
 - Child tasks: none.
 - Resume condition: not applicable.

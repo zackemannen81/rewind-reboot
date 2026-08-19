@@ -1,5 +1,6 @@
 #include "RewindWorldStateSubsystem.h"
 
+#include "RewindFourCBlockout.h"
 #include "RewindLoopParticipant.h"
 #include "RewindSessionSubsystem.h"
 #include "EngineUtils.h"
@@ -15,6 +16,34 @@ bool URewindWorldStateSubsystem::ShouldCreateSubsystem(UObject* Outer) const
 	return World && World->IsGameWorld();
 }
 
+void URewindWorldStateSubsystem::EnsureAuthoredSpace()
+{
+	UWorld* World = GetWorld();
+	if (!World)
+	{
+		return;
+	}
+
+	ARewindFourCBlockout* Blockout = nullptr;
+	for (TActorIterator<ARewindFourCBlockout> It(World); It; ++It)
+	{
+		Blockout = *It;
+		break;
+	}
+
+	if (!Blockout)
+	{
+		FActorSpawnParameters Params;
+		Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+		Blockout = World->SpawnActor<ARewindFourCBlockout>(FVector::ZeroVector, FRotator::ZeroRotator, Params);
+	}
+
+	if (Blockout)
+	{
+		Blockout->EnsureLoopStart();
+	}
+}
+
 void URewindWorldStateSubsystem::ApplyLoopStart()
 {
 	UWorld* World = GetWorld();
@@ -22,6 +51,8 @@ void URewindWorldStateSubsystem::ApplyLoopStart()
 	{
 		return;
 	}
+
+	EnsureAuthoredSpace();
 
 	TArray<IRewindLoopParticipant*> WorldParts;
 	for (FActorIterator It(World); It; ++It)
