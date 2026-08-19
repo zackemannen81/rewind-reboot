@@ -15,7 +15,10 @@ deterministic loops. The player's knowledge does not.
 
 > The world is deterministic. The player accumulates knowledge.
 
-This is the product. Everything else is negotiable.
+This is the product. Everything else is negotiable. What "deterministic"
+means is decided in
+[`ADR-0002`](adr/ADR-0002_world-determinism.md) and owned as a rule by
+[`docs/design/loop-and-determinism.md`](design/loop-and-determinism.md).
 
 The player becomes more powerful by understanding the world, not by collecting
 upgrades, levelling up or unlocking abilities. A player on their fifth loop is
@@ -113,19 +116,12 @@ the status document disagree about reality, the status document is right.
 
 These are not decided, and no task may assume them:
 
-1. **World determinism, exactly.** The legacy design says both that the world is
-   deterministic and that details change between loops. Those are different
-   games. Until an ADR settles it, neither is a rule.
-2. **Anchor semantics.** What an Anchor overrides, when it is created, what it
-   costs, and whether Insight exists at all.
-3. **Echo semantics.** Whether Echo replays recorded actions, is a visual
+1. **Echo semantics.** Whether Echo replays recorded actions, is a visual
    silhouette, or is narrative only.
-4. **Save and session model.** What a clean save is, and what persists across
-   sessions rather than across loops.
-5. **Asset storage strategy.** Whether binary assets live in git, in Git LFS, or
+2. **Asset storage strategy.** Whether binary assets live in git, in Git LFS, or
    outside the repository. This must be decided before the first `.uasset`.
-6. **The license, and whether this repository ever becomes public.** The
+3. **The license, and whether this repository ever becomes public.** The
    repository currently carries an all-rights-reserved notice, chosen as the
    safe default rather than as a decision.
-7. **Whether the Unity project is retired.** `C:\code\reWiND` still exists and is
+4. **Whether the Unity project is retired.** `C:\code\reWiND` still exists and is
    untouched. Nothing here depends on it.

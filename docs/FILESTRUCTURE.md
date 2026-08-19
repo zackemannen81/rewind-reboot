@@ -20,8 +20,14 @@ rewind-reboot/
 │   ├── FILESTRUCTURE.md            this file
 │   ├── TASK_IDS.md                 identity claims, allocation only
 │   ├── adr/                        decisions
-│   ├── design/                     game design authority; empty until a task needs a rule
-│   ├── acceptance/                 what a build must demonstrate; empty until written
+│   ├── design/                     game design authority
+│   │   ├── loop-and-determinism.md
+│   │   ├── anchors.md
+│   │   ├── world-state-model.md
+│   │   ├── save-and-session.md
+│   │   └── chapter-1-authored.md
+│   ├── acceptance/
+│   │   └── five-loops-test.md      first product proof, FL-01 to FL-16
 │   ├── backlog/                    non-activated proposals
 │   ├── paused/                     frozen parents awaiting a condition
 │   ├── finished/                   archived tasks, immutable
@@ -47,6 +53,5 @@ records that may not be edited.
 
 ## Not yet present
 
-No Unreal project (`.uproject`, `Source/`, `Content/`). No file under
-`docs/design/` except its index. No file under `docs/acceptance/` except its
-index. When they arrive, this map is updated in the same change.
+No Unreal project (`.uproject`, `Source/`, `Content/`). When one arrives,
+this map is updated in the same change.

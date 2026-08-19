@@ -4,6 +4,27 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-19 — REW-0002 Five Loops Test authority
+
+- Date: 2026-08-19
+- Author: Grok
+- Task: REW-0002
+- Branch: `dev/grok-01`
+- Change: ADR-0002, ADR-0003 and ADR-0004 are Accepted. Design documents
+  own loop and determinism, Anchors, world-state apply order, save and
+  session, and the authored facts the first proof needs. Acceptance
+  criteria FL-01 to FL-16 are in
+  `docs/acceptance/five-loops-test.md`. Insight is not in this proof.
+  Echo, asset storage and the license remain open.
+- Verification: each FL criterion names one owner; design ownership lines
+  do not overlap; live-doc links and fences checked excluding
+  `docs/baseline/` and imported legacy files; `git diff --check` clean.
+- Did not run: Unreal, Unity, playtest, build. No implementation exists.
+- Handoff: `docs/CURRENT_TASK.md` is restored from the template. Next
+  work is an implementation task against FL-01 to FL-16. Asset storage
+  still blocks the first `.uasset`. This working tree is not committed.
+- Signature: Grok
+
 ## 2026-08-19 — REW-0001 canonical project state
 
 - Date: 2026-08-19

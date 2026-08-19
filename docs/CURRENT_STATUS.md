@@ -8,12 +8,18 @@ wrong and must be corrected.
 
 | Thing | State |
 | --- | --- |
-| The docs-first instance | Operating: entry point, restored task template, workflow, brief, status, system document, journal, file map, identity register, collection indexes. REW-0001 archived. No task is active |
+| The docs-first instance | Operating: entry point, workflow, brief, status, system document, journal, file map, identity register, collection indexes. REW-0001 archived |
 | `docs/adr/ADR-0001_engine-unreal-engine-5.md` | Accepted. Unreal Engine 5.8 |
+| `docs/adr/ADR-0002_world-determinism.md` | Accepted. World does not learn the player |
+| `docs/adr/ADR-0003_anchor-semantics.md` | Accepted. One player-chosen gate override. No Insight in this proof |
+| `docs/adr/ADR-0004_save-and-session.md` | Accepted. Knowledge and Anchors persist. Clean save is reachable |
+| `docs/design/` | Five accepted documents. Ownership in `docs/design/README.md` |
+| `docs/acceptance/five-loops-test.md` | Accepted. Criteria FL-01 to FL-16. None of them have been run |
 | `docs/concepts_sandbox/legacy-rewind/` | Imported design, roadmaps and task files from the previous project, plus a verified code inventory and a conflict register. Non-authority |
 | `docs/baseline/acme-2026-08-19/` | Frozen provenance for the working model itself. Never edited, never authority |
 | `.gitignore` | Written for an Unreal Engine 5 project that does not exist yet |
-| `docs/backlog/five-loops-test.md` | Proposed, not activated |
+| `docs/CURRENT_TASK.md` | Restored template. REW-0002 archived. No task is active |
+| `docs/backlog/five-loops-test.md` | Resolved (authority). Implementation not claimed |
 
 ## What does not exist
 
@@ -23,9 +29,9 @@ progress, or nearly ready.
 - **An Unreal project.** There is no `.uproject`, no `Source/`, no `Content/`,
   no module, no map. Unreal Engine 5.8 is installed on the development machine
   at `C:\Program Files\Epic Games\UE_5.8`; nothing has been created with it.
-- **Any design authority.** `docs/design/` has an index and no rules.
-  Determinism, Anchors, Echo, Insight and the save model are all open.
-- **Any acceptance criteria.** `docs/acceptance/` has an index and no criteria.
+- **Echo, Insight as a later system, and Chapters 2 to 5.** Not written, and
+  not required by the first product proof.
+- **Run acceptance.** FL-01 to FL-16 exist. None of them have been played.
 - **Any implementation, of anything.** No code, no Blueprint, no asset.
 - **Any test, gate, build or automation.** Verification is manual reading.
 - **A license decision.** A `LICENSE` file with Apache-2.0 text remains from
@@ -123,11 +129,10 @@ specific thing `AGENTS.md` "Evidence Discipline" exists to prevent.
 
 - **The central hypothesis is unproven.** Nobody has yet played five loops of
   RE:WIND and become faster. That is the point of the current milestone.
-- **Determinism is undecided and contradicted in the source material.** The
-  legacy GDD promises a deterministic world and a world whose details shift
-  between loops. Both are written down. Both cannot be true.
-  [`design-conflicts.md`](concepts_sandbox/legacy-rewind/design-conflicts.md)
-  registers this and eleven other contradictions.
+- **Legacy material still contradicts the decided determinism rule.** ADR-0002
+  chose a world that does not learn the player. The imported GDD still
+  contains both that game and a game whose details shift. The sandbox is
+  not authority; the contradiction stays there as C1.
 - **The engine change discards the existing implementation.** ADR-0001 accepts
   this. The legacy C# is design reference from now on, and the cost is
   contained because the systems that mattered were not running in the

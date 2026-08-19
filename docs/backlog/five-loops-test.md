@@ -1,8 +1,11 @@
 # Five Loops Test
 
-Status: Proposed
+Status: Resolved (authority)
 Discovered: 2026-08-19 during REW-0001
-Owner: unassigned
+Owner: Grok
+Activated: 2026-08-19 as REW-0002, authority only.
+Resolved: 2026-08-19. Rules and criteria are in `docs/design/` and
+`docs/acceptance/five-loops-test.md`. Implementation is not claimed.
 
 ## Discovery context
 

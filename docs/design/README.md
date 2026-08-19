@@ -14,4 +14,10 @@ is not a rule. It is a proposal.
 
 ## Documents
 
-None yet.
+| Document | Status | Owns |
+| --- | --- | --- |
+| [`loop-and-determinism.md`](loop-and-determinism.md) | Accepted | Loop semantics and world determinism |
+| [`anchors.md`](anchors.md) | Accepted | Anchor meaning, commit, cost, first-proof override |
+| [`world-state-model.md`](world-state-model.md) | Accepted | State buckets and loop-start apply order |
+| [`save-and-session.md`](save-and-session.md) | Accepted | Persistence, session load, clean save, knowledge facts |
+| [`chapter-1-authored.md`](chapter-1-authored.md) | Accepted | Authored space, timings and puzzle facts for the first proof |

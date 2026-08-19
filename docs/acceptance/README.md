@@ -12,4 +12,6 @@ rule is written in `docs/design/` first, or the criterion waits.
 
 ## Documents
 
-None yet.
+| Document | Status | Owns |
+| --- | --- | --- |
+| [`five-loops-test.md`](five-loops-test.md) | Accepted | First product proof. Criteria FL-01 to FL-16 |

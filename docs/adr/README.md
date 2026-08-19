@@ -24,10 +24,12 @@ or moved.
 | Record | Status | Owns |
 | --- | --- | --- |
 | [`ADR-0001_engine-unreal-engine-5.md`](ADR-0001_engine-unreal-engine-5.md) | Accepted | The engine, and the status of the legacy Unity implementation |
+| [`ADR-0002_world-determinism.md`](ADR-0002_world-determinism.md) | Accepted | What is identical across loops, and what may change |
+| [`ADR-0003_anchor-semantics.md`](ADR-0003_anchor-semantics.md) | Accepted | Anchor meaning, commit, cost, and the first-proof override |
+| [`ADR-0004_save-and-session.md`](ADR-0004_save-and-session.md) | Accepted | What persists, and what a clean save is |
 
 ## Decisions that are open
 
 Listed in `docs/PROJECT_BRIEF.md` under "Open decisions". Each will need a
-record here before any task may depend on it. The two that block the first
-product proof are world determinism and Anchor semantics; the one that is
-time-sensitive regardless of scheduling is asset storage.
+record here before any task may depend on it. None of them block specifying
+the first product proof. Asset storage still blocks the first `.uasset`.

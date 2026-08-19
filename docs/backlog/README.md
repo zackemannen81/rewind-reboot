@@ -18,4 +18,4 @@ Assign a `REW-NNNN` identity only when a proposal is explicitly activated.
 
 | Proposal | Status | Notes |
 | --- | --- | --- |
-| [`five-loops-test.md`](five-loops-test.md) | Proposed | First product proof. Depends on REW-0001. Blocked on open decisions named in the file |
+| [`five-loops-test.md`](five-loops-test.md) | Resolved (authority) | REW-0002 wrote the rules and FL-01 to FL-16. Implementation is not claimed |

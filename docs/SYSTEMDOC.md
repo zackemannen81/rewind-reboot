@@ -39,7 +39,7 @@ not the project's whole history.
 | Repository map | `docs/FILESTRUCTURE.md` | Where things live and why |
 | Identity allocation | `docs/TASK_IDS.md` | Which identities are taken |
 | Durable decisions | `docs/adr/` | Decisions, alternatives, consequences |
-| Game rules | `docs/design/` | One ownership area per document; empty until a task needs a rule |
+| Game rules | `docs/design/` | One ownership area per document |
 | Proof of done | `docs/acceptance/` | What a build must demonstrate; empty until a task writes it |
 | Completed work | `docs/finished/` | Immutable archived tasks |
 | Blocked work | `docs/paused/` | Frozen parents awaiting a condition |
@@ -111,8 +111,8 @@ rewind-reboot/
 ├── AGENTS.md
 ├── README.md
 ├── docs/                  live working state
-│   ├── design/            empty; game rules when a task needs them
-│   ├── acceptance/        empty; proof criteria when a task writes them
+│   ├── design/            game rules, one ownership area per document
+│   ├── acceptance/        proof criteria
 │   ├── baseline/          frozen working-model provenance
 │   └── concepts_sandbox/  legacy import and excluded ideas
 └── (no Unreal project yet)
