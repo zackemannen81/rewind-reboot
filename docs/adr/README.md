@@ -27,9 +27,9 @@ or moved.
 | [`ADR-0002_world-determinism.md`](ADR-0002_world-determinism.md) | Accepted | What is identical across loops, and what may change |
 | [`ADR-0003_anchor-semantics.md`](ADR-0003_anchor-semantics.md) | Accepted | Anchor meaning, commit, cost, and the first-proof override |
 | [`ADR-0004_save-and-session.md`](ADR-0004_save-and-session.md) | Accepted | What persists, and what a clean save is |
+| [`ADR-0005_asset-storage.md`](ADR-0005_asset-storage.md) | Accepted | Unreal binaries in git via Git LFS |
 
 ## Decisions that are open
 
-Listed in `docs/PROJECT_BRIEF.md` under "Open decisions". Each will need a
-record here before any task may depend on it. None of them block specifying
-the first product proof. Asset storage still blocks the first `.uasset`.
+Listed in `docs/PROJECT_BRIEF.md` under "Open decisions". Asset storage no
+longer blocks the first `.uasset`. Echo and the license remain open.

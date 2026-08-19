@@ -118,10 +118,8 @@ These are not decided, and no task may assume them:
 
 1. **Echo semantics.** Whether Echo replays recorded actions, is a visual
    silhouette, or is narrative only.
-2. **Asset storage strategy.** Whether binary assets live in git, in Git LFS, or
-   outside the repository. This must be decided before the first `.uasset`.
-3. **The license, and whether this repository ever becomes public.** The
+2. **The license, and whether this repository ever becomes public.** The
    repository currently carries an all-rights-reserved notice, chosen as the
    safe default rather than as a decision.
-4. **Whether the Unity project is retired.** `C:\code\reWiND` still exists and is
+3. **Whether the Unity project is retired.** `C:\code\reWiND` still exists and is
    untouched. Nothing here depends on it.

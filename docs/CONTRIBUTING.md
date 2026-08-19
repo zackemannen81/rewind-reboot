@@ -9,6 +9,14 @@ Do not assume Apache-2.0 applies to game design, code or assets.
 A `LICENSE` file carrying Apache-2.0 text remains from the docs-first model
 extraction. That file is not a decision that RE:WIND is open source.
 
+## Git LFS
+
+Unreal binary assets are stored with Git LFS, per
+[`ADR-0005`](adr/ADR-0005_asset-storage.md). Install Git LFS before cloning
+or pulling, or the working tree will contain pointer files instead of
+assets. Do not `git add` a `.uasset` or `.umap` until `.gitattributes`
+lists that type.
+
 ## Required reading
 
 `AGENTS.md` first, then the reading order it names. Do not start work from an

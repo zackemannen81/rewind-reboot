@@ -2,11 +2,11 @@
 
 Task ID: REW-0003
 Parent Task: None
-Status: Draft
+Status: In Progress
 Owner: Grok
 Created: 2026-08-19
 Last updated: 2026-08-19
-Charter frozen at:
+Charter frozen at: 2026-08-19
 
 ## Read First
 
@@ -35,8 +35,7 @@ decided.
 ## Task Charter
 
 The charter is editable while status is `Draft` and immutable once status
-is `Ready`. Do not move this charter to `Ready` until the `REW-0003` row
-in `docs/TASK_IDS.md` has been merged to `main`.
+is `Ready`. The `REW-0003` identity is on `main` as of `f505333`.
 
 ### Goal
 
@@ -122,9 +121,9 @@ a stable path before anything immutable cites it.
 
 ## Checklist
 
-- [ ] Merge the `REW-0003` identity claim to `main` before moving this
+- [x] Merge the `REW-0003` identity claim to `main` before moving this
       charter to `Ready`
-- [ ] Write ADR-0005, asset storage, and the matching ignore/LFS config
+- [x] Write ADR-0005, asset storage, and the matching ignore/LFS config
 - [ ] Create the Unreal 5.8 project in this repository
 - [ ] Write ADR-0006, Blueprint versus C++, when the first gameplay type
       is added
@@ -142,7 +141,9 @@ a stable path before anything immutable cites it.
   is the milestone. If a discovery blocks it, pause and charter a child.
   Do not silently drop an FL criterion.
 - Do not open Unreal to create the project until ADR-0005 is Accepted.
-  Opening the editor to confirm 5.8 is installed is not this task.
+  ADR-0005 is Accepted. The next step is to create the Unreal 5.8 project
+  in this repository. Opening the editor only to confirm 5.8 is installed
+  is not that step.
 - Unity code is not a starting point. Read it for authored intent already
   restated in `docs/design/`. Do not migrate it.
 - "It compiles" is not "it works". "It works in the editor" is not "it
@@ -167,23 +168,22 @@ Only non-semantic corrections are allowed after `Ready`.
 
 ## Documentation Updates
 
-- [ ] `docs/CURRENT_STATUS.md`
+- [x] `docs/CURRENT_STATUS.md`
 - [ ] `docs/SYSTEMDOC.md`
 - [ ] `docs/JOURNAL.md`
-- [ ] `docs/FILESTRUCTURE.md`
-- [ ] `docs/PROJECT_BRIEF.md` when ADR-0005 closes asset storage
-- [ ] `docs/adr/README.md`
-- [ ] ADRs 0005 and 0006
+- [x] `docs/FILESTRUCTURE.md`
+- [x] `docs/PROJECT_BRIEF.md` when ADR-0005 closes asset storage
+- [x] `docs/adr/README.md`
+- [x] ADR-0005
+- [ ] ADR-0006
 
 ## Handoff and Follow-ups
 
-- Current state: Draft. Identity claimed on this branch, not yet merged
-  to `main`. No Unreal project. Do not start the editor for project
-  creation.
-- Next recommended step: merge the `REW-0003` row to `main`, freeze this
-  charter to `Ready`, then write ADR-0005.
-- Blockers: identity claim is not on `origin/main` until that row is
-  pushed.
+- Current state: In Progress. Charter frozen. ADR-0005 Accepted. No
+  Unreal project yet. No `.uasset` in history.
+- Next recommended step: create the Unreal Engine 5.8 project in this
+  repository, then ADR-0006 when the first gameplay type is added.
+- Blockers: none. Git LFS is installed. UE 5.8 is installed.
 - Child tasks: none.
 - Resume condition: not applicable.
 - Open questions: none inside this charter. Echo and the license remain

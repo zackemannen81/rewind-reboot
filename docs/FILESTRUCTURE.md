@@ -7,7 +7,8 @@ rewind-reboot/
 ├── AGENTS.md                       entry point and operating rules
 ├── README.md                       what this is, for a first-time reader
 ├── LICENSE                         Apache-2.0 text leftover from model extraction; not a product license decision
-├── .gitignore                      Unreal Engine 5 generated and local-only paths
+├── .gitignore                      Unreal generated and local-only paths
+├── .gitattributes                  Git LFS types for Unreal binaries, ADR-0005
 ├── docs/
 │   ├── CURRENT_TASK.md             the active task, one per branch
 │   ├── template_CURRENT_TASK.md    the charter form

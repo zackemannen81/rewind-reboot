@@ -13,12 +13,13 @@ wrong and must be corrected.
 | `docs/adr/ADR-0002_world-determinism.md` | Accepted. World does not learn the player |
 | `docs/adr/ADR-0003_anchor-semantics.md` | Accepted. One player-chosen gate override. No Insight in this proof |
 | `docs/adr/ADR-0004_save-and-session.md` | Accepted. Knowledge and Anchors persist. Clean save is reachable |
+| `docs/adr/ADR-0005_asset-storage.md` | Accepted. Unreal binaries via Git LFS. No `.uasset` in history yet |
 | `docs/design/` | Five accepted documents. Ownership in `docs/design/README.md` |
 | `docs/acceptance/five-loops-test.md` | Accepted. Criteria FL-01 to FL-16. None of them have been run |
 | `docs/concepts_sandbox/legacy-rewind/` | Imported design, roadmaps and task files from the previous project, plus a verified code inventory and a conflict register. Non-authority |
 | `docs/baseline/acme-2026-08-19/` | Frozen provenance for the working model itself. Never edited, never authority |
-| `.gitignore` | Written for an Unreal Engine 5 project that does not exist yet |
-| `docs/CURRENT_TASK.md` | REW-0003, Draft. Five Loops Test implementation. Identity not yet on `origin/main` |
+| `.gitignore` / `.gitattributes` | Ignore generated UE output. LFS tracks Unreal binaries. No `.uasset` committed yet |
+| `docs/CURRENT_TASK.md` | REW-0003, In Progress. Five Loops Test implementation. Charter frozen. ADR-0005 accepted |
 | `docs/backlog/five-loops-test.md` | Authority resolved by REW-0002. Implementation activated as REW-0003 |
 
 ## What does not exist
@@ -139,9 +140,8 @@ specific thing `AGENTS.md` "Evidence Discipline" exists to prevent.
   committed scene anyway.
 - **No verification tooling exists.** There is no link checker and no build.
   Every task states which checks it could not run.
-- **Asset storage is undecided and time-sensitive.** Unreal repositories grow
-  fast, and a wrong default is expensive to undo once binaries are in history.
-  This must be decided before the first `.uasset` is committed.
+- **Git LFS quota.** ADR-0005 put binaries in LFS. The Five Loops Test must
+  stay a blockout. A large art import is a new decision.
 - **The `LICENSE` file disagrees with the intended default.** Apache-2.0 text
   is in the tree from the model extraction. The product license is an open
   decision. No task may treat either text as the decision.
