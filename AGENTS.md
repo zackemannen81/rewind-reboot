@@ -2,22 +2,28 @@
 
 This repository is docs-first. Every task begins in `docs/CURRENT_TASK.md`.
 
-It is also the specification of the method it uses. That is deliberate: a
-continuity protocol whose own repository cannot be picked up by a stranger has
-answered its own question.
+RE:WIND is being rebuilt from a cold start. An earlier version of this game
+exists and produced real design work, but none of it is authority here. The rule
+that follows from that is the most important one in this file: **no document,
+task, asset or line of code from the previous project may be treated as true
+until it has been restated in an owning document under `docs/`.**
 
 ## Project Identity
 
-- Project name: docs-first continuity protocol
-- Repository: `docs-first_continuity-protocol`
-- Task identity prefix: `DFC`
-- Purpose: extract the hardened docs-first working model into an
-  agent-neutral, domain-neutral protocol with a specification, templates and a
-  conformance suite.
-- Current phase: bootstrap. The frozen baseline and the extraction ledger
-  exist. The specification, templates, profiles and validator do not.
-- Status: private, unlicensed. It is not open source until it has an
-  OSI-approved license, and saying otherwise would be inaccurate.
+- Project name: RE:WIND
+- Repository: `rewind-reboot`
+- Task identity prefix: `REW`
+- Product: a third-person psychological sci-fi puzzle game in which the world
+  resets in deterministic loops while the player's knowledge persists. The
+  player grows stronger by understanding the world, not by traditional
+  progression.
+- Engine: Unreal Engine 5.8, decided in
+  `docs/adr/ADR-0001_engine-unreal-engine-5.md`.
+- Current phase: bootstrap. The docs-first structure and the imported legacy
+  material exist. No RE:WIND game project, no design authority and no
+  implementation exist in this repository.
+- Status: private, all rights reserved. The license is an open decision in
+  `docs/PROJECT_BRIEF.md`.
 
 ## Start Here
 
@@ -33,27 +39,66 @@ Read these in order before changing the repository:
 8. `docs/FILESTRUCTURE.md`
 
 Read decision records under `docs/adr/` when the task touches a decided
-boundary.
+boundary, and the design documents under `docs/design/` that the task names.
 
 ## Documentation Ownership
 
 - `docs/CURRENT_TASK.md`: the active task. One per branch.
 - `docs/TASK_WORKFLOW.md`: task states, scope freeze, routing, identity.
-- `docs/PROJECT_BRIEF.md`: approved direction and fixed scope.
+- `docs/PROJECT_BRIEF.md`: approved product direction and fixed scope.
 - `docs/CURRENT_STATUS.md`: what exists now and what does not.
-- `docs/SYSTEMDOC.md`: the durable shape of the protocol and this repository.
+- `docs/SYSTEMDOC.md`: the durable shape of the game's systems and of this
+  repository.
 - `docs/JOURNAL.md`: dated, signed work waves. Append-only.
 - `docs/FILESTRUCTURE.md`: repository map.
 - `docs/TASK_IDS.md`: identity claims. Allocation only, never status.
 - `docs/adr/`: decisions, alternatives and consequences.
+- `docs/design/`: game design authority, split by semantics. Each document owns
+  a named area, and no two documents define the same rule.
+- `docs/acceptance/`: what a build must demonstrate before it may be called
+  done.
 - `docs/finished/`: archived completed tasks, immutable.
 - `docs/paused/`: frozen parent tasks awaiting a resume condition.
 - `docs/backlog/`: non-activated proposals.
-- `docs/concepts_sandbox/`: excluded concept work. No task may cite it as
-  authority.
-- `baseline/`: the frozen source model. Provenance, never edited, never
-  authority.
-- `extraction/`: the classification of baseline rules into this project's own.
+- `docs/concepts_sandbox/`: excluded concept work and imported legacy material.
+  No task may cite it as authority.
+- `docs/baseline/`: the frozen source of the working model itself. Provenance,
+  never edited, never authority.
+
+## Design Authority
+
+Design documents are created when a task needs them, never in advance to make
+the structure look complete. An empty `docs/design/` is an honest statement that
+no game rule has been decided yet.
+
+- One area of ownership per document, declared at the top.
+- If two documents would define the same rule, one of them is wrong. Fix the
+  ownership; do not duplicate the rule.
+- A rule that is not in a design document is not a rule. It is a proposal.
+
+## Legacy Material Is Not Authority
+
+`docs/concepts_sandbox/legacy-rewind/` holds the previous project's design
+documents, roadmaps, task files and journal, together with a verified inventory
+of what its code actually did.
+
+That material describes earlier intentions and experiments. It contains
+contradictions, it does not describe this repository, and several of its tasks
+are marked `DONE` for systems that were never implemented. It may be read
+freely. It may not be implemented.
+
+The only route out of the sandbox is:
+
+```text
+concept or legacy material
+  → activated task or discovery
+  → explicit decision
+  → restatement in an owning document under docs/
+  → implementation
+```
+
+Nothing becomes true by sitting in the sandbox, and nothing becomes true by
+being linked from an authoritative document.
 
 ## Task Workflow
 
@@ -87,7 +132,7 @@ boundary.
 ### Finish
 
 - Verify in proportion to risk and state what was not verified.
-- Archive the task under `docs/finished/` as `DFC-NNNN_task-slug.md`.
+- Archive the task under `docs/finished/` as `REW-NNNN_task-slug.md`.
 - Restore `docs/CURRENT_TASK.md` from the template, or fill it with the next
   approved task.
 
@@ -97,8 +142,8 @@ boundary.
   `docs/CURRENT_TASK.md`. Version control already provides exactly one copy per
   branch, so this states the rule where it is already enforced.
 - The trunk never states how many tasks are active anywhere.
-  `docs/TASK_IDS.md` records that an identity is taken, which says nothing
-  about activity.
+  `docs/TASK_IDS.md` records that an identity is taken, which says nothing about
+  activity.
 - A branch merges when its task is complete, so `main` normally carries the
   restored template. A merged in-progress charter is an explicit exception.
 
@@ -117,19 +162,43 @@ boundary.
 
 ## Evidence Discipline
 
-This project's central claim is that its model has been used, not that it
-sounds reasonable. That obligation applies to the repository itself.
+The previous project failed its own status surface. Core systems were recorded
+as complete while world reset, canonical anchor application and Echo replay did
+not exist. That specific failure is what this repository is built to prevent.
 
-- Do not state that something is tested, proven or adopted without naming the
-  evidence.
+- Do not state that something is implemented, tested or working without naming
+  the evidence.
+- A checklist item is not evidence. A passing gate, a recorded playtest or a
+  reviewed diff is.
 - Distinguish observed facts, supported inferences and open hypotheses.
-- Private material from the source projects is never published raw. Aggregate,
-  anonymize, and obtain consent for excerpts.
-- Rules added recently carry less evidential weight than rules in continuous
-  use for months. `extraction/ledger.md` records which is which.
+- "It compiles" is not "it works". "It works in the editor" is not "it works
+  from a clean save".
+- When a claim and the build disagree, the build is right and the document is
+  corrected in the same change.
 
-## Safety
+## Verification Baseline
 
-- Never commit credentials, personal data or client material.
-- The repository stays private until a license and a name are decided.
-- Publication, releases and announcements require explicit approval.
+Verify in proportion to risk, and state what was not verified.
+
+- Documentation tasks: links resolve, fenced blocks close, ownership is not
+  duplicated, `git diff --check` is clean.
+- Design tasks: every rule has exactly one owning document, and every rule the
+  acceptance criteria depend on is stated in testable terms.
+- Implementation tasks: the gates named in the charter. Until an Unreal project
+  exists in this repository, no build, test or automation gate may be claimed.
+
+This repository has no tooling. Verification is manual review, and every task
+states which checks it ran and which it could not.
+
+## Safety and External Effects
+
+- Never commit credentials, personal data, or third-party licensed assets whose
+  terms have not been checked.
+- Large binary assets are a deliberate decision, not the side effect of a task.
+  Unreal projects grow quickly, and `docs/adr/` is where the storage strategy is
+  decided before the first `.uasset` lands.
+- The repository stays private until the license question is decided.
+- Publication, releases, store pages and announcements require explicit
+  approval.
+- Nothing under `docs/baseline/` or `docs/concepts_sandbox/legacy-rewind/` is
+  ever edited. Corrections belong in this project's own documents.

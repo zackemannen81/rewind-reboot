@@ -8,15 +8,14 @@ task state belongs to `docs/CURRENT_TASK.md` and `docs/finished/`, and a second
 statement about it here would drift from both and would make the trunk claim how
 much work is active across the repository.
 
-The prefix `DFC` encodes the descriptive method, not a brand. The project name
-is undecided, and an identity that carried the name would need a rename once the
-name changed — which the addressing rule forbids, because identities are cited
-by records that cannot be edited.
+The prefix in force is `REW`. `DFC-0001` was claimed when this repository was
+still the protocol extraction; that identity stays taken. New claims use `REW`.
 
 ## How to claim
 
 1. The next free identity is one above the highest of this register and
-   `docs/finished/`.
+   `docs/finished/` that shares the prefix in force. `DFC-0001` does not
+   consume `REW-0001`.
 2. Append one row at the end of the table below. Never insert into the middle,
    never sort, never group by owner. The append point is the safety mechanism:
    two people claiming at the same moment edit the same region and the second

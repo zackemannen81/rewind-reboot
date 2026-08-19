@@ -1,0 +1,39 @@
+# Unreal Engine 5 — generated and local-only
+Binaries/
+DerivedDataCache/
+Intermediate/
+Saved/
+Build/
+FileOpenOrder/
+*.VC.db
+*.VC.opendb
+*.opensdf
+*.sdf
+*.code-workspace
+
+# Generated project files
+*.sln
+*.suo
+*.opensdf
+*.sdf
+*.VC.db
+*.VC.VC.opendb
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.xcodeproj
+*.xcworkspace
+.vs/
+.idea/
+*.user
+*.userosscache
+*.sln.docstates
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Local logs and crash dumps
+*.log
+*.dmp
