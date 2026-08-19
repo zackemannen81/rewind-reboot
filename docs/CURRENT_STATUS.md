@@ -18,8 +18,8 @@ wrong and must be corrected.
 | `docs/concepts_sandbox/legacy-rewind/` | Imported design, roadmaps and task files from the previous project, plus a verified code inventory and a conflict register. Non-authority |
 | `docs/baseline/acme-2026-08-19/` | Frozen provenance for the working model itself. Never edited, never authority |
 | `.gitignore` | Written for an Unreal Engine 5 project that does not exist yet |
-| `docs/CURRENT_TASK.md` | Restored template. REW-0002 archived. No task is active |
-| `docs/backlog/five-loops-test.md` | Resolved (authority). Implementation not claimed |
+| `docs/CURRENT_TASK.md` | REW-0003, Draft. Five Loops Test implementation. Identity not yet on `origin/main` |
+| `docs/backlog/five-loops-test.md` | Authority resolved by REW-0002. Implementation activated as REW-0003 |
 
 ## What does not exist
 

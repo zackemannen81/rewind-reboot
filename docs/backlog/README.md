@@ -18,4 +18,4 @@ Assign a `REW-NNNN` identity only when a proposal is explicitly activated.
 
 | Proposal | Status | Notes |
 | --- | --- | --- |
-| [`five-loops-test.md`](five-loops-test.md) | Resolved (authority) | REW-0002 wrote the rules and FL-01 to FL-16. Implementation is not claimed |
+| [`five-loops-test.md`](five-loops-test.md) | Activated (implementation) | Authority is REW-0002. Implementation is REW-0003, still Draft |
