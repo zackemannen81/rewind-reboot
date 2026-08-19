@@ -3,15 +3,33 @@
 Discoverability: index. Every member of this directory is listed below.
 Member state: required. Every member declares a `Status:` line under its title.
 
-A decision record is written when a choice constrains future work: the shape of
-the specification, compatibility, versioning, licensing mechanics, or anything
-that would be expensive to reverse.
+A decision record is written when a choice constrains future work: the engine,
+the world-state model, what an Anchor means, what Echo does, how assets are
+stored, or anything that would be expensive to reverse.
+
+Conflicts in the legacy design are not resolved by picking the version that
+sounds most reasonable. They become decisions, recorded here, with the
+alternatives and the consequences.
 
 A record states the context, the decision, the alternatives considered and the
 consequences. Superseded records stay, marked, with a link to what replaced
 them. They are never deleted, because the reasoning is the point.
 
+Naming: `ADR-NNNN_short-slug.md`. Numbers are permanent and are cited by tasks,
+journal entries and design documents, so a record is never renumbered, renamed
+or moved.
+
 ## Records
 
-None yet. The open decisions listed in `docs/PROJECT_BRIEF.md` will each need
-one.
+| Record | Status | Owns |
+| --- | --- | --- |
+| [`ADR-0001_engine-unreal-engine-5.md`](ADR-0001_engine-unreal-engine-5.md) | Accepted | The engine, and the status of the legacy Unity implementation |
+| [`ADR-0002_world-determinism.md`](ADR-0002_world-determinism.md) | Accepted | What is identical across loops, and what may change |
+| [`ADR-0003_anchor-semantics.md`](ADR-0003_anchor-semantics.md) | Accepted | Anchor meaning, commit, cost, and the first-proof override |
+| [`ADR-0004_save-and-session.md`](ADR-0004_save-and-session.md) | Accepted | What persists, and what a clean save is |
+
+## Decisions that are open
+
+Listed in `docs/PROJECT_BRIEF.md` under "Open decisions". Each will need a
+record here before any task may depend on it. None of them block specifying
+the first product proof. Asset storage still blocks the first `.uasset`.

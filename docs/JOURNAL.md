@@ -4,6 +4,60 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-19 — REW-0002 Five Loops Test authority
+
+- Date: 2026-08-19
+- Author: Grok
+- Task: REW-0002
+- Branch: `dev/grok-01`
+- Change: ADR-0002, ADR-0003 and ADR-0004 are Accepted. Design documents
+  own loop and determinism, Anchors, world-state apply order, save and
+  session, and the authored facts the first proof needs. Acceptance
+  criteria FL-01 to FL-16 are in
+  `docs/acceptance/five-loops-test.md`. Insight is not in this proof.
+  Echo, asset storage and the license remain open.
+- Verification: each FL criterion names one owner; design ownership lines
+  do not overlap; live-doc links and fences checked excluding
+  `docs/baseline/` and imported legacy files; `git diff --check` clean.
+- Did not run: Unreal, Unity, playtest, build. No implementation exists.
+- Handoff: `docs/CURRENT_TASK.md` is restored from the template. Next
+  work is an implementation task against FL-01 to FL-16. Asset storage
+  still blocks the first `.uasset`. This working tree is not committed.
+- Signature: Grok
+
+## 2026-08-19 — REW-0001 canonical project state
+
+- Date: 2026-08-19
+- Author: Grok
+- Task: REW-0001
+- Branch: `main`
+- Change: this repository is now a RE:WIND docs-first instance rather than a
+  leftover protocol-extraction tree. DFC-0001 is cancelled and archived.
+  Live documents that still described the protocol were restated. The Unity
+  project at `C:\code\reWiND` commit `9f959140e25163bddef390979f23f352e8f0c2f6`
+  was inventoried from source into
+  `docs/concepts_sandbox/legacy-rewind/code-inventory.md`. Twelve design
+  contradictions are registered in
+  `docs/concepts_sandbox/legacy-rewind/design-conflicts.md`. The Five Loops
+  Test is proposed, not activated, in `docs/backlog/five-loops-test.md`.
+  `.gitignore` exists for an Unreal project that does not yet exist.
+- Verification: relative links and fenced blocks checked on twenty-four live
+  documents; `git diff --check` clean; Unity managers, Chapter 1 scripts and
+  `Chapter1_Blockout.unity` GUIDs read; Unreal Engine 5.8 present at
+  `C:\Program Files\Epic Games\UE_5.8`. Unity Editor was not launched. No
+  Unreal project was created. `docs/baseline/` was not edited and its broken
+  internal links were not repaired.
+- Finding that was not in the recovery notes: TimeManager, KnowledgeManager
+  and AnchorManager are not instantiated in the committed Unity scene, so
+  `LoopStartEvent` is never published there.
+- Exception: REW-0001 was completed without merging the identity claim to
+  `main` first. The charter recorded that exception while still editable.
+- Handoff: `docs/CURRENT_TASK.md` is restored from the template. Next work is
+  not activated. The candidate is `docs/backlog/five-loops-test.md`, which
+  depends on open decisions in `docs/PROJECT_BRIEF.md`. This working tree is
+  not committed.
+- Signature: Grok
+
 ## 2026-08-19 — Repository bootstrap from a frozen baseline
 
 - Date: 2026-08-19
