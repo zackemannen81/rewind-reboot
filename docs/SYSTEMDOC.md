@@ -5,9 +5,10 @@ exist. Behaviour that is implemented is described here; intentions belong in
 `docs/PROJECT_BRIEF.md`. Game rules belong in `docs/design/` when a task
 writes them.
 
-There is no Unreal project in this repository. No game system is implemented
-here. The sections below describe the working model this project runs on, and
-they explicitly do not describe a running loop, Anchor, Echo or save.
+An Unreal Engine 5.8 blank C++ project exists at `Rewind/Rewind.uproject`.
+No loop, world-state apply, knowledge, Anchor or authored space is
+implemented. The sections below describe the working model. They do not
+describe a running game.
 
 ## The working model in one page
 
@@ -92,7 +93,8 @@ The register records identity, never activity.
 
 ## Game systems
 
-None are implemented in this repository.
+None are implemented. `Rewind/` is a blank C++ module. Loop, apply order,
+knowledge and Anchors are not types in `Source/` yet.
 
 The previous Unity project, inventoried in
 `docs/concepts_sandbox/legacy-rewind/code-inventory.md`, contained manager
@@ -110,12 +112,12 @@ to describe what the implementation does, not what is intended.
 rewind-reboot/
 ├── AGENTS.md
 ├── README.md
+├── Rewind/                Unreal Engine 5.8 project, no gameplay systems yet
 ├── docs/                  live working state
 │   ├── design/            game rules, one ownership area per document
 │   ├── acceptance/        proof criteria
 │   ├── baseline/          frozen working-model provenance
 │   └── concepts_sandbox/  legacy import and excluded ideas
-└── (no Unreal project yet)
 ```
 
 Three levels coexist and must not be confused:

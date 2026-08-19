@@ -28,6 +28,7 @@ or moved.
 | [`ADR-0003_anchor-semantics.md`](ADR-0003_anchor-semantics.md) | Accepted | Anchor meaning, commit, cost, and the first-proof override |
 | [`ADR-0004_save-and-session.md`](ADR-0004_save-and-session.md) | Accepted | What persists, and what a clean save is |
 | [`ADR-0005_asset-storage.md`](ADR-0005_asset-storage.md) | Accepted | Unreal binaries in git via Git LFS |
+| [`ADR-0006_cpp-and-blueprint.md`](ADR-0006_cpp-and-blueprint.md) | Accepted | C++ owns FL systems; Blueprint may place and present |
 
 ## Decisions that are open
 

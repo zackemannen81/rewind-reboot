@@ -14,12 +14,14 @@ wrong and must be corrected.
 | `docs/adr/ADR-0003_anchor-semantics.md` | Accepted. One player-chosen gate override. No Insight in this proof |
 | `docs/adr/ADR-0004_save-and-session.md` | Accepted. Knowledge and Anchors persist. Clean save is reachable |
 | `docs/adr/ADR-0005_asset-storage.md` | Accepted. Unreal binaries via Git LFS. No `.uasset` in history yet |
+| `docs/adr/ADR-0006_cpp-and-blueprint.md` | Accepted. C++ owns FL systems; Blueprint may place and present |
+| `Rewind/Rewind.uproject` | Unreal Engine 5.8 blank C++ project. Plugins: ModelContextProtocol, MCPClientToolset, Terminal, EditorToolset. MCP autostart in DefaultEditor.ini. No gameplay types yet |
 | `docs/design/` | Five accepted documents. Ownership in `docs/design/README.md` |
 | `docs/acceptance/five-loops-test.md` | Accepted. Criteria FL-01 to FL-16. None of them have been run |
 | `docs/concepts_sandbox/legacy-rewind/` | Imported design, roadmaps and task files from the previous project, plus a verified code inventory and a conflict register. Non-authority |
 | `docs/baseline/acme-2026-08-19/` | Frozen provenance for the working model itself. Never edited, never authority |
 | `.gitignore` / `.gitattributes` | Ignore generated UE output. LFS tracks Unreal binaries. No `.uasset` committed yet |
-| `docs/CURRENT_TASK.md` | REW-0003, In Progress. Five Loops Test implementation. Charter frozen. ADR-0005 accepted |
+| `docs/CURRENT_TASK.md` | REW-0003, In Progress. Five Loops Test implementation. Charter frozen. ADR-0005 and ADR-0006 accepted |
 | `docs/backlog/five-loops-test.md` | Authority resolved by REW-0002. Implementation activated as REW-0003 |
 
 ## What does not exist
@@ -27,9 +29,9 @@ wrong and must be corrected.
 Nothing below has been started. None of it may be described as available, in
 progress, or nearly ready.
 
-- **An Unreal project.** There is no `.uproject`, no `Source/`, no `Content/`,
-  no module, no map. Unreal Engine 5.8 is installed on the development machine
-  at `C:\Program Files\Epic Games\UE_5.8`; nothing has been created with it.
+- **Gameplay in Unreal.** `Rewind/Rewind.uproject` exists and is a blank C++
+  module. There is no map of our own, no loop, no player start in 4C, no
+  knowledge, no Anchor. FL-01 to FL-16 have not been run.
 - **Echo, Insight as a later system, and Chapters 2 to 5.** Not written, and
   not required by the first product proof.
 - **Run acceptance.** FL-01 to FL-16 exist. None of them have been played.

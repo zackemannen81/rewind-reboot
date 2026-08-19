@@ -9,6 +9,11 @@ rewind-reboot/
 ├── LICENSE                         Apache-2.0 text leftover from model extraction; not a product license decision
 ├── .gitignore                      Unreal generated and local-only paths
 ├── .gitattributes                  Git LFS types for Unreal binaries, ADR-0005
+├── Rewind/                         Unreal Engine 5.8 blank C++ project
+│   ├── Rewind.uproject             engine 5.8, module Rewind
+│   ├── Source/                     C++ targets and the Rewind module
+│   ├── Config/                     default engine, game, input, editor
+│   └── Content/                    empty; binaries via LFS when they arrive
 ├── docs/
 │   ├── CURRENT_TASK.md             the active task, one per branch
 │   ├── template_CURRENT_TASK.md    the charter form
@@ -54,5 +59,5 @@ records that may not be edited.
 
 ## Not yet present
 
-No Unreal project (`.uproject`, `Source/`, `Content/`). When one arrives,
-this map is updated in the same change.
+Generated Unreal output (`Binaries/`, `Intermediate/`, `Saved/`,
+`DerivedDataCache/`) is not in git. No `.uasset` has been committed yet.

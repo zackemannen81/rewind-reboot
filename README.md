@@ -24,6 +24,6 @@ was bootstrapped from; that is provenance, not a grant for RE:WIND.
 
 ## Current phase
 
-Bootstrap of canonical project state. No Unreal project, no design authority
-and no implementation live in this tree yet. The first product proof, once
-chartered, is the Five Loops Test described in `docs/PROJECT_BRIEF.md`.
+A blank Unreal Engine 5.8 C++ project lives at `Rewind/Rewind.uproject`.
+Design authority for the Five Loops Test exists under `docs/design/` and
+`docs/acceptance/`. The loop is not implemented. Clone with Git LFS.

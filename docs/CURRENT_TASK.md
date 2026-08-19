@@ -124,8 +124,8 @@ a stable path before anything immutable cites it.
 - [x] Merge the `REW-0003` identity claim to `main` before moving this
       charter to `Ready`
 - [x] Write ADR-0005, asset storage, and the matching ignore/LFS config
-- [ ] Create the Unreal 5.8 project in this repository
-- [ ] Write ADR-0006, Blueprint versus C++, when the first gameplay type
+- [x] Create the Unreal 5.8 project in this repository
+- [x] Write ADR-0006, Blueprint versus C++, when the first gameplay type
       is added
 - [ ] Implement loop start/end, apply order, clean save
 - [ ] Implement authored 4C, radio/`7312`, fuse, generator, gate, patrol,
@@ -169,21 +169,22 @@ Only non-semantic corrections are allowed after `Ready`.
 ## Documentation Updates
 
 - [x] `docs/CURRENT_STATUS.md`
-- [ ] `docs/SYSTEMDOC.md`
+- [x] `docs/SYSTEMDOC.md`
 - [ ] `docs/JOURNAL.md`
 - [x] `docs/FILESTRUCTURE.md`
 - [x] `docs/PROJECT_BRIEF.md` when ADR-0005 closes asset storage
 - [x] `docs/adr/README.md`
 - [x] ADR-0005
-- [ ] ADR-0006
+- [x] ADR-0006
 
 ## Handoff and Follow-ups
 
-- Current state: In Progress. Charter frozen. ADR-0005 Accepted. No
-  Unreal project yet. No `.uasset` in history.
-- Next recommended step: create the Unreal Engine 5.8 project in this
-  repository, then ADR-0006 when the first gameplay type is added.
-- Blockers: none. Git LFS is installed. UE 5.8 is installed.
+- Current state: In Progress. `Rewind/Rewind.uproject` exists, UE 5.8,
+  blank C++. ADR-0005 and ADR-0006 Accepted. No `.uasset` in git. No
+  loop implementation.
+- Next recommended step: implement loop start/end, apply order and
+  clean save in C++, against `docs/design/`.
+- Blockers: none.
 - Child tasks: none.
 - Resume condition: not applicable.
 - Open questions: none inside this charter. Echo and the license remain

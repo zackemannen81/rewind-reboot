@@ -32,6 +32,12 @@ FileOpenOrder/
 *.userosscache
 *.sln.docstates
 
+# Solution files generated from the .uproject
+*.slnx
+
+# Per-user Unreal content
+Content/Developers/
+
 # OS
 Thumbs.db
 Desktop.ini
