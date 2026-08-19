@@ -93,8 +93,15 @@ The register records identity, never activity.
 
 ## Game systems
 
-None are implemented. `Rewind/` is a blank C++ module. Loop, apply order,
-knowledge and Anchors are not types in `Source/` yet.
+`Rewind/` has C++ types for the loop clock, loop-start apply order, session
+knowledge, the one legal Anchor identifier, a USaveGame slot, and a
+reachable `Rewind.CleanSave` command. World clocks are required to read
+`URewindLoopSubsystem::GetElapsedLoopTime`, not engine time.
+
+There is no authored 4C space, no gate actor, no radio, no patrol, no
+turnstile. Apply order has no LoopWorld participants yet besides teleporting
+an existing pawn to a PlayerStart tagged `LoopStart` when one exists.
+FL-01 to FL-16 have not been run.
 
 The previous Unity project, inventoried in
 `docs/concepts_sandbox/legacy-rewind/code-inventory.md`, contained manager
@@ -112,7 +119,7 @@ to describe what the implementation does, not what is intended.
 rewind-reboot/
 ├── AGENTS.md
 ├── README.md
-├── Rewind/                Unreal Engine 5.8 project, no gameplay systems yet
+├── Rewind/                Unreal Engine 5.8 C++ project; loop/session types exist, no authored space
 ├── docs/                  live working state
 │   ├── design/            game rules, one ownership area per document
 │   ├── acceptance/        proof criteria

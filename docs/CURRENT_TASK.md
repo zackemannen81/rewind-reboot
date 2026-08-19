@@ -127,7 +127,7 @@ a stable path before anything immutable cites it.
 - [x] Create the Unreal 5.8 project in this repository
 - [x] Write ADR-0006, Blueprint versus C++, when the first gameplay type
       is added
-- [ ] Implement loop start/end, apply order, clean save
+- [x] Implement loop start/end, apply order, clean save
 - [ ] Implement authored 4C, radio/`7312`, fuse, generator, gate, patrol,
       turnstile
 - [ ] Implement explicit `courtyard_gate_open` commit
@@ -179,11 +179,12 @@ Only non-semantic corrections are allowed after `Ready`.
 
 ## Handoff and Follow-ups
 
-- Current state: In Progress. `Rewind/Rewind.uproject` exists, UE 5.8,
-  blank C++. ADR-0005 and ADR-0006 Accepted. No `.uasset` in git. No
-  loop implementation.
-- Next recommended step: implement loop start/end, apply order and
-  clean save in C++, against `docs/design/`.
+- Current state: In Progress. Loop clock, apply order, session save and
+  `Rewind.CleanSave` exist in C++. No authored space. Compile and FL
+  playtests have not been recorded.
+- Next recommended step: compile RewindEditor, then implement authored
+  4C, radio/`7312`, fuse, generator, gate, patrol and turnstile as C++
+  participants of the apply order.
 - Blockers: none.
 - Child tasks: none.
 - Resume condition: not applicable.

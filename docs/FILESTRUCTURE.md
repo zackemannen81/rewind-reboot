@@ -11,7 +11,7 @@ rewind-reboot/
 ├── .gitattributes                  Git LFS types for Unreal binaries, ADR-0005
 ├── Rewind/                         Unreal Engine 5.8 blank C++ project
 │   ├── Rewind.uproject             engine 5.8, module Rewind
-│   ├── Source/                     C++ targets and the Rewind module
+│   ├── Source/Rewind/              loop, session, world-state, game mode, clock tests
 │   ├── Config/                     default engine, game, input, editor
 │   └── Content/                    empty; binaries via LFS when they arrive
 ├── docs/

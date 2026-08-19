@@ -15,7 +15,7 @@ wrong and must be corrected.
 | `docs/adr/ADR-0004_save-and-session.md` | Accepted. Knowledge and Anchors persist. Clean save is reachable |
 | `docs/adr/ADR-0005_asset-storage.md` | Accepted. Unreal binaries via Git LFS. No `.uasset` in history yet |
 | `docs/adr/ADR-0006_cpp-and-blueprint.md` | Accepted. C++ owns FL systems; Blueprint may place and present |
-| `Rewind/Rewind.uproject` | Unreal Engine 5.8 blank C++ project. Plugins: ModelContextProtocol, MCPClientToolset, Terminal, EditorToolset. MCP autostart in DefaultEditor.ini. No gameplay types yet |
+| `Rewind/Rewind.uproject` | Unreal Engine 5.8 C++ project. Loop clock, apply order, session save, CleanSave command. No authored space. FL criteria not run |
 | `docs/design/` | Five accepted documents. Ownership in `docs/design/README.md` |
 | `docs/acceptance/five-loops-test.md` | Accepted. Criteria FL-01 to FL-16. None of them have been run |
 | `docs/concepts_sandbox/legacy-rewind/` | Imported design, roadmaps and task files from the previous project, plus a verified code inventory and a conflict register. Non-authority |
@@ -29,14 +29,14 @@ wrong and must be corrected.
 Nothing below has been started. None of it may be described as available, in
 progress, or nearly ready.
 
-- **Gameplay in Unreal.** `Rewind/Rewind.uproject` exists and is a blank C++
-  module. There is no map of our own, no loop, no player start in 4C, no
-  knowledge, no Anchor. FL-01 to FL-16 have not been run.
+- **Authored Five Loops space.** No 4C, radio, fuse, generator, gate, patrol
+  or turnstile actors. Loop and session C++ exist; FL-01 to FL-16 have not
+  been run.
 - **Echo, Insight as a later system, and Chapters 2 to 5.** Not written, and
   not required by the first product proof.
 - **Run acceptance.** FL-01 to FL-16 exist. None of them have been played.
-- **Any implementation, of anything.** No code, no Blueprint, no asset.
-- **Any test, gate, build or automation.** Verification is manual reading.
+- **A packaged build.** Editor compile is not claimed until a build log is
+  attached to this task.
 - **A license decision.** A `LICENSE` file with Apache-2.0 text remains from
   the docs-first extraction. That is not a decision that RE:WIND is open
   source. The intended safe default for the game is all rights reserved, and
