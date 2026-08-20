@@ -4,6 +4,30 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-20 — REW-0003 overnight handoff
+
+- Date: 2026-08-20
+- Author: Grok
+- Task: REW-0003
+- Branch: `main`
+- Change: Five Loops Test implementation is In Progress. Unreal 5.8
+  project, loop clock, apply order, session save, CleanSave, 4C blockout
+  and puzzle actors exist. Lighting intensity no longer calls
+  `SetLightUnits`. Loop subsystem draws elapsed `t=` on screen. One
+  editor play opened the 4C door, used the radio, started the generator
+  and opened the courtyard gate.
+- Verification: RewindEditor compiled earlier this wave. PIE ran
+  `/Game/Maps/FiveLoops` with `RewindGameMode`. Player report is the
+  evidence for the 4C chain. `t=` overlay is in source and was not in
+  that play.
+- Did not run: FL-01 to FL-16 from `Rewind.CleanSave`. Idle-loop match
+  and patrol clock at a stated `t`. Anchor commit, turnstile, hub reach,
+  faster second run, quit-and-load. Packaged build.
+- Handoff: charter stays in `docs/CURRENT_TASK.md`. Resume by closing
+  the editor, compiling RewindEditor, PIE, `Rewind.CleanSave`, then the
+  remaining FL script. Nothing is blocked. Stopped for rest.
+- Signature: Grok
+
 ## 2026-08-19 — REW-0002 Five Loops Test authority
 
 - Date: 2026-08-19

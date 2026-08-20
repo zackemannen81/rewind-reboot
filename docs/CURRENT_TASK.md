@@ -5,7 +5,7 @@ Parent Task: None
 Status: In Progress
 Owner: Grok
 Created: 2026-08-19
-Last updated: 2026-08-19
+Last updated: 2026-08-20
 Charter frozen at: 2026-08-19
 
 ## Read First
@@ -132,6 +132,8 @@ a stable path before anything immutable cites it.
       turnstile
 - [x] Implement explicit `courtyard_gate_open` commit
 - [ ] Run FL-01 to FL-16 from a clean save and record evidence
+      (2026-08-20 editor play: door, radio, generator, gate observed.
+      Not a clean-save run. No FL criterion is passed.)
 - [ ] Update status, system document, file map
 - [ ] Add a signed journal entry and archive this task
 
@@ -170,7 +172,7 @@ Only non-semantic corrections are allowed after `Ready`.
 
 - [x] `docs/CURRENT_STATUS.md`
 - [x] `docs/SYSTEMDOC.md`
-- [ ] `docs/JOURNAL.md`
+- [x] `docs/JOURNAL.md`
 - [x] `docs/FILESTRUCTURE.md`
 - [x] `docs/PROJECT_BRIEF.md` when ADR-0005 closes asset storage
 - [x] `docs/adr/README.md`
@@ -179,13 +181,25 @@ Only non-semantic corrections are allowed after `Ready`.
 
 ## Handoff and Follow-ups
 
-- Current state: In Progress. Authored chain exists in C++ on FiveLoops.
-  RewindEditor compiles. FL-01 to FL-16 have not been playtested.
-- Next recommended step: PIE from `Rewind.CleanSave` and record evidence
-  for FL-01 to FL-16.
+- Current state: In Progress. Stopped overnight 2026-08-20. Not moved
+  to `docs/paused/`; nothing blocked the charter. Authored chain exists
+  in C++ on FiveLoops. RewindEditor compiled earlier this wave. One
+  editor play observed: lock opened, radio found, generator started,
+  courtyard gate opened. That is not FL-01 to FL-16.
+- Next recommended step: close Unreal, compile RewindEditor so the
+  on-screen `t=` overlay and lighting intensity fix are in the binary,
+  PIE, console `Rewind.CleanSave`, then the remaining FL script
+  (0000 reject, loop end, persist, chain reset, patrol window,
+  turnstile, Anchor board, hub inside 420s, faster second run, quit
+  and load).
 - Blockers: none.
 - Child tasks: none.
-- Resume condition: not applicable.
+- Resume condition: next working session on this machine with Unreal
+  Engine 5.8. Close any open editor first; Live Coding blocks compile.
+- Verification gaps: FL-01 to FL-16 have no named evidence from a
+  clean save. The `t=` overlay is in source and has not been playtested.
+  Idle-loop match and patrol clock have not been checked at a stated
+  `t`.
 - Open questions: none inside this charter. Echo and the license remain
   project-level open decisions.
 

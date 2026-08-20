@@ -3,6 +3,7 @@
 #include "RewindDeveloperSettings.h"
 #include "RewindSessionSubsystem.h"
 #include "RewindWorldStateSubsystem.h"
+#include "Engine/Engine.h"
 #include "Engine/World.h"
 #include "Engine/GameInstance.h"
 #include "HAL/IConsoleManager.h"
@@ -39,6 +40,14 @@ void URewindLoopSubsystem::Tick(float DeltaTime)
 	}
 
 	Clock.Advance(static_cast<double>(DeltaTime));
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(
+			9001,
+			0.2f,
+			FColor::Green,
+			FString::Printf(TEXT("t=%.1fs / %.0fs"), Clock.GetElapsedSeconds(), GetLoopDurationSeconds()));
+	}
 	if (Clock.GetElapsedSeconds() >= static_cast<double>(GetLoopDurationSeconds()))
 	{
 		EndLoop(ERewindLoopEndReason::Timer);

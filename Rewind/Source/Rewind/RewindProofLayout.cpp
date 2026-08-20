@@ -116,8 +116,7 @@ void ARewindProofLayout::EnsureLights()
 			if (UDirectionalLightComponent* Light = Cast<UDirectionalLightComponent>(Sun->GetLightComponent()))
 			{
 				Light->SetMobility(EComponentMobility::Stationary);
-				Light->SetLightUnits(ELightUnits::Unitless);
-				Light->SetIntensity(12.f);
+				Light->SetIntensity(50000.f);
 				Light->bUseTemperature = true;
 				Light->Temperature = 5500.f;
 				Light->SetAtmosphereSunLight(true);
@@ -162,8 +161,7 @@ void ARewindProofLayout::EnsureLights()
 			if (UPointLightComponent* Light = Cast<UPointLightComponent>(Lamp->GetLightComponent()))
 			{
 				Light->SetMobility(EComponentMobility::Stationary);
-				Light->SetLightUnits(ELightUnits::Candelas);
-				Light->SetIntensity(2000.f);
+				Light->SetIntensity(5000.f);
 				Light->SetAttenuationRadius(1800.f);
 			}
 		}

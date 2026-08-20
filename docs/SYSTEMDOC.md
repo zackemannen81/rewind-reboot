@@ -104,8 +104,10 @@ gate, patrol, turnstile and an Anchor board. LoopWorld participants restore
 from baseline on loop start; the gate honors `courtyard_gate_open`. Patrol
 and turnstile phase read elapsed loop time. Interact is E. Digits type a
 code at the lock. The board commits the gate Anchor only if this loop
-opened the gate. FL-01 to FL-16 have not been run.
-FL-01 to FL-16 have not been run.
+opened the gate. Elapsed loop time is drawn on screen as `t=` for
+stated-time checks. One 2026-08-20 editor play opened the door, used the
+radio, started the generator and opened the gate. FL-01 to FL-16 are not
+passed.
 
 The previous Unity project, inventoried in
 `docs/concepts_sandbox/legacy-rewind/code-inventory.md`, contained manager

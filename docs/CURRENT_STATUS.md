@@ -1,6 +1,6 @@
 # Current Status
 
-Reality as of 2026-08-19. This document describes what exists, not what is
+Reality as of 2026-08-20. This document describes what exists, not what is
 planned. If it disagrees with the repository or the build, this document is
 wrong and must be corrected.
 
@@ -18,7 +18,7 @@ wrong and must be corrected.
 | `Rewind/Rewind.uproject` | Unreal Engine 5.8 C++ project. Loop clock, apply order, session save, CleanSave |
 | `Rewind/Content/Maps/FiveLoops.umap` | Default map. 4C, courtyard, street, hub blockout plus radio, lock, fuse, generator, gate, patrol, turnstile, Anchor board |
 | `docs/design/` | Five accepted documents. Ownership in `docs/design/README.md` |
-| `docs/acceptance/five-loops-test.md` | Accepted. Criteria FL-01 to FL-16. None of them have been run |
+| `docs/acceptance/five-loops-test.md` | Accepted. Criteria FL-01 to FL-16. None passed. One editor play observed the 4C chain |
 | `docs/concepts_sandbox/legacy-rewind/` | Imported design, roadmaps and task files from the previous project, plus a verified code inventory and a conflict register. Non-authority |
 | `docs/baseline/acme-2026-08-19/` | Frozen provenance for the working model itself. Never edited, never authority |
 | `.gitignore` / `.gitattributes` | Ignore generated UE output. LFS tracks Unreal binaries. No `.uasset` committed yet |
@@ -28,7 +28,9 @@ wrong and must be corrected.
 ## What does not exist
 
 - **Run acceptance.** Puzzle actors exist in C++ and RewindEditor compiles.
-  FL-01 to FL-16 have not been playtested from a clean save.
+  One 2026-08-20 editor play opened the 4C door, used the radio, started
+  the generator and opened the courtyard gate. That session was not
+  started from a named `Rewind.CleanSave`. FL-01 to FL-16 are not passed.
 - **Echo, Insight as a later system, and Chapters 2 to 5.** Not written, and
   not required by the first product proof.
 - **A packaged game build.** Editor Win64 Development compiled; a cooked
