@@ -29,6 +29,7 @@ or moved.
 | [`ADR-0004_save-and-session.md`](ADR-0004_save-and-session.md) | Accepted | What persists, and what a clean save is |
 | [`ADR-0005_asset-storage.md`](ADR-0005_asset-storage.md) | Accepted | Unreal binaries in git via Git LFS |
 | [`ADR-0006_cpp-and-blueprint.md`](ADR-0006_cpp-and-blueprint.md) | Accepted | C++ owns FL systems; Blueprint may place and present |
+| [`ADR-0007_camera-and-perspective.md`](ADR-0007_camera-and-perspective.md) | Accepted | The camera is authored, not player-controlled |
 
 ## Decisions that are open
 

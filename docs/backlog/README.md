@@ -22,3 +22,4 @@ Assign a `REW-NNNN` identity only when a proposal is explicitly activated.
 | [`art-direction.md`](art-direction.md) | Proposed | Look and feel roadmap: composed frame, flat-fill figure, neon as knowledge. Gated on REW-0003 and on the non-goal list in `docs/PROJECT_BRIEF.md` |
 | [`loop-pressure-and-interaction.md`](loop-pressure-and-interaction.md) | Proposed | Measured: the golden path is ~34 m, about 7 s of movement in a 420 s loop. Loop-duration and space-scale levers, none chosen |
 | [`traversal-as-knowledge.md`](traversal-as-knowledge.md) | Proposed | Spatial and route knowledge as a progression axis. Canon supports the mechanism; the single-line space gives it nothing to act on. Successor proof, not an FL expansion |
+| [`character-animation-source.md`](character-animation-source.md) | Proposed | A named CC0 animation subset for blockout, in tiers. Tier 1 is 21 clips serving ADR-0007; the full 254 is the wrong shape of import |
