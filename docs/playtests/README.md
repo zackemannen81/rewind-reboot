@@ -31,4 +31,4 @@ Image types are already tracked by Git LFS in `.gitattributes` under
 
 | Record | Status | Notes |
 | --- | --- | --- |
-| [`five-loops-2026-08-22.md`](five-loops-2026-08-22.md) | In progress | First evidence run against FL-01 to FL-16. Five criteria passed, three partial, eight with none |
+| [`five-loops-2026-08-22.md`](five-loops-2026-08-22.md) | Complete | All sixteen criteria have named evidence. Three pass to tick resolution; FL-14 passes on the letter with a stated caveat |

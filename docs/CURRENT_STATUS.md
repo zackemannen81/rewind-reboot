@@ -18,8 +18,8 @@ wrong and must be corrected.
 | `Rewind/Rewind.uproject` | Unreal Engine 5.8 C++ project. Loop clock, apply order, session save, CleanSave |
 | `Rewind/Content/Maps/FiveLoops.umap` | Default map. 4C, courtyard, street, hub blockout plus radio, lock, fuse, generator, gate, patrol, turnstile, Anchor board. Outdoor run bounded and continuous; gate, turnstile and patrol barrier each span the corridor |
 | `docs/design/` | Five accepted documents. Ownership in `docs/design/README.md` |
-| `docs/acceptance/five-loops-test.md` | Accepted. Criteria FL-01 to FL-16. Five passed, three partial, eight with none |
-| `docs/playtests/` | Evidence from named runs of named builds. One record, `five-loops-2026-08-22.md`, with the raw `LogRewind` capture beside it |
+| `docs/acceptance/five-loops-test.md` | Accepted. Criteria FL-01 to FL-16. **All sixteen have named evidence** |
+| `docs/playtests/` | Evidence from named runs of named builds. One record, `five-loops-2026-08-22.md`, Complete, with four raw `LogRewind` captures beside it |
 | `.mcp.json` | Points Claude Code at the running editor's MCP endpoint on localhost. Resolves only while the editor is open |
 | `docs/concepts_sandbox/legacy-rewind/` | Imported design, roadmaps and task files from the previous project, plus a verified code inventory and a conflict register. Non-authority |
 | `docs/baseline/acme-2026-08-19/` | Frozen provenance for the working model itself. Never edited, never authority |
@@ -29,27 +29,21 @@ wrong and must be corrected.
 
 ## What does not exist
 
-- **Full run acceptance.** Eight of sixteen criteria have no evidence:
-  FL-05, FL-07, FL-10, FL-11, FL-13, FL-14, FL-15 and FL-16. Every one of
-  them needs player movement or interaction, which the editor's MCP
-  endpoint cannot supply. FL-02 has only its timer half. FL-04 and FL-06
-  were observed on an earlier build and are recorded as transcribed
-  on-screen text rather than as log lines.
-
-  What does exist, from a two-loop idle run with no player input at all:
-  FL-01, FL-03, FL-08, FL-09 and FL-12, named in
-  [`five-loops-2026-08-22.md`](playtests/five-loops-2026-08-22.md). FL-09
-  measured twelve consecutive uncovered windows at exactly 20.00 s.
-  Cross-loop agreement is shown to tick resolution, about 0.25 s, not
-  exactly.
-
-- **A clean save observed as an action.** Every criterion above ran from
-  clean save *state*. `Rewind.CleanSave` itself has not been invoked
-  inside an observed run, so FL-15 is unevidenced.
+- **A packaged game build.** Editor Win64 Development compiled and run in PIE;
+  a cooked package has not been made, so nothing here is evidence about a
+  shipped build.
+- **Frame-rate independence of the loop clock.** Every run was at one frame
+  rate. The zero drift measured across 420 seconds is evidence at that rate.
+- **Any answer to whether the loop is enjoyable.** The Five Loops Test excludes
+  enjoyment by design. What the evidence does show is that the loop has no time
+  pressure: every turnstile crossing in every run landed within 0.7 s of the
+  gate opening at `t = 30`, because the player always arrived early and waited.
+  FL-14 passes on its wording, and its number is not evidence that knowledge
+  makes a player faster. See
+  [`five-loops-2026-08-22.md`](playtests/five-loops-2026-08-22.md) and
+  [`loop-pressure-and-interaction.md`](backlog/loop-pressure-and-interaction.md).
 - **Echo, Insight as a later system, and Chapters 2 to 5.** Not written, and
   not required by the first product proof.
-- **A packaged game build.** Editor Win64 Development compiled; a cooked
-  package has not been made.
 - **A license decision.** A `LICENSE` file with Apache-2.0 text remains from
   the docs-first extraction. That is not a decision that RE:WIND is open
   source. The intended safe default for the game is all rights reserved, and

@@ -141,12 +141,12 @@ a stable path before anything immutable cites it.
       `docs/playtests/`, index discoverability
 - [x] Add the `LogRewind` run log, so evidence is read from stamped
       lines rather than transcribed by eye from screenshots
-- [ ] Run FL-01 to FL-16 from a clean save and record evidence
-      (2026-08-23: five passed, three partial, eight with none, in
-      `docs/playtests/five-loops-2026-08-22.md`. FL-01, FL-03, FL-08,
-      FL-09 and FL-12 come from a two-loop idle run with no player
-      input. The eight without evidence all need player movement or
-      interaction.)
+- [x] Run FL-01 to FL-16 from a clean save and record evidence
+      (2026-08-23: all sixteen have named evidence across four runs, in
+      `docs/playtests/five-loops-2026-08-22.md`. Three pass to a stated
+      tick resolution. FL-14 passes on its wording only; every turnstile
+      crossing landed within 0.7 s of the gate opening, so the number is
+      not evidence of time pressure.)
 - [x] Update status, system document, file map
 - [ ] Add a signed journal entry and archive this task
 
@@ -204,16 +204,18 @@ Progress against the frozen gates. The gates themselves are not edited.
       first `.umap` landed later, in `b669fc0`
 - [x] Editor open of the `.uproject` on UE 5.8. Opened 2026-08-23, PIE
       started and ran two full loops
-- [ ] FL-01 to FL-16 evidence list. Five passed, three partial, eight
-      with none, in `docs/playtests/five-loops-2026-08-22.md`
+- [x] FL-01 to FL-16 evidence list, in
+      `docs/playtests/five-loops-2026-08-22.md`. All sixteen carry named
+      evidence from build C or D
 - [x] Idle-loop match and patrol clock checked at stated times across
       two loops rather than by eye from one play, to the tick
       resolution stated in the record
 - [x] Manual link and fence review, on the documents written this wave
 - [x] `git diff --check` clean
-- [ ] Document skipped checks and reasons. The record's "Not verified"
-      section carries these; this task is not finished, so the list is
-      not final
+- [x] Document skipped checks and reasons, in the record's "Not
+      verified" section: frame-rate independence, exact equality at an
+      arbitrary `t` for FL-03, FL-08 and FL-12, a packaged build, and
+      whether any of it is enjoyable
 
 ## Documentation Updates
 
