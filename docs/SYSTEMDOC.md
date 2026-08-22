@@ -42,6 +42,7 @@ not the project's whole history.
 | Durable decisions | `docs/adr/` | Decisions, alternatives, consequences |
 | Game rules | `docs/design/` | One ownership area per document |
 | Proof of done | `docs/acceptance/` | What a build must demonstrate; empty until a task writes it |
+| Evidence | `docs/playtests/` | What a named run of a named build actually showed, and what it did not |
 | Completed work | `docs/finished/` | Immutable archived tasks |
 | Blocked work | `docs/paused/` | Frozen parents awaiting a condition |
 | Future work | `docs/backlog/` | Non-activated proposals |

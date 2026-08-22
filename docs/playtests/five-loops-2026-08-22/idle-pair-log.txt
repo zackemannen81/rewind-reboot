@@ -1,0 +1,77 @@
+LogRewind, two idle loops, no player input.
+Captured over MCP from the running editor. Timestamps are the engine log clock.
+
+2026.08.22-21.58.41:485  [apply]  Fuse: available, courtyard power OFF
+2026.08.22-21.58.41:485  [apply]  Lock: locked
+2026.08.22-21.58.41:485  [apply]  Generator: offline
+2026.08.22-21.58.41:485  [apply]  Gate: CLOSED
+2026.08.22-21.58.41:485  [apply]  Patrol: path COVERED at phase 0
+2026.08.22-21.58.41:485  [apply]  Turnstile: OPEN at phase 0
+2026.08.22-21.58.41:485  t=0.00  LOOP START  duration=420s  knowledge=0  anchor=None
+2026.08.22-21.58.44:052  t=2.57  Turnstile: CLOSED  (phase=2.57 of 30s)
+2026.08.22-21.59.01:718  t=20.23  Patrol: path CLEAR  (phase=20.23 of 40s)
+2026.08.22-21.59.11:718  t=30.23  Turnstile: OPEN  (phase=0.23 of 30s)
+2026.08.22-21.59.14:051  t=32.57  Turnstile: CLOSED  (phase=2.57 of 30s)
+2026.08.22-21.59.21:718  t=40.23  Patrol: path COVERED  (phase=0.23 of 40s)
+2026.08.22-21.59.41:719  t=60.23  Patrol: path CLEAR  (phase=20.23 of 40s)
+2026.08.22-21.59.41:719  t=60.23  Turnstile: OPEN  (phase=0.23 of 30s)
+2026.08.22-21.59.44:052  t=62.57  Turnstile: CLOSED  (phase=2.57 of 30s)
+2026.08.22-22.00.01:718  t=80.23  Patrol: path COVERED  (phase=0.23 of 40s)
+2026.08.22-22.00.11:719  t=90.23  Turnstile: OPEN  (phase=0.23 of 30s)
+2026.08.22-22.00.14:051  t=92.57  Turnstile: CLOSED  (phase=2.57 of 30s)
+2026.08.22-22.00.21:719  t=100.23  Patrol: path CLEAR  (phase=20.23 of 40s)
+2026.08.22-22.00.41:718  t=120.23  Patrol: path COVERED  (phase=0.23 of 40s)
+2026.08.22-22.00.41:718  t=120.23  Turnstile: OPEN  (phase=0.23 of 30s)
+2026.08.22-22.00.44:078  t=122.57  Turnstile: CLOSED  (phase=2.57 of 30s)
+2026.08.22-22.01.01:719  t=140.23  Patrol: path CLEAR  (phase=20.23 of 40s)
+2026.08.22-22.01.11:718  t=150.23  Turnstile: OPEN  (phase=0.23 of 30s)
+2026.08.22-22.01.14:052  t=152.57  Turnstile: CLOSED  (phase=2.57 of 30s)
+2026.08.22-22.01.21:719  t=160.23  Patrol: path COVERED  (phase=0.23 of 40s)
+2026.08.22-22.01.41:718  t=180.23  Patrol: path CLEAR  (phase=20.23 of 40s)
+2026.08.22-22.01.41:718  t=180.23  Turnstile: OPEN  (phase=0.23 of 30s)
+2026.08.22-22.01.44:052  t=182.57  Turnstile: CLOSED  (phase=2.57 of 30s)
+2026.08.22-22.02.01:719  t=200.23  Patrol: path COVERED  (phase=0.23 of 40s)
+2026.08.22-22.02.11:719  t=210.23  Turnstile: OPEN  (phase=0.23 of 30s)
+2026.08.22-22.02.14:052  t=212.57  Turnstile: CLOSED  (phase=2.57 of 30s)
+2026.08.22-22.02.21:719  t=220.23  Patrol: path CLEAR  (phase=20.23 of 40s)
+2026.08.22-22.02.41:719  t=240.23  Patrol: path COVERED  (phase=0.23 of 40s)
+2026.08.22-22.02.41:719  t=240.23  Turnstile: OPEN  (phase=0.23 of 30s)
+2026.08.22-22.02.44:052  t=242.57  Turnstile: CLOSED  (phase=2.57 of 30s)
+2026.08.22-22.03.01:719  t=260.23  Patrol: path CLEAR  (phase=20.23 of 40s)
+2026.08.22-22.03.11:720  t=270.23  Turnstile: OPEN  (phase=0.23 of 30s)
+2026.08.22-22.03.14:052  t=272.57  Turnstile: CLOSED  (phase=2.57 of 30s)
+2026.08.22-22.03.21:719  t=280.23  Patrol: path COVERED  (phase=0.23 of 40s)
+2026.08.22-22.03.41:720  t=300.23  Patrol: path CLEAR  (phase=20.23 of 40s)
+2026.08.22-22.03.41:720  t=300.23  Turnstile: OPEN  (phase=0.23 of 30s)
+2026.08.22-22.03.44:053  t=302.57  Turnstile: CLOSED  (phase=2.57 of 30s)
+2026.08.22-22.04.01:720  t=320.23  Patrol: path COVERED  (phase=0.23 of 40s)
+2026.08.22-22.04.11:720  t=330.23  Turnstile: OPEN  (phase=0.23 of 30s)
+2026.08.22-22.04.14:053  t=332.57  Turnstile: CLOSED  (phase=2.57 of 30s)
+2026.08.22-22.04.21:720  t=340.23  Patrol: path CLEAR  (phase=20.23 of 40s)
+2026.08.22-22.04.41:721  t=360.23  Patrol: path COVERED  (phase=0.23 of 40s)
+2026.08.22-22.04.41:721  t=360.23  Turnstile: OPEN  (phase=0.23 of 30s)
+2026.08.22-22.04.44:053  t=362.57  Turnstile: CLOSED  (phase=2.57 of 30s)
+2026.08.22-22.05.01:721  t=380.23  Patrol: path CLEAR  (phase=20.23 of 40s)
+2026.08.22-22.05.11:720  t=390.23  Turnstile: OPEN  (phase=0.23 of 30s)
+2026.08.22-22.05.14:054  t=392.57  Turnstile: CLOSED  (phase=2.57 of 30s)
+2026.08.22-22.05.21:721  t=400.23  Patrol: path COVERED  (phase=0.23 of 40s)
+2026.08.22-22.05.41:387  t=420.23  LOOP END  reason=Timer
+2026.08.22-22.05.41:387  t=420.23  SESSION WRITE  knowledge=0  anchor=None
+2026.08.22-22.05.41:387  [apply]  Fuse: available, courtyard power OFF
+2026.08.22-22.05.41:387  [apply]  Lock: locked
+2026.08.22-22.05.41:387  [apply]  Generator: offline
+2026.08.22-22.05.41:387  [apply]  Gate: CLOSED
+2026.08.22-22.05.41:387  [apply]  Patrol: path COVERED at phase 0
+2026.08.22-22.05.41:388  [apply]  Turnstile: OPEN at phase 0
+2026.08.22-22.05.41:388  t=0.00  LOOP START  duration=420s  knowledge=0  anchor=None
+2026.08.22-22.05.44:387  t=2.67  Turnstile: CLOSED  (phase=2.67 of 30s)
+2026.08.22-22.06.01:720  t=20.00  Patrol: path CLEAR  (phase=20.00 of 40s)
+2026.08.22-22.06.11:721  t=30.00  Turnstile: OPEN  (phase=0.00 of 30s)
+2026.08.22-22.06.14:387  t=32.67  Turnstile: CLOSED  (phase=2.67 of 30s)
+2026.08.22-22.06.21:721  t=40.00  Patrol: path COVERED  (phase=0.00 of 40s)
+2026.08.22-22.06.41:721  t=60.00  Patrol: path CLEAR  (phase=20.00 of 40s)
+2026.08.22-22.06.41:721  t=60.00  Turnstile: OPEN  (phase=0.00 of 30s)
+2026.08.22-22.06.44:388  t=62.67  Turnstile: CLOSED  (phase=2.67 of 30s)
+2026.08.22-22.07.01:721  t=80.00  Patrol: path COVERED  (phase=0.00 of 40s)
+2026.08.22-22.07.11:720  t=90.00  Turnstile: OPEN  (phase=0.00 of 30s)
+2026.08.22-22.07.14:387  t=92.67  Turnstile: CLOSED  (phase=2.67 of 30s)
