@@ -17,6 +17,7 @@ public:
 
 	bool TryCommitCourtyardGateAnchor(bool bGateOpenFromThisLoopPlay);
 	FName GetActiveAnchor() const { return ActiveAnchor; }
+	int32 GetKnowledgeCount() const { return KnowledgeFacts.Num(); }
 	bool HasPendingAnchorCommit() const { return bPendingCourtyardGateCommit; }
 
 	void WriteOnLoopEnd();

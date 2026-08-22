@@ -1,5 +1,6 @@
 #include "RewindCodeLock.h"
 
+#include "RewindLog.h"
 #include "RewindIds.h"
 #include "RewindSessionSubsystem.h"
 #include "Components/StaticMeshComponent.h"
@@ -41,6 +42,9 @@ bool ARewindCodeLock::TryInteract(APawn* InstigatorPawn)
 	}
 	if (bHasCode)
 	{
+		// FL-06 distinguishes the lock accepting a typed code from the game
+		// typing it. Name the path so the record does not have to infer it.
+		RewindLog::Event(this, TEXT("Lock: auto-submit from stored radio_code_7312"));
 		Submit(TEXT("7312"));
 		return true;
 	}
@@ -48,6 +52,7 @@ bool ARewindCodeLock::TryInteract(APawn* InstigatorPawn)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Yellow, TEXT("Lock: enter 4 digits, or learn 7312 from the radio"));
 	}
+	RewindLog::Event(this, TEXT("Lock: locked, no stored code"));
 	return false;
 }
 
@@ -64,6 +69,7 @@ void ARewindCodeLock::ReceiveDigit(int32 Digit)
 	}
 	if (Buffer.Len() >= 4)
 	{
+		RewindLog::Event(this, FString::Printf(TEXT("Lock: manual entry %s"), *Buffer.Left(4)));
 		Submit(Buffer.Left(4));
 		Buffer.Reset();
 	}
@@ -73,6 +79,7 @@ void ARewindCodeLock::RestoreFromBaseline()
 {
 	Buffer.Reset();
 	SetLocked(true);
+	RewindLog::Baseline(TEXT("Lock: locked"));
 }
 
 void ARewindCodeLock::ApplyAnchorOverride(FName AnchorId)
@@ -85,6 +92,7 @@ void ARewindCodeLock::Submit(const FString& Code)
 	if (Code == TEXT("7312"))
 	{
 		SetLocked(false);
+		RewindLog::Event(this, TEXT("Lock: 7312 accepted, doorway open"));
 		if (GEngine)
 		{
 			GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Green, TEXT("Lock: 7312 accepted"));
@@ -93,6 +101,7 @@ void ARewindCodeLock::Submit(const FString& Code)
 	else
 	{
 		SetLocked(true);
+		RewindLog::Event(this, FString::Printf(TEXT("Lock: %s rejected"), *Code));
 		if (GEngine)
 		{
 			GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red, FString::Printf(TEXT("Lock: %s rejected"), *Code));

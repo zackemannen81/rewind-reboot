@@ -13,6 +13,7 @@ public:
 	ARewindProofLayout();
 	void EnsureContents();
 	void EnsureLights();
+	void EnsureExposure();
 
 private:
 	template <typename T>

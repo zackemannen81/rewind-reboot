@@ -1,5 +1,6 @@
 #include "RewindFuseBox.h"
 
+#include "RewindLog.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/Engine.h"
 #include "UObject/ConstructorHelpers.h"
@@ -29,6 +30,7 @@ bool ARewindFuseBox::TryInteract(APawn* InstigatorPawn)
 		{
 			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Yellow, TEXT("Fuse: already used this loop"));
 		}
+		RewindLog::Event(this, TEXT("Fuse: refused, already used this loop"));
 		return false;
 	}
 	bHasFuse = false;
@@ -37,6 +39,7 @@ bool ARewindFuseBox::TryInteract(APawn* InstigatorPawn)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Green, TEXT("Fuse: courtyard has power"));
 	}
+	RewindLog::Event(this, TEXT("Fuse: routed, courtyard power ON"));
 	return true;
 }
 
@@ -44,6 +47,7 @@ void ARewindFuseBox::RestoreFromBaseline()
 {
 	bHasFuse = true;
 	bCourtyardPowerOn = false;
+	RewindLog::Baseline(TEXT("Fuse: available, courtyard power OFF"));
 }
 
 void ARewindFuseBox::ApplyAnchorOverride(FName AnchorId)

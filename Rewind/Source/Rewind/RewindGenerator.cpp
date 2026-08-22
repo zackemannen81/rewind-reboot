@@ -1,5 +1,6 @@
 #include "RewindGenerator.h"
 
+#include "RewindLog.h"
 #include "RewindFuseBox.h"
 #include "RewindCourtyardGate.h"
 #include "Components/StaticMeshComponent.h"
@@ -41,6 +42,7 @@ bool ARewindGenerator::TryInteract(APawn* InstigatorPawn)
 		{
 			GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Yellow, TEXT("Generator: no courtyard power"));
 		}
+		RewindLog::Event(this, TEXT("Generator: refused, no courtyard power"));
 		return false;
 	}
 	bOnline = true;
@@ -52,12 +54,14 @@ bool ARewindGenerator::TryInteract(APawn* InstigatorPawn)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Green, TEXT("Generator: online, gate open"));
 	}
+	RewindLog::Event(this, TEXT("Generator: online, gate opened by this-loop play"));
 	return true;
 }
 
 void ARewindGenerator::RestoreFromBaseline()
 {
 	bOnline = false;
+	RewindLog::Baseline(TEXT("Generator: offline"));
 }
 
 void ARewindGenerator::ApplyAnchorOverride(FName AnchorId)

@@ -24,4 +24,7 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UStaticMeshComponent> Mesh;
+
+	/** Last open state written to the log. Instrumentation, not world state. */
+	bool bOpenLogged = true;
 };

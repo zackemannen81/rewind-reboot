@@ -1,5 +1,6 @@
 #include "RewindAnchorBoard.h"
 
+#include "RewindLog.h"
 #include "RewindCourtyardGate.h"
 #include "RewindSessionSubsystem.h"
 #include "Components/StaticMeshComponent.h"
@@ -52,6 +53,10 @@ bool ARewindAnchorBoard::TryInteract(APawn* InstigatorPawn)
 	}
 
 	const bool bOk = Session->TryCommitCourtyardGateAnchor(bOpenFromPlay);
+	RewindLog::Event(this, FString::Printf(
+		TEXT("Board: commit courtyard_gate_open %s (gate open from this-loop play=%s)"),
+		bOk ? TEXT("ACCEPTED") : TEXT("REFUSED"),
+		bOpenFromPlay ? TEXT("yes") : TEXT("no")));
 	if (GEngine)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 4.f, bOk ? FColor::Green : FColor::Red,

@@ -1,5 +1,6 @@
 #include "RewindRadio.h"
 
+#include "RewindLog.h"
 #include "RewindIds.h"
 #include "RewindSessionSubsystem.h"
 #include "GameFramework/Pawn.h"
@@ -37,6 +38,7 @@ bool ARewindRadio::TryInteract(APawn* InstigatorPawn)
 			Session->ObtainKnowledge(RewindIds::KnowledgeRadioCode7312);
 		}
 	}
+	RewindLog::Event(this, TEXT("Radio: 7312 obtained"));
 	if (GEngine)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, TEXT("Radio: 7312"));
