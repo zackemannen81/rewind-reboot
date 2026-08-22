@@ -29,9 +29,26 @@ That satisfies the `AGENTS.md` rule against committing third-party licensed
 assets whose terms have not been checked: the terms were checked and they
 impose nothing.
 
-The skeleton is **not** the UE5 Mannequin. Reusing Epic's animation content on
-the same rig would need an IK Retargeter. A female mannequin mesh ships inside
-UAL2.
+**The skeleton uses Unreal Mannequin bone naming.** Read from the GLB: `root`,
+`pelvis`, `spine_01` to `spine_03`, `neck_01`, `clavicle_l`, `upperarm_l`,
+`lowerarm_l`, `hand_l`, `thigh_l`, `calf_l`, `foot_l`, `ball_l`, and the
+`index_01_l` style finger chains. That is Epic's convention, not Mixamo's
+`mixamorig:` naming.
+
+The joint count confirms it: the UE4 Mannequin hierarchy without IK bones is 53
+joints, plus the 12 leaf bones a Blender export adds — five fingertip leaves per
+hand and two `ball_leaf` — gives exactly the 65 in the skin.
+
+Consequences for retargeting, which are better than a custom rig would allow:
+
+- Onto a Mannequin-compatible character, close to drop-in. The leaf bones are
+  harmless and Epic's `ik_foot_*` and `ik_hand_*` bones are absent, which
+  matters only for content that expects them.
+- Onto a Mixamo character, one IK Retargeter pass, because the names differ
+  entirely. Routine, but it is a translation this rig does not otherwise need.
+- A `root` bone exists, which is what makes the `_RM` variants behave.
+
+A female mannequin mesh ships inside UAL2.
 
 ## Why a subset, and not the library
 
