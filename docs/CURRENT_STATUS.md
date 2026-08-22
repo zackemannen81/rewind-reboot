@@ -1,6 +1,6 @@
 # Current Status
 
-Reality as of 2026-08-20. This document describes what exists, not what is
+Reality as of 2026-08-23. This document describes what exists, not what is
 planned. If it disagrees with the repository or the build, this document is
 wrong and must be corrected.
 
@@ -16,9 +16,11 @@ wrong and must be corrected.
 | `docs/adr/ADR-0005_asset-storage.md` | Accepted. Unreal binaries via Git LFS. No `.uasset` in history yet |
 | `docs/adr/ADR-0006_cpp-and-blueprint.md` | Accepted. C++ owns FL systems; Blueprint may place and present |
 | `Rewind/Rewind.uproject` | Unreal Engine 5.8 C++ project. Loop clock, apply order, session save, CleanSave |
-| `Rewind/Content/Maps/FiveLoops.umap` | Default map. 4C, courtyard, street, hub blockout plus radio, lock, fuse, generator, gate, patrol, turnstile, Anchor board |
+| `Rewind/Content/Maps/FiveLoops.umap` | Default map. 4C, courtyard, street, hub blockout plus radio, lock, fuse, generator, gate, patrol, turnstile, Anchor board. Outdoor run bounded and continuous; gate, turnstile and patrol barrier each span the corridor |
 | `docs/design/` | Five accepted documents. Ownership in `docs/design/README.md` |
-| `docs/acceptance/five-loops-test.md` | Accepted. Criteria FL-01 to FL-16. None passed. One editor play observed the 4C chain |
+| `docs/acceptance/five-loops-test.md` | Accepted. Criteria FL-01 to FL-16. Five passed, three partial, eight with none |
+| `docs/playtests/` | Evidence from named runs of named builds. One record, `five-loops-2026-08-22.md`, with the raw `LogRewind` capture beside it |
+| `.mcp.json` | Points Claude Code at the running editor's MCP endpoint on localhost. Resolves only while the editor is open |
 | `docs/concepts_sandbox/legacy-rewind/` | Imported design, roadmaps and task files from the previous project, plus a verified code inventory and a conflict register. Non-authority |
 | `docs/baseline/acme-2026-08-19/` | Frozen provenance for the working model itself. Never edited, never authority |
 | `.gitignore` / `.gitattributes` | Ignore generated UE output. LFS tracks Unreal binaries. No `.uasset` committed yet |
@@ -27,10 +29,23 @@ wrong and must be corrected.
 
 ## What does not exist
 
-- **Run acceptance.** Puzzle actors exist in C++ and RewindEditor compiles.
-  One 2026-08-20 editor play opened the 4C door, used the radio, started
-  the generator and opened the courtyard gate. That session was not
-  started from a named `Rewind.CleanSave`. FL-01 to FL-16 are not passed.
+- **Full run acceptance.** Eight of sixteen criteria have no evidence:
+  FL-05, FL-07, FL-10, FL-11, FL-13, FL-14, FL-15 and FL-16. Every one of
+  them needs player movement or interaction, which the editor's MCP
+  endpoint cannot supply. FL-02 has only its timer half. FL-04 and FL-06
+  were observed on an earlier build and are recorded as transcribed
+  on-screen text rather than as log lines.
+
+  What does exist, from a two-loop idle run with no player input at all:
+  FL-01, FL-03, FL-08, FL-09 and FL-12, named in
+  [`five-loops-2026-08-22.md`](playtests/five-loops-2026-08-22.md). FL-09
+  measured twelve consecutive uncovered windows at exactly 20.00 s.
+  Cross-loop agreement is shown to tick resolution, about 0.25 s, not
+  exactly.
+
+- **A clean save observed as an action.** Every criterion above ran from
+  clean save *state*. `Rewind.CleanSave` itself has not been invoked
+  inside an observed run, so FL-15 is unevidenced.
 - **Echo, Insight as a later system, and Chapters 2 to 5.** Not written, and
   not required by the first product proof.
 - **A packaged game build.** Editor Win64 Development compiled; a cooked
@@ -138,8 +153,17 @@ specific thing `AGENTS.md` "Evidence Discipline" exists to prevent.
   this. The legacy C# is design reference from now on, and the cost is
   contained because the systems that mattered were not running in the
   committed scene anyway.
-- **No verification tooling exists.** There is no link checker and no build.
-  Every task states which checks it could not run.
+- **No verification tooling exists.** There is no link checker. Building is
+  manual, and every task states which checks it could not run.
+- **The instrumentation resolves to a tick, not an instant.** `LogRewind`
+  writes a transition on the tick that first observes it, so two loops report
+  the same boundary up to about 0.25 s apart. The offset is constant inside a
+  loop, which is tick phase and not drift. Any criterion whose evidence needs
+  exact equality at an arbitrary `t` is not closed by the log alone.
+- **The editor cannot be driven and rebuilt at the same time.** The MCP
+  endpoint lives inside the editor, and the editor holds the build lock.
+  It also exposes no console-command and no input tool, so no criterion
+  needing player action can be evidenced without a human at the keyboard.
 - **Git LFS quota.** ADR-0005 put binaries in LFS. The Five Loops Test must
   stay a blockout. A large art import is a new decision.
 - **The `LICENSE` file disagrees with the intended default.** Apache-2.0 text

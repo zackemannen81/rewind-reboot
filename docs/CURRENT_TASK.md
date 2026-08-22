@@ -3,9 +3,9 @@
 Task ID: REW-0003
 Parent Task: None
 Status: In Progress
-Owner: Grok
+Owner: Initial Grok, re-assigned to Claude due to Grok not being able to complete..
 Created: 2026-08-19
-Last updated: 2026-08-20
+Last updated: 2026-08-23
 Charter frozen at: 2026-08-19
 
 ## Read First
@@ -131,10 +131,23 @@ a stable path before anything immutable cites it.
 - [x] Implement authored 4C, radio/`7312`, fuse, generator, gate, patrol,
       turnstile
 - [x] Implement explicit `courtyard_gate_open` commit
+- [x] Fix the four defects that made FL criteria undemonstrable rather
+      than merely ugly: unauthored exposure against a 50000 lux sun, an
+      unbounded outdoor run with 20 cm and 30 cm gaps at the two
+      doorways, a patrol that teleported behind a barrier covering
+      200 cm of a 760 cm corridor, and a gate and turnstile that did
+      not span it either
+- [x] Give the playtest record a stable path before anything cites it:
+      `docs/playtests/`, index discoverability
+- [x] Add the `LogRewind` run log, so evidence is read from stamped
+      lines rather than transcribed by eye from screenshots
 - [ ] Run FL-01 to FL-16 from a clean save and record evidence
-      (2026-08-20 editor play: door, radio, generator, gate observed.
-      Not a clean-save run. No FL criterion is passed.)
-- [ ] Update status, system document, file map
+      (2026-08-23: five passed, three partial, eight with none, in
+      `docs/playtests/five-loops-2026-08-22.md`. FL-01, FL-03, FL-08,
+      FL-09 and FL-12 come from a two-loop idle run with no player
+      input. The eight without evidence all need player movement or
+      interaction.)
+- [x] Update status, system document, file map
 - [ ] Add a signed journal entry and archive this task
 
 ## Decisions and Notes
@@ -152,6 +165,29 @@ a stable path before anything immutable cites it.
   works from a clean save".
 - Enjoyment is recorded in the playtest write-up and is not a pass/fail
   gate, per `docs/acceptance/five-loops-test.md`.
+- 2026-08-23. Three criteria were not demonstrable before this wave, and
+  nobody knew. The patrol barrier, the courtyard gate and the turnstile
+  each spanned less than a third of the corridor, so a closed gate and a
+  closed turnstile could both be walked around. Any earlier impression
+  that the hub had been reached through the turnstile is void. This is
+  the exact failure mode the "Evidence Discipline" rule exists to catch,
+  and it was caught by measuring the geometry rather than by playing.
+- 2026-08-23. Evidence is now read from `LogRewind` rather than
+  transcribed from screenshots. Apply-order lines carry no `t`: they run
+  at steps 2 and 3 of the apply order in `world-state-model.md`, before
+  the clock is zeroed at step 5, so a stamp there would print the
+  previous loop's final time.
+- 2026-08-23. Transitions are logged on the tick that first observes
+  them, so cross-loop agreement is shown to within about 0.25 s, not
+  exactly. The offset is constant inside each loop, which is tick phase
+  rather than drift. Exact equality at an arbitrary `t` follows from the
+  code, since state is a pure function of elapsed loop time, but the log
+  corroborates it rather than proving it.
+- 2026-08-23. The editor serves MCP on localhost, which is how the idle
+  pair was run. It exposes no console-command and no input tool, so it
+  cannot invoke `Rewind.CleanSave` or move the player. Every remaining
+  criterion needs a human at the keyboard. The editor also holds the
+  build lock, so driving it and rebuilding it cannot overlap.
 
 ## Charter Amendment Log
 
@@ -161,12 +197,23 @@ Only non-semantic corrections are allowed after `Ready`.
 
 ## Verification
 
-- [ ] Git history shows no `.uasset` before ADR-0005
-- [ ] Editor open of the `.uproject` on UE 5.8
-- [ ] FL-01 to FL-16 evidence list
-- [ ] Manual link and fence review
-- [ ] `git diff --check`
-- [ ] Document skipped checks and reasons
+Progress against the frozen gates. The gates themselves are not edited.
+
+- [x] Git history shows no `.uasset` before ADR-0005. No `.uasset` has
+      ever been committed. ADR-0005 was accepted in `51acd78` and the
+      first `.umap` landed later, in `b669fc0`
+- [x] Editor open of the `.uproject` on UE 5.8. Opened 2026-08-23, PIE
+      started and ran two full loops
+- [ ] FL-01 to FL-16 evidence list. Five passed, three partial, eight
+      with none, in `docs/playtests/five-loops-2026-08-22.md`
+- [x] Idle-loop match and patrol clock checked at stated times across
+      two loops rather than by eye from one play, to the tick
+      resolution stated in the record
+- [x] Manual link and fence review, on the documents written this wave
+- [x] `git diff --check` clean
+- [ ] Document skipped checks and reasons. The record's "Not verified"
+      section carries these; this task is not finished, so the list is
+      not final
 
 ## Documentation Updates
 
@@ -181,27 +228,36 @@ Only non-semantic corrections are allowed after `Ready`.
 
 ## Handoff and Follow-ups
 
-- Current state: In Progress. Stopped overnight 2026-08-20. Not moved
-  to `docs/paused/`; nothing blocked the charter. Authored chain exists
-  in C++ on FiveLoops. RewindEditor compiled earlier this wave. One
-  editor play observed: lock opened, radio found, generator started,
-  courtyard gate opened. That is not FL-01 to FL-16.
-- Next recommended step: close Unreal, compile RewindEditor so the
-  on-screen `t=` overlay and lighting intensity fix are in the binary,
-  PIE, console `Rewind.CleanSave`, then the remaining FL script
-  (0000 reject, loop end, persist, chain reset, patrol window,
-  turnstile, Anchor board, hub inside 420s, faster second run, quit
-  and load).
+- Current state: In Progress, 2026-08-23. Not paused; nothing blocks the
+  charter. Work is on branch `rew-0003/run-evidence`, four commits,
+  pushed and not merged. Five FL criteria have named evidence, three are
+  partial and eight have none, recorded in
+  `docs/playtests/five-loops-2026-08-22.md`.
+- Next recommended step, and it needs a human at the keyboard: from a
+  clean save, run `Rewind.CleanSave` and capture the `CLEAN SAVE ... ->
+  CLEAN` line for FL-15, then walk the chain in one loop for FL-04 to
+  FL-07 and FL-13, commit the Anchor at the board for FL-10 and FL-11,
+  start the next loop for FL-11 and a faster run for FL-14, and quit and
+  reload for FL-16. Also `Rewind.EndLoopDeath` once, for the death half
+  of FL-02. Afterwards the whole run can be read out of `LogRewind`
+  rather than transcribed.
 - Blockers: none.
 - Child tasks: none.
 - Resume condition: next working session on this machine with Unreal
-  Engine 5.8. Close any open editor first; Live Coding blocks compile.
-- Verification gaps: FL-01 to FL-16 have no named evidence from a
-  clean save. The `t=` overlay is in source and has not been playtested.
-  Idle-loop match and patrol clock have not been checked at a stated
-  `t`.
+  Engine 5.8. Close any open editor before building; Live Coding blocks
+  compile. The editor's MCP endpoint is only reachable while the editor
+  is open, so building and driving it cannot overlap.
+- Verification gaps: eight criteria have no evidence, and all eight need
+  player input. The clean save *action* has not been observed, only
+  clean save *state*. Only the timer half of FL-02 is evidenced. Frame
+  rate was not varied, so the clock's independence from frame rate is
+  untested at more than one rate. Cross-loop agreement is shown to tick
+  resolution rather than exactly.
 - Open questions: none inside this charter. Echo and the license remain
-  project-level open decisions.
+  project-level open decisions. Three findings discovered outside the
+  charter are routed to `docs/backlog/`: art direction, loop pressure
+  and interaction cost, and traversal as a knowledge axis. None is
+  authority and none may be built from without an explicit decision.
 
 ## Finalize When Complete
 

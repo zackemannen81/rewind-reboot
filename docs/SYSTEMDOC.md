@@ -106,9 +106,24 @@ from baseline on loop start; the gate honors `courtyard_gate_open`. Patrol
 and turnstile phase read elapsed loop time. Interact is E. Digits type a
 code at the lock. The board commits the gate Anchor only if this loop
 opened the gate. Elapsed loop time is drawn on screen as `t=` for
-stated-time checks. One 2026-08-20 editor play opened the door, used the
-radio, started the generator and opened the gate. FL-01 to FL-16 are not
-passed.
+stated-time checks.
+
+The gate, the turnstile and the patrol barrier each span the walkable
+corridor, so a closed one cannot be walked around. The outdoor run is
+bounded and continuous. Exposure is authored in a post-process volume,
+because the sun is a physical 50000 lux and auto exposure is off.
+
+`LogRewind` writes the run: loop start and end with reason, the
+apply-order baseline, session writes, interactions, and patrol and
+turnstile transitions. Play events carry elapsed loop time. Apply-order
+events do not, because they run before the clock is zeroed at step 5 and
+a stamp there would name the previous loop's final time. Transitions are
+written on the tick that first observes them, so the log resolves state
+changes to a tick rather than to an instant.
+
+Five of FL-01 to FL-16 have named evidence. Eight have none. The state
+of each is in `docs/playtests/`, which owns evidence; this document owns
+what the systems do.
 
 The previous Unity project, inventoried in
 `docs/concepts_sandbox/legacy-rewind/code-inventory.md`, contained manager
