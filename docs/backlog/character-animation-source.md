@@ -115,13 +115,36 @@ authored camera reads, whether the interaction framings work, whether the space
 scales sensibly against a human body. All three are hard to judge against a
 capsule.
 
+Two constraints a later character task inherits, recorded now because both are
+cheaper to honour than to discover.
+
+**Proportions bind harder than bone names do.** These clips store bone rotation
+plus root translation. A character with different limb ratios receives the
+poses but drifts at the contact points: feet slide, and hands miss the fuse box
+they are supposed to touch. There is no IK correction in the raw clips. A
+character modelled against the shipped armature's proportions avoids the whole
+class of problem; one modelled freely inherits it.
+
+**A long coat is the specific risk for this character.** The reference frames
+this project is aiming at put the figure in one, and a skinned long coat
+deforms badly on a standard humanoid rig — legs pass through it in the walk
+cycle. The three ways out cost very different amounts: keep the coat above the
+knee, which is a silhouette decision and therefore an art-direction one; add
+coat bones, which these 65-joint clips will not drive; or simulate cloth, which
+introduces a cost this project has nowhere else. It should be decided before
+the mesh is built, not after.
+
 ## Dependencies
 
 - `ADR-0005`, asset storage. The subset must be **measured** at import rather
   than estimated, and recorded, because the quota is a stated risk.
 - [`ADR-0007`](../adr/ADR-0007_camera-and-perspective.md), accepted. Tier 1
   exists to serve it.
-- A retarget decision, if Epic-rigged content is ever wanted alongside.
+- A retarget decision, **only if** the project's own character is rigged
+  independently. Both archives ship their Blender sources, `UAL1.blend`,
+  `UAL2.blend` and `Mannequin_F.blend`, so a character skinned onto the
+  existing armature needs no retargeting at all. That is the cheapest path and
+  the one to rule out first, before any retarget work is planned.
 - Tier 2 depends on traversal work being chartered, and nothing else.
 
 ## Suggested verification
