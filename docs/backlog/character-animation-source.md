@@ -48,7 +48,15 @@ Consequences for retargeting, which are better than a custom rig would allow:
   entirely. Routine, but it is a translation this rig does not otherwise need.
 - A `root` bone exists, which is what makes the `_RM` variants behave.
 
-A female mannequin mesh ships inside UAL2.
+A mannequin mesh ships in both archives, and it is the agreed blockout
+character for now, so Tier 1 has no prerequisite modelling work. Read from the
+GLB: roughly 13 700 triangles, two materials, and **no textures at all**.
+`Mannequin_F.glb` is 1.4 MB on its own.
+
+Being untextured is an advantage rather than a compromise here. Two flat
+material slots is what P3 in [`art-direction.md`](art-direction.md) describes as
+the target for the figure, so the stand-in reads closer to the intended look
+than a textured character would.
 
 ## Why a subset, and not the library
 
