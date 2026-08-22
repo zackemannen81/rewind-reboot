@@ -2,6 +2,9 @@
 
 #include "RewindLog.h"
 #include "RewindLoopSubsystem.h"
+#include "Engine/World.h"
+#include "GameFramework/Pawn.h"
+#include "GameFramework/PlayerController.h"
 #include "Components/StaticMeshComponent.h"
 #include "UObject/ConstructorHelpers.h"
 
@@ -37,6 +40,39 @@ void ARewindTurnstile::Tick(float DeltaSeconds)
 		}
 	}
 	ApplyPhase(Elapsed);
+	CheckHubEntry();
+}
+
+void ARewindTurnstile::CheckHubEntry()
+{
+	// FL-13 asks that the player pass the turnstile into the Transit Hub, and
+	// FL-14 compares the elapsed time of that crossing between two runs.
+	// Neither is readable without an event, so record the first crossing of
+	// each loop. This observes; it changes nothing.
+	if (bHubEntryLogged)
+	{
+		return;
+	}
+
+	const UWorld* World = GetWorld();
+	const APlayerController* Controller = World ? World->GetFirstPlayerController() : nullptr;
+	const APawn* Pawn = Controller ? Controller->GetPawn() : nullptr;
+	if (!Pawn)
+	{
+		return;
+	}
+
+	// The turnstile spans the walkable corridor, so being past it on X is the
+	// only way to stand in the hub.
+	if (Pawn->GetActorLocation().X <= GetActorLocation().X)
+	{
+		return;
+	}
+
+	bHubEntryLogged = true;
+	RewindLog::Event(this, FString::Printf(
+		TEXT("Hub: entered past the turnstile (turnstile was %s)"),
+		bOpenNow ? TEXT("OPEN") : TEXT("CLOSED")));
 }
 
 void ARewindTurnstile::RestoreFromBaseline()
@@ -44,6 +80,7 @@ void ARewindTurnstile::RestoreFromBaseline()
 	// Seed with the state phase 0 produces, so the apply prints no transition.
 	// Phase 0 is inside the open window, since OpenWindow is positive.
 	bOpenLogged = true;
+	bHubEntryLogged = false;
 	ApplyPhase(0.0);
 	RewindLog::Baseline(TEXT("Turnstile: OPEN at phase 0"));
 }
@@ -59,6 +96,7 @@ void ARewindTurnstile::ApplyPhase(double ElapsedSeconds)
 	constexpr double OpenWindow = 2.5;
 	const double Phase = FMath::Fmod(ElapsedSeconds, Cycle);
 	const bool bOpen = Phase <= OpenWindow;
+	bOpenNow = bOpen;
 	Mesh->SetCollisionEnabled(bOpen ? ECollisionEnabled::NoCollision : ECollisionEnabled::QueryAndPhysics);
 	Mesh->SetVisibility(!bOpen);
 

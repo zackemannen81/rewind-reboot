@@ -1,5 +1,6 @@
 #include "RewindWorldStateSubsystem.h"
 
+#include "RewindLog.h"
 #include "RewindFourCBlockout.h"
 #include "RewindProofLayout.h"
 #include "RewindLoopParticipant.h"
@@ -108,6 +109,12 @@ void URewindWorldStateSubsystem::PlacePlayerBody()
 	}
 
 	Pawn->SetActorTransform(Start, false, nullptr, ETeleportType::ResetPhysics);
+
+	// Step 4 of the apply order. Logged so FL-01's "the player is in Apartment
+	// 4C at t = 0" is readable from the log rather than needing a live query.
+	const FVector P = Start.GetLocation();
+	RewindLog::Baseline(FString::Printf(
+		TEXT("Player: placed at loop-start pose (%.0f, %.0f, %.0f)"), P.X, P.Y, P.Z));
 }
 
 FTransform URewindWorldStateSubsystem::GetLoopStartPose() const

@@ -5,7 +5,7 @@ Task: REW-0003
 Runner: MrWhite, with an idle-pair run driven over the editor's MCP endpoint
 Base commit: `49244c0`, plus an uncommitted working tree
 
-Five criteria have named evidence. Three are partial. Eight have none.
+Eleven criteria have named evidence. One is partial. Four have none.
 
 ## Builds
 
@@ -35,6 +35,45 @@ Raw log: [`idle-pair-log.txt`](five-loops-2026-08-22/idle-pair-log.txt).
 
 Loop 1 ran the full 420 seconds. Loop 2 was captured to `t = 92.67`.
 
+## The played run
+
+Build C. One session, started from `knowledge=0  anchor=None`. The runner
+played the chain, committed the Anchor, ended the loop with
+`Rewind.EndLoopDeath`, and the next loop started with the Anchor held.
+
+Raw log: [`played-run-log.txt`](five-loops-2026-08-22/played-run-log.txt).
+
+```text
+t=0.00    LOOP START  duration=420s  knowledge=0  anchor=None
+t=16.26   Lock: manual entry 0000
+t=16.26   Lock: 0000 rejected
+t=22.06   Radio: 7312 obtained
+t=28.59   Lock: manual entry 7312
+t=28.59   Lock: 7312 accepted, doorway open
+t=32.17   Board: commit courtyard_gate_open REFUSED (gate open from this-loop play=no)
+t=36.89   Fuse: routed, courtyard power ON
+t=41.89   Generator: online, gate opened by this-loop play
+t=47.34   Board: commit courtyard_gate_open ACCEPTED (gate open from this-loop play=yes)
+t=269.46  LOOP END  reason=Death
+t=269.46  SESSION WRITE  knowledge=1  anchor=courtyard_gate_open
+[apply]   Gate: CLOSED
+[apply]   Gate: OPEN, held by anchor courtyard_gate_open
+t=0.00    LOOP START  duration=420s  knowledge=1  anchor=courtyard_gate_open
+```
+
+The two `[apply] Gate:` lines are the apply order of
+[`world-state-model.md`](../design/world-state-model.md) in the log:
+baseline at step 2, then the Anchor overriding it at step 3.
+
+The refused commit at `t=32.17` was not planned. The runner tried to commit
+before opening the gate, which exercises the negative side of the commit rule
+in [`anchors.md`](../design/anchors.md) and is better evidence than testing
+only the accepting path.
+
+At the end of that loop the player was at `x=3153`, past the turnstile at
+`x=2460` and inside the hub. The gate, the turnstile and the patrol barrier
+each span the corridor, so there is no other way to that position.
+
 ## Tick resolution, and what it does and does not limit
 
 Transitions are written to the log on the tick that first observes the new
@@ -60,19 +99,19 @@ do.
 | ID | State | Evidence |
 | --- | --- | --- |
 | FL-01 | **Passed** | Build C, idle run, both loop starts. `get_actor_transform` on `RewindCharacter_0` returns `(-150, 0, 98.15)`, the loop-start pose, inside 4C's ±400 bounds. Apply block reads `Gate: CLOSED`, `Fuse: available, courtyard power OFF`, `Generator: offline`. `LOOP START duration=420s knowledge=0 anchor=None` at `t=0.00` |
-| FL-02 | Partial | Timer half only. `t=420.23 LOOP END reason=Timer`, after 420 seconds in which nothing else ended the loop. The death half needs `Rewind.EndLoopDeath`, which is a console command and was not run |
+| FL-02 | **Passed** | Both end conditions. Timer: `t=420.23 LOOP END reason=Timer` on the idle run, after 420 seconds in which nothing else ended the loop. Death: `t=269.46 LOOP END reason=Death` on the played run. Across three loops no other cause ended one |
 | FL-03 | **Passed**, to tick resolution | Two idle loops with no player input. Apply blocks identical line for line. Same cycle structure throughout: patrol boundary at phase 20 of 40, turnstile boundary at phase 2.5 of 30. Deltas −0.23 s and +0.10 s, constant within each loop. See the tick-resolution note above |
-| FL-04 | Partial | Build A. `Radio: 7312` on screen at `t = 13.9 s`. Whether it was the first loop of a clean save is not established |
-| FL-05 | None | No loop boundary observed with the fact surviving it. The idle run carried `knowledge=0` throughout, so it says nothing here |
-| FL-06 | Partial | Build A, one loop, both halves. `Lock: 0000 rejected` at `t = 7.8 s`, then `Lock: 7312 accepted` with buffer echo `Code: 7312` at `t = 15.9 s`. The echo establishes manual entry, since the auto-submit path calls `Submit` directly and never writes the buffer. Clean-save state not established |
-| FL-07 | None | The idle run shows the apply order restoring baseline at a loop boundary, but no fuse was routed, no generator started and no gate opened, so the criterion's precondition never occurred |
+| FL-04 | **Passed** | Build C, played run. `LOOP START knowledge=0` at `t=0.00`, so this was the first loop of a clean session, then `Radio: 7312 obtained` at `t=22.06` |
+| FL-05 | **Passed** | Build C, played run. `Radio: 7312 obtained` at `t=22.06`, `SESSION WRITE knowledge=1` at the loop end, and `LOOP START ... knowledge=1` on the next loop. `radio_code_7312` is the only fact the system defines, so `knowledge=1` names it |
+| FL-06 | **Passed** | Build C, played run, one loop from a clean session. `Lock: manual entry 0000` then `Lock: 0000 rejected` at `t=16.26`; `Lock: manual entry 7312` then `Lock: 7312 accepted, doorway open` at `t=28.59`. The log names the entry path, so manual entry is stated rather than inferred from a buffer echo |
+| FL-07 | None | Needs a loop in which the chain is used and **no** Anchor is committed. The idle run used no chain; the played run committed. It also cannot be run while `courtyard_gate_open` is active, so it must follow a clean save |
 | FL-08 | **Passed**, to tick resolution | Patrol boundary at phase 20 of a 40 s cycle in both idle loops, at `t = 20, 40, 60, 80` and onward. Zero drift across 420 seconds in loop 1 |
 | FL-09 | **Passed** | Twelve consecutive uncovered windows measured across both loops, every one exactly **20.00 s**, repeating every 40 s: loop 1 at `20.23→40.23`, `60.23→80.23` and so on to `380.23→400.23`; loop 2 at `20.00→40.00` and `60.00→80.00` |
-| FL-10 | None | No Anchor committed |
-| FL-11 | None | Follows FL-10 |
+| FL-10 | Partial | Positive half passed: `Board: commit courtyard_gate_open ACCEPTED (gate open from this-loop play=yes)` at `t=47.34`, and the next loop start carries `anchor=courtyard_gate_open`. The negative half, that starting the generator without an explicit commit does not make the Anchor active, needs the same loop FL-07 needs. A related refusal is recorded: `REFUSED (gate open from this-loop play=no)` at `t=32.17` |
+| FL-11 | **Passed** | Build C, played run, loop after the commit. `[apply] Gate: CLOSED` then `[apply] Gate: OPEN, held by anchor courtyard_gate_open`, and `LOOP START duration=420s knowledge=1 anchor=courtyard_gate_open` at `t=0.00`, with no this-loop input |
 | FL-12 | **Passed**, to tick resolution | Turnstile open at phase 0 and closed by phase 2.57 / 2.67, on a 30 s cycle, sixteen cycles observed. Observed open durations of 2.34 s (loop 1) and 2.67 s (loop 2) bracket the authored 2.5 s from below and above, which is what tick sampling of a 2.5 s window produces |
-| FL-13 | None | The hub was reached on an earlier build past a turnstile that did not block. Not evidence. See corrections |
-| FL-14 | None | Follows FL-13 |
+| FL-13 | **Passed**, crossing inferred | Build C, played run, one loop from a clean session: `7312` accepted at `t=28.59`, power routed at `t=36.89`, generator and gate at `t=41.89`, and the player at `x=3153` when the loop ended at `t=269.46`, past the turnstile at `x=2460`. All barriers span the corridor, so no other route reaches that position. The crossing itself has no log line, so its elapsed time is unknown |
+| FL-14 | None | Blocked by instrumentation, not by play. The criterion compares elapsed `t` at the turnstile between two runs, and nothing logs the crossing. Both the baseline run and the learned run must be re-run after a hub-entry event exists |
 | FL-15 | None | The slot was already clean when the idle run started. `Rewind.CleanSave` was not invoked during it, so the reachability of the action is still unevidenced. Build C now prints `CLEAN SAVE knowledge=N anchor=X -> CLEAN`, which makes this a one-command observation |
 | FL-16 | None | Quit and load not run |
 
