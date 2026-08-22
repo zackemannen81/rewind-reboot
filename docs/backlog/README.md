@@ -19,3 +19,6 @@ Assign a `REW-NNNN` identity only when a proposal is explicitly activated.
 | Proposal | Status | Notes |
 | --- | --- | --- |
 | [`five-loops-test.md`](five-loops-test.md) | Activated (implementation) | Authority is REW-0002. Implementation is REW-0003, still Draft |
+| [`art-direction.md`](art-direction.md) | Proposed | Look and feel roadmap: composed frame, flat-fill figure, neon as knowledge. Gated on REW-0003 and on the non-goal list in `docs/PROJECT_BRIEF.md` |
+| [`loop-pressure-and-interaction.md`](loop-pressure-and-interaction.md) | Proposed | Measured: the golden path is ~34 m, about 7 s of movement in a 420 s loop. Loop-duration and space-scale levers, none chosen |
+| [`traversal-as-knowledge.md`](traversal-as-knowledge.md) | Proposed | Spatial and route knowledge as a progression axis. Canon supports the mechanism; the single-line space gives it nothing to act on. Successor proof, not an FL expansion |
