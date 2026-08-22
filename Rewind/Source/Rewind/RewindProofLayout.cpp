@@ -13,9 +13,11 @@
 #include "Components/PointLightComponent.h"
 #include "Components/SkyLightComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Engine/CollisionProfile.h"
 #include "Engine/DirectionalLight.h"
 #include "Engine/SkyLight.h"
 #include "Engine/PointLight.h"
+#include "Engine/PostProcessVolume.h"
 #include "EngineUtils.h"
 #include "UObject/ConstructorHelpers.h"
 
@@ -35,15 +37,36 @@ ARewindProofLayout::ARewindProofLayout()
 		Mesh->SetRelativeLocation(Location);
 		Mesh->SetRelativeScale3D(SizeCm / 100.f);
 		Mesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+		Mesh->SetCollisionProfileName(UCollisionProfile::BlockAll_ProfileName);
 		if (Cube)
 		{
 			Mesh->SetStaticMesh(Cube);
 		}
 	};
 
-	AddFloor(TEXT("CourtyardFloor"), FVector(920.f, 0.f, -5.f), FVector(1000.f, 800.f, 10.f));
+	// The walkable run is continuous from the 4C door at X=400 to the hub end at
+	// X=3250. The courtyard slab covers 400 to 1450 so there is no gap under the
+	// code lock at X=400 or under the gate at X=1420.
+	AddFloor(TEXT("CourtyardFloor"), FVector(925.f, 0.f, -5.f), FVector(1050.f, 800.f, 10.f));
 	AddFloor(TEXT("StreetFloor"), FVector(1900.f, 0.f, -5.f), FVector(900.f, 800.f, 10.f));
 	AddFloor(TEXT("HubFloor"), FVector(2800.f, 0.f, -5.f), FVector(900.f, 800.f, 10.f));
+
+	// The outdoor run is bounded on both sides and at the far end. Without this
+	// the courtyard, street and hub are slabs in a void: the player walks off,
+	// nothing catches them, and no FL criterion can be reached from there.
+	// Falling is not a death rule; the space simply has no hole in it.
+	const float EdgeCenterX = 1825.f;
+	const float EdgeLengthX = 2850.f;
+	const float EdgeHeight = 300.f;
+	const float EdgeThickness = 20.f;
+	const float EdgeY = 390.f;
+
+	AddFloor(TEXT("EdgeWall_YNeg"), FVector(EdgeCenterX, -EdgeY, EdgeHeight * 0.5f),
+		FVector(EdgeLengthX, EdgeThickness, EdgeHeight));
+	AddFloor(TEXT("EdgeWall_YPos"), FVector(EdgeCenterX, EdgeY, EdgeHeight * 0.5f),
+		FVector(EdgeLengthX, EdgeThickness, EdgeHeight));
+	AddFloor(TEXT("EdgeWall_XEnd"), FVector(3240.f, 0.f, EdgeHeight * 0.5f),
+		FVector(EdgeThickness, 800.f, EdgeHeight));
 }
 
 void ARewindProofLayout::EnsureContents()
@@ -88,6 +111,57 @@ void ARewindProofLayout::EnsureContents()
 	}
 
 	EnsureLights();
+	EnsureExposure();
+}
+
+void ARewindProofLayout::EnsureExposure()
+{
+	UWorld* World = GetWorld();
+	if (!World)
+	{
+		return;
+	}
+
+	for (TActorIterator<APostProcessVolume> It(World); It; ++It)
+	{
+		return;
+	}
+
+	FActorSpawnParameters Params;
+	Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+	APostProcessVolume* Volume = World->SpawnActor<APostProcessVolume>(
+		FVector::ZeroVector, FRotator::ZeroRotator, Params);
+	if (!Volume)
+	{
+		return;
+	}
+
+	// `r.DefaultFeature.AutoExposure=False` leaves exposure fixed, and the sun is
+	// authored at 50000 lux. Nothing reconciles the two, so lit surfaces clip to
+	// white and everything else reads as black. Exposure is therefore authored
+	// here, once, next to the lights it has to match.
+	//
+	// Manual exposure is driven by the camera triangle. ISO 100, 1/125 s and
+	// f/16 is the sunny-16 exposure for direct daylight, which is what a 50000
+	// lux sun is. This is a legibility fix for the FL run, not a look: FL-01,
+	// FL-07 and FL-11 are read off gate and generator state, and FL-09 and FL-12
+	// are read off a moving patrol and turnstile, none of which can be judged in
+	// a two-value image.
+	Volume->bUnbound = true;
+	Volume->BlendWeight = 1.f;
+
+	FPostProcessSettings& Settings = Volume->Settings;
+	Settings.bOverride_AutoExposureMethod = true;
+	Settings.AutoExposureMethod = AEM_Manual;
+	Settings.bOverride_AutoExposureBias = true;
+	Settings.AutoExposureBias = 0.f;
+	Settings.bOverride_CameraISO = true;
+	Settings.CameraISO = 100.f;
+	Settings.bOverride_CameraShutterSpeed = true;
+	Settings.CameraShutterSpeed = 125.f;
+	Settings.bOverride_DepthOfFieldFstop = true;
+	Settings.DepthOfFieldFstop = 16.f;
 }
 
 void ARewindProofLayout::EnsureLights()

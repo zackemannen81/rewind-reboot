@@ -1,12 +1,12 @@
 # Current Task
 
-Task ID: REW-0003
+Task ID:
 Parent Task: None
-Status: In Progress
-Owner: Grok
-Created: 2026-08-19
-Last updated: 2026-08-20
-Charter frozen at: 2026-08-19
+Status: Draft
+Owner:
+Created:
+Last updated:
+Charter frozen at:
 
 ## Read First
 
@@ -18,140 +18,57 @@ Charter frozen at: 2026-08-19
 - `docs/SYSTEMDOC.md`
 - `docs/JOURNAL.md`
 - `docs/FILESTRUCTURE.md`
-- `docs/acceptance/five-loops-test.md`
-- `docs/adr/ADR-0001_engine-unreal-engine-5.md`
-- `docs/adr/ADR-0002_world-determinism.md`
-- `docs/adr/ADR-0003_anchor-semantics.md`
-- `docs/adr/ADR-0004_save-and-session.md`
-- `docs/design/README.md`
+- Relevant ADRs under `docs/adr/`
 
 ## Task Summary
+A task is never considered done until:
+JOURNAL.md, SYSTEMDOC.md, CURRENT_STATUS.md is a jour.
 
-Implement the Five Loops Test in Unreal Engine 5.8 against the written
-rules and FL-01 to FL-16. Do not invent game rules. Do not start the
-Unreal project, and do not commit a `.uasset`, until asset storage is
-decided.
+Describe the task, why it is being done now and the intended outcome.
 
 ## Task Charter
 
-The charter is editable while status is `Draft` and immutable once status
-is `Ready`. The `REW-0003` identity is on `main` as of `f505333`.
+The charter is editable while status is `Draft` and immutable once status is
+`Ready`.
 
 ### Goal
 
-Produce a playable Unreal 5.8 project in this repository that
-demonstrates FL-01 through FL-16 from a clean save, with named evidence
-for each criterion.
+Define one primary outcome.
 
 ### Primary Deliverable
 
-An Unreal Engine 5.8 project in this repository, plus a playtest record
-that names the evidence for every FL criterion. The playtest record gets
-a stable path before anything immutable cites it.
+Name the concrete artifact or behavior that completes the task.
 
 ### In Scope
 
-- Write ADR-0005, asset storage, before any `.uasset` is created in this
-  repository. Update `.gitignore` and any LFS or external-store config
-  in the same change as the ADR.
-- Create the Unreal Engine 5.8 project in this repository after ADR-0005
-  is Accepted. Pin 5.8.
-- Decide Blueprint versus C++ for this project when the first module or
-  Blueprint is created. Record it as ADR-0006; it constrains later tasks.
-- Implement the loop, world-state apply order, knowledge, the one
-  courtyard-gate Anchor, clean save, and the authored space FL-01 to
-  FL-16 require.
-- Clock world objects from elapsed loop time. Do not use engine global
-  time or per-frame delta as the source of truth for patrol phase,
-  turnstile or other world clocks.
-- Demonstrate FL-01 through FL-16 from a clean save. Name the evidence
-  for each. A passing compile is not evidence.
-- Update `docs/CURRENT_STATUS.md`, `docs/SYSTEMDOC.md`,
-  `docs/FILESTRUCTURE.md` and `docs/JOURNAL.md` in the same change as
-  the project they describe.
+- List work required for the primary deliverable.
 
 ### Out of Scope
 
-- Inventing or rewriting game rules. If a criterion cannot be built
-  because a rule is missing, pause and charter a child. Do not fill the
-  hole in passing.
-- Echo, Insight, Chapters 2 to 5, later temporal mechanics.
-- Environment polish, final art, a narrative script, sound beyond what
-  an FL criterion uses as a signal.
-- Porting Unity C#, scenes or assets.
-- The license, making the repository public, retiring `C:\code\reWiND`.
-- Editing `docs/baseline/` or imported files under
-  `docs/concepts_sandbox/legacy-rewind/`.
+- List adjacent work that must not be absorbed.
 
 ### Definition of Done
 
-- ADR-0005 is Accepted and no `.uasset` was committed before it.
-- An Unreal 5.8 `.uproject` exists in this repository and opens in the
-  installed editor.
-- FL-01 through FL-16 each have named evidence from a run that started
-  at a clean save. Skipped criteria are not allowed.
-- `docs/CURRENT_STATUS.md` no longer says there is no Unreal project and
-  no longer says FL-01 to FL-16 have not been run.
-- Echo, asset storage (once decided), and the license: asset storage is
-  closed; Echo and the license remain open in `docs/PROJECT_BRIEF.md`.
-- `docs/JOURNAL.md` has a signed entry and this task is archived.
+- Define objective, verifiable completion conditions.
 
 ### Minimum Verification Gates
 
-- [ ] ADR-0005 Accepted before the first `.uasset` commit, checked by
-      git history
-- [ ] The `.uproject` opens in Unreal Engine 5.8 on this machine
-- [ ] Each of FL-01 to FL-16 is demonstrated from a clean save, with
-      named evidence
-- [ ] Idle-loop match (FL-03) and patrol clock (FL-08) are checked at a
-      stated `t`, not by eye from one play
-- [ ] Manual link and fence review
-- [ ] `git diff --check` clean
+- [ ] Define checks that may be strengthened but not removed after `Ready`.
 
 ## References
 
-- `docs/acceptance/five-loops-test.md`
-- `docs/design/loop-and-determinism.md`
-- `docs/design/anchors.md`
-- `docs/design/world-state-model.md`
-- `docs/design/save-and-session.md`
-- `docs/design/chapter-1-authored.md`
-- `docs/adr/ADR-0001_engine-unreal-engine-5.md` through ADR-0004
-- `C:\Program Files\Epic Games\UE_5.8`
+- Add relevant documents, code, decisions and external contracts.
 
 ## Checklist
 
-- [x] Merge the `REW-0003` identity claim to `main` before moving this
-      charter to `Ready`
-- [x] Write ADR-0005, asset storage, and the matching ignore/LFS config
-- [x] Create the Unreal 5.8 project in this repository
-- [x] Write ADR-0006, Blueprint versus C++, when the first gameplay type
-      is added
-- [x] Implement loop start/end, apply order, clean save
-- [x] Implement authored 4C, radio/`7312`, fuse, generator, gate, patrol,
-      turnstile
-- [x] Implement explicit `courtyard_gate_open` commit
-- [ ] Run FL-01 to FL-16 from a clean save and record evidence
-      (2026-08-20 editor play: door, radio, generator, gate observed.
-      Not a clean-save run. No FL criterion is passed.)
-- [ ] Update status, system document, file map
-- [ ] Add a signed journal entry and archive this task
+- [ ] Break work into concrete, ordered steps.
+- [ ] Keep this checklist aligned with actual progress.
+- [ ] Add verification and documentation steps.
 
 ## Decisions and Notes
-
-- This is the first implementation task. It is large because the proof
-  is the milestone. If a discovery blocks it, pause and charter a child.
-  Do not silently drop an FL criterion.
-- Do not open Unreal to create the project until ADR-0005 is Accepted.
-  ADR-0005 is Accepted. The next step is to create the Unreal 5.8 project
-  in this repository. Opening the editor only to confirm 5.8 is installed
-  is not that step.
-- Unity code is not a starting point. Read it for authored intent already
-  restated in `docs/design/`. Do not migrate it.
-- "It compiles" is not "it works". "It works in the editor" is not "it
-  works from a clean save".
-- Enjoyment is recorded in the playtest write-up and is not a pass/fail
-  gate, per `docs/acceptance/five-loops-test.md`.
+- A checkpoint after each step or substep is required. Checklist is therefore updated along the work and `CURRENT_STATUS.md` is always updated when changes affect the behavior.
+- Record decisions and assumptions within the frozen charter.
+- Classify discoveries using `docs/TASK_WORKFLOW.md`.
 
 ## Charter Amendment Log
 
@@ -161,47 +78,26 @@ Only non-semantic corrections are allowed after `Ready`.
 
 ## Verification
 
-- [ ] Git history shows no `.uasset` before ADR-0005
-- [ ] Editor open of the `.uproject` on UE 5.8
-- [ ] FL-01 to FL-16 evidence list
-- [ ] Manual link and fence review
-- [ ] `git diff --check`
-- [ ] Document skipped checks and reasons
+- [ ] Define task-appropriate technical checks.
+- [ ] Define manual or scenario validation when relevant.
+- [ ] Document skipped checks and reasons.
 
 ## Documentation Updates
 
-- [x] `docs/CURRENT_STATUS.md`
-- [x] `docs/SYSTEMDOC.md`
-- [x] `docs/JOURNAL.md`
-- [x] `docs/FILESTRUCTURE.md`
-- [x] `docs/PROJECT_BRIEF.md` when ADR-0005 closes asset storage
-- [x] `docs/adr/README.md`
-- [x] ADR-0005
-- [x] ADR-0006
+- [ ] `docs/CURRENT_STATUS.md`
+- [ ] `docs/SYSTEMDOC.md`
+- [ ] `docs/JOURNAL.md`
+- [ ] `docs/FILESTRUCTURE.md` when structure changes
+- [ ] ADRs when long-lived decisions change
 
 ## Handoff and Follow-ups
 
-- Current state: In Progress. Stopped overnight 2026-08-20. Not moved
-  to `docs/paused/`; nothing blocked the charter. Authored chain exists
-  in C++ on FiveLoops. RewindEditor compiled earlier this wave. One
-  editor play observed: lock opened, radio found, generator started,
-  courtyard gate opened. That is not FL-01 to FL-16.
-- Next recommended step: close Unreal, compile RewindEditor so the
-  on-screen `t=` overlay and lighting intensity fix are in the binary,
-  PIE, console `Rewind.CleanSave`, then the remaining FL script
-  (0000 reject, loop end, persist, chain reset, patrol window,
-  turnstile, Anchor board, hub inside 420s, faster second run, quit
-  and load).
-- Blockers: none.
-- Child tasks: none.
-- Resume condition: next working session on this machine with Unreal
-  Engine 5.8. Close any open editor first; Live Coding blocks compile.
-- Verification gaps: FL-01 to FL-16 have no named evidence from a
-  clean save. The `t=` overlay is in source and has not been playtested.
-  Idle-loop match and patrol clock have not been checked at a stated
-  `t`.
-- Open questions: none inside this charter. Echo and the license remain
-  project-level open decisions.
+- Current state:
+- Next recommended step:
+- Blockers:
+- Child tasks:
+- Resume condition:
+- Open questions:
 
 ## Finalize When Complete
 

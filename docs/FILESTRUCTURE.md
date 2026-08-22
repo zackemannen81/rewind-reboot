@@ -9,6 +9,7 @@ rewind-reboot/
 ├── LICENSE                         Apache-2.0 text leftover from model extraction; not a product license decision
 ├── .gitignore                      Unreal generated and local-only paths
 ├── .gitattributes                  Git LFS types for Unreal binaries, ADR-0005
+├── .mcp.json                       the running editor's MCP endpoint; works only while the editor is open
 ├── Rewind/                         Unreal Engine 5.8 blank C++ project
 │   ├── Rewind.uproject             engine 5.8, module Rewind
 │   ├── Source/Rewind/              loop, session, proof layout, puzzle actors, character
@@ -34,6 +35,7 @@ rewind-reboot/
 │   │   └── chapter-1-authored.md
 │   ├── acceptance/
 │   │   └── five-loops-test.md      first product proof, FL-01 to FL-16
+│   ├── playtests/                  evidence from named runs of named builds
 │   ├── backlog/                    non-activated proposals
 │   ├── paused/                     frozen parents awaiting a condition
 │   ├── finished/                   archived tasks, immutable

@@ -27,4 +27,7 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UStaticMeshComponent> PathBlock;
+
+	/** Last coverage state written to the log. Instrumentation, not world state. */
+	bool bCoveringLogged = true;
 };

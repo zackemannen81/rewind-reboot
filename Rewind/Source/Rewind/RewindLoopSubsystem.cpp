@@ -1,5 +1,6 @@
 #include "RewindLoopSubsystem.h"
 
+#include "RewindLog.h"
 #include "RewindDeveloperSettings.h"
 #include "RewindSessionSubsystem.h"
 #include "RewindWorldStateSubsystem.h"
@@ -67,21 +68,46 @@ void URewindLoopSubsystem::StartLoop()
 	}
 
 	Clock.Start();
+
+	// Logged after the clock restarts so the line reads t=0.00, and after the
+	// apply order so the participants have already reported their baseline.
+	FString Anchor = TEXT("None");
+	int32 Knowledge = 0;
+	if (UGameInstance* GameInstance = GetWorld()->GetGameInstance())
+	{
+		if (const URewindSessionSubsystem* Session = GameInstance->GetSubsystem<URewindSessionSubsystem>())
+		{
+			Anchor = Session->GetActiveAnchor().ToString();
+			Knowledge = Session->GetKnowledgeCount();
+		}
+	}
+	RewindLog::Event(this, FString::Printf(
+		TEXT("LOOP START  duration=%.0fs  knowledge=%d  anchor=%s"),
+		GetLoopDurationSeconds(), Knowledge, *Anchor));
 }
 
 void URewindLoopSubsystem::EndLoop(ERewindLoopEndReason Reason)
 {
 	Clock.Stop();
 
+	// FL-02 asks that a loop end only by timer or by death. Logged before the
+	// session write and before the next loop starts, so the reason and the
+	// elapsed time it ended at are one line.
+	RewindLog::Event(this, FString::Printf(TEXT("LOOP END  reason=%s"),
+		Reason == ERewindLoopEndReason::Timer ? TEXT("Timer") : TEXT("Death")));
+
 	if (UGameInstance* GameInstance = GetWorld()->GetGameInstance())
 	{
 		if (URewindSessionSubsystem* Session = GameInstance->GetSubsystem<URewindSessionSubsystem>())
 		{
 			Session->WriteOnLoopEnd();
+
+			RewindLog::Event(this, FString::Printf(
+				TEXT("SESSION WRITE  knowledge=%d  anchor=%s"),
+				Session->GetKnowledgeCount(), *Session->GetActiveAnchor().ToString()));
 		}
 	}
 
-	(void)Reason;
 	StartLoop();
 }
 
@@ -100,6 +126,22 @@ void URewindLoopSubsystem::CleanSaveAndRestart()
 		if (URewindSessionSubsystem* Session = GameInstance->GetSubsystem<URewindSessionSubsystem>())
 		{
 			Session->CleanSave();
+
+			// FL-15 asks that a clean save be reachable. Without a report the
+			// only proof is indirect, so state the resulting session on screen
+			// and let the run record the observation rather than infer it.
+			const FString Report = FString::Printf(
+				TEXT("CLEAN SAVE  knowledge=%d  anchor=%s  -> %s"),
+				Session->GetKnowledgeCount(),
+				*Session->GetActiveAnchor().ToString(),
+				Session->IsClean() ? TEXT("CLEAN") : TEXT("NOT CLEAN"));
+
+			RewindLog::Event(this, Report);
+			if (GEngine)
+			{
+				GEngine->AddOnScreenDebugMessage(-1, 6.f,
+					Session->IsClean() ? FColor::Green : FColor::Red, Report);
+			}
 		}
 	}
 

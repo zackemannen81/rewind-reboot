@@ -4,6 +4,63 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-23 — REW-0003 complete, all sixteen FL criteria evidenced
+
+- Date: 2026-08-23
+- Author: Claude
+- Task: REW-0003, re-assigned from Grok on 2026-08-23
+- Branch: `rew-0003/run-evidence`
+- Change: the Five Loops Test is demonstrated. FL-01 to FL-16 each have
+  named evidence in `docs/playtests/five-loops-2026-08-22.md`, a new
+  collection created because `docs/acceptance/` owns criteria and mixing
+  evidence into it would break that ownership. Four defects were fixed
+  first: exposure was never authored against a 50000 lux sun; the
+  outdoor run was three slabs in a void with 20 cm and 30 cm gaps at the
+  two doorways; the patrol teleported between two poses behind a barrier
+  covering 200 cm of a 760 cm corridor; and the courtyard gate and the
+  turnstile did not span the corridor either, at 400 cm and 450 cm. A
+  `LogRewind` run log was added so evidence is read from stamped lines
+  rather than transcribed from screenshots, and `.mcp.json` points at
+  the editor's MCP endpoint, which drove the idle-pair run.
+- Verification: four runs, all on editor Win64 Development builds, with
+  raw logs committed beside the record. A two-loop idle run with no
+  player input; a played run from a clean session; a scripted sequence
+  covering clean save and a baseline against two learned runs; and a
+  full editor quit and reopen. `git diff --check` clean, links and
+  fences reviewed by hand.
+- Finding that matters more than the pass: FL-14 passes on its wording
+  and its number is close to meaningless. Every turnstile crossing in
+  every run landed between `t = 30.24` and `t = 30.93`, and the
+  turnstile opens at `t = 30`. The player arrived early and waited every
+  time, including on the baseline run that did the whole chain. One
+  learned run finished at `t = 8.37` and stood at the turnstile for
+  twenty-two seconds. The 0.69 s difference measures the gate cycle, not
+  the player. The loop has no time pressure, and the record says so
+  plainly.
+- Second finding: three criteria were undemonstrable before this wave
+  and nobody knew, because a closed gate and a closed turnstile could
+  both be walked around. Any earlier impression of reaching the hub
+  through the turnstile is void. It was caught by measuring geometry
+  rather than by playing, which is what "Evidence Discipline" is for.
+- Did not run: a packaged build; frame rate was not varied, so the
+  clock's independence from frame rate is evidence at one rate only;
+  FL-03, FL-08 and FL-12 hold to tick resolution of about 0.25 s rather
+  than to exact equality at an arbitrary `t`, because transitions are
+  logged on the tick that observes them. The offsets are constant inside
+  each loop, which is tick phase and not drift.
+- Routed, not built: three proposals in `docs/backlog/` — art direction,
+  loop pressure and interaction cost, and traversal as a knowledge axis.
+  None is authority. The third argues the proof can pass FL-14 without
+  representing spatial knowledge, and the FL-14 result above is that
+  argument arriving as data.
+- Handoff: `docs/CURRENT_TASK.md` is restored from the template and no
+  task is active. The central product question is now open in a way it
+  was not before: the loop is proven deterministic and knowledge does
+  persist, and the same evidence shows the space is too small for the
+  timer to mean anything. What follows is a product decision, not a bug
+  fix. The branch is not merged to `main`.
+- Signature: Claude
+
 ## 2026-08-20 — REW-0003 overnight handoff
 
 - Date: 2026-08-20

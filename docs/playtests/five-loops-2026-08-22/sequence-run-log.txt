@@ -1,0 +1,87 @@
+LogRewind, scripted sequence: clean save, baseline chain run, two learned runs.
+Captured over MCP from the running editor.
+
+2026.08.22-22.34.49:324  [apply]  Player: placed at loop-start pose (84, 153, 207)
+2026.08.22-22.34.49:327  [apply]  Fuse: available, courtyard power OFF
+2026.08.22-22.34.49:327  [apply]  Lock: locked
+2026.08.22-22.34.49:327  [apply]  Generator: offline
+2026.08.22-22.34.49:327  [apply]  Gate: CLOSED
+2026.08.22-22.34.49:327  [apply]  Patrol: path COVERED at phase 0
+2026.08.22-22.34.49:327  [apply]  Turnstile: OPEN at phase 0
+2026.08.22-22.34.49:327  [apply]  Gate: OPEN, held by anchor courtyard_gate_open
+2026.08.22-22.34.49:327  [apply]  Player: placed at loop-start pose (-150, 0, 96)
+2026.08.22-22.34.49:327  t=0.00  LOOP START  duration=420s  knowledge=1  anchor=courtyard_gate_open
+2026.08.22-22.34.51:404  t=2.51  Turnstile: CLOSED  (phase=2.51 of 30s)
+2026.08.22-22.35.06:877  t=14.07  CLEAN SAVE  knowledge=0  anchor=None  -> CLEAN
+2026.08.22-22.35.06:877  [apply]  Fuse: available, courtyard power OFF
+2026.08.22-22.35.06:877  [apply]  Lock: locked
+2026.08.22-22.35.06:877  [apply]  Generator: offline
+2026.08.22-22.35.06:877  [apply]  Gate: CLOSED
+2026.08.22-22.35.06:877  [apply]  Patrol: path COVERED at phase 0
+2026.08.22-22.35.06:877  [apply]  Turnstile: OPEN at phase 0
+2026.08.22-22.35.06:877  [apply]  Player: placed at loop-start pose (-150, 0, 96)
+2026.08.22-22.35.06:877  t=0.00  LOOP START  duration=420s  knowledge=0  anchor=None
+2026.08.22-22.35.09:379  t=2.50  Turnstile: CLOSED  (phase=2.50 of 30s)
+2026.08.22-22.35.27:363  t=18.93  CLEAN SAVE  knowledge=0  anchor=None  -> CLEAN
+2026.08.22-22.35.27:363  [apply]  Fuse: available, courtyard power OFF
+2026.08.22-22.35.27:363  [apply]  Lock: locked
+2026.08.22-22.35.27:363  [apply]  Generator: offline
+2026.08.22-22.35.27:363  [apply]  Gate: CLOSED
+2026.08.22-22.35.27:363  [apply]  Patrol: path COVERED at phase 0
+2026.08.22-22.35.27:363  [apply]  Turnstile: OPEN at phase 0
+2026.08.22-22.35.27:363  [apply]  Player: placed at loop-start pose (-150, 0, 96)
+2026.08.22-22.35.27:363  t=0.00  LOOP START  duration=420s  knowledge=0  anchor=None
+2026.08.22-22.35.29:862  t=2.50  Turnstile: CLOSED  (phase=2.50 of 30s)
+2026.08.22-22.35.32:545  t=5.18  Fuse: routed, courtyard power ON
+2026.08.22-22.35.37:220  t=9.86  Radio: 7312 obtained
+2026.08.22-22.35.41:897  t=14.54  Lock: auto-submit from stored radio_code_7312
+2026.08.22-22.35.41:897  t=14.54  Lock: 7312 accepted, doorway open
+2026.08.22-22.35.44:405  t=17.05  Generator: online, gate opened by this-loop play
+2026.08.22-22.35.47:364  t=20.00  Patrol: path CLEAR  (phase=20.00 of 40s)
+2026.08.22-22.35.47:664  t=20.30  Board: commit courtyard_gate_open ACCEPTED (gate open from this-loop play=yes)
+2026.08.22-22.35.57:367  t=30.01  Turnstile: OPEN  (phase=0.01 of 30s)
+2026.08.22-22.35.58:291  t=30.93  Hub: entered past the turnstile (turnstile was OPEN)
+2026.08.22-22.35.59:867  t=32.51  Turnstile: CLOSED  (phase=2.51 of 30s)
+2026.08.22-22.36.07:833  t=40.15  Patrol: path COVERED  (phase=0.15 of 40s)
+2026.08.22-22.36.30:717  t=60.01  Patrol: path CLEAR  (phase=20.01 of 40s)
+2026.08.22-22.36.30:717  t=60.01  Turnstile: OPEN  (phase=0.01 of 30s)
+2026.08.22-22.36.32:460  t=61.67  LOOP END  reason=Death
+2026.08.22-22.36.32:460  t=61.67  SESSION WRITE  knowledge=1  anchor=courtyard_gate_open
+2026.08.22-22.36.32:460  [apply]  Fuse: available, courtyard power OFF
+2026.08.22-22.36.32:461  [apply]  Lock: locked
+2026.08.22-22.36.32:461  [apply]  Generator: offline
+2026.08.22-22.36.32:461  [apply]  Gate: CLOSED
+2026.08.22-22.36.32:461  [apply]  Patrol: path COVERED at phase 0
+2026.08.22-22.36.32:461  [apply]  Turnstile: OPEN at phase 0
+2026.08.22-22.36.32:461  [apply]  Gate: OPEN, held by anchor courtyard_gate_open
+2026.08.22-22.36.32:461  [apply]  Player: placed at loop-start pose (-150, 0, 96)
+2026.08.22-22.36.32:461  t=0.00  LOOP START  duration=420s  knowledge=1  anchor=courtyard_gate_open
+2026.08.22-22.36.34:961  t=2.50  Turnstile: CLOSED  (phase=2.50 of 30s)
+2026.08.22-22.36.41:320  t=8.86  Lock: auto-submit from stored radio_code_7312
+2026.08.22-22.36.41:320  t=8.86  Lock: 7312 accepted, doorway open
+2026.08.22-22.36.47:938  t=15.48  Generator: refused, no courtyard power
+2026.08.22-22.36.52:464  t=20.00  Patrol: path CLEAR  (phase=20.00 of 40s)
+2026.08.22-22.36.53:838  t=21.38  Fuse: routed, courtyard power ON
+2026.08.22-22.37.02:459  t=30.00  Turnstile: OPEN  (phase=0.00 of 30s)
+2026.08.22-22.37.02:710  t=30.25  Hub: entered past the turnstile (turnstile was OPEN)
+2026.08.22-22.37.04:960  t=32.50  Turnstile: CLOSED  (phase=2.50 of 30s)
+2026.08.22-22.37.12:460  t=40.00  Patrol: path COVERED  (phase=0.00 of 40s)
+2026.08.22-22.37.19:920  t=46.33  LOOP END  reason=Death
+2026.08.22-22.37.19:920  t=46.33  SESSION WRITE  knowledge=1  anchor=courtyard_gate_open
+2026.08.22-22.37.19:920  [apply]  Fuse: available, courtyard power OFF
+2026.08.22-22.37.19:920  [apply]  Lock: locked
+2026.08.22-22.37.19:920  [apply]  Generator: offline
+2026.08.22-22.37.19:920  [apply]  Gate: CLOSED
+2026.08.22-22.37.19:920  [apply]  Patrol: path COVERED at phase 0
+2026.08.22-22.37.19:920  [apply]  Turnstile: OPEN at phase 0
+2026.08.22-22.37.19:920  [apply]  Gate: OPEN, held by anchor courtyard_gate_open
+2026.08.22-22.37.19:921  [apply]  Player: placed at loop-start pose (-150, 0, 96)
+2026.08.22-22.37.19:921  t=0.00  LOOP START  duration=420s  knowledge=1  anchor=courtyard_gate_open
+2026.08.22-22.37.22:419  t=2.50  Turnstile: CLOSED  (phase=2.50 of 30s)
+2026.08.22-22.37.26:444  t=6.53  Fuse: routed, courtyard power ON
+2026.08.22-22.37.28:285  t=8.37  Lock: auto-submit from stored radio_code_7312
+2026.08.22-22.37.28:285  t=8.37  Lock: 7312 accepted, doorway open
+2026.08.22-22.37.39:919  t=20.00  Patrol: path CLEAR  (phase=20.00 of 40s)
+2026.08.22-22.37.49:919  t=30.00  Turnstile: OPEN  (phase=0.00 of 30s)
+2026.08.22-22.37.50:161  t=30.24  Hub: entered past the turnstile (turnstile was OPEN)
+2026.08.22-22.37.52:419  t=32.50  Turnstile: CLOSED  (phase=2.50 of 30s)

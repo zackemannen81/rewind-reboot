@@ -1,6 +1,6 @@
 # Current Status
 
-Reality as of 2026-08-20. This document describes what exists, not what is
+Reality as of 2026-08-23. This document describes what exists, not what is
 planned. If it disagrees with the repository or the build, this document is
 wrong and must be corrected.
 
@@ -16,25 +16,35 @@ wrong and must be corrected.
 | `docs/adr/ADR-0005_asset-storage.md` | Accepted. Unreal binaries via Git LFS. No `.uasset` in history yet |
 | `docs/adr/ADR-0006_cpp-and-blueprint.md` | Accepted. C++ owns FL systems; Blueprint may place and present |
 | `Rewind/Rewind.uproject` | Unreal Engine 5.8 C++ project. Loop clock, apply order, session save, CleanSave |
-| `Rewind/Content/Maps/FiveLoops.umap` | Default map. 4C, courtyard, street, hub blockout plus radio, lock, fuse, generator, gate, patrol, turnstile, Anchor board |
+| `Rewind/Content/Maps/FiveLoops.umap` | Default map. 4C, courtyard, street, hub blockout plus radio, lock, fuse, generator, gate, patrol, turnstile, Anchor board. Outdoor run bounded and continuous; gate, turnstile and patrol barrier each span the corridor |
 | `docs/design/` | Five accepted documents. Ownership in `docs/design/README.md` |
-| `docs/acceptance/five-loops-test.md` | Accepted. Criteria FL-01 to FL-16. None passed. One editor play observed the 4C chain |
+| `docs/acceptance/five-loops-test.md` | Accepted. Criteria FL-01 to FL-16. **All sixteen have named evidence** |
+| `docs/playtests/` | Evidence from named runs of named builds. One record, `five-loops-2026-08-22.md`, Complete, with four raw `LogRewind` captures beside it |
+| `.mcp.json` | Points Claude Code at the running editor's MCP endpoint on localhost. Resolves only while the editor is open |
 | `docs/concepts_sandbox/legacy-rewind/` | Imported design, roadmaps and task files from the previous project, plus a verified code inventory and a conflict register. Non-authority |
 | `docs/baseline/acme-2026-08-19/` | Frozen provenance for the working model itself. Never edited, never authority |
 | `.gitignore` / `.gitattributes` | Ignore generated UE output. LFS tracks Unreal binaries. No `.uasset` committed yet |
-| `docs/CURRENT_TASK.md` | REW-0003, In Progress. Five Loops Test implementation. Charter frozen. ADR-0005 and ADR-0006 accepted |
+| `docs/CURRENT_TASK.md` | Restored from the template. No task is active |
+| `docs/finished/REW-0003_five-loops-test-implementation.md` | Complete. Five Loops Test implementation, archived 2026-08-23 |
 | `docs/backlog/five-loops-test.md` | Authority resolved by REW-0002. Implementation activated as REW-0003 |
 
 ## What does not exist
 
-- **Run acceptance.** Puzzle actors exist in C++ and RewindEditor compiles.
-  One 2026-08-20 editor play opened the 4C door, used the radio, started
-  the generator and opened the courtyard gate. That session was not
-  started from a named `Rewind.CleanSave`. FL-01 to FL-16 are not passed.
+- **A packaged game build.** Editor Win64 Development compiled and run in PIE;
+  a cooked package has not been made, so nothing here is evidence about a
+  shipped build.
+- **Frame-rate independence of the loop clock.** Every run was at one frame
+  rate. The zero drift measured across 420 seconds is evidence at that rate.
+- **Any answer to whether the loop is enjoyable.** The Five Loops Test excludes
+  enjoyment by design. What the evidence does show is that the loop has no time
+  pressure: every turnstile crossing in every run landed within 0.7 s of the
+  gate opening at `t = 30`, because the player always arrived early and waited.
+  FL-14 passes on its wording, and its number is not evidence that knowledge
+  makes a player faster. See
+  [`five-loops-2026-08-22.md`](playtests/five-loops-2026-08-22.md) and
+  [`loop-pressure-and-interaction.md`](backlog/loop-pressure-and-interaction.md).
 - **Echo, Insight as a later system, and Chapters 2 to 5.** Not written, and
   not required by the first product proof.
-- **A packaged game build.** Editor Win64 Development compiled; a cooked
-  package has not been made.
 - **A license decision.** A `LICENSE` file with Apache-2.0 text remains from
   the docs-first extraction. That is not a decision that RE:WIND is open
   source. The intended safe default for the game is all rights reserved, and
@@ -128,8 +138,12 @@ specific thing `AGENTS.md` "Evidence Discipline" exists to prevent.
 
 ## Known gaps and risks
 
-- **The central hypothesis is unproven.** Nobody has yet played five loops of
-  RE:WIND and become faster. That is the point of the current milestone.
+- **The central hypothesis is only half answered.** The loop is proven
+  deterministic and knowledge does persist, so a player who knows the answer
+  skips work. What the evidence also shows is that skipping the work buys
+  almost nothing: every turnstile crossing landed within 0.7 s of the gate
+  opening, because the space is small enough that even the full chain finishes
+  early. Whether that is enjoyable is untested and is not an FL criterion.
 - **Legacy material still contradicts the decided determinism rule.** ADR-0002
   chose a world that does not learn the player. The imported GDD still
   contains both that game and a game whose details shift. The sandbox is
@@ -138,8 +152,17 @@ specific thing `AGENTS.md` "Evidence Discipline" exists to prevent.
   this. The legacy C# is design reference from now on, and the cost is
   contained because the systems that mattered were not running in the
   committed scene anyway.
-- **No verification tooling exists.** There is no link checker and no build.
-  Every task states which checks it could not run.
+- **No verification tooling exists.** There is no link checker. Building is
+  manual, and every task states which checks it could not run.
+- **The instrumentation resolves to a tick, not an instant.** `LogRewind`
+  writes a transition on the tick that first observes it, so two loops report
+  the same boundary up to about 0.25 s apart. The offset is constant inside a
+  loop, which is tick phase and not drift. Any criterion whose evidence needs
+  exact equality at an arbitrary `t` is not closed by the log alone.
+- **The editor cannot be driven and rebuilt at the same time.** The MCP
+  endpoint lives inside the editor, and the editor holds the build lock.
+  It also exposes no console-command and no input tool, so no criterion
+  needing player action can be evidenced without a human at the keyboard.
 - **Git LFS quota.** ADR-0005 put binaries in LFS. The Five Loops Test must
   stay a blockout. A large art import is a new decision.
 - **The `LICENSE` file disagrees with the intended default.** Apache-2.0 text
