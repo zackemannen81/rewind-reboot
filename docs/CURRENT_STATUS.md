@@ -24,7 +24,8 @@ wrong and must be corrected.
 | `docs/concepts_sandbox/legacy-rewind/` | Imported design, roadmaps and task files from the previous project, plus a verified code inventory and a conflict register. Non-authority |
 | `docs/baseline/acme-2026-08-19/` | Frozen provenance for the working model itself. Never edited, never authority |
 | `.gitignore` / `.gitattributes` | Ignore generated UE output. LFS tracks Unreal binaries. No `.uasset` committed yet |
-| `docs/CURRENT_TASK.md` | REW-0003, In Progress. Five Loops Test implementation. Charter frozen. ADR-0005 and ADR-0006 accepted |
+| `docs/CURRENT_TASK.md` | Restored from the template. No task is active |
+| `docs/finished/REW-0003_five-loops-test-implementation.md` | Complete. Five Loops Test implementation, archived 2026-08-23 |
 | `docs/backlog/five-loops-test.md` | Authority resolved by REW-0002. Implementation activated as REW-0003 |
 
 ## What does not exist
@@ -137,8 +138,12 @@ specific thing `AGENTS.md` "Evidence Discipline" exists to prevent.
 
 ## Known gaps and risks
 
-- **The central hypothesis is unproven.** Nobody has yet played five loops of
-  RE:WIND and become faster. That is the point of the current milestone.
+- **The central hypothesis is only half answered.** The loop is proven
+  deterministic and knowledge does persist, so a player who knows the answer
+  skips work. What the evidence also shows is that skipping the work buys
+  almost nothing: every turnstile crossing landed within 0.7 s of the gate
+  opening, because the space is small enough that even the full chain finishes
+  early. Whether that is enjoyable is untested and is not an FL criterion.
 - **Legacy material still contradicts the decided determinism rule.** ADR-0002
   chose a world that does not learn the player. The imported GDD still
   contains both that game and a game whose details shift. The sandbox is
