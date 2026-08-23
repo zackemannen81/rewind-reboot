@@ -1,11 +1,20 @@
 # Loop pressure and interaction cost
 
-Status: Proposed
+Status: Resolved by REW-0009
 Discovered: 2026-08-22, during REW-0003, from an editor play by MrWhite
 Owner: unassigned
-Activated: not activated. No `REW` identity is claimed for this.
+Activated: resolved without activation. ADR-0009 chose event-driven rewind on
+2026-08-24; the measurements below remain historical evidence.
 
-This proposal records a measured observation and does not decide anything.
+## Resolution
+
+ADR-0009 rejects a global loop timer as the default source of pressure. The
+Chapter 1 rules now advance pressure through named causal checkpoints while
+keeping time for radio, patrol and turnstile situations. The measured 34 m /
+420 s mismatch remains true of the older build and no longer presents an open
+choice between shortening the global duration and scaling space to fill it.
+
+This proposal recorded a measured observation and did not decide anything.
 Loop duration and the authored space are owned by
 [`chapter-1-authored.md`](../design/chapter-1-authored.md), and that document is
 Accepted. Nothing here changes it.

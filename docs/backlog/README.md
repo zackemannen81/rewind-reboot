@@ -20,8 +20,10 @@ Assign a `REW-NNNN` identity only when a proposal is explicitly activated.
 | --- | --- | --- |
 | [`five-loops-test.md`](five-loops-test.md) | Activated (implementation) | Authority is REW-0002. Implementation is REW-0003, still Draft |
 | [`art-direction.md`](art-direction.md) | Proposed | Look and feel roadmap: composed frame, flat-fill figure, neon as knowledge. Gated on REW-0003 and on the non-goal list in `docs/PROJECT_BRIEF.md` |
-| [`loop-pressure-and-interaction.md`](loop-pressure-and-interaction.md) | Proposed | Measured: the golden path is ~34 m, about 7 s of movement in a 420 s loop. Loop-duration and space-scale levers, none chosen |
+| [`loop-pressure-and-interaction.md`](loop-pressure-and-interaction.md) | Resolved by REW-0009 | ADR-0009 rejects a global timer as default pressure; the measured 34 m / 420 s mismatch remains historical evidence |
 | [`traversal-as-knowledge.md`](traversal-as-knowledge.md) | Proposed | Spatial and route knowledge as a progression axis. Canon supports the mechanism; the single-line space gives it nothing to act on. Successor proof, not an FL expansion |
 | [`character-animation-source.md`](character-animation-source.md) | Tier 1 activated by REW-0007 | Twenty-one CC0 in-place clips and the pack mannequin imported for the blockout; Tiers 2 and 3 remain unactivated |
 | [`fuse-radio-and-elevator.md`](fuse-radio-and-elevator.md) | Proposed | One fuse, two consumers, and an Anchor that frees it. The intended Chapter 1 structure, recoverable from the GDD, conflicting with three accepted rules |
 | [`what-anchors-are-for.md`](what-anchors-are-for.md) | Proposed | An Anchor frees a resource rather than granting an unlock, and must be scarce or the rewind becomes a save state |
+| [`event-driven-rewind-implementation.md`](event-driven-rewind-implementation.md) | Proposed | Implement ADR-0009 causal checkpoints, prelude and Anchor-commit loop boundary; replace Chapter 1's automatic 240-second reset |
+| [`handmade-level-adoption.md`](handmade-level-adoption.md) | Proposed | Stabilize and adopt the owner-authored Unreal blockout and its three 35 mm cameras after the event-driven rule is implemented |

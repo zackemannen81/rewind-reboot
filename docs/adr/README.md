@@ -31,6 +31,7 @@ or moved.
 | [`ADR-0006_cpp-and-blueprint.md`](ADR-0006_cpp-and-blueprint.md) | Accepted | C++ owns FL systems; Blueprint may place and present |
 | [`ADR-0007_camera-and-perspective.md`](ADR-0007_camera-and-perspective.md) | Accepted | The camera is authored, not player-controlled |
 | [`ADR-0008_what-an-anchor-is-worth.md`](ADR-0008_what-an-anchor-is-worth.md) | Accepted | Why an Anchor exists, the test a candidate must pass, and why they stay scarce |
+| [`ADR-0009_event-driven-loop-termination.md`](ADR-0009_event-driven-loop-termination.md) | Accepted | Why loops end, how causal checkpoints work, and when time may end a loop |
 
 ## Decisions that are open
 

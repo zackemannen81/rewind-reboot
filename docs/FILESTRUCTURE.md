@@ -31,7 +31,7 @@ rewind-reboot/
 │   ├── JOURNAL.md                  dated, signed work waves, append-only
 │   ├── FILESTRUCTURE.md            this file
 │   ├── TASK_IDS.md                 identity claims, allocation only
-│   ├── adr/                        decisions
+│   ├── adr/                        decisions, including event-driven loop termination
 │   ├── design/                     game design authority
 │   │   ├── loop-and-determinism.md
 │   │   ├── anchors.md

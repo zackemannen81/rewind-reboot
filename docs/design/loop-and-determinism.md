@@ -4,7 +4,8 @@ Status: Accepted
 Owns: loop semantics and world determinism
 Does not own: Anchor semantics, save and session, world-state apply order,
 authored Chapter 1 facts, Echo
-Source decision: [`ADR-0002`](../adr/ADR-0002_world-determinism.md)
+Source decisions: [`ADR-0002`](../adr/ADR-0002_world-determinism.md) and
+[`ADR-0009`](../adr/ADR-0009_event-driven-loop-termination.md)
 
 A rule that is not in this document is not a loop or determinism rule.
 
@@ -16,9 +17,18 @@ A loop is one play of the authored space from start to end.
   world in the configuration ADR-0002 names: authored baseline, then
   Anchors as [`anchors.md`](anchors.md) defines them, then elapsed time
   zero. Apply order is [`world-state-model.md`](world-state-model.md).
-- A loop ends when the loop timer reaches its duration, or when the player
-  dies. Those are the only end conditions for the first product proof.
-- The duration is an authored parameter. This document does not set it.
+- A loop ends when an authored causal contract fails at its named checkpoint,
+  when the player dies, or when the player successfully commits an Anchor.
+  Those are the only default end-condition classes.
+- A global elapsed duration is not a default end condition. A whole-space
+  deadline exists only when that authored situation is explicitly about the
+  deadline.
+- A causal contract is checked at a no-return checkpoint, not continuously
+  while its prerequisite is still solvable. Once it fails, rewind is latched
+  and cannot be canceled by stepping back.
+- Contract failure and successful Anchor commit run a perceptible rewind
+  prelude lasting at least one and at most three seconds before loop-start
+  apply. Death need not wait for that mechanical prelude.
 - After a loop ends, the next loop starts from the same baseline. Nothing
   the player did in the loop that just ended is world, except through
   Anchors.
@@ -48,9 +58,15 @@ does not include the player's knowledge. Knowledge is not world.
 
 ## Clock
 
-Elapsed loop time is the source of truth for every world clock: patrol
+Elapsed loop time begins at zero and has no default terminal duration. It is
+the source of truth for every world clock: patrol
 phase, breathing windows, timers that belong to objects, hover and any
 other periodic motion.
+
+Local deadlines may cause a causal-contract failure when missing the deadline
+makes the authored situation impossible to complete. They must be legible
+parts of that situation, never an invisible fallback that punishes exploration
+or idling.
 
 Per-frame delta and engine global time are not world clocks. They may
 move a presentation, not a phase.
@@ -83,3 +99,11 @@ themselves acceptance criteria.
 4. Player actions from loop `N` are invisible to loop `N+1` except
    through active Anchors.
 5. The player's body is at the loop-start pose at `t = 0`.
+6. Elapsed time alone does not end a loop unless the whole authored situation
+   declares a deadline.
+7. The same checkpoint predicate produces the same pass or failure and starts
+   the same rewind prelude at the same `t` in matching runs.
+8. A causal-contract failure begins at least one and at most three seconds
+   before loop-start apply.
+9. A successful first-time Anchor commit ends the current loop; a rejected or
+   redundant commit does not.
