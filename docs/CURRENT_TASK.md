@@ -2,11 +2,11 @@
 
 Task ID: REW-0004
 Parent Task: None
-Status: Draft
+Status: Ready
 Owner: Claude
 Created: 2026-08-23
 Last updated: 2026-08-23
-Charter frozen at: not frozen
+Charter frozen at: 2026-08-23
 
 ## Read First
 
@@ -135,9 +135,10 @@ golden path and a re-run of every FL criterion the rebuild touches.
 
 ## Checklist
 
-- [ ] Merge the `REW-0004` identity claim to `main` before moving this
-      charter to `Ready`
-- [ ] Write the camera grammar design document, including movement space
+- [x] Merge the `REW-0004` identity claim to `main` before moving this
+      charter to `Ready`. Landed in `428a413`
+- [x] Write the camera grammar design document, including movement space:
+      `docs/design/camera-and-movement.md`
 - [ ] Decide loop duration and space scale together, and amend or supersede
       `chapter-1-authored.md`
 - [ ] Implement the camera in C++
@@ -196,16 +197,20 @@ Only non-semantic corrections are allowed after `Ready`.
 
 ## Handoff and Follow-ups
 
-- Current state: Draft. Not yet claimed on `main`, so not yet `Ready`.
-- Next recommended step: claim `REW-0004` on `main`, then write the camera
-  grammar document, because every other item depends on the rules it
-  states.
+- Current state: Ready, charter frozen 2026-08-23. Identity claim is on
+  `main`. Work is on branch `rew-0004/camera-grammar`.
+- Next recommended step: decide loop duration and space scale together, and
+  amend or supersede `chapter-1-authored.md`. It owns both, and the rebuild
+  cannot be laid out until the scale is decided.
 - Blockers: none.
 - Child tasks: none.
-- Resume condition: not applicable while Draft.
+- Resume condition: any session with the repository. Nothing needs the
+  editor until the camera is implemented.
 - Verification gaps: none yet; nothing has been done.
-- Open questions: the movement-space question is inside this charter and is
-  the first thing the design document must answer.
+- Open questions: none open inside the charter. The movement-space question
+  is answered in `docs/design/camera-and-movement.md`: a bounded volume per
+  region, not a plane, because four of the eight interactables sit off the
+  centre line and a plane would make them unreachable.
 
 ## Finalize When Complete
 
