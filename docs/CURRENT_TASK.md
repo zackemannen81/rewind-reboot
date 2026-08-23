@@ -3,11 +3,11 @@
 Task ID: REW-0007
 Parent Task: None
 Supersedes: REW-0006
-Status: Draft
+Status: Ready
 Owner: Codex
 Created: 2026-08-23
 Last updated: 2026-08-23
-Charter frozen at: not frozen
+Charter frozen at: 2026-08-23
 
 ## Read First
 
@@ -19,6 +19,7 @@ Charter frozen at: not frozen
 - `docs/SYSTEMDOC.md`
 - `docs/JOURNAL.md`
 - `docs/FILESTRUCTURE.md`
+- `docs/EDITOR_AUTOMATION.md`
 - `docs/design/chapter-1-authored.md`
 - `docs/design/camera-and-movement.md`
 - `docs/design/anchors.md`
@@ -27,6 +28,7 @@ Charter frozen at: not frozen
 - `docs/adr/ADR-0008_what-an-anchor-is-worth.md`
 - `docs/acceptance/five-loops-test.md`
 - `docs/finished/REW-0006_chapter-1-space-the-chain-made-playable.md`
+- `docs/finished/REW-0008_agent-driven-pie-and-editor-automation.md`
 
 ## Task Summary
 
@@ -36,8 +38,8 @@ was replaced by the played and owner-confirmed 20/50 rule.
 
 ## Task Charter
 
-The charter is editable while status is `Draft` and immutable once status
-is `Ready`.
+The charter is frozen. Goal, deliverable, scope, out-of-scope, definition of
+done and minimum verification gates do not change.
 
 ### Goal
 
@@ -120,12 +122,13 @@ declaring a camera and a playtest record demonstrating the three loops.
 - `docs/adr/ADR-0008_what-an-anchor-is-worth.md`
 - `docs/acceptance/five-loops-test.md`
 - `docs/finished/REW-0006_chapter-1-space-the-chain-made-playable.md`
+- `docs/finished/REW-0008_agent-driven-pie-and-editor-automation.md`
 - `docs/backlog/character-animation-source.md`
 
 ## Checklist
 
-- [ ] Merge the `REW-0007` identity claim to `main`
-- [ ] Move this charter to `Ready` and freeze it after the claim lands
+- [x] Merge the `REW-0007` identity claim to `main`
+- [x] Move this charter to `Ready` and freeze it after the claim lands
 - [ ] Implement the lift and the stairs
 - [ ] Build 4C, landing, stairwell and shaft, courtyard, street and hub
 - [ ] Declare a camera for every region
@@ -143,12 +146,16 @@ declaring a camera and a playtest record demonstrating the three loops.
   repeat. This task completes and verifies the chain around it.
 - The rules are still ahead of the complete build. This task closes that gap
   and writes no new rules.
+- Agent-driven PIE input and repeatable editor acceptance were routed to
+  bounded child REW-0008 rather than added to this charter. That child is now
+  complete and the tooling is verified.
 
 ## Charter Amendment Log
 
 Only non-semantic corrections are allowed after `Ready`.
 
-- none
+- 2026-08-23: added stable REW-0008 references after the tooling child
+  completed. Goal, deliverable, scope and gates are unchanged.
 
 ## Verification
 
@@ -172,14 +179,14 @@ Only non-semantic corrections are allowed after `Ready`.
 
 ## Handoff and Follow-ups
 
-- Current state: Draft. The `REW-0007` identity claim is included in the
-  REW-0006 supersession branch and is not valid until that PR lands on `main`.
-- Next recommended step: merge the supersession PR, branch from updated
-  `main`, mark this charter `Ready`, then implement the lift and stairs.
-- Blockers: the identity claim has not yet landed on `main`.
-- Child tasks: none.
-- Resume condition: the `REW-0007` claim is present on `main`.
-- Verification gaps: all implementation and playtest gates remain open.
+- Current state: Ready. The claim is on `main`, the charter is frozen, and
+  editor automation prerequisite REW-0008 is complete.
+- Next recommended step: implement the lift and stairs, then verify their
+  fuse-socket dependency through MCP-driven PIE.
+- Blockers: none.
+- Child tasks: REW-0008 complete and archived.
+- Resume condition: met.
+- Verification gaps: all REW-0007 implementation and playtest gates remain open.
 - Open questions: none.
 
 ## Finalize When Complete

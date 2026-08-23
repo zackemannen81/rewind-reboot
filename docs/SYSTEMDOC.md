@@ -8,8 +8,10 @@ writes them.
 An Unreal Engine 5.8 C++ project exists at `Rewind/Rewind.uproject`. The loop
 clock, ordered world-state apply, session knowledge, one Anchor, clean save,
 authored camera, proof blockout, loop-clocked radio and contested fuse are
-implemented. The lift, stairs and rebuilt Chapter 1 space are not. The sections
-below distinguish the running proof from the working model it must grow into.
+implemented. An editor-only module exposes project PIE input through the MCP
+toolset registry, and the engine automation-test toolset is enabled. The lift,
+stairs and rebuilt Chapter 1 space are not. The sections below distinguish the
+running proof from the working model it must grow into.
 
 ## The working model in one page
 
@@ -37,6 +39,7 @@ not the project's whole history.
 | Approved direction | `docs/PROJECT_BRIEF.md` | Product, first proof, non-goals |
 | Current reality | `docs/CURRENT_STATUS.md` | What exists now, and the gaps |
 | Durable system model | `docs/SYSTEMDOC.md` | This document |
+| Editor automation | `docs/EDITOR_AUTOMATION.md` | Engine install, MCP lifecycle, plugins, toolsets, build and agent playtests |
 | Work history | `docs/JOURNAL.md` | Dated, signed evidence of work waves |
 | Repository map | `docs/FILESTRUCTURE.md` | Where things live and why |
 | Identity allocation | `docs/TASK_IDS.md` | Which identities are taken |
@@ -159,13 +162,34 @@ this project.
 When a task implements a system, this document is updated in the same change
 to describe what the implementation does, not what is intended.
 
+## Editor automation
+
+`Rewind/Source/RewindEditor/` is an editor-only module. At `PostEngineInit` it
+registers `RewindEditor.RewindPIEInputToolset` with the engine's
+`ToolsetRegistry`. Its calls locate player zero in the in-process PIE world and
+deliver simulated `FInputKeyEventArgs` through `APlayerController::InputKey`,
+so the game's normal input mappings receive them without desktop focus or
+Windows input emulation. It tracks keys pressed through the toolset, exposes
+their state with the possessed pawn transform, releases them explicitly, and
+clears its bookkeeping when PIE ends.
+
+`AutomationTestToolset` is enabled beside `EditorToolset`. The running MCP
+server therefore owns the complete agent loop: editor and log inspection,
+standard PIE start/stop, project player input, viewport capture, and named
+automation-test discovery/execution/results. The server itself runs inside the
+editor on localhost port 8000 and does not exist while the editor is closed.
+`.codex/config.toml` is the Codex project client; `.mcp.json` files retain the
+same endpoint for clients that use that format. `docs/EDITOR_AUTOMATION.md`
+owns the exact operator sequence and troubleshooting boundary.
+
 ## This repository's own structure
 
 ```text
 rewind-reboot/
 ├── AGENTS.md
 ├── README.md
-├── Rewind/                Unreal Engine 5.8 C++ proof; loop/session, camera, radio and contested fuse exist
+├── .codex/                project-scoped Codex MCP configuration
+├── Rewind/                UE 5.8 runtime proof plus editor-only automation module
 ├── docs/                  live working state
 │   ├── design/            game rules, one ownership area per document
 │   ├── acceptance/        proof criteria
