@@ -6,7 +6,8 @@
 #include "RewindCodeLock.h"
 #include "RewindCourtyardGate.h"
 #include "RewindFourCBlockout.h"
-#include "RewindFuseBox.h"
+#include "RewindFuse.h"
+#include "RewindFuseSocket.h"
 #include "RewindGenerator.h"
 #include "RewindPatrol.h"
 #include "RewindRadio.h"
@@ -107,21 +108,66 @@ void ARewindProofLayout::EnsureContents()
 
 	Radio = EnsureActor(Radio, FVector(-180.f, -220.f, 80.f));
 	Board = EnsureActor(Board, FVector(0.f, -360.f, 100.f));
-	FuseBox = EnsureActor(FuseBox, FVector(-180.f, 220.f, 80.f));
+
+	// The fuse rests in 4C at Baseline, per `chapter-1-authored.md`.
+	Fuse = EnsureActor(Fuse, FVector(-180.f, 220.f, 80.f));
 	CodeLock = EnsureActor(CodeLock, FVector(400.f, 0.f, 120.f));
 	Generator = EnsureActor(Generator, FVector(800.f, -220.f, 50.f));
 	Gate = EnsureActor(Gate, FVector(1420.f, 0.f, 150.f));
 	Patrol = EnsureActor(Patrol, FVector(1900.f, 0.f, 0.f));
 	Turnstile = EnsureActor(Turnstile, FVector(2460.f, 0.f, 110.f));
 
+	EnsureFuseSockets();
+
 	if (Generator)
 	{
-		Generator->SetLinks(FuseBox, Gate);
+		Generator->SetGate(Gate);
 	}
 
 	EnsureLights();
 	EnsureExposure();
 	EnsureCamera();
+}
+
+void ARewindProofLayout::EnsureFuseSockets()
+{
+	UWorld* World = GetWorld();
+	if (!World)
+	{
+		return;
+	}
+
+	FActorSpawnParameters Params;
+	Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+	// Two sockets of one class, so EnsureActor cannot be used: it finds by type
+	// and would hand back the same actor twice.
+	//
+	// Both positions are provisional. The building socket belongs beside the
+	// lift, and the landing and shaft do not exist yet; it sits in 4C until the
+	// space is built. The courtyard socket is kept clear of the generator so
+	// that seating the fuse and starting the generator remain two separate
+	// interactions, which is what makes the sequence legible.
+	auto EnsureSocket = [&](TObjectPtr<ARewindFuseSocket>& Cache, ERewindFuseSocket Which, const FVector& Where)
+	{
+		if (Cache)
+		{
+			return;
+		}
+		if (ARewindFuseSocket* Existing = ARewindFuseSocket::Find(World, Which))
+		{
+			Cache = Existing;
+			return;
+		}
+		Cache = World->SpawnActor<ARewindFuseSocket>(Where, FRotator::ZeroRotator, Params);
+		if (Cache)
+		{
+			Cache->Configure(Which);
+		}
+	};
+
+	EnsureSocket(BuildingSocket, ERewindFuseSocket::Building, FVector(300.f, 220.f, 80.f));
+	EnsureSocket(CourtyardSocket, ERewindFuseSocket::Courtyard, FVector(560.f, -220.f, 60.f));
 }
 
 void ARewindProofLayout::EnsureCamera()

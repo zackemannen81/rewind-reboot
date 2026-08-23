@@ -5,10 +5,11 @@ exist. Behaviour that is implemented is described here; intentions belong in
 `docs/PROJECT_BRIEF.md`. Game rules belong in `docs/design/` when a task
 writes them.
 
-An Unreal Engine 5.8 blank C++ project exists at `Rewind/Rewind.uproject`.
-No loop, world-state apply, knowledge, Anchor or authored space is
-implemented. The sections below describe the working model. They do not
-describe a running game.
+An Unreal Engine 5.8 C++ project exists at `Rewind/Rewind.uproject`. The loop
+clock, ordered world-state apply, session knowledge, one Anchor, clean save,
+authored camera, proof blockout, loop-clocked radio and contested fuse are
+implemented. The lift, stairs and rebuilt Chapter 1 space are not. The sections
+below distinguish the running proof from the working model it must grow into.
 
 ## The working model in one page
 
@@ -99,14 +100,28 @@ knowledge, the one legal Anchor identifier, a USaveGame slot, and a
 reachable `Rewind.CleanSave` command. World clocks are required to read
 `URewindLoopSubsystem::GetElapsedLoopTime`, not engine time.
 
-`/Game/Maps/FiveLoops` loads `ARewindProofLayout`, which spawns 4C,
-courtyard, street and hub blockout plus radio, code lock, fuse, generator,
-gate, patrol, turnstile and an Anchor board. LoopWorld participants restore
-from baseline on loop start; the gate honors `courtyard_gate_open`. Patrol
-and turnstile phase read elapsed loop time. Interact is E. Digits type a
-code at the lock. The board commits the gate Anchor only if this loop
-opened the gate. Elapsed loop time is drawn on screen as `t=` for
-stated-time checks.
+`/Game/Maps/FiveLoops` loads `ARewindProofLayout`, which spawns the existing
+4C, courtyard, street and hub blockout plus radio, code lock, one fuse, two
+sockets, generator, gate, patrol, turnstile and an Anchor board. LoopWorld
+participants restore from baseline on loop start; the gate honors
+`courtyard_gate_open`. Patrol, turnstile and radio phase read elapsed loop
+time. Interact is E. Digits type a code at the lock. The board commits the
+gate Anchor only if this loop opened the gate. Elapsed loop time is drawn on
+screen as `t=` for stated-time checks.
+
+The radio has four channels and exactly one speaks the code. Its 20-second
+sequence repeats every 50 seconds and speaks `7`, `3`, `1`, `2` at phases 4,
+9, 14 and 19. Hearing an individual digit changes no repository state; it is
+player knowledge. Staying in range for a complete sequence grants the stored
+`radio_code_7312` fact used by the lock's convenience path. Channel and
+broadcast phase reset from Baseline and never read loop count.
+
+The fuse is one LoopWorld actor whose state is at rest, carried, seated in the
+building socket or seated in the courtyard socket. It owns that state, so two
+sockets cannot both be occupied. Carrying disables its collision and follows
+the player; loop start restores it to the authored 4C position. The generator
+starts only while the fuse is in the courtyard socket. The building socket is
+provisional until a lift exists beside it.
 
 The gate, the turnstile and the patrol barrier each span the walkable
 corridor, so a closed one cannot be walked around. The outdoor run is
@@ -125,13 +140,14 @@ All sixteen FL criteria carried named evidence as of 2026-08-23, against
 the criteria as they read then. `docs/playtests/` owns evidence; this
 document owns what the systems do.
 
-The rules those systems must grow into are ahead of the implementation.
-`docs/design/chapter-1-authored.md` now states a carried fuse with two
-exclusive sockets, a radio that costs 45 seconds of a 240-second loop, and
-a lift that runs only while the fuse is in the building socket. None of
-that is built. `docs/adr/ADR-0008_what-an-anchor-is-worth.md` states the
-test an Anchor must pass, and `courtyard_gate_open` does not pass it as
-implemented.
+The remaining rules are ahead of the implementation.
+`docs/design/chapter-1-authored.md` states a lift that runs only while the fuse
+is in the building socket, stairs that cost at least one turnstile period more,
+and a three-loop chain in which holding the gate releases the fuse for the
+lift. The lift, stairs and rebuilt route are not built. Therefore
+`courtyard_gate_open` still does not pass ADR-0008's resource-and-two-uses test
+in the running proof even though the radio and fuse model needed for that chain
+now exist.
 
 The previous Unity project, inventoried in
 `docs/concepts_sandbox/legacy-rewind/code-inventory.md`, contained manager
@@ -149,7 +165,7 @@ to describe what the implementation does, not what is intended.
 rewind-reboot/
 ├── AGENTS.md
 ├── README.md
-├── Rewind/                Unreal Engine 5.8 C++ project; loop/session types exist, no authored space
+├── Rewind/                Unreal Engine 5.8 C++ proof; loop/session, camera, radio and contested fuse exist
 ├── docs/                  live working state
 │   ├── design/            game rules, one ownership area per document
 │   ├── acceptance/        proof criteria

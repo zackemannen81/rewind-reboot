@@ -15,6 +15,7 @@ public:
 	void EnsureLights();
 	void EnsureExposure();
 	void EnsureCamera();
+	void EnsureFuseSockets();
 
 private:
 	template <typename T>
@@ -27,7 +28,11 @@ private:
 	UPROPERTY()
 	TObjectPtr<class ARewindCodeLock> CodeLock;
 	UPROPERTY()
-	TObjectPtr<class ARewindFuseBox> FuseBox;
+	TObjectPtr<class ARewindFuse> Fuse;
+	UPROPERTY()
+	TObjectPtr<class ARewindFuseSocket> BuildingSocket;
+	UPROPERTY()
+	TObjectPtr<class ARewindFuseSocket> CourtyardSocket;
 	UPROPERTY()
 	TObjectPtr<class ARewindGenerator> Generator;
 	UPROPERTY()

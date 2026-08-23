@@ -1,7 +1,7 @@
 #include "RewindGenerator.h"
 
 #include "RewindLog.h"
-#include "RewindFuseBox.h"
+#include "RewindFuse.h"
 #include "RewindCourtyardGate.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/Engine.h"
@@ -23,9 +23,8 @@ ARewindGenerator::ARewindGenerator()
 	Mesh->SetRelativeScale3D(FVector(1.2f, 0.8f, 1.f));
 }
 
-void ARewindGenerator::SetLinks(ARewindFuseBox* InFuse, ARewindCourtyardGate* InGate)
+void ARewindGenerator::SetGate(ARewindCourtyardGate* InGate)
 {
-	FuseBox = InFuse;
 	Gate = InGate;
 }
 
@@ -36,13 +35,18 @@ bool ARewindGenerator::TryInteract(APawn* InstigatorPawn)
 	{
 		return false;
 	}
-	if (!FuseBox || !FuseBox->IsCourtyardPowerOn())
+	// `chapter-1-authored.md`: the generator starts only while the fuse is in
+	// the courtyard socket. That is the whole cost of opening the gate, and it
+	// is paid in the building's lift.
+	const ARewindFuse* Fuse = ARewindFuse::Find(GetWorld());
+	if (!Fuse || !Fuse->IsSeatedIn(ERewindFuseSocket::Courtyard))
 	{
 		if (GEngine)
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Yellow, TEXT("Generator: no courtyard power"));
+			GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Yellow,
+				TEXT("Generator: dead. The fuse is not in the courtyard socket"));
 		}
-		RewindLog::Event(this, TEXT("Generator: refused, no courtyard power"));
+		RewindLog::Event(this, TEXT("Generator: refused, fuse not in the courtyard socket"));
 		return false;
 	}
 	bOnline = true;

@@ -88,15 +88,37 @@ interaction. Which channel is the right one is not a stored fact and is
 never written to a save; the player remembers it, exactly as they remember
 the patrol's timing.
 
-**The sequence costs time.** The code sequence takes **45 seconds** of
-elapsed loop time to complete and repeats every **60 seconds**. Phase is
-`t` modulo 60. `radio_code_7312` becomes true at the end of a sequence the
-player was within range of throughout. Leaving mid-sequence means waiting
-for the next one.
+**The sequence speaks four digits.** The code sequence takes **20 seconds**
+of elapsed loop time and repeats every **50 seconds**. Phase is `t` modulo
+50. The four digits of `7312` are spoken at phases **4, 9, 14 and 19**, in
+order.
 
-So obtaining the code costs between 45 and 60 seconds of a 240-second loop,
-and costs it once per session rather than once per loop. That is the first
-lesson: information is expensive the first time and free afterwards.
+**A digit heard is a digit kept.** A player within range when a digit is
+spoken has that digit. It is not stored anywhere and never reaches a save:
+the player remembers it, exactly as they remember the patrol's timing. Two
+digits from one cycle and two from the next is a legitimate way to learn the
+code, and typing a half-known code at the lock is a legitimate thing to try.
+
+**The stored fact still requires a whole sequence.** `radio_code_7312`
+becomes true at the end of a sequence the player was within range of
+throughout. That fact is what lets the lock open without typing, so the
+convenience is earned by patience while the knowledge is not.
+
+Revised 2026-08-23 after the first played test. The previous rule was a
+45-second sequence in a 60-second cycle with nothing but the full sequence
+counting for anything. It left a 15-second window per minute to tune in and
+punished mistiming with up to 105 seconds of a 240-second loop spent
+waiting with nothing to show. A loop game cannot charge for a mistake in the
+one currency the player is already paying, which is loops.
+
+The numbers now cost between 20 and 50 seconds, and the floor is no longer
+zero: a player who arrives mid-sequence leaves with the digits that were
+spoken while they stood there. Knowing **when** each digit falls is the
+knowledge that makes a later loop cheap, which is a better thing to learn
+than how long to stand still.
+
+The cycle is 50 rather than 40 so that it does not lock in step with the
+patrol's 40 or the turnstile's 30.
 
 A lock between Apartment 4C and the courtyard accepts `7312` and does
 not accept other four-digit codes. Without the correct code the player
@@ -173,10 +195,10 @@ one thing and each solution creates the next problem. These are shapes the
 space must support, not a script the player must follow.
 
 **Loop A — information costs time.** The player knows nothing. They find the
-radio, find the channel, and wait through a full 45-second sequence to
-obtain `7312`. They may also find the fuse. They do not reach Transit Hub,
-because the sequence has taken a fifth of the loop and they did not know
-where anything was.
+radio, find the channel, and hear the four digits across the 20-second
+sequence to obtain `7312`. They may also find the fuse. They do not reach
+Transit Hub, because learning the radio costs between 20 and 50 seconds and
+they did not know where anything was.
 
 **Loop B — information saves time, and matter costs it.** `radio_code_7312`
 is true, so the radio is skipped entirely and the lock opens on arrival.
@@ -212,8 +234,13 @@ the sentence the whole chain exists to make true.
    than a learned run. With a 30 second cycle that is 30 seconds.
 9. A run that knows nothing and a run that knows everything reach the
    turnstile in different open windows.
-10. The radio's code sequence takes 45 seconds and repeats every 60. It is
-    the same at the same `t` on every loop.
+10. The radio's code sequence takes 20 seconds and repeats every 50, and
+    the four digits fall at phases 4, 9, 14 and 19. It is the same at the
+    same `t` on every loop.
+10a. A player in range at a digit's phase hears that digit, whether or not
+    they heard any other. Nothing about that is stored.
+10b. `radio_code_7312` becomes true only at the end of a sequence heard
+    from its start.
 11. Exactly one fuse exists. It fits the building socket or the courtyard
     socket, never both, and is in neither at Baseline.
 12. The lift runs only while the fuse is in the building socket.

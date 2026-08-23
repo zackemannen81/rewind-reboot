@@ -4,6 +4,45 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-23 — REW-0006 superseded after the played radio rule changed
+
+- Date: 2026-08-23
+- Author: Codex
+- Task: REW-0006
+- Branch: `rew-0006/radio-sequence`
+- Change: REW-0006 is archived as `Superseded` by REW-0007. Its frozen scope
+  required a 45-second radio sequence repeating every 60 seconds. The played
+  implementation exposed that rule as punitive, the design and code moved to
+  20 seconds repeating every 50, and the owner confirmed that 20/50 is the
+  rule to keep. The task is superseded rather than silently rewriting frozen
+  scope. The same change claims REW-0007 and leaves its successor charter in
+  `Draft` until that claim lands on `main`.
+- Delivered before supersession: a four-channel radio driven by elapsed loop
+  time, digits at phases 4, 9, 14 and 19, individual digits kept only in the
+  player's memory, and `radio_code_7312` granted after a complete sequence;
+  one carried LoopWorld fuse; two exclusive sockets; the generator requiring
+  the courtyard socket; the 240-second loop duration authored in settings;
+  and the fuse-box labelling decision. The radio work is commits `ec0d2ac`,
+  `cb70695`, `d7610af`, `bf09036` and `fd0e3e6`; the fuse work is `4f61bc0`.
+- Evidence already present in commit history: `cb70695` records PIE observing
+  the 240-second duration, broadcast boundaries, fuse Baseline, both sockets
+  and the 4C camera. `bf09036` records a played path from fuse pickup through
+  gate Anchor and hub entry and the late-listener radio defect it fixed. No
+  durable playtest artifact was added, so those observations are not evidence
+  for the amended FL criteria.
+- Verification for this supersession wave: authoritative documents and
+  relative links reviewed manually; fenced blocks reviewed; `git diff --check`
+  clean. No Unreal build, PIE run or new playtest was performed in this wave.
+- Not completed: lift, stairs, landing and shaft, spatial rebuild, complete
+  camera-region enumeration, animation import, timing measurements and the
+  three-loop acceptance run. The existing blockout can still reach the hub
+  without the intended lift-or-stairs consequence.
+- Handoff: merge this branch so the REW-0007 identity claim lands on `main`.
+  Then branch from updated `main`, move REW-0007 from `Draft` to `Ready`, and
+  implement the lift and stairs as the first unchecked work. No gameplay
+  decision blocks that implementation.
+- Signature: Codex
+
 ## 2026-08-23 — REW-0005, what an Anchor is worth and the Chapter 1 chain
 
 - Date: 2026-08-23
