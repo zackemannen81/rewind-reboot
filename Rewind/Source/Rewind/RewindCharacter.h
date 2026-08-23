@@ -37,4 +37,16 @@ private:
 
 	/** Screen axes for input, taken from the region the player is standing in. */
 	bool GetScreenAxes(FVector& OutRight, FVector& OutDepth) const;
+
+	/**
+	 * Placeholder body. The character has never had a mesh, which was invisible
+	 * while the camera sat behind its head and is not now. This is scaffolding
+	 * until the mannequin in `docs/backlog/character-animation-source.md` is
+	 * imported, and it exists so the chain can be played before then.
+	 */
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<class UStaticMeshComponent> BodyPlaceholder;
+
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<class UStaticMeshComponent> FacingPlaceholder;
 };

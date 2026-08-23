@@ -43,9 +43,10 @@ bool ARewindGenerator::TryInteract(APawn* InstigatorPawn)
 	{
 		if (GEngine)
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Yellow, TEXT("Generator: no courtyard power"));
+			GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Yellow,
+				TEXT("Generator: dead. The fuse is not in the courtyard socket"));
 		}
-		RewindLog::Event(this, TEXT("Generator: refused, no courtyard power"));
+		RewindLog::Event(this, TEXT("Generator: refused, fuse not in the courtyard socket"));
 		return false;
 	}
 	bOnline = true;

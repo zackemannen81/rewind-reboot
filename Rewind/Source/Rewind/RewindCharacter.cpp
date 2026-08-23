@@ -2,6 +2,8 @@
 
 #include "RewindInteractable.h"
 #include "RewindCameraRegion.h"
+#include "Components/StaticMeshComponent.h"
+#include "UObject/ConstructorHelpers.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Engine/World.h"
@@ -29,6 +31,33 @@ ARewindCharacter::ARewindCharacter()
 
 	// The camera is ARewindCameraRig. This pawn owns none.
 	AutoPossessPlayer = EAutoReceiveInput::Disabled;
+
+	// A body to see. The capsule is 42 by 96, so the cylinder matches it and
+	// the small block reads which way the character faces, which matters now
+	// that the body turns toward movement and the camera does not.
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> Cylinder(
+		TEXT("/Engine/BasicShapes/Cylinder.Cylinder"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> Cube(
+		TEXT("/Engine/BasicShapes/Cube.Cube"));
+
+	BodyPlaceholder = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BodyPlaceholder"));
+	BodyPlaceholder->SetupAttachment(RootComponent);
+	BodyPlaceholder->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	BodyPlaceholder->SetRelativeScale3D(FVector(0.84f, 0.84f, 1.92f));
+	if (Cylinder.Succeeded())
+	{
+		BodyPlaceholder->SetStaticMesh(Cylinder.Object);
+	}
+
+	FacingPlaceholder = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("FacingPlaceholder"));
+	FacingPlaceholder->SetupAttachment(RootComponent);
+	FacingPlaceholder->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	FacingPlaceholder->SetRelativeLocation(FVector(34.f, 0.f, 62.f));
+	FacingPlaceholder->SetRelativeScale3D(FVector(0.22f, 0.34f, 0.34f));
+	if (Cube.Succeeded())
+	{
+		FacingPlaceholder->SetStaticMesh(Cube.Object);
+	}
 }
 
 void ARewindCharacter::Tick(float DeltaSeconds)

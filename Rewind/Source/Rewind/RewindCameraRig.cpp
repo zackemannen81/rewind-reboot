@@ -38,7 +38,16 @@ bool ARewindCameraRig::ResolveTarget(FVector& OutLocation, FRotator& OutRotation
 	}
 
 	const FVector PlayerLocation = Pawn->GetActorLocation();
-	ARewindCameraRegion* Region = ARewindCameraRegion::FindContaining(GetWorld(), PlayerLocation);
+
+	// Regions are authored edge to edge, so a player standing exactly on a
+	// boundary is inside both and the search returns whichever the actor
+	// iterator reaches first. That flipped the frame back and forth eight times
+	// in nine seconds during the first played test. Keeping the region the
+	// player is already in until they genuinely leave it costs one check and
+	// removes the whole class of thrash.
+	ARewindCameraRegion* Region = (ActiveRegion && ActiveRegion->Contains(PlayerLocation))
+		? ActiveRegion.Get()
+		: ARewindCameraRegion::FindContaining(GetWorld(), PlayerLocation);
 
 	// Outside every region, the last region keeps the frame. A gap in the
 	// region set is an authoring defect, and holding the last good frame makes

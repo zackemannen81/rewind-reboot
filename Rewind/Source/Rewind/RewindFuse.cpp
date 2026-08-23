@@ -100,6 +100,11 @@ bool ARewindFuse::SeatInto(ERewindFuseSocket Which)
 	Seated = Which;
 	SetCarryCollision(false);
 	RewindLog::Event(this, FString::Printf(TEXT("Fuse: seated in the %s socket"), SocketName(Which)));
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Green,
+			FString::Printf(TEXT("Fuse: in the %s socket"), SocketName(Which)));
+	}
 	return true;
 }
 
@@ -112,6 +117,11 @@ bool ARewindFuse::TakeFrom(ERewindFuseSocket Which)
 	State = EState::Carried;
 	SetCarryCollision(true);
 	RewindLog::Event(this, FString::Printf(TEXT("Fuse: taken from the %s socket"), SocketName(Which)));
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Yellow,
+			FString::Printf(TEXT("Fuse: taken from the %s socket, carried"), SocketName(Which)));
+	}
 	return true;
 }
 
