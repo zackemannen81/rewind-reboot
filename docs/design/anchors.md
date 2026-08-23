@@ -6,7 +6,9 @@ committed, what it costs, which overrides the first product proof allows
 Does not own: apply order, save format, authored puzzle steps that
 produce the gate-open state, Echo, Insight as a later system
 Source decisions: [`ADR-0003`](../adr/ADR-0003_anchor-semantics.md) and
-[`ADR-0008`](../adr/ADR-0008_what-an-anchor-is-worth.md)
+[`ADR-0008`](../adr/ADR-0008_what-an-anchor-is-worth.md), with commit as a
+loop boundary decided by
+[`ADR-0009`](../adr/ADR-0009_event-driven-loop-termination.md)
 
 A rule that is not in this document is not an Anchor rule.
 
@@ -67,6 +69,11 @@ commit it.
 At most one Anchor is active. This identifier is that one. Committing it
 again while it is active is a no-op.
 
+A successful first-time commit writes the override and latches the authored
+one-to-three-second rewind prelude. The next loop applies the newly active
+override before the player spawns. A rejected commit, or committing the already
+active identifier again, does not end the loop.
+
 ## Cost
 
 Insight does not exist in the first product proof. There is no spendable
@@ -83,3 +90,5 @@ currency. The cost is producing the open gate and choosing to keep it.
 4. After a loop where the gate opened and the player did not commit, the
    next loop has the gate closed at `t = 0`.
 5. No object other than the courtyard gate is held by an Anchor.
+6. A successful first-time commit ends the current loop after the rewind
+   prelude; a rejected or redundant commit does not.

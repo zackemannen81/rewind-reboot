@@ -21,22 +21,25 @@ rule.
 ### FL-01 — Clean start in 4C
 
 From a clean save, at `t = 0`, the player is in Apartment 4C, the
-courtyard gate is closed, courtyard power is off and the generator is
+courtyard gate is closed, ground-floor power is off and the generator is
 offline.
 
 Owner: [`chapter-1-authored.md`](../design/chapter-1-authored.md)
 
 ### FL-02 — Loop end conditions
 
-A started loop ends when the timer expires or when the player dies, and
-not otherwise.
+A started loop ends only when an authored causal contract fails, the player
+dies, or the player successfully commits a new Anchor. Elapsed time alone does
+not end Chapter 1.
 
 Owner: [`loop-and-determinism.md`](../design/loop-and-determinism.md)
 
 ### FL-03 — Idle loops match
 
-From a clean save, two loops with no player input have the same world
-configuration at the same `t`.
+Two loop instances that share Baseline and Anchors, and receive no player input
+through a chosen `t`, have the same world configuration at that `t`. The
+test harness may start the second instance; an idle loop is not required to end
+itself.
 
 Owner: [`loop-and-determinism.md`](../design/loop-and-determinism.md)
 
@@ -63,7 +66,7 @@ Owner: [`chapter-1-authored.md`](../design/chapter-1-authored.md)
 
 ### FL-07 — Chain resets
 
-After a loop in which the fuse was placed in the courtyard socket, the
+After a loop in which the fuse was placed in the ground-floor socket, the
 generator started and the gate opened, and in which the player did not
 commit an Anchor, the next loop at `t = 0` has the fuse in neither socket,
 the generator offline and the gate closed.
@@ -150,6 +153,25 @@ at the quit pose.
 
 Owner: [`save-and-session.md`](../design/save-and-session.md)
 
+### FL-17 — Ground-fuse causal checkpoint
+
+With no active Anchor, crossing `GroundFuseGate` without ground-floor power
+latches rewind, presents the failure for at least one and at most three
+seconds, and starts the next loop in 4C. Ground-floor power passes the same
+checkpoint without rewind. An active `courtyard_gate_open` Anchor also passes
+it without ground-floor power.
+
+Owner: [`chapter-1-authored.md`](../design/chapter-1-authored.md)
+
+### FL-18 — Anchor commit is a loop boundary
+
+After this-loop play opens the courtyard gate, a successful explicit first-time
+commit of `courtyard_gate_open` latches the one-to-three-second rewind prelude.
+The next loop starts in 4C with that Anchor active. A rejected or redundant
+commit does not end the loop.
+
+Owner: [`chapter-1-authored.md`](../design/chapter-1-authored.md)
+
 ## Amendments
 
 Identifiers are permanent and none has been renumbered. Criteria have been
@@ -161,10 +183,18 @@ rather than left to be noticed.
 | 2026-08-23 | FL-07 | "routed" became "placed in the courtyard socket", following the carried fuse in `chapter-1-authored.md` |
 | 2026-08-23 | FL-13 | No longer requires the whole chain inside one loop, which the chain now makes impossible on purpose. Requires the hub to be reached in a loop with `courtyard_gate_open` active |
 | 2026-08-23 | FL-14 | Wording unchanged. Its baseline is now an anchored run, so it measures route knowledge rather than stored facts |
+| 2026-08-24 | FL-01 | `courtyard power` became the ground-floor fuse-box power named by the event checkpoint |
+| 2026-08-24 | FL-02 | Global timer/death-only termination became causal-contract failure, death or successful Anchor commit under ADR-0009 |
+| 2026-08-24 | FL-03 | No longer assumes an idle loop ends itself; compares two matching loop instances at the same `t` |
+| 2026-08-24 | FL-07 | The second fuse use is now named by its authored location: the ground-floor socket |
+| 2026-08-24 | FL-17 | Added the concrete ground-fuse checkpoint, prelude range and pass alternatives |
+| 2026-08-24 | FL-18 | Added successful Anchor commit as an evidenced loop boundary |
 
-The evidence in `docs/playtests/five-loops-2026-08-22.md` was taken against
-the criteria as they read before these amendments. It stays true of that
-build and of those criteria, and it is not evidence for these.
+The evidence in `docs/playtests/five-loops-2026-08-22.md` and
+`docs/playtests/chapter-1-three-loops-2026-08-23.md` was taken against the
+timer-driven criteria as they read before the 2026-08-24 amendments. It stays
+true of those builds and those criteria. It is not evidence for amended FL-01,
+FL-02, FL-03 or FL-07, and it is not evidence for new FL-17 or FL-18.
 
 ## Dropped from the backlog list
 

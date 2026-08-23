@@ -26,6 +26,13 @@ faster than a player on their first because they know where the fuse is, what
 the radio says, and when the patrol looks away. The game does not hand them
 anything for the repetition; it just stops being in their way.
 
+Loops are event-driven by default, as decided in
+[`ADR-0009`](adr/ADR-0009_event-driven-loop-termination.md). RE:WIND happens
+when an authored causal contract fails, the player dies, or the player
+successfully commits an Anchor. Time remains a mechanic where the authored
+situation is about time; a global countdown is not the default reason the
+world resets.
+
 ## Target player
 
 Players who enjoy being the one who figures it out. The reference points are
@@ -77,9 +84,9 @@ right to build content for it.* That right is earned.
 
 The next milestone is a space worth looping through. Concretely, that means the
 authored space rebuilt under the camera decided in
-[`ADR-0007`](adr/ADR-0007_camera-and-perspective.md), at a scale where the loop
-timer means something, and a first test of whether transitions between areas
-carry the same grammar.
+[`ADR-0007`](adr/ADR-0007_camera-and-perspective.md), with the causal
+checkpoint grammar decided in ADR-0009, and a first test of whether transitions
+between areas teach understandable prerequisites without taxing exploration.
 
 This is a smaller step than Chapter 1 and deliberately so. The non-goals below
 did not move, and none of them needed to: blockout level design was never on

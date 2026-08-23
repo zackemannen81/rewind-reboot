@@ -113,7 +113,7 @@ acceptance and current-state document made consistent with it.
 - [x] Inspect the live Handmade level, its cameras and the accepted timer-driven
   implementation boundary without changing them.
 - [x] Write and accept the loop-termination ADR.
-- [ ] Amend product, loop, Chapter 1 and acceptance authority.
+- [x] Amend product, loop, Chapter 1 and acceptance authority.
 - [ ] Update current reality, durable system description and repository map.
 - [ ] Verify the complete documentation change.
 - [ ] Archive REW-0009, restore the task template and add the signed journal

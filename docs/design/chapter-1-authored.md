@@ -21,7 +21,7 @@ courtyard, street, Transit Hub.
 
 The loop-start pose is in Apartment 4C.
 
-## Movement and loop duration
+## Movement and time
 
 Revised 2026-08-23 under REW-0004. The previous values were 420 seconds and
 an unauthored walk speed inherited from the Unreal third-person template.
@@ -33,41 +33,27 @@ The player's walk speed is **200 cm per second**. It was 500, which is a
 sprint and was never a decision. Travel time is a design resource in a game
 about repeating a route, and at 500 it rounded to nothing.
 
-The loop timer duration is **240 seconds**. It was 420.
+The 240-second loop duration was the accepted rule implemented and played by
+REW-0007. It remains historical evidence for that build and is no longer a
+Chapter 1 rule. Under
+[`ADR-0009`](../adr/ADR-0009_event-driven-loop-termination.md), elapsed time
+continues to drive authored local clocks but does not end this space globally.
 
 ## The knowledge saving
 
-This is the rule the previous values failed, and it is stated as a
-relationship rather than a distance so that it survives a change of speed.
+**Knowledge advances the causal frontier.** A player who has not satisfied the
+ground-floor power contract rewinds at the courtyard threshold. A player who
+knows how to satisfy it reaches the generator and the Anchor boundary. A player
+with the held gate reaches Transit Hub.
 
-**A naive run must take at least one turnstile period longer to reach the
-turnstile than a learned run.**
+Elapsed time still measures route mastery and decides which patrol and
+turnstile windows a successful route meets. It no longer decides whether the
+space eventually gives the player another attempt.
 
-Stated in time, not in distance. The first draft of this rule said sixty
-metres of path, which measured the wrong thing: a saving can come from a
-loop spent listening to a radio, or from a slow route taken because a
-resource is somewhere else, and neither is a distance. Any lever that
-produces the difference satisfies the rule.
-
-The naive run does whatever the puzzle costs a player who knows nothing.
-The learned run has `radio_code_7312` and `courtyard_gate_open`. The
-difference is everything knowledge buys.
-
-With a 30-second turnstile cycle, that difference must exceed 30 seconds,
-so the two runs reach different open windows. Measured on the build this
-rule was written against, the difference was 8.3 metres of walking, about
-3 seconds, so both runs always reached the same window and the crossing
-time measured the gate rather than the player.
-
-Distance is one way to produce the difference and the most expensive one.
-See [`fuse-radio-and-elevator.md`](../backlog/fuse-radio-and-elevator.md)
-for a structure that produces it from mechanics instead. That proposal is
-not authority and nothing here depends on it.
-
-The consequence for layout: **an Anchor must save a journey, not a button
-press.** The fuse and generator belong on a branch off the route, not as
-stops along it. A generator the player passes on the way is worth no time to
-hold open.
+The layout consequence from ADR-0008 still holds: **an Anchor must release a
+journey, not a button press.** The ground-floor fuse box and generator belong
+off the learned lift route. The held gate removes that obligation and leaves
+the one fuse available for the building socket.
 
 ## Radio and code
 
@@ -141,13 +127,17 @@ authored position at every loop start.
 | Socket | While the fuse is in it |
 | --- | --- |
 | Building | The lift runs |
-| Courtyard | The generator can be started |
+| Ground floor | The generator can be started |
 
 At Baseline the fuse is in neither. The lift is dead and the generator
 cannot start until the player chooses.
 
+The ground-floor socket is the fuse box at the building-to-courtyard
+threshold. It is the same exclusive second use that the timer-driven build
+called the courtyard socket.
+
 **The generator opens the courtyard gate**, and can be started only while
-the fuse is in the courtyard socket.
+the fuse is in the ground-floor socket.
 
 The fuse, the generator and the gate are LoopWorld and return to Baseline
 at the next loop start unless `courtyard_gate_open` is active, which holds
@@ -170,7 +160,47 @@ more than riding the lift, so that the fuse's position alone decides which
 open window the player reaches.
 
 That is what makes the fuse a choice rather than a key. Carrying it to the
-generator buys the gate and costs the lift.
+ground-floor fuse box buys the gate and costs the lift.
+
+## Event-driven rewind checkpoints
+
+Chapter 1 has two authored loop boundaries.
+
+### GroundFuseGate
+
+`GroundFuseGate` is the no-return threshold from the building route into the
+courtyard-gate sequence. Its contract is:
+
+```text
+GROUND_FUSE_POWERED || courtyard_gate_open
+```
+
+If neither side is true when the player crosses, rewind is latched. Static,
+light or sound instability makes the failure perceptible for at least one and
+at most three seconds, then the next loop starts in 4C. The player cannot
+cancel it by stepping backward.
+
+The predicate is not checked while the player explores 4C, the hallway or the
+stairs. Carrying the fuse is not failure, and leaving it on the table is not
+failure. The no-return threshold is what turns the missing prerequisite into a
+causal consequence.
+
+Ground-floor power passes the checkpoint in the loop that carries the fuse
+down. An active `courtyard_gate_open` Anchor passes it on the learned loop
+without ground-floor power, leaving the fuse available for the building
+socket.
+
+### CourtyardGateCommit
+
+Opening the courtyard gate through this-loop generator play makes
+`courtyard_gate_open` eligible for the existing explicit commit. At the gate
+threshold the player may perform that commit. A successful first-time commit
+writes the Anchor, latches the same one-to-three-second prelude and ends the
+loop before the player crosses into the onward Transit route.
+
+Declining the commit leaves the player in the courtyard and does not end the
+loop. A rejected commit does not end it. When the Anchor is already active at
+loop start, the gate threshold is traversable and committing again is a no-op.
 
 ## Patrol
 
@@ -194,46 +224,47 @@ The chain is a tutorial in the whole game's language, so each loop teaches
 one thing and each solution creates the next problem. These are shapes the
 space must support, not a script the player must follow.
 
-**Loop A — information costs time.** The player knows nothing. They find the
-radio, find the channel, and hear the four digits across the 20-second
-sequence to obtain `7312`. They may also find the fuse. They do not reach
-Transit Hub, because learning the radio costs between 20 and 50 seconds and
-they did not know where anything was.
+**Loop A — information reveals the first contract.** The player knows nothing.
+They find the radio, find the channel, and hear the four digits across the
+20-second sequence to obtain `7312`. If they cross `GroundFuseGate` without
+ground power, the failure prelude teaches that the route required the fuse
+below. Prior knowledge may let a player combine this discovery with Loop B;
+the game does not inspect loop count to forbid mastery.
 
 **Loop B — information saves time, and matter costs it.** `radio_code_7312`
 is true, so the radio is skipped entirely and the lock opens on arrival.
-The player takes the fuse to the courtyard socket, starts the generator and
-opens the gate. The building socket is now empty, so the lift is dead and
-the stairs are the only way down. **Loop B cannot reach Transit Hub**: the
-stairs plus the chain exceed the loop duration. That is a constraint on the
-authored space, not an accident of pacing.
+The player takes the fuse to the ground-floor socket, starts the generator and
+opens the gate. The building socket is now empty, so the lift is dead and the
+stairs are the only way down. At `CourtyardGateCommit`, the player explicitly
+commits the open gate. The successful commit ends the loop after the perceptible
+prelude; the global timer does not.
 
 **Loop C — a held change makes a route possible.** `courtyard_gate_open` is
 active, so the gate is open at `t = 0` and the generator is not needed. The
 fuse never leaves the building socket, the lift runs, and Transit Hub is
 reachable.
 
-Loop C is the first loop in which the hub can be reached, and it is
-reachable only because a previous loop's change refused to rewind. That is
-the sentence the whole chain exists to make true.
+Loop C is the first loop after the required gate commit in which the hub can be
+reached, and it is reachable because a previous loop's change refused to
+rewind. That is the sentence the whole chain exists to make true.
 
 ## Testable statements
 
 1. At `t = 0` from a clean save, the player is in Apartment 4C, the
-   gate is closed, courtyard power is off, the generator is offline.
+   gate is closed, ground-floor power is off, the generator is offline.
 2. The radio offers `7312` on loop one.
 3. The 4C-to-courtyard lock opens for `7312` and not for `0000`.
-4. The generator does not start without courtyard power.
+4. The generator does not start without ground-floor power.
 5. Starting the generator opens the gate.
 6. At the same `t`, the patrol window and the turnstile phase match
    across loops that share Anchors and have no this-loop combat with
    the patrol.
 7. The turnstile is open when `(t modulo 30) <= 2.5`. It is open at
    `t = 0` and at `t = 30`, and closed at `t = 2.6` and at `t = 29`.
-8. A naive run reaches the turnstile at least one turnstile period later
-   than a learned run. With a 30 second cycle that is 30 seconds.
-9. A run that knows nothing and a run that knows everything reach the
-   turnstile in different open windows.
+8. Crossing `GroundFuseGate` with neither ground-floor power nor
+   `courtyard_gate_open` active latches rewind.
+9. Ground-floor power or an active `courtyard_gate_open` Anchor passes
+   `GroundFuseGate` without rewind.
 10. The radio's code sequence takes 20 seconds and repeats every 50, and
     the four digits fall at phases 4, 9, 14 and 19. It is the same at the
     same `t` on every loop.
@@ -241,12 +272,15 @@ the sentence the whole chain exists to make true.
     they heard any other. Nothing about that is stored.
 10b. `radio_code_7312` becomes true only at the end of a sequence heard
     from its start.
-11. Exactly one fuse exists. It fits the building socket or the courtyard
-    socket, never both, and is in neither at Baseline.
+11. Exactly one fuse exists. It fits the building socket or the ground-floor
+   socket, never both, and is in neither at Baseline.
 12. The lift runs only while the fuse is in the building socket.
 13. Descending by the stairs costs at least one turnstile period more than
     descending by the lift.
-14. With the fuse in the courtyard socket, Transit Hub cannot be reached
-    within one loop duration.
-15. With `courtyard_gate_open` active, Transit Hub can be reached within
-    one loop duration, and the fuse never leaves the building socket.
+14. A successful first-time `courtyard_gate_open` commit ends the current
+    loop after a one-to-three-second perceptible prelude and applies the held
+    gate at the next loop start.
+15. With `courtyard_gate_open` active, Transit Hub can be reached, and the
+    fuse never leaves the building socket.
+16. Elapsed time alone does not rewind Chapter 1. Its radio, patrol and
+    turnstile still read the deterministic loop clock.
