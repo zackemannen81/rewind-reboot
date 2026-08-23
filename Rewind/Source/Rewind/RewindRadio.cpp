@@ -206,14 +206,16 @@ void ARewindRadio::Tick(float DeltaSeconds)
 					}
 				}
 			}
-			if (!bAlreadyKnown)
+			// Logged whether or not the fact was new. A complete listen that
+			// happens to be the player's second is still a complete listen, and
+			// a silent success cannot be cited as evidence for FL-04.
+			RewindLog::Event(this, FString::Printf(
+				TEXT("Radio: complete %.0fs sequence heard, 7312 %s"),
+				RadioSequence,
+				bAlreadyKnown ? TEXT("already known") : TEXT("obtained")));
+			if (GEngine && !bAlreadyKnown)
 			{
-				RewindLog::Event(this, FString::Printf(
-					TEXT("Radio: 7312 obtained after a full %.0fs sequence"), RadioSequence));
-				if (GEngine)
-				{
-					GEngine->AddOnScreenDebugMessage(-1, 6.f, FColor::Green, TEXT("Radio: 7312"));
-				}
+				GEngine->AddOnScreenDebugMessage(-1, 6.f, FColor::Green, TEXT("Radio: 7312"));
 			}
 		}
 		else if (ListeningSince >= 0.0)
