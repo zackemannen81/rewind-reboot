@@ -37,3 +37,4 @@ still the protocol extraction; that identity stays taken. New claims use `REW`.
 | REW-0007 | Complete the Chapter 1 spatial chain | Codex | 2026-08-23 | docs/CURRENT_TASK.md |
 | REW-0008 | Agent-driven PIE and editor automation | Codex | 2026-08-23 | docs/finished/REW-0008_agent-driven-pie-and-editor-automation.md |
 | REW-0009 | Event-driven rewind authority | Codex | 2026-08-24 | docs/finished/REW-0009_event-driven-rewind-authority.md |
+| REW-0010 | Owner-scale Chapter 1 stairwell blockout | Codex | 2026-08-24 | docs/CURRENT_TASK.md |
