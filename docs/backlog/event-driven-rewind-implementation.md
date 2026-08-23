@@ -20,7 +20,7 @@ implementation gap outside the authority-only REW-0009 charter.
 - Implement GroundFuseGate with the accepted predicate:
 
 ```text
-GROUND_FUSE_POWERED || courtyard_gate_open
+GROUND_FUSE_POWERED || ANCHOR_courtyard_gate_open_ACTIVE
 ```
 
 - Make a successful first-time courtyard_gate_open commit write the Anchor,

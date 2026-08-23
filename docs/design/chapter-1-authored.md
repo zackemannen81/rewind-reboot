@@ -172,7 +172,7 @@ Chapter 1 has two authored loop boundaries.
 courtyard-gate sequence. Its contract is:
 
 ```text
-GROUND_FUSE_POWERED || courtyard_gate_open
+GROUND_FUSE_POWERED || ANCHOR_courtyard_gate_open_ACTIVE
 ```
 
 If neither side is true when the player crosses, rewind is latched. Static,
