@@ -6,7 +6,6 @@
 #include "RewindLoopParticipant.h"
 #include "RewindGenerator.generated.h"
 
-class ARewindFuseBox;
 class ARewindCourtyardGate;
 
 UCLASS()
@@ -19,7 +18,7 @@ public:
 	virtual bool TryInteract(APawn* InstigatorPawn) override;
 	virtual void RestoreFromBaseline() override;
 	virtual void ApplyAnchorOverride(FName AnchorId) override;
-	void SetLinks(ARewindFuseBox* InFuse, ARewindCourtyardGate* InGate);
+	void SetGate(ARewindCourtyardGate* InGate);
 
 private:
 	UPROPERTY(VisibleAnywhere)
@@ -27,9 +26,6 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UStaticMeshComponent> Mesh;
-
-	UPROPERTY()
-	TObjectPtr<ARewindFuseBox> FuseBox;
 
 	UPROPERTY()
 	TObjectPtr<ARewindCourtyardGate> Gate;

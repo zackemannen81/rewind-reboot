@@ -146,7 +146,7 @@ region declaring a camera, and a playtest record showing the three loops.
 - [x] Merge the `REW-0006` identity claim to `main` before moving this
       charter to `Ready`
 - [x] Implement the radio sequence and channels
-- [ ] Implement the carried fuse and the two sockets
+- [x] Implement the carried fuse and the two sockets
 - [ ] Implement the lift and the stairs
 - [ ] Build 4C, landing, stairwell and shaft, courtyard, street, hub
 - [ ] Declare a camera for every region
