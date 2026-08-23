@@ -121,9 +121,17 @@ a stamp there would name the previous loop's final time. Transitions are
 written on the tick that first observes them, so the log resolves state
 changes to a tick rather than to an instant.
 
-Five of FL-01 to FL-16 have named evidence. Eight have none. The state
-of each is in `docs/playtests/`, which owns evidence; this document owns
-what the systems do.
+All sixteen FL criteria carried named evidence as of 2026-08-23, against
+the criteria as they read then. `docs/playtests/` owns evidence; this
+document owns what the systems do.
+
+The rules those systems must grow into are ahead of the implementation.
+`docs/design/chapter-1-authored.md` now states a carried fuse with two
+exclusive sockets, a radio that costs 45 seconds of a 240-second loop, and
+a lift that runs only while the fuse is in the building socket. None of
+that is built. `docs/adr/ADR-0008_what-an-anchor-is-worth.md` states the
+test an Anchor must pass, and `courtyard_gate_open` does not pass it as
+implemented.
 
 The previous Unity project, inventoried in
 `docs/concepts_sandbox/legacy-rewind/code-inventory.md`, contained manager
