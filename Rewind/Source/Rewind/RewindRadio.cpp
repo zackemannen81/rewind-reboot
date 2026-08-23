@@ -76,7 +76,12 @@ bool ARewindRadio::TryInteract(APawn* InstigatorPawn)
 	// Changing channel breaks the listen. A sequence heard in two halves is
 	// not a sequence heard.
 	ListeningSince = -1.0;
-	FragmentsReported = 0;
+
+	// FragmentsReported is deliberately not reset here. It counts what the
+	// broadcast has already said, which is a property of the sequence and not
+	// of whoever is listening. Resetting it let a late arrival replay digits
+	// spoken before they tuned in: the first played test showed digit 1, at
+	// phase 4.0, being announced at t=5.95 on the tick the channel changed.
 
 	const bool bOnCode = Channel == RadioCodeChannel;
 	RewindLog::Event(this, FString::Printf(TEXT("Radio: channel %d (%s)"),
