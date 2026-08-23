@@ -21,9 +21,42 @@ courtyard, street, Transit Hub.
 
 The loop-start pose is in Apartment 4C.
 
-## Loop duration
+## Movement and loop duration
 
-The loop timer duration is 420 seconds.
+Revised 2026-08-23 under REW-0004. The previous values were 420 seconds and
+an unauthored walk speed inherited from the Unreal third-person template.
+They are recorded here because
+[`five-loops-2026-08-22.md`](../playtests/five-loops-2026-08-22.md) is
+evidence taken under them and remains true of that build.
+
+The player's walk speed is **200 cm per second**. It was 500, which is a
+sprint and was never a decision. Travel time is a design resource in a game
+about repeating a route, and at 500 it rounded to nothing.
+
+The loop timer duration is **240 seconds**. It was 420.
+
+## The knowledge saving
+
+This is the rule the previous values failed, and it is stated as a
+relationship rather than a distance so that it survives a change of speed.
+
+**The naive path must exceed the learned path by at least one turnstile
+period of travel at the authored walk speed.**
+
+The naive path visits the radio, the fuse, the generator and the gate. The
+learned path skips all four, because `radio_code_7312` is known and
+`courtyard_gate_open` is held. The difference is everything knowledge buys.
+
+At 200 cm/s and a 30-second turnstile cycle, that difference must be at
+least **60 metres**. Measured on the build this rule was written against, it
+was **8.3 metres**, so a learned run and a naive run always reached the same
+turnstile window and the crossing time measured the gate rather than the
+player.
+
+The consequence for layout: **an Anchor must save a journey, not a button
+press.** The fuse and generator belong on a branch off the route, not as
+stops along it. A generator the player passes on the way is worth no time to
+hold open.
 
 ## Radio and code
 
@@ -83,3 +116,8 @@ and closed for the rest. Phase is `t` modulo 30 seconds.
    the patrol.
 7. The turnstile is open when `(t modulo 30) <= 2.5`. It is open at
    `t = 0` and at `t = 30`, and closed at `t = 2.6` and at `t = 29`.
+8. The naive path exceeds the learned path by at least one turnstile
+   period of travel at the authored walk speed. At 200 cm/s and a 30
+   second cycle that is 60 metres.
+9. A run that knows nothing and a run that knows everything reach the
+   turnstile in different open windows.

@@ -139,8 +139,10 @@ golden path and a re-run of every FL criterion the rebuild touches.
       charter to `Ready`. Landed in `428a413`
 - [x] Write the camera grammar design document, including movement space:
       `docs/design/camera-and-movement.md`
-- [ ] Decide loop duration and space scale together, and amend or supersede
-      `chapter-1-authored.md`
+- [x] Decide loop duration and space scale together, and amend or supersede
+      `chapter-1-authored.md`. Amended: walk speed 200 cm/s, loop 240 s,
+      and the naive path must exceed the learned path by one turnstile
+      period of travel, which is 60 m at those values
 - [ ] Implement the camera in C++
 - [ ] Rebuild the four areas at the decided scale, each with a camera
 - [ ] Add one connective space and prove the handoff
@@ -199,9 +201,9 @@ Only non-semantic corrections are allowed after `Ready`.
 
 - Current state: Ready, charter frozen 2026-08-23. Identity claim is on
   `main`. Work is on branch `rew-0004/camera-grammar`.
-- Next recommended step: decide loop duration and space scale together, and
-  amend or supersede `chapter-1-authored.md`. It owns both, and the rebuild
-  cannot be laid out until the scale is decided.
+- Next recommended step: implement the camera in C++, then lay out the
+  rebuild against the 60 m knowledge-saving rule. The layout is now
+  constrained enough to build.
 - Blockers: none.
 - Child tasks: none.
 - Resume condition: any session with the repository. Nothing needs the
