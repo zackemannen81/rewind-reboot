@@ -36,6 +36,7 @@ rewind-reboot/
 │   ├── acceptance/
 │   │   └── five-loops-test.md      first product proof, FL-01 to FL-16
 │   ├── playtests/                  evidence from named runs of named builds
+│   ├── concept/                    target images produced by the owner; targets, never rules
 │   ├── backlog/                    non-activated proposals
 │   ├── paused/                     frozen parents awaiting a condition
 │   ├── finished/                   archived tasks, immutable

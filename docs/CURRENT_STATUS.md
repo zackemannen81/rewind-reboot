@@ -26,7 +26,8 @@ wrong and must be corrected.
 | `docs/concepts_sandbox/legacy-rewind/` | Imported design, roadmaps and task files from the previous project, plus a verified code inventory and a conflict register. Non-authority |
 | `docs/baseline/acme-2026-08-19/` | Frozen provenance for the working model itself. Never edited, never authority |
 | `.gitignore` / `.gitattributes` | Ignore generated UE output. LFS tracks Unreal binaries. No `.uasset` committed yet |
-| `docs/CURRENT_TASK.md` | REW-0004, restored from `docs/paused/` after REW-0005 completed. See its handoff: its out-of-scope list now conflicts with the chain REW-0005 decided |
+| `docs/CURRENT_TASK.md` | REW-0006, Draft. Chapter 1 space, the chain made playable. Supersedes REW-0004 |
+| `docs/concept/` | Target images produced by the owner. Targets, never rules. Three listed in its README |
 | `docs/paused/REW-0004_...md` | Paused after the camera, before the spatial rebuild. Resumes when REW-0005 states the chain the space must hold |
 | `Rewind/Source/Rewind/RewindCameraRig.cpp` | The authored camera of ADR-0007. Regions declare rotation, travel axis, bounds, dead zone and player volume. Compiled; no FL criterion re-run under it |
 | `docs/finished/REW-0003_five-loops-test-implementation.md` | Complete. Five Loops Test implementation, archived 2026-08-23 |
