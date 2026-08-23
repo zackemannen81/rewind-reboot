@@ -49,4 +49,24 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<class UStaticMeshComponent> FacingPlaceholder;
+
+	/** Tier 1 CC0 blockout mannequin imported for REW-0007. */
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<class USkeletalMeshComponent> MannequinBody;
+
+	UPROPERTY()
+	TObjectPtr<class UAnimSequence> IdleAnimation;
+
+	UPROPERTY()
+	TObjectPtr<class UAnimSequence> WalkAnimation;
+
+	bool bWasMoving = false;
+
+	// A held axis keeps the world direction it acquired when pressed. Without
+	// this latch, an opposing authored camera cut reverses the same held key at
+	// the threshold and traps the player on the seam.
+	FVector LatchedForwardDirection = FVector::ZeroVector;
+	FVector LatchedRightDirection = FVector::ZeroVector;
+	float LastForwardValue = 0.f;
+	float LastRightValue = 0.f;
 };

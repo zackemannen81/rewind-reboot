@@ -13,12 +13,14 @@ rewind-reboot/
 ├── .codex/config.toml              project-scoped Codex client for the same editor endpoint
 ├── Rewind/                         Unreal Engine 5.8 blank C++ project
 │   ├── Rewind.uproject             engine 5.8; runtime and editor modules; MCP/toolset plugins
-│   ├── Source/Rewind/              loop, session, proof layout, puzzle actors, character
+│   ├── Source/Rewind/              loop, session, measured Chapter 1 layout, lift, stairs, puzzle actors, character
 │   ├── Source/RewindEditor/        editor-only MCP PIE-input toolset
 │   ├── Config/                     default engine, game, input, editor
-│   └── Content/Maps/FiveLoops.umap empty level; 4C blockout spawned in C++
+│   └── Content/
+│       ├── Maps/FiveLoops.umap     empty level; Chapter 1 blockout spawned in C++
+│       └── Characters/Tier1/       21 CC0 animations and two pack mannequins
 ├── docs/
-│   ├── CURRENT_TASK.md             the active task, one per branch
+│   ├── CURRENT_TASK.md             active task when one is approved; otherwise the restored template
 │   ├── template_CURRENT_TASK.md    the charter form
 │   ├── TASK_WORKFLOW.md            states, freeze, routing, identity
 │   ├── PROJECT_BRIEF.md            approved product direction and non-goals
@@ -38,8 +40,8 @@ rewind-reboot/
 │   │   └── chapter-1-authored.md
 │   ├── acceptance/
 │   │   └── five-loops-test.md      first product proof, FL-01 to FL-16
-│   ├── playtests/                  evidence from named runs of named builds
-│   ├── concept/                    target images produced by the owner; targets, never rules
+│   ├── playtests/                  indexed evidence, including the Chapter 1 three-loop record
+│   ├── concept/                    nine owner targets and construction references; never rules
 │   ├── backlog/                    non-activated proposals
 │   ├── paused/                     frozen parents awaiting a condition
 │   ├── finished/                   archived tasks, immutable
@@ -66,4 +68,5 @@ records that may not be edited.
 ## Not yet present
 
 Generated Unreal output (`Binaries/`, `Intermediate/`, `Saved/`,
-`DerivedDataCache/`) is not in git. No `.uasset` has been committed yet.
+`DerivedDataCache/`) is not in git. The only imported content is the measured
+12.61 MiB Tier 1 character subset under `Rewind/Content/Characters/Tier1/`.

@@ -65,6 +65,21 @@ public:
 	UFUNCTION(meta = (AICallable), Category = "Rewind PIE Input")
 	static FRewindPIEInputResult TapKey(const FString& KeyName);
 
+	/** Hold a key for an exact amount of PIE game time, independent of MCP response latency. */
+	UFUNCTION(meta = (AICallable), Category = "Rewind PIE Input")
+	static FRewindPIEInputResult HoldKeyForSeconds(const FString& KeyName, float DurationSeconds);
+
+	/**
+	 * Queue comma-separated taps, holds and waits on the PIE game clock.
+	 * Examples: "W:1.1,E,A:2.7" and "Wait:2.0,E".
+	 */
+	UFUNCTION(meta = (AICallable), Category = "Rewind PIE Input")
+	static FRewindPIEInputResult QueueInputSequence(const FString& Sequence);
+
+	/** Execute a project-owned Rewind.* console command inside PIE. */
+	UFUNCTION(meta = (AICallable), Category = "Rewind PIE Input")
+	static FRewindPIEInputResult ExecuteProjectConsoleCommand(const FString& Command);
+
 	/** Release every key currently held through this toolset. */
 	UFUNCTION(meta = (AICallable), Category = "Rewind PIE Input")
 	static FRewindPIEInputResult ReleaseAllKeys();

@@ -26,10 +26,24 @@ ARewindCameraRegion* ARewindCameraRegion::FindContaining(const UWorld* World, co
 	return nullptr;
 }
 
-void ARewindCameraRegion::Configure(FName InName, const FVector& InPlayerVolumeExtent)
+void ARewindCameraRegion::Configure(
+	FName InName,
+	const FVector& InPlayerVolumeExtent,
+	ERewindTravelAxis InTravelAxis,
+	const FVector& InCameraOffset,
+	const FRotator& InCameraRotation,
+	double InTravelPadding,
+	double InDeadZone,
+	bool bInCutOnEntry)
 {
 	RegionName = InName;
 	PlayerVolumeExtent = InPlayerVolumeExtent;
+	TravelAxis = InTravelAxis;
+	CameraOffset = InCameraOffset;
+	CameraRotation = InCameraRotation;
+	TravelPadding = InTravelPadding;
+	DeadZone = InDeadZone;
+	bCutOnEntry = bInCutOnEntry;
 }
 
 bool ARewindCameraRegion::Contains(const FVector& Location) const

@@ -62,9 +62,9 @@ void ARewindTurnstile::CheckHubEntry()
 		return;
 	}
 
-	// The turnstile spans the walkable corridor, so being past it on X is the
-	// only way to stand in the hub.
-	if (Pawn->GetActorLocation().X <= GetActorLocation().X)
+	// The authored route may run on X or Y. Crossing is positive distance from
+	// the barrier along its configured hub direction.
+	if (FVector::DotProduct(Pawn->GetActorLocation() - GetActorLocation(), HubDirection) <= 0.f)
 	{
 		return;
 	}

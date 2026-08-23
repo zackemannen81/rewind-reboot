@@ -2,6 +2,8 @@
 
 #include "RewindInteractable.h"
 #include "RewindCameraRegion.h"
+#include "Animation/AnimSequence.h"
+#include "Components/SkeletalMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "UObject/ConstructorHelpers.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -58,11 +60,47 @@ ARewindCharacter::ARewindCharacter()
 	{
 		FacingPlaceholder->SetStaticMesh(Cube.Object);
 	}
+
+	// REW-0007 Tier 1 import. The source is the CC0 Quaternius mannequin and
+	// in-place UAL1 animations; movement remains CharacterMovement-owned.
+	static ConstructorHelpers::FObjectFinder<USkeletalMesh> Mannequin(
+		TEXT("/Game/Characters/Tier1/UAL1/Tier1_UAL1/SkeletalMeshes/Tier1_UAL1.Tier1_UAL1"));
+	static ConstructorHelpers::FObjectFinder<UAnimSequence> Idle(
+		TEXT("/Game/Characters/Tier1/UAL1/Tier1_UAL1/SkeletalMeshes/Tier1_UAL1Idle_Loop.Tier1_UAL1Idle_Loop"));
+	static ConstructorHelpers::FObjectFinder<UAnimSequence> Walk(
+		TEXT("/Game/Characters/Tier1/UAL1/Tier1_UAL1/SkeletalMeshes/Tier1_UAL1Walk_Loop.Tier1_UAL1Walk_Loop"));
+
+	MannequinBody = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("MannequinBody"));
+	MannequinBody->SetupAttachment(RootComponent);
+	MannequinBody->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	if (Mannequin.Succeeded())
+	{
+		MannequinBody->SetSkeletalMeshAsset(Mannequin.Object);
+		IdleAnimation = Idle.Succeeded() ? Idle.Object : nullptr;
+		WalkAnimation = Walk.Succeeded() ? Walk.Object : nullptr;
+		MannequinBody->SetAnimationMode(EAnimationMode::AnimationSingleNode);
+		if (IdleAnimation)
+		{
+			MannequinBody->PlayAnimation(IdleAnimation, true);
+		}
+		BodyPlaceholder->SetVisibility(false);
+		FacingPlaceholder->SetVisibility(false);
+	}
 }
 
 void ARewindCharacter::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
+
+	const bool bMoving = GetVelocity().SizeSquared2D() > FMath::Square(5.f);
+	if (MannequinBody && bMoving != bWasMoving)
+	{
+		if (UAnimSequence* Next = bMoving ? WalkAnimation.Get() : IdleAnimation.Get())
+		{
+			MannequinBody->PlayAnimation(Next, true);
+		}
+		bWasMoving = bMoving;
+	}
 
 	// The player volume may be narrower than the region's collision geometry,
 	// and where it is, that is authored rather than accidental. Clamping the
@@ -128,29 +166,54 @@ bool ARewindCharacter::GetScreenAxes(FVector& OutRight, FVector& OutDepth) const
 
 void ARewindCharacter::MoveForward(float Value)
 {
-	if (!Controller || Value == 0.f)
+	if (!Controller)
 	{
+		return;
+	}
+	if (FMath::IsNearlyZero(Value))
+	{
+		LastForwardValue = 0.f;
+		LatchedForwardDirection = FVector::ZeroVector;
 		return;
 	}
 	FVector Right, Depth;
 	if (GetScreenAxes(Right, Depth))
 	{
+		if (FMath::IsNearlyZero(LastForwardValue)
+			|| FMath::Sign(Value) != FMath::Sign(LastForwardValue))
+		{
+			LatchedForwardDirection = Depth;
+		}
 		// Forward moves into the frame, which is the depth the player volume
-		// allows. `camera-and-movement.md` keeps that band narrow on purpose.
-		AddMovementInput(Depth, Value);
+		// allows. Preserve the press-time direction through a camera handoff;
+		// the next press samples the new region's screen axes as usual.
+		AddMovementInput(LatchedForwardDirection, Value);
+		LastForwardValue = Value;
 	}
 }
 
 void ARewindCharacter::MoveRight(float Value)
 {
-	if (!Controller || Value == 0.f)
+	if (!Controller)
 	{
+		return;
+	}
+	if (FMath::IsNearlyZero(Value))
+	{
+		LastRightValue = 0.f;
+		LatchedRightDirection = FVector::ZeroVector;
 		return;
 	}
 	FVector Right, Depth;
 	if (GetScreenAxes(Right, Depth))
 	{
-		AddMovementInput(Right, Value);
+		if (FMath::IsNearlyZero(LastRightValue)
+			|| FMath::Sign(Value) != FMath::Sign(LastRightValue))
+		{
+			LatchedRightDirection = Right;
+		}
+		AddMovementInput(LatchedRightDirection, Value);
+		LastRightValue = Value;
 	}
 }
 

@@ -34,6 +34,10 @@ private:
 	UPROPERTY()
 	TObjectPtr<class ARewindFuseSocket> CourtyardSocket;
 	UPROPERTY()
+	TObjectPtr<class ARewindLift> Lift;
+	UPROPERTY()
+	TObjectPtr<class ARewindStairwell> Stairwell;
+	UPROPERTY()
 	TObjectPtr<class ARewindGenerator> Generator;
 	UPROPERTY()
 	TObjectPtr<class ARewindCourtyardGate> Gate;

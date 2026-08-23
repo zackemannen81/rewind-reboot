@@ -15,6 +15,7 @@ public:
 	virtual void Tick(float DeltaSeconds) override;
 	virtual void RestoreFromBaseline() override;
 	virtual void ApplyAnchorOverride(FName AnchorId) override;
+	void ConfigureHubDirection(const FVector& InDirection) { HubDirection = InDirection.GetSafeNormal(); }
 
 private:
 	void ApplyPhase(double ElapsedSeconds);
@@ -34,4 +35,7 @@ private:
 
 	/** Whether this loop's hub entry is already logged. Instrumentation. */
 	bool bHubEntryLogged = false;
+
+	/** Direction from the barrier into the hub. */
+	FVector HubDirection = FVector(1.f, 0.f, 0.f);
 };

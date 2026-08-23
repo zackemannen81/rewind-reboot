@@ -4,6 +4,66 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-23 — REW-0007 complete, Chapter 1 has its authored spatial chain
+
+- Date: 2026-08-23
+- Author: Codex
+- Task: REW-0007
+- Branch: `rew-0007/chapter-1-spatial-chain`
+- Change: completed the chain that REW-0006 could not finish under its
+  superseded radio timing. FiveLoops now builds 4C and its common upper
+  hallway, a powered six-second cage lift, three physical switchback flights,
+  an entrance hallway, one large courtyard, a 170 m service branch folded
+  around its patrol yard and Transit Hub. Eleven authored camera regions cover
+  that route. The player uses the imported UAL1 mannequin with idle/walk
+  animation, and project PIE input gained exact game-time holds, queued input
+  sequences and restricted `Rewind.*` console execution.
+- Owner construction reference: nine images now live under `docs/concept/`.
+  The final paired plans settle top and bottom: stairs, lift and 4C share the
+  top corridor; both vertical routes meet one long entrance hallway; its
+  fuse-box threshold opens into the large courtyard containing gate, generator,
+  patrol area and the route to Transit. These images directed blockout
+  placement and cameras without becoming game-rule authority or finished-art
+  scope.
+- Timing evidence: the formal stairs route reached the entrance in 55.67
+  seconds and the powered lift in 6.00, a 49.67-second difference against the
+  required 30. Loop B carried the only fuse to the courtyard, opened and
+  committed the gate at 211.34 seconds, and timed out at 240 without entering
+  Transit Hub. Loop C applied the held gate, left the fuse for the lift and
+  entered Transit Hub at 90.67 seconds. The naive/learned difference is
+  therefore at least 149.33 seconds, also above the required 30.
+- Three-loop evidence: from `Rewind.CleanSave`, Loop A heard `7312` across the
+  complete radio sequence and persisted the fact; Loop B spent the fuse on the
+  generator and committed `courtyard_gate_open`; Loop C used that held change,
+  the same fuse's building use and the lift to reach the hub. The durable
+  record is `docs/playtests/chapter-1-three-loops-2026-08-23.md`. Diagnostic
+  route-calibration loops between formal B and C are explicitly excluded.
+- Build and automation evidence: Unreal Editor Win64 Development built
+  successfully under UE 5.8 after the final seam fix. All six discoverable
+  `Rewind.*` tests passed together, 6/6 with no errors in 0.0411 seconds. The
+  camera enumeration logged all eleven regions complete; baseline logged fuse
+  at rest, unpowered lift at 4C, generator offline and gate closed.
+- Assets: 31 CC0 Tier 1 `.uasset` files measure 13,220,676 bytes (12.61 MiB)
+  under Git LFS: 21 in-place animation assets and both pack mannequins. UAL1
+  idle/walk are bound; the rest remain imported, not claimed as integrated.
+- Corrections made while playing: opposing camera cuts initially inverted a
+  held movement vector, so character input now latches world direction across
+  a cut. Stair endpoint rails and the ground-floor seam were opened where the
+  capsule route required them. Route automation was moved from MCP-call timing
+  to game-time queues so network latency could not become acceptance evidence.
+- Verification: successful editor build; formal clean-save A/B/C PIE run;
+  measured vertical and full routes; region and baseline enumeration; six
+  named automation tests; import size; links and fences reviewed manually;
+  `git diff --check` clean. No packaged build was made and frame rate was not
+  varied. Finished visual fidelity and enjoyment were not tested and were
+  outside the frozen charter.
+- Handoff: REW-0007 is archived Complete and `docs/CURRENT_TASK.md` is restored
+  from the template. No successor is approved. The next implementation needs
+  an owner decision between bounded visual/art-direction work against the
+  concept set and a player-experience test of the proven blockout; neither is
+  automatically authorized by this task.
+- Signature: Codex
+
 ## 2026-08-23 — REW-0008 complete, agents can drive and test PIE
 
 - Date: 2026-08-23
