@@ -1,11 +1,12 @@
 # Anchors
 
 Status: Accepted
-Owns: what an Anchor is, when it is committed, what it costs, which
-overrides the first product proof allows
+Owns: what an Anchor is, what makes one worth having, when it is
+committed, what it costs, which overrides the first product proof allows
 Does not own: apply order, save format, authored puzzle steps that
 produce the gate-open state, Echo, Insight as a later system
-Source decision: [`ADR-0003`](../adr/ADR-0003_anchor-semantics.md)
+Source decisions: [`ADR-0003`](../adr/ADR-0003_anchor-semantics.md) and
+[`ADR-0008`](../adr/ADR-0008_what-an-anchor-is-worth.md)
 
 A rule that is not in this document is not an Anchor rule.
 
@@ -17,6 +18,26 @@ world.
 
 At loop start, after baseline is applied and before the player spawns,
 every active Anchor's override is true.
+
+## What makes an override worth anchoring
+
+**Holding it must release something the loop would otherwise have to
+commit, and that thing must have another use.**
+
+Name the resource. Name its two uses. If either cannot be named, the
+override is a shortcut and not an Anchor.
+
+An override that only makes an existing route faster is not an Anchor. It
+may be worth having as some other mechanism, and it does not use this one.
+
+The reason is that a rewind whose exceptions are conveniences is a save
+state. The choice is only a choice while almost everything is taken back.
+
+## Scarcity
+
+Few Anchors may be active at once, and the number is small enough that
+choosing which to hold costs the player something. This is a design rule,
+not a consequence of the first proof's scope. The first proof allows one.
 
 ## First product proof
 
@@ -53,10 +74,12 @@ currency. The cost is producing the open gate and choosing to keep it.
 
 ## Testable statements
 
-1. A generator success does not, by itself, make `courtyard_gate_open`
+1. Every active Anchor names a resource it releases and two uses that
+   resource has. An Anchor that cannot is a shortcut.
+2. A generator success does not, by itself, make `courtyard_gate_open`
    active on the next loop.
-2. After an explicit commit while the gate is this-loop open, the next
+3. After an explicit commit while the gate is this-loop open, the next
    loop has the gate open at `t = 0` with no this-loop input.
-3. After a loop where the gate opened and the player did not commit, the
+4. After a loop where the gate opened and the player did not commit, the
    next loop has the gate closed at `t = 0`.
-4. No object other than the courtyard gate is held by an Anchor.
+5. No object other than the courtyard gate is held by an Anchor.

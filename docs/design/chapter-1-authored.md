@@ -71,32 +71,84 @@ hold open.
 
 ## Radio and code
 
-A radio in Apartment 4C is present at `t = 0`. It presents the code
-`7312` so that a player who listens can obtain it on the first loop.
-It does not depend on loop count.
+A radio in Apartment 4C is present at `t = 0`. It broadcasts on the loop
+clock, like the patrol and the turnstile, and **it does not depend on loop
+count**. The imported GDD makes it clearer on later loops; that version is
+not restated here, because a world object that reads loop count is
+forbidden by [`ADR-0002`](../adr/ADR-0002_world-determinism.md).
+
+The escalation is in the player instead. What changes between loops is that
+the player knows the code, knows which channel carries it, and knows when
+in the loop it is spoken. None of that is stored; it is learned, which is
+what this game says progression is.
+
+**Channels.** The radio has channels and exactly one carries the code
+sequence. The others carry static. Selecting a channel is a single
+interaction. Which channel is the right one is not a stored fact and is
+never written to a save; the player remembers it, exactly as they remember
+the patrol's timing.
+
+**The sequence costs time.** The code sequence takes **45 seconds** of
+elapsed loop time to complete and repeats every **60 seconds**. Phase is
+`t` modulo 60. `radio_code_7312` becomes true at the end of a sequence the
+player was within range of throughout. Leaving mid-sequence means waiting
+for the next one.
+
+So obtaining the code costs between 45 and 60 seconds of a 240-second loop,
+and costs it once per session rather than once per loop. That is the first
+lesson: information is expensive the first time and free afterwards.
 
 A lock between Apartment 4C and the courtyard accepts `7312` and does
 not accept other four-digit codes. Without the correct code the player
 cannot enter the courtyard.
 
-## Fuse, generator, gate
+## The fuse, and what it is contested by
 
-At Baseline:
+Supersedes the previous rule that the fuse is "routed to courtyard power".
+It is not routed. It is carried, and it is the resource
+[`ADR-0008`](../adr/ADR-0008_what-an-anchor-is-worth.md) requires an Anchor
+to release.
 
-- The fuse can be routed to courtyard power once this loop.
-- Courtyard power is off.
-- The generator is offline.
-- The courtyard gate is closed and blocks the way to the street.
+**There is one fuse.** At Baseline it sits in Apartment 4C, and the player
+can pick it up and carry it. A carried fuse is LoopWorld, per
+[`world-state-model.md`](world-state-model.md), so it returns to its
+authored position at every loop start.
 
-This-loop play:
+**There are two sockets and the fuse fits either, never both.**
 
-- Routing the fuse turns courtyard power on.
-- The generator can be started only while courtyard power is on.
-- Starting the generator opens the courtyard gate.
+| Socket | While the fuse is in it |
+| --- | --- |
+| Building | The lift runs |
+| Courtyard | The generator can be started |
 
-Those four objects are LoopWorld. They return to Baseline at the next
-loop start unless `courtyard_gate_open` is active, which holds only the
-gate.
+At Baseline the fuse is in neither. The lift is dead and the generator
+cannot start until the player chooses.
+
+**The generator opens the courtyard gate**, and can be started only while
+the fuse is in the courtyard socket.
+
+The fuse, the generator and the gate are LoopWorld and return to Baseline
+at the next loop start unless `courtyard_gate_open` is active, which holds
+only the gate.
+
+## The lift and the stairs
+
+Apartment 4C is above ground and reaching the courtyard means descending.
+There are two ways down and they cost differently.
+
+**The lift** runs only while the fuse is in the building socket.
+
+**The stairs** always work.
+
+**The stairs must cost at least one turnstile period more than the lift.**
+Stated as a relationship for the same reason the knowledge saving is: a
+number here would drift from the cycle it is measured against. With a
+30-second turnstile cycle, taking the stairs must cost at least 30 seconds
+more than riding the lift, so that the fuse's position alone decides which
+open window the player reaches.
+
+That is what makes the fuse a choice rather than a key. Carrying it to the
+generator buys the gate and costs the lift.
 
 ## Patrol
 
@@ -113,6 +165,35 @@ the previous loop's alert state.
 The Transit Hub entrance is a turnstile. Its cycle is 30 seconds of
 elapsed loop time. It is open for the first 2.5 seconds of each cycle
 and closed for the rest. Phase is `t` modulo 30 seconds.
+
+## The three loops
+
+The chain is a tutorial in the whole game's language, so each loop teaches
+one thing and each solution creates the next problem. These are shapes the
+space must support, not a script the player must follow.
+
+**Loop A — information costs time.** The player knows nothing. They find the
+radio, find the channel, and wait through a full 45-second sequence to
+obtain `7312`. They may also find the fuse. They do not reach Transit Hub,
+because the sequence has taken a fifth of the loop and they did not know
+where anything was.
+
+**Loop B — information saves time, and matter costs it.** `radio_code_7312`
+is true, so the radio is skipped entirely and the lock opens on arrival.
+The player takes the fuse to the courtyard socket, starts the generator and
+opens the gate. The building socket is now empty, so the lift is dead and
+the stairs are the only way down. **Loop B cannot reach Transit Hub**: the
+stairs plus the chain exceed the loop duration. That is a constraint on the
+authored space, not an accident of pacing.
+
+**Loop C — a held change makes a route possible.** `courtyard_gate_open` is
+active, so the gate is open at `t = 0` and the generator is not needed. The
+fuse never leaves the building socket, the lift runs, and Transit Hub is
+reachable.
+
+Loop C is the first loop in which the hub can be reached, and it is
+reachable only because a previous loop's change refused to rewind. That is
+the sentence the whole chain exists to make true.
 
 ## Testable statements
 
@@ -131,3 +212,14 @@ and closed for the rest. Phase is `t` modulo 30 seconds.
    than a learned run. With a 30 second cycle that is 30 seconds.
 9. A run that knows nothing and a run that knows everything reach the
    turnstile in different open windows.
+10. The radio's code sequence takes 45 seconds and repeats every 60. It is
+    the same at the same `t` on every loop.
+11. Exactly one fuse exists. It fits the building socket or the courtyard
+    socket, never both, and is in neither at Baseline.
+12. The lift runs only while the fuse is in the building socket.
+13. Descending by the stairs costs at least one turnstile period more than
+    descending by the lift.
+14. With the fuse in the courtyard socket, Transit Hub cannot be reached
+    within one loop duration.
+15. With `courtyard_gate_open` active, Transit Hub can be reached within
+    one loop duration, and the fuse never leaves the building socket.

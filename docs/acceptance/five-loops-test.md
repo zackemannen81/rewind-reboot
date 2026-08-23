@@ -63,10 +63,10 @@ Owner: [`chapter-1-authored.md`](../design/chapter-1-authored.md)
 
 ### FL-07 — Chain resets
 
-After a loop in which the fuse was routed, the generator started and the
-gate opened, and in which the player did not commit an Anchor, the next
-loop at `t = 0` has courtyard power off, generator offline and gate
-closed.
+After a loop in which the fuse was placed in the courtyard socket, the
+generator started and the gate opened, and in which the player did not
+commit an Anchor, the next loop at `t = 0` has the fuse in neither socket,
+the generator offline and the gate closed.
 
 Owner: [`world-state-model.md`](../design/world-state-model.md)
 
@@ -107,13 +107,19 @@ Owner: [`chapter-1-authored.md`](../design/chapter-1-authored.md)
 
 ### FL-13 — Reach the hub
 
-From a clean save, the player can enter Apartment 4C, use `7312`, route
-power, start the generator, open the gate, use the patrol window, and
-pass the turnstile into Transit Hub, all inside one loop.
+From a clean save, the player can reach Transit Hub. It takes more than one
+loop, and the loop in which the hub is reached has `courtyard_gate_open`
+active.
 
-The duration is not restated here. `chapter-1-authored.md` owns it, and a
-number written in two places drifts. It was 420 seconds when this criterion
-was first passed and is 240 seconds as of 2026-08-23.
+Amended 2026-08-23, identifier intact. It previously required the whole
+chain inside one loop, which the chain in `chapter-1-authored.md` makes
+impossible on purpose: carrying the fuse to the courtyard empties the
+building socket, so the lift is dead and the stairs cost more time than the
+loop has. Reaching the hub is what the held gate is *for*, and a criterion
+that required it in a single loop was describing a game where the Anchor
+bought nothing.
+
+The duration is not restated here. `chapter-1-authored.md` owns it.
 
 Owner: [`chapter-1-authored.md`](../design/chapter-1-authored.md)
 
@@ -122,6 +128,11 @@ Owner: [`chapter-1-authored.md`](../design/chapter-1-authored.md)
 In the same session, after `radio_code_7312` is true and
 `courtyard_gate_open` is active, the player passes the turnstile at a
 smaller elapsed `t` than on the first successful FL-13 run.
+
+Unchanged in wording, changed in what it compares. FL-13's first success now
+already carries both facts, so this compares two anchored runs and measures
+what remains: route knowledge, patrol timing, and knowing which way is fast.
+That is a narrower claim than before and a truer one.
 
 Owner: [`chapter-1-authored.md`](../design/chapter-1-authored.md)
 
@@ -138,6 +149,22 @@ loading restores those two facts and starts at the loop-start pose, not
 at the quit pose.
 
 Owner: [`save-and-session.md`](../design/save-and-session.md)
+
+## Amendments
+
+Identifiers are permanent and none has been renumbered. Criteria have been
+amended where the design they cite changed, and the change is recorded here
+rather than left to be noticed.
+
+| Date | Criterion | Change |
+| --- | --- | --- |
+| 2026-08-23 | FL-07 | "routed" became "placed in the courtyard socket", following the carried fuse in `chapter-1-authored.md` |
+| 2026-08-23 | FL-13 | No longer requires the whole chain inside one loop, which the chain now makes impossible on purpose. Requires the hub to be reached in a loop with `courtyard_gate_open` active |
+| 2026-08-23 | FL-14 | Wording unchanged. Its baseline is now an anchored run, so it measures route knowledge rather than stored facts |
+
+The evidence in `docs/playtests/five-loops-2026-08-22.md` was taken against
+the criteria as they read before these amendments. It stays true of that
+build and of those criteria, and it is not evidence for these.
 
 ## Dropped from the backlog list
 

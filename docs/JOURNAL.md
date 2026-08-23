@@ -4,6 +4,53 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-23 — REW-0005, what an Anchor is worth and the Chapter 1 chain
+
+- Date: 2026-08-23
+- Author: Claude
+- Task: REW-0005
+- Branch: `rew-0005/anchor-consequence`
+- Change: rules only, no implementation. `ADR-0008` states why an Anchor
+  exists: holding an override must release something the loop would
+  otherwise commit, and that thing must have another use. Name the
+  resource, name its two uses, or it is a shortcut. Scarcity becomes a
+  design rule with its own argument rather than a consequence of the first
+  proof's scope. `anchors.md` restates both. `chapter-1-authored.md` gains
+  the chain: a radio that broadcasts on the loop clock and costs 45 seconds
+  of a 240-second loop, one carried fuse with two exclusive sockets, a lift
+  that runs only while the fuse is in the building socket, stairs that cost
+  at least one turnstile period more, and the three loops stated as shapes
+  the space must support.
+- Verification: every new rule checked against ADR-0002, and the only
+  loop-count mentions in the design documents are the ones forbidding it.
+  Ownership checked by search: the numbers live in one document each.
+  Manual link and fence review. `git diff --check` clean. Nothing was built
+  and nothing was played, so nothing here is evidence about a build.
+- Finding that changed a decision already made: `courtyard_gate_open` does
+  not pass ADR-0008's test as the chain is implemented today. Holding the
+  gate removes two steps and leaves every route available, only faster, so
+  there is no contested resource to name. It passes under the chain this
+  task wrote. That is a design gap rather than a defect in ADR-0003 or in
+  the implementation, and it is what the Five Loops playtest measured
+  without being able to say so.
+- Second finding: FL-13 became unsatisfiable. It required the whole chain
+  inside one loop, and the chain now makes that impossible on purpose,
+  because carrying the fuse to the courtyard kills the lift. It was amended
+  with its identifier intact, along with FL-07's wording, and the
+  amendments are recorded in the acceptance document. The existing playtest
+  evidence stays true of the criteria as they read before, and is not
+  evidence for these.
+- Did not do: any implementation. No C++, no geometry, no assets. The rules
+  are deliberately ahead of the build, and `docs/CURRENT_STATUS.md` says so.
+- Handoff: REW-0004 is restored to `docs/CURRENT_TASK.md` from
+  `docs/paused/`, its resume condition met. **Its frozen out-of-scope list
+  now conflicts with what this task decided**: it excludes branching routes,
+  and the lift-or-stairs choice is one. A frozen charter is superseded
+  rather than rewritten, so the next actor should decide whether to
+  supersede REW-0004 before resuming it. That is recorded in its handoff and
+  is not resolved here.
+- Signature: Claude
+
 ## 2026-08-23 — REW-0003 complete, all sixteen FL criteria evidenced
 
 - Date: 2026-08-23

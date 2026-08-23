@@ -15,7 +15,8 @@ wrong and must be corrected.
 | `docs/adr/ADR-0004_save-and-session.md` | Accepted. Knowledge and Anchors persist. Clean save is reachable |
 | `docs/adr/ADR-0005_asset-storage.md` | Accepted. Unreal binaries via Git LFS. No `.uasset` in history yet |
 | `docs/adr/ADR-0006_cpp-and-blueprint.md` | Accepted. C++ owns FL systems; Blueprint may place and present |
-| `docs/adr/ADR-0007_camera-and-perspective.md` | Accepted. Camera is authored, follows inside a composition, player does not aim it. **Not implemented**: the build still runs the engine-template free-orbit camera |
+| `docs/adr/ADR-0007_camera-and-perspective.md` | Accepted and implemented. Camera is authored, follows inside a composition, player does not aim it |
+| `docs/adr/ADR-0008_what-an-anchor-is-worth.md` | Accepted. An Anchor must release a contested resource. `courtyard_gate_open` does not pass as implemented |
 | `Rewind/Rewind.uproject` | Unreal Engine 5.8 C++ project. Loop clock, apply order, session save, CleanSave |
 | `Rewind/Content/Maps/FiveLoops.umap` | Default map. 4C, courtyard, street, hub blockout plus radio, lock, fuse, generator, gate, patrol, turnstile, Anchor board. Outdoor run bounded and continuous; gate, turnstile and patrol barrier each span the corridor |
 | `docs/design/` | Five accepted documents. Ownership in `docs/design/README.md` |
@@ -25,7 +26,7 @@ wrong and must be corrected.
 | `docs/concepts_sandbox/legacy-rewind/` | Imported design, roadmaps and task files from the previous project, plus a verified code inventory and a conflict register. Non-authority |
 | `docs/baseline/acme-2026-08-19/` | Frozen provenance for the working model itself. Never edited, never authority |
 | `.gitignore` / `.gitattributes` | Ignore generated UE output. LFS tracks Unreal binaries. No `.uasset` committed yet |
-| `docs/CURRENT_TASK.md` | REW-0005, Draft. Design authority for the rewind's consequence and the Chapter 1 chain |
+| `docs/CURRENT_TASK.md` | REW-0004, restored from `docs/paused/` after REW-0005 completed. See its handoff: its out-of-scope list now conflicts with the chain REW-0005 decided |
 | `docs/paused/REW-0004_...md` | Paused after the camera, before the spatial rebuild. Resumes when REW-0005 states the chain the space must hold |
 | `Rewind/Source/Rewind/RewindCameraRig.cpp` | The authored camera of ADR-0007. Regions declare rotation, travel axis, bounds, dead zone and player volume. Compiled; no FL criterion re-run under it |
 | `docs/finished/REW-0003_five-loops-test-implementation.md` | Complete. Five Loops Test implementation, archived 2026-08-23 |
@@ -33,6 +34,12 @@ wrong and must be corrected.
 
 ## What does not exist
 
+- **The Chapter 1 chain as designed.** `chapter-1-authored.md` states a
+  carried fuse, two exclusive sockets, a lift that depends on one of them,
+  stairs that cost a turnstile period more, and a radio that costs 45
+  seconds. The build has none of it: the fuse is still routed with one
+  consumer, there is no lift and no stairwell. The rules are ahead of the
+  implementation, deliberately, and REW-0004 is the task that closes the gap.
 - **A packaged game build.** Editor Win64 Development compiled and run in PIE;
   a cooked package has not been made, so nothing here is evidence about a
   shipped build.
