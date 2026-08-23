@@ -114,7 +114,7 @@ acceptance and current-state document made consistent with it.
   implementation boundary without changing them.
 - [x] Write and accept the loop-termination ADR.
 - [x] Amend product, loop, Chapter 1 and acceptance authority.
-- [ ] Update current reality, durable system description and repository map.
+- [x] Update current reality, durable system description and repository map.
 - [ ] Verify the complete documentation change.
 - [ ] Archive REW-0009, restore the task template and add the signed journal
   entry.
@@ -149,22 +149,26 @@ acceptance and current-state document made consistent with it.
 
 ## Documentation Updates
 
-- [ ] `docs/CURRENT_STATUS.md`
-- [ ] `docs/SYSTEMDOC.md`
+- [x] `docs/CURRENT_STATUS.md`
+- [x] `docs/SYSTEMDOC.md`
 - [ ] `docs/JOURNAL.md`
-- [ ] `docs/FILESTRUCTURE.md` when structure changes
-- [ ] ADRs when long-lived decisions change
+- [x] `docs/FILESTRUCTURE.md` when structure changes
+- [x] ADRs when long-lived decisions change
 
 ## Handoff and Follow-ups
 
-- Current state: authority task in progress; build still timer-driven.
-- Next recommended step: implement the accepted event gates against the
-  owner-authored Handmade spatial source in a separately chartered task.
+- Current state: ADR-0009 and all owning rules are event-driven; the build
+  remains timer-driven and does not pass amended FL-02 or new FL-17/FL-18.
+- Next recommended step: activate
+  `docs/backlog/event-driven-rewind-implementation.md`, then adopt the owner
+  blockout through `docs/backlog/handmade-level-adoption.md`.
 - Blockers: none for the decision task.
 - Child tasks: none.
 - Resume condition: not applicable.
 - Open questions: final presentation of static, audio collapse and visual
   artifacts remains implementation/art scope beyond the mechanical prelude.
+  The owner map needs a stable tracked path before an immutable record cites
+  it.
 
 ## Finalize When Complete
 

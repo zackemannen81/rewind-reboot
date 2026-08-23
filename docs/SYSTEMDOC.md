@@ -13,6 +13,12 @@ input through the MCP toolset registry, and the engine automation-test toolset
 is enabled. The sections below distinguish the running proof from later art and
 product work.
 
+ADR-0009 and the owning design documents now require event-driven loop
+termination. That rule is not implemented: the running C++ proof still ends at
+240 seconds or on death, has no causal-checkpoint actor or rewind prelude, and
+does not end after a successful Anchor commit. The mismatch is an explicit
+implementation gap, not a claim that the accepted rule already works.
+
 ## The working model in one page
 
 ```text
@@ -102,6 +108,13 @@ The register records identity, never activity.
 knowledge, the one legal Anchor identifier, a USaveGame slot, and a
 reachable `Rewind.CleanSave` command. World clocks are required to read
 `URewindLoopSubsystem::GetElapsedLoopTime`, not engine time.
+
+`URewindLoopSubsystem` currently advances the loop clock until the developer
+setting reaches 240 seconds, ends with reason Timer, writes the session and
+immediately starts the next loop. Death is its only other reason. It has no
+representation for causal-contract failure, Anchor commit, a latched rewind or
+the one-to-three-second prelude required by ADR-0009. This paragraph describes
+the current implementation; it does not restate the accepted rule.
 
 `/Game/Maps/FiveLoops` loads `ARewindProofLayout`, which spawns 4C on floor 4,
 its common hallway, a cage-lift shaft, three switchback stair flights, the

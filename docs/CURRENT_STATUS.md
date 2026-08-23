@@ -1,6 +1,6 @@
 # Current Status
 
-Reality as of 2026-08-23. This document describes what exists, not what is
+Reality as of 2026-08-24. This document describes what exists, not what is
 planned. If it disagrees with the repository or the build, this document is
 wrong and must be corrected.
 
@@ -17,10 +17,11 @@ wrong and must be corrected.
 | `docs/adr/ADR-0006_cpp-and-blueprint.md` | Accepted. C++ owns FL systems; Blueprint may place and present |
 | `docs/adr/ADR-0007_camera-and-perspective.md` | Accepted and implemented. Camera is authored, follows inside a composition, player does not aim it |
 | `docs/adr/ADR-0008_what-an-anchor-is-worth.md` | Accepted and implemented in the Chapter 1 chain. Holding `courtyard_gate_open` leaves the only fuse in the building socket, releasing both the six-second lift route and immediate access to the main route |
-| `Rewind/Rewind.uproject` | Unreal Engine 5.8 C++ project. Loop clock, apply order, session save, CleanSave |
+| `docs/adr/ADR-0009_event-driven-loop-termination.md` | Accepted, not implemented. Causal-contract failure, death and successful Anchor commit replace the global timer as default loop-end classes; contract failure and commit require a one-to-three-second prelude |
+| `Rewind/Rewind.uproject` | Unreal Engine 5.8 C++ project. Loop clock, apply order, session save, CleanSave. The running loop still ends automatically at 240 seconds or on death and therefore does not yet comply with ADR-0009 |
 | `Rewind/Content/Maps/FiveLoops.umap` | Default map. C++ builds 4C on floor 4, its common hallway, cage-lift shaft, three-flight switchback stairs, entrance hallway, a 170 m service route folded around one large courtyard, and Transit Hub. Eleven playable regions declare complete cameras |
-| `docs/design/` | Five accepted documents. Ownership in `docs/design/README.md` |
-| `docs/acceptance/five-loops-test.md` | Accepted. Criteria FL-01 to FL-16. The earlier record evidences all sixteen against their pre-REW-0005 wording; REW-0007 re-verifies the rebuilt chain's touched criteria FL-01, FL-04, FL-06, FL-07, FL-09, FL-12, FL-13 and FL-14 |
+| `docs/design/` | Six accepted documents. Ownership in `docs/design/README.md`; loop and Chapter 1 rules now state event-driven rewind |
+| `docs/acceptance/five-loops-test.md` | Accepted. Criteria FL-01 to FL-18. Existing playtests remain evidence for their timer-driven builds and pre-2026-08-24 wording; no build evidence exists for amended FL-01, FL-02, FL-03 or FL-07, or for new FL-17 and FL-18 |
 | `docs/playtests/` | Evidence from named runs of named builds. The earlier complete Five Loops record remains; REW-0007 adds a Chapter 1 three-loop record for the rebuilt chain |
 | `.codex/config.toml` and `.mcp.json` | Project-scoped clients for the running editor's MCP endpoint on localhost. They resolve only while this project's editor is open |
 | `docs/EDITOR_AUTOMATION.md` | Canonical engine, editor, MCP, plugin, toolset, build and agent-playtest procedure |
@@ -45,6 +46,10 @@ wrong and must be corrected.
 
 ## What does not exist
 
+- **Event-driven rewind in the build.** There is no causal-checkpoint actor,
+  latched rewind prelude or Anchor-commit end reason. `URewindLoopSubsystem`
+  still exposes only Timer and Death and automatically resets at 240 seconds.
+  The accepted rule is ahead of implementation.
 - **Finished environment art.** The complete Chapter 1 gameplay chain now
   exists as measured C++ blockout geometry. The nine owner reference images are
   targets only; final models, materials, rain, neon treatment and prop dressing
@@ -157,6 +162,11 @@ specific thing `AGENTS.md` "Evidence Discipline" exists to prevent.
 
 ## Known gaps and risks
 
+- **Accepted loop authority and the build disagree.** ADR-0009 and the owning
+  design documents require event-driven rewind. The current C++ build and its
+  six route/clock tests still require a 240-second automatic timeout, call the
+  ground-floor fuse box a courtyard socket, and do not end on Anchor commit.
+  Existing playtests are historical evidence, not evidence for FL-17 or FL-18.
 - **The rebuilt chain answers the timing defect, not enjoyment.** The formal
   REW-0007 run measured the naive Loop B at the 240-second timeout without hub
   entry and the held-Anchor Loop C at hub entry by 90.67 seconds, at least
