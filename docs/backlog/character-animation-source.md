@@ -1,9 +1,10 @@
 # Character animation source
 
-Status: Proposed
+Status: Tier 1 activated by REW-0007; Tiers 2 and 3 remain unactivated
 Discovered: 2026-08-23, from an asset inventory by MrWhite
-Owner: unassigned
-Activated: not activated. No `REW` identity is claimed for this.
+Owner: REW-0007 for Tier 1
+Activated: Tier 1 only, 2026-08-23. No separate identity was needed because
+the frozen REW-0007 charter explicitly named this import.
 
 Where blockout character animation comes from, and how much of it enters the
 repository. Not a decision about the character.
@@ -84,6 +85,22 @@ From UAL1: `Idle_Loop`, `Idle_LookAround_Loop`, `Walk_Loop`,
 `Death01`.
 
 From UAL2: `Turn180_L`, `Turn180_R`, `IdleToLay`, `LayToIdle`.
+
+### Imported result
+
+REW-0007 imported exactly these 21 in-place clips and the two pack mannequin
+assets under `/Game/Characters/Tier1/UAL1` and
+`/Game/Characters/Tier1/UAL2`. Unreal produced 31 `.uasset` files: 21
+animation sequences plus two skeletal meshes, two skeletons, two physics
+assets and four flat materials. Their measured on-disk size is **13,220,676
+bytes (12.61 MiB)**. The original GLBs and extraction scripts remain outside
+the repository.
+
+The runtime character currently uses UAL1's mannequin, `Idle_Loop` and
+`Walk_Loop`; velocity selects idle or walk. The other 19 clips are imported
+content, not yet bound to gameplay. UAL1 and UAL2 retained separate imported
+skeleton assets. No retargeting, root-motion variant or long-term character
+source was adopted.
 
 Notes on four of them. `Fixing_Kneeling` is the fuse box and the generator.
 `Counter_*` is the code lock and the Anchor board. `IdleToLay` and `LayToIdle`
@@ -168,7 +185,8 @@ the mesh is built, not after.
 
 ## What this proposal does not decide
 
-It does not import anything, choose a character mesh, adopt a rig, decide
-between the root-motion and in-place variants, or commit to Quaternius as a
-long-term source. It does not touch art direction, which stays gated on the
-non-goal list in `docs/PROJECT_BRIEF.md`.
+Tier 1's activation chooses the pack mannequin and in-place clips only for the
+current blockout. It does not adopt either imported rig for the final
+character, activate Tier 2, choose root motion for later work, or commit to
+Quaternius as a long-term source. It does not touch art direction, which stays
+gated on the non-goal list in `docs/PROJECT_BRIEF.md`.

@@ -6,7 +6,7 @@
 #include "RewindLoopParticipant.h"
 #include "RewindFuse.generated.h"
 
-UENUM()
+UENUM(meta = (ScriptName = "RewindFuseSocketKind"))
 enum class ERewindFuseSocket : uint8
 {
 	Building,

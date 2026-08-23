@@ -5,10 +5,12 @@
 #include "GameFramework/PlayerController.h"
 #include "InputKeyEventArgs.h"
 #include "Kismet/GameplayStatics.h"
+#include "TimerManager.h"
 
 namespace
 {
 	TSet<FKey> GRewindTrackedKeys;
+	uint64 GRewindSequenceGeneration = 0;
 
 	void AddObservedState(FRewindPIEInputResult& Result, APlayerController* PlayerController)
 	{
@@ -154,6 +156,219 @@ FRewindPIEInputResult URewindPIEInputToolset::TapKey(const FString& KeyName)
 	return Result;
 }
 
+FRewindPIEInputResult URewindPIEInputToolset::HoldKeyForSeconds(
+	const FString& KeyName,
+	float DurationSeconds)
+{
+	FRewindPIEInputResult Result;
+	APlayerController* PlayerController = GetPIEPlayerController(Result);
+	if (!PlayerController)
+	{
+		return Result;
+	}
+
+	const FKey Key = ResolveKey(KeyName, Result);
+	if (!Key.IsValid() || !FMath::IsFinite(DurationSeconds) || DurationSeconds <= 0.f)
+	{
+		if (Key.IsValid())
+		{
+			Result.Key = Key.GetFName().ToString();
+			Result.Message = TEXT("DurationSeconds must be finite and greater than zero.");
+		}
+		AddObservedState(Result, PlayerController);
+		return Result;
+	}
+
+	DeliverKey(PlayerController, Key, IE_Pressed);
+	GRewindTrackedKeys.Add(Key);
+	TWeakObjectPtr<APlayerController> WeakController(PlayerController);
+	FTimerHandle ReleaseTimer;
+	PlayerController->GetWorldTimerManager().SetTimer(
+		ReleaseTimer,
+		FTimerDelegate::CreateLambda([WeakController, Key]()
+		{
+			if (APlayerController* Controller = WeakController.Get())
+			{
+				DeliverKey(Controller, Key, IE_Released);
+			}
+			GRewindTrackedKeys.Remove(Key);
+		}),
+		DurationSeconds,
+		false);
+
+	Result.bSuccess = true;
+	Result.Key = Key.GetFName().ToString();
+	Result.Message = FString::Printf(
+		TEXT("Holding %s for %.3f seconds of PIE game time."), *Result.Key, DurationSeconds);
+	AddObservedState(Result, PlayerController);
+	return Result;
+}
+
+FRewindPIEInputResult URewindPIEInputToolset::QueueInputSequence(const FString& Sequence)
+{
+	FRewindPIEInputResult Result;
+	APlayerController* PlayerController = GetPIEPlayerController(Result);
+	if (!PlayerController)
+	{
+		return Result;
+	}
+
+	TArray<FString> Tokens;
+	Sequence.ParseIntoArray(Tokens, TEXT(","), true);
+	if (Tokens.IsEmpty())
+	{
+		Result.Message = TEXT("Sequence must contain at least one comma-separated action.");
+		AddObservedState(Result, PlayerController);
+		return Result;
+	}
+
+	struct FQueuedAction
+	{
+		FKey Key;
+		float StartSeconds = 0.f;
+		float DurationSeconds = 0.f;
+		bool bTap = false;
+	};
+	TArray<FQueuedAction> Actions;
+	float CursorSeconds = 0.f;
+	for (FString Token : Tokens)
+	{
+		Token.TrimStartAndEndInline();
+		FString Name;
+		FString DurationText;
+		const bool bHasDuration = Token.Split(TEXT(":"), &Name, &DurationText);
+		if (!bHasDuration)
+		{
+			Name = Token;
+		}
+		Name.TrimStartAndEndInline();
+		DurationText.TrimStartAndEndInline();
+
+		if (Name.Equals(TEXT("Wait"), ESearchCase::IgnoreCase))
+		{
+			const float WaitSeconds = FCString::Atof(*DurationText);
+			if (!bHasDuration || !FMath::IsFinite(WaitSeconds) || WaitSeconds <= 0.f)
+			{
+				Result.Message = FString::Printf(TEXT("Invalid wait token '%s'. Use Wait:seconds."), *Token);
+				AddObservedState(Result, PlayerController);
+				return Result;
+			}
+			CursorSeconds += WaitSeconds;
+			continue;
+		}
+
+		const FKey Key = ResolveKey(Name, Result);
+		if (!Key.IsValid())
+		{
+			AddObservedState(Result, PlayerController);
+			return Result;
+		}
+
+		if (bHasDuration)
+		{
+			const float HoldSeconds = FCString::Atof(*DurationText);
+			if (!FMath::IsFinite(HoldSeconds) || HoldSeconds <= 0.f)
+			{
+				Result.Message = FString::Printf(TEXT("Invalid hold token '%s'. Duration must be greater than zero."), *Token);
+				AddObservedState(Result, PlayerController);
+				return Result;
+			}
+			Actions.Add({Key, CursorSeconds, HoldSeconds, false});
+			CursorSeconds += HoldSeconds;
+		}
+		else
+		{
+			Actions.Add({Key, CursorSeconds, 0.f, true});
+			CursorSeconds += 0.1f;
+		}
+	}
+
+	const uint64 Generation = ++GRewindSequenceGeneration;
+	TWeakObjectPtr<APlayerController> WeakController(PlayerController);
+	for (const FQueuedAction& Action : Actions)
+	{
+		auto Schedule = [PlayerController](float DelaySeconds, FTimerDelegate&& Delegate)
+		{
+			if (DelaySeconds <= KINDA_SMALL_NUMBER)
+			{
+				Delegate.ExecuteIfBound();
+				return;
+			}
+			FTimerHandle Timer;
+			PlayerController->GetWorldTimerManager().SetTimer(Timer, MoveTemp(Delegate), DelaySeconds, false);
+		};
+
+		Schedule(Action.StartSeconds, FTimerDelegate::CreateLambda(
+			[WeakController, Action, Generation]()
+			{
+				if (Generation != GRewindSequenceGeneration)
+				{
+					return;
+				}
+				if (APlayerController* Controller = WeakController.Get())
+				{
+					DeliverKey(Controller, Action.Key, IE_Pressed);
+					if (Action.bTap)
+					{
+						DeliverKey(Controller, Action.Key, IE_Released);
+					}
+					else
+					{
+						GRewindTrackedKeys.Add(Action.Key);
+					}
+				}
+			}));
+
+		if (!Action.bTap)
+		{
+			Schedule(Action.StartSeconds + Action.DurationSeconds,
+				FTimerDelegate::CreateLambda([WeakController, Action, Generation]()
+				{
+					if (Generation != GRewindSequenceGeneration)
+					{
+						return;
+					}
+					if (APlayerController* Controller = WeakController.Get())
+					{
+						DeliverKey(Controller, Action.Key, IE_Released);
+					}
+					GRewindTrackedKeys.Remove(Action.Key);
+				}));
+		}
+	}
+
+	Result.bSuccess = true;
+	Result.Message = FString::Printf(
+		TEXT("Queued %d input action(s) across %.3f seconds of PIE game time."),
+		Actions.Num(), CursorSeconds);
+	AddObservedState(Result, PlayerController);
+	return Result;
+}
+
+FRewindPIEInputResult URewindPIEInputToolset::ExecuteProjectConsoleCommand(const FString& Command)
+{
+	FRewindPIEInputResult Result;
+	APlayerController* PlayerController = GetPIEPlayerController(Result);
+	if (!PlayerController)
+	{
+		return Result;
+	}
+
+	const FString Trimmed = Command.TrimStartAndEnd();
+	if (!Trimmed.StartsWith(TEXT("Rewind."), ESearchCase::CaseSensitive))
+	{
+		Result.Message = TEXT("Only project-owned Rewind.* console commands are allowed.");
+		AddObservedState(Result, PlayerController);
+		return Result;
+	}
+
+	PlayerController->ConsoleCommand(Trimmed, true);
+	Result.bSuccess = true;
+	Result.Message = FString::Printf(TEXT("Executed PIE console command: %s"), *Trimmed);
+	AddObservedState(Result, PlayerController);
+	return Result;
+}
+
 FRewindPIEInputResult URewindPIEInputToolset::ReleaseAllKeys()
 {
 	FRewindPIEInputResult Result;
@@ -163,6 +378,7 @@ FRewindPIEInputResult URewindPIEInputToolset::ReleaseAllKeys()
 		return Result;
 	}
 
+	++GRewindSequenceGeneration;
 	TArray<FKey> KeysToRelease = GRewindTrackedKeys.Array();
 	for (const FKey& Key : KeysToRelease)
 	{
@@ -193,5 +409,6 @@ FRewindPIEInputResult URewindPIEInputToolset::GetPlayerState()
 
 void URewindPIEInputToolset::ClearTrackedKeys()
 {
+	++GRewindSequenceGeneration;
 	GRewindTrackedKeys.Reset();
 }

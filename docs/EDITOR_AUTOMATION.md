@@ -49,6 +49,9 @@ The project-owned editor-only module `RewindEditor` registers
 - `PressKey`
 - `ReleaseKey`
 - `TapKey`
+- `HoldKeyForSeconds`
+- `QueueInputSequence`
+- `ExecuteProjectConsoleCommand`, restricted to `Rewind.*`
 - `ReleaseAllKeys`
 
 The server uses tool search, so its top-level MCP surface is intentionally
@@ -102,6 +105,9 @@ are the readiness evidence.
 5. Use Unreal key names such as `W`, `A`, `S`, `D`, `E`, `SpaceBar`, `Zero`,
    `One` through `Nine`. Use `PressKey`, allow the world to tick, then use
    `ReleaseKey`; use `TapKey` for actions that only need a pressed edge.
+   `HoldKeyForSeconds` releases on PIE game time. For measured routes, prefer
+   one `QueueInputSequence` call (`W:1.0,E,Wait:2.0,A:1.5`) so MCP response
+   latency does not advance the loop between individual commands.
 6. Read `GetPlayerState` again and collect the task's required state or
    `LogRewind` evidence through `EditorToolset.LogsToolset`.
 7. Capture the PIE viewport when visual evidence materially helps the gate.

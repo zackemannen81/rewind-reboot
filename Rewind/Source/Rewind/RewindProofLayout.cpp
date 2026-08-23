@@ -3,14 +3,18 @@
 #include "RewindAnchorBoard.h"
 #include "RewindCameraRegion.h"
 #include "RewindCameraRig.h"
+#include "RewindChapter1Metrics.h"
 #include "RewindCodeLock.h"
 #include "RewindCourtyardGate.h"
 #include "RewindFourCBlockout.h"
 #include "RewindFuse.h"
 #include "RewindFuseSocket.h"
 #include "RewindGenerator.h"
+#include "RewindLift.h"
+#include "RewindLog.h"
 #include "RewindPatrol.h"
 #include "RewindRadio.h"
+#include "RewindStairwell.h"
 #include "RewindTurnstile.h"
 #include "Components/DirectionalLightComponent.h"
 #include "Components/PointLightComponent.h"
@@ -33,7 +37,7 @@ ARewindProofLayout::ARewindProofLayout()
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> CubeFinder(TEXT("/Engine/BasicShapes/Cube.Cube"));
 	UStaticMesh* Cube = CubeFinder.Succeeded() ? CubeFinder.Object : nullptr;
 
-	auto AddFloor = [this, Cube, Root](FName Name, FVector Location, FVector SizeCm)
+	auto AddBox = [this, Cube, Root](FName Name, FVector Location, FVector SizeCm, bool bVisible = true)
 	{
 		UStaticMeshComponent* Mesh = CreateDefaultSubobject<UStaticMeshComponent>(Name);
 		Mesh->SetupAttachment(Root);
@@ -41,42 +45,72 @@ ARewindProofLayout::ARewindProofLayout()
 		Mesh->SetRelativeScale3D(SizeCm / 100.f);
 		Mesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 		Mesh->SetCollisionProfileName(UCollisionProfile::BlockAll_ProfileName);
+		Mesh->SetVisibility(bVisible);
 		if (Cube)
 		{
 			Mesh->SetStaticMesh(Cube);
 		}
 	};
 
-	// The walkable run is continuous from the 4C door at X=400 to the hub end at
-	// X=3250. The courtyard slab covers 400 to 1450 so there is no gap under the
-	// code lock at X=400 or under the gate at X=1420.
-	AddFloor(TEXT("CourtyardFloor"), FVector(925.f, 0.f, -5.f), FVector(1050.f, 800.f, 10.f));
-	AddFloor(TEXT("StreetFloor"), FVector(1900.f, 0.f, -5.f), FVector(900.f, 800.f, 10.f));
-	AddFloor(TEXT("HubFloor"), FVector(2800.f, 0.f, -5.f), FVector(900.f, 800.f, 10.f));
+	const float FourthFloor = static_cast<float>(RewindChapter1Metrics::FourthFloorZ);
 
-	// The outdoor run is bounded on both sides and at the far end. Without this
-	// the courtyard, street and hub are slabs in a void: the player walks off,
-	// nothing catches them, and no FL criterion can be reached from there.
-	// Falling is not a death rule; the space simply has no hole in it.
-	const float EdgeCenterX = 1825.f;
-	const float EdgeLengthX = 2850.f;
-	const float EdgeHeight = 300.f;
-	const float EdgeThickness = 20.f;
-	const float EdgeY = 390.f;
+	// Owner top plan: stairs, lift and 4C form the upper row; their common hall
+	// is the parallel rectangle below. 4C crosses that shared wall at its own
+	// door, while the hall/lift camera is authored from the opposite side.
+	AddBox(TEXT("FourthFloorHallway"), FVector(2600.f, -300.f, FourthFloor - 5.f),
+		FVector(5200.f, 600.f, 10.f));
 
-	// Camera side: collision without visibility, for the same reason 4C has no
-	// fourth wall. It still stops the player leaving the run.
-	AddFloor(TEXT("EdgeWall_YNeg"), FVector(EdgeCenterX, -EdgeY, EdgeHeight * 0.5f),
-		FVector(EdgeLengthX, EdgeThickness, EdgeHeight));
-	if (UStaticMeshComponent* NearEdge = Cast<UStaticMeshComponent>(
-			GetDefaultSubobjectByName(TEXT("EdgeWall_YNeg"))))
-	{
-		NearEdge->SetVisibility(false);
-	}
-	AddFloor(TEXT("EdgeWall_YPos"), FVector(EdgeCenterX, EdgeY, EdgeHeight * 0.5f),
-		FVector(EdgeLengthX, EdgeThickness, EdgeHeight));
-	AddFloor(TEXT("EdgeWall_XEnd"), FVector(3240.f, 0.f, EdgeHeight * 0.5f),
-		FVector(EdgeThickness, 800.f, EdgeHeight));
+	// Bottom plan: both vertical routes meet a long hall whose fuse-box end
+	// opens into one large courtyard. The learned route runs straight along the
+	// courtyard's top edge to Transit. The fuse route is a 170 m U-shaped
+	// service walk around the patrol yard to a generator near the far edge, then
+	// back again; it remains a branch rather than an incidental stop.
+	AddBox(TEXT("EntranceHallway"), FVector(755.f, -300.f, -5.f),
+		FVector(6710.f, 600.f, 10.f));
+	AddBox(TEXT("GroundFuseBoxPanel"), FVector(3900.f, -10.f, 100.f),
+		FVector(140.f, 20.f, 180.f));
+	AddBox(TEXT("CourtyardMain"), FVector(8110.f, 0.f, -5.f),
+		FVector(8000.f, 800.f, 10.f));
+	AddBox(TEXT("HubFloor"), FVector(13010.f, 0.f, -5.f),
+		FVector(1800.f, 800.f, 10.f));
+	AddBox(TEXT("PowerBranchLeft"), FVector(4510.f, -2777.5f, -5.f),
+		FVector(800.f, 5555.f, 10.f));
+	AddBox(TEXT("PowerBranchBottom"), FVector(7755.f, -5555.f, -5.f),
+		FVector(6490.f, 800.f, 10.f));
+	AddBox(TEXT("PowerBranchRight"), FVector(11000.f, -3077.5f, -5.f),
+		FVector(800.f, 4955.f, 10.f));
+	AddBox(TEXT("PatrolYard"), FVector(7755.f, -2777.5f, -8.f),
+		FVector(5690.f, 4755.f, 6.f));
+
+	// Narrow collision edges keep the branch honest around the yard. The lower
+	// outer edge is hidden because the courtyard camera is authored from there.
+	constexpr float WallHeight = 300.f;
+	constexpr float WallThickness = 20.f;
+	AddBox(TEXT("MainRouteFarWall"), FVector(9010.f, 390.f, WallHeight * .5f),
+		FVector(9800.f, WallThickness, WallHeight));
+	AddBox(TEXT("BranchInnerTop"), FVector(7755.f, -410.f, WallHeight * .5f),
+		FVector(5690.f, WallThickness, WallHeight));
+	AddBox(TEXT("GeneratorDeadEnd"), FVector(11000.f, -410.f, WallHeight * .5f),
+		FVector(800.f, WallThickness, WallHeight));
+	AddBox(TEXT("HubNearWall"), FVector(12650.f, -410.f, WallHeight * .5f),
+		FVector(2500.f, WallThickness, WallHeight), false);
+	AddBox(TEXT("BranchInnerLeft"), FVector(4910.f, -2777.5f, WallHeight * .5f),
+		FVector(WallThickness, 4755.f, WallHeight));
+	AddBox(TEXT("BranchInnerBottom"), FVector(7755.f, -5155.f, WallHeight * .5f),
+		FVector(5690.f, WallThickness, WallHeight));
+	AddBox(TEXT("BranchInnerRight"), FVector(10600.f, -2777.5f, WallHeight * .5f),
+		FVector(WallThickness, 4755.f, WallHeight));
+	// Leave the upper 400 cm open where the entrance hall feeds the main route
+	// and the service branch. The wall begins below that junction and still
+	// bounds the full long leg of the U.
+	AddBox(TEXT("BranchOuterLeft"), FVector(4110.f, -2977.5f, WallHeight * .5f),
+		FVector(WallThickness, 5155.f, WallHeight));
+	AddBox(TEXT("BranchOuterBottom"), FVector(7755.f, -5955.f, WallHeight * .5f),
+		FVector(7290.f, WallThickness, WallHeight), false);
+	AddBox(TEXT("BranchOuterRight"), FVector(11400.f, -3077.5f, WallHeight * .5f),
+		FVector(WallThickness, 5755.f, WallHeight));
+	AddBox(TEXT("HubEnd"), FVector(13900.f, 0.f, WallHeight * .5f),
+		FVector(WallThickness, 800.f, WallHeight));
 }
 
 void ARewindProofLayout::EnsureContents()
@@ -103,19 +137,54 @@ void ARewindProofLayout::EnsureContents()
 	}
 	if (Blockout)
 	{
+		Blockout->SetActorLocationAndRotation(FVector(4000.f, 500.f, 0.f),
+			FRotator::ZeroRotator, false, nullptr, ETeleportType::TeleportPhysics);
 		Blockout->EnsureLoopStart();
 	}
 
-	Radio = EnsureActor(Radio, FVector(-180.f, -220.f, 80.f));
-	Board = EnsureActor(Board, FVector(0.f, -360.f, 100.f));
+	const float FourthFloor = static_cast<float>(RewindChapter1Metrics::FourthFloorZ);
+	auto Place = [](AActor* Actor, const FVector& Location, const FRotator& Rotation = FRotator::ZeroRotator)
+	{
+		if (Actor)
+		{
+			Actor->SetActorLocationAndRotation(Location, Rotation, false, nullptr,
+				ETeleportType::TeleportPhysics);
+		}
+	};
 
-	// The fuse rests in 4C at Baseline, per `chapter-1-authored.md`.
-	Fuse = EnsureActor(Fuse, FVector(-180.f, 220.f, 80.f));
-	CodeLock = EnsureActor(CodeLock, FVector(400.f, 0.f, 120.f));
-	Generator = EnsureActor(Generator, FVector(800.f, -220.f, 50.f));
-	Gate = EnsureActor(Gate, FVector(1420.f, 0.f, 150.f));
-	Patrol = EnsureActor(Patrol, FVector(1900.f, 0.f, 0.f));
-	Turnstile = EnsureActor(Turnstile, FVector(2460.f, 0.f, 110.f));
+	Radio = EnsureActor(Radio, FVector(4400.f, 200.f, FourthFloor + 95.f));
+	Place(Radio, FVector(4400.f, 200.f, FourthFloor + 95.f));
+
+	// The fuse rests in 4C at Baseline, then chooses between the lift socket on
+	// the fourth-floor landing and the generator socket at the branch end.
+	Fuse = EnsureActor(Fuse, FVector(4900.f, 150.f, FourthFloor + 90.f));
+	Place(Fuse, FVector(4900.f, 150.f, FourthFloor + 90.f));
+	CodeLock = EnsureActor(CodeLock, FVector(3400.f, 0.f, FourthFloor + 120.f));
+	Place(CodeLock, FVector(3400.f, 0.f, FourthFloor + 120.f), FRotator(0.f, 90.f, 0.f));
+
+	Lift = EnsureActor(Lift, FVector(2200.f, 100.f, 0.f));
+	Place(Lift, FVector(2200.f, 100.f, 0.f));
+	if (Lift)
+	{
+		Lift->Configure(RewindChapter1Metrics::FourthFloorZ, 0.0);
+	}
+	Stairwell = EnsureActor(Stairwell, FVector(1000.f, 200.f, 0.f));
+	Place(Stairwell, FVector(1000.f, 200.f, 0.f), FRotator(0.f, 180.f, 0.f));
+
+	Generator = EnsureActor(Generator, FVector(11000.f, -600.f, 50.f));
+	Place(Generator, FVector(11000.f, -600.f, 50.f));
+	Board = EnsureActor(Board, FVector(11000.f, -850.f, 100.f));
+	Place(Board, FVector(11000.f, -850.f, 100.f));
+	Gate = EnsureActor(Gate, FVector(5510.f, 0.f, 150.f));
+	Place(Gate, FVector(5510.f, 0.f, 150.f));
+	Patrol = EnsureActor(Patrol, FVector(8510.f, 0.f, 0.f));
+	Place(Patrol, FVector(8510.f, 0.f, 0.f));
+	Turnstile = EnsureActor(Turnstile, FVector(12110.f, 0.f, 110.f));
+	Place(Turnstile, FVector(12110.f, 0.f, 110.f));
+	if (Turnstile)
+	{
+		Turnstile->ConfigureHubDirection(FVector(1.f, 0.f, 0.f));
+	}
 
 	EnsureFuseSockets();
 
@@ -127,6 +196,14 @@ void ARewindProofLayout::EnsureContents()
 	EnsureLights();
 	EnsureExposure();
 	EnsureCamera();
+
+	RewindLog::Baseline(FString::Printf(
+		TEXT("Chapter1 routes: lift %.2fs; stairs minimum %.2fs; delta %.2fs; LoopB model %.2fs; LoopC model %.2fs"),
+		RewindChapter1Metrics::LiftTravelSeconds,
+		RewindChapter1Metrics::StairMinimumSeconds(),
+		RewindChapter1Metrics::StairMinimumSeconds() - RewindChapter1Metrics::LiftTravelSeconds,
+		RewindChapter1Metrics::FuseToCourtyardRouteSeconds(),
+		RewindChapter1Metrics::LearnedRouteSeconds()));
 }
 
 void ARewindProofLayout::EnsureFuseSockets()
@@ -143,31 +220,32 @@ void ARewindProofLayout::EnsureFuseSockets()
 	// Two sockets of one class, so EnsureActor cannot be used: it finds by type
 	// and would hand back the same actor twice.
 	//
-	// Both positions are provisional. The building socket belongs beside the
-	// lift, and the landing and shaft do not exist yet; it sits in 4C until the
-	// space is built. The courtyard socket is kept clear of the generator so
-	// that seating the fuse and starting the generator remain two separate
-	// interactions, which is what makes the sequence legible.
+	// The building socket is on the 4C landing beside the shaft. The courtyard
+	// socket is kept clear of the generator so seating the fuse and starting it
+	// remain two readable interactions.
 	auto EnsureSocket = [&](TObjectPtr<ARewindFuseSocket>& Cache, ERewindFuseSocket Which, const FVector& Where)
 	{
-		if (Cache)
+		if (!Cache)
 		{
-			return;
+			if (ARewindFuseSocket* Existing = ARewindFuseSocket::Find(World, Which))
+			{
+				Cache = Existing;
+			}
 		}
-		if (ARewindFuseSocket* Existing = ARewindFuseSocket::Find(World, Which))
+		if (!Cache)
 		{
-			Cache = Existing;
-			return;
+			Cache = World->SpawnActor<ARewindFuseSocket>(Where, FRotator::ZeroRotator, Params);
 		}
-		Cache = World->SpawnActor<ARewindFuseSocket>(Where, FRotator::ZeroRotator, Params);
 		if (Cache)
 		{
 			Cache->Configure(Which);
+			Cache->SetActorLocation(Where, false, nullptr, ETeleportType::TeleportPhysics);
 		}
 	};
 
-	EnsureSocket(BuildingSocket, ERewindFuseSocket::Building, FVector(300.f, 220.f, 80.f));
-	EnsureSocket(CourtyardSocket, ERewindFuseSocket::Courtyard, FVector(560.f, -220.f, 60.f));
+	EnsureSocket(BuildingSocket, ERewindFuseSocket::Building,
+		FVector(2450.f, 0.f, static_cast<float>(RewindChapter1Metrics::FourthFloorZ + 80.0)));
+	EnsureSocket(CourtyardSocket, ERewindFuseSocket::Courtyard, FVector(3900.f, -180.f, 60.f));
 }
 
 void ARewindProofLayout::EnsureCamera()
@@ -181,10 +259,11 @@ void ARewindProofLayout::EnsureCamera()
 	FActorSpawnParameters Params;
 	Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
-	// One region per authored area, matching the blockout this rebuild starts
-	// from. `camera-and-movement.md` requires every playable location to be in
-	// exactly one region, so these spans are contiguous and cover the whole run
-	// from 4C at X=-400 to the hub end at X=3250.
+	// `camera-and-movement.md` requires every playable location to declare its
+	// complete authored camera. The owner's two plan drawings provide three
+	// opposing compositions: 4C/stairs from +Y, both common halls from -Y, and
+	// the courtyard from +Y. The large courtyard is one authored room even
+	// though its collision makes a U-shaped service route around the patrol yard.
 	bool bHasRegion = false;
 	for (TActorIterator<ARewindCameraRegion> It(World); It; ++It)
 	{
@@ -196,28 +275,71 @@ void ARewindProofLayout::EnsureCamera()
 		struct FRegionSpec
 		{
 			const TCHAR* Name;
-			double CentreX;
-			double HalfX;
+			FVector Centre;
+			FVector Extent;
+			ERewindTravelAxis Axis;
+			FVector CameraOffset;
+			FRotator CameraRotation;
+			double Padding;
+			double DeadZone;
+			bool bCut;
 		};
-		// Contiguous by construction: 4C -400..400, courtyard 400..1450,
-		// street 1450..2350, hub 2350..3250.
+		const FVector TopOffset(0.f, 1800.f, 300.f);
+		const FRotator TopRotation(-6.f, -90.f, 0.f);
+		const FVector HallOffset(0.f, -1800.f, 300.f);
+		const FRotator HallRotation(-6.f, 90.f, 0.f);
+		const FVector CourtyardOffset(0.f, 4000.f, 700.f);
+		const FRotator CourtyardRotation(-8.f, -90.f, 0.f);
 		const FRegionSpec Specs[] = {
-			{ TEXT("Apartment4C"), 0.0,    400.0 },
-			{ TEXT("Courtyard"),   925.0,  525.0 },
-			{ TEXT("Street"),      1900.0, 450.0 },
-			{ TEXT("TransitHub"),  2800.0, 450.0 },
+			{ TEXT("Apartment4C"), FVector(4000.f, 500.f, 1350.f), FVector(1200.f, 500.f, 250.f),
+				ERewindTravelAxis::X, TopOffset, TopRotation, 300.0, 220.0, false },
+			{ TEXT("FourthFloorHallway"), FVector(2600.f, -300.f, 1350.f), FVector(2600.f, 300.f, 250.f),
+				ERewindTravelAxis::X, HallOffset, HallRotation, 320.0, 220.0, true },
+			{ TEXT("LiftShaft"), FVector(2200.f, 100.f, 700.f), FVector(250.f, 260.f, 400.f),
+				ERewindTravelAxis::X, HallOffset, HallRotation, 100.0, 80.0, true },
+			{ TEXT("Stairs4To3"), FVector(-680.f, 0.f, 1097.5f), FVector(1680.f, 220.f, 202.5f),
+				ERewindTravelAxis::X, TopOffset, TopRotation, 300.0, 220.0, false },
+			{ TEXT("Floor3Landing"), FVector(-2360.f, 200.f, 850.f), FVector(250.f, 400.f, 80.f),
+				ERewindTravelAxis::X, TopOffset, TopRotation, 140.0, 120.0, false },
+			{ TEXT("Stairs3To2"), FVector(-680.f, 400.f, 697.5f), FVector(1680.f, 220.f, 202.5f),
+				ERewindTravelAxis::X, TopOffset, TopRotation, 300.0, 220.0, false },
+			{ TEXT("Floor2Landing"), FVector(1000.f, 200.f, 450.f), FVector(250.f, 400.f, 80.f),
+				ERewindTravelAxis::X, TopOffset, TopRotation, 140.0, 120.0, false },
+			{ TEXT("Stairs2ToEntrance"), FVector(-680.f, 0.f, 297.5f), FVector(1680.f, 220.f, 202.5f),
+				ERewindTravelAxis::X, TopOffset, TopRotation, 300.0, 220.0, false },
+			{ TEXT("EntranceHallway"), FVector(755.f, -300.f, 150.f), FVector(3355.f, 300.f, 150.f),
+				ERewindTravelAxis::X, HallOffset, HallRotation, 400.0, 240.0, true },
+			{ TEXT("Courtyard"), FVector(8110.f, -2777.5f, 150.f), FVector(4000.f, 3177.5f, 150.f),
+				ERewindTravelAxis::X, CourtyardOffset, CourtyardRotation, 500.0, 260.0, true },
+			{ TEXT("TransitHub"), FVector(13010.f, 0.f, 150.f), FVector(900.f, 400.f, 150.f),
+				ERewindTravelAxis::X, TopOffset, TopRotation, 220.0, 180.0, false },
 		};
 
 		for (const FRegionSpec& Spec : Specs)
 		{
 			ARewindCameraRegion* Region = World->SpawnActor<ARewindCameraRegion>(
-				FVector(Spec.CentreX, 0.f, 150.f), FRotator::ZeroRotator, Params);
+				Spec.Centre, FRotator::ZeroRotator, Params);
 			if (Region)
 			{
-				Region->Configure(FName(Spec.Name), FVector(Spec.HalfX, 380.f, 400.f));
+				Region->Configure(FName(Spec.Name), Spec.Extent, Spec.Axis,
+					Spec.CameraOffset, Spec.CameraRotation, Spec.Padding,
+					Spec.DeadZone, Spec.bCut);
 			}
 		}
 	}
+
+	int32 RegionCount = 0;
+	for (TActorIterator<ARewindCameraRegion> It(World); It; ++It)
+	{
+		++RegionCount;
+		RewindLog::Baseline(FString::Printf(
+			TEXT("Camera region: %s axis=%s extent=(%.0f,%.0f,%.0f) padding=%.0f deadzone=%.0f"),
+			*It->GetRegionName().ToString(),
+			It->GetTravelAxis() == ERewindTravelAxis::X ? TEXT("X") : TEXT("Y"),
+			It->GetPlayerVolumeExtent().X, It->GetPlayerVolumeExtent().Y,
+			It->GetPlayerVolumeExtent().Z, It->GetTravelPadding(), It->GetDeadZone()));
+	}
+	RewindLog::Baseline(FString::Printf(TEXT("Camera regions: %d authored"), RegionCount));
 
 	if (!CameraRig)
 	{

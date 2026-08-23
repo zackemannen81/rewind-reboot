@@ -7,11 +7,11 @@ writes them.
 
 An Unreal Engine 5.8 C++ project exists at `Rewind/Rewind.uproject`. The loop
 clock, ordered world-state apply, session knowledge, one Anchor, clean save,
-authored camera, proof blockout, loop-clocked radio and contested fuse are
-implemented. An editor-only module exposes project PIE input through the MCP
-toolset registry, and the engine automation-test toolset is enabled. The lift,
-stairs and rebuilt Chapter 1 space are not. The sections below distinguish the
-running proof from the working model it must grow into.
+authored camera, loop-clocked radio, contested fuse, lift, stairs and rebuilt
+Chapter 1 blockout are implemented. An editor-only module exposes project PIE
+input through the MCP toolset registry, and the engine automation-test toolset
+is enabled. The sections below distinguish the running proof from later art and
+product work.
 
 ## The working model in one page
 
@@ -103,9 +103,13 @@ knowledge, the one legal Anchor identifier, a USaveGame slot, and a
 reachable `Rewind.CleanSave` command. World clocks are required to read
 `URewindLoopSubsystem::GetElapsedLoopTime`, not engine time.
 
-`/Game/Maps/FiveLoops` loads `ARewindProofLayout`, which spawns the existing
-4C, courtyard, street and hub blockout plus radio, code lock, one fuse, two
-sockets, generator, gate, patrol, turnstile and an Anchor board. LoopWorld
+`/Game/Maps/FiveLoops` loads `ARewindProofLayout`, which spawns 4C on floor 4,
+its common hallway, a cage-lift shaft, three switchback stair flights, the
+entrance hallway, one large courtyard and Transit Hub. The 170 m service route
+folds around the courtyard patrol yard and rejoins the main route at the
+generator instead of becoming a detached corridor. The layout also spawns the
+radio, code lock, one fuse, two sockets, generator, gate, patrol, turnstile and
+an Anchor board. LoopWorld
 participants restore from baseline on loop start; the gate honors
 `courtyard_gate_open`. Patrol, turnstile and radio phase read elapsed loop
 time. Interact is E. Digits type a code at the lock. The board commits the
@@ -123,8 +127,23 @@ The fuse is one LoopWorld actor whose state is at rest, carried, seated in the
 building socket or seated in the courtyard socket. It owns that state, so two
 sockets cannot both be occupied. Carrying disables its collision and follows
 the player; loop start restores it to the authored 4C position. The generator
-starts only while the fuse is in the courtyard socket. The building socket is
-provisional until a lift exists beside it.
+starts only while the fuse is in the courtyard socket. The cage lift runs only
+while that same fuse is in the building socket. It carries the player through
+1200 cm in six seconds; otherwise it refuses the interaction. The stairs always
+work: three flights of 24 physical steps span the same floor transitions. Their
+10,080 cm run is 50.40 seconds at the authored 200 cm/s walk speed, 44.40
+seconds more than the lift and therefore more than one 30-second turnstile
+period.
+
+The courtyard power branch is 17,000 cm one way. A Loop B route that carries
+the fuse there, opens and commits the gate, then returns by stairs models at
+260.40 seconds against the 240-second loop. With the held gate, the fuse stays
+in the building socket and the lift-plus-main learned route models at 46.00
+seconds. These construction values live together in
+`RewindChapter1Metrics.h` and are asserted by the named Chapter 1 automation
+tests. Formal PIE measured 55.67 seconds from the fourth floor to the entrance
+by stairs, 6.00 by lift, no Loop B hub entry by the 240-second timeout, and a
+Loop C hub entry at 90.67 seconds.
 
 The gate, the turnstile and the patrol barrier each span the walkable
 corridor, so a closed one cannot be walked around. The outdoor run is
@@ -139,18 +158,31 @@ a stamp there would name the previous loop's final time. Transitions are
 written on the tick that first observes them, so the log resolves state
 changes to a tick rather than to an instant.
 
-All sixteen FL criteria carried named evidence as of 2026-08-23, against
-the criteria as they read then. `docs/playtests/` owns evidence; this
-document owns what the systems do.
+All sixteen FL criteria carried named evidence as of 2026-08-23, against the
+criteria as they read then. REW-0007's three-loop record separately
+re-verifies the rebuilt chain's touched criteria: FL-01, FL-04, FL-06, FL-07,
+FL-09, FL-12, FL-13 and FL-14. `docs/playtests/` owns evidence; this document
+owns what the systems do.
 
-The remaining rules are ahead of the implementation.
-`docs/design/chapter-1-authored.md` states a lift that runs only while the fuse
-is in the building socket, stairs that cost at least one turnstile period more,
-and a three-loop chain in which holding the gate releases the fuse for the
-lift. The lift, stairs and rebuilt route are not built. Therefore
-`courtyard_gate_open` still does not pass ADR-0008's resource-and-two-uses test
-in the running proof even though the radio and fuse model needed for that chain
-now exist.
+The rebuilt chain makes `courtyard_gate_open` pass ADR-0008's
+resource-and-two-uses test. The Anchor does not grant a new action: it removes
+the 170 m generator branch from the next loop. That releases the one fuse for
+the building socket, which in turn releases the lift and enough loop time to
+reach Transit Hub.
+
+Eleven authored camera regions cover 4C, the fourth-floor common hallway, the
+lift shaft, all three stair flights, both switchback landings, the entrance
+hallway, the complete courtyard and Transit Hub. Each declares its player
+volume, travel axis, offset, rotation, padding, dead zone and transition mode.
+Separate switchback landing volumes allow the player to cross between the
+flights' alternating Y lanes without violating the one-region rule. The large
+courtyard composition holds the gate, generator, patrol yard and Transit route
+in the same spatial field, matching the settled ground-floor plan.
+
+The runtime player uses the imported CC0 UAL1 pack mannequin. `Idle_Loop` and
+`Walk_Loop` switch from CharacterMovement velocity; 19 additional Tier 1
+in-place clips are imported but not bound. UAL1 and UAL2 remain separate
+imported skeletons. The 31 Tier 1 assets measure 12.61 MiB under Git LFS.
 
 The previous Unity project, inventoried in
 `docs/concepts_sandbox/legacy-rewind/code-inventory.md`, contained manager
@@ -171,7 +203,9 @@ deliver simulated `FInputKeyEventArgs` through `APlayerController::InputKey`,
 so the game's normal input mappings receive them without desktop focus or
 Windows input emulation. It tracks keys pressed through the toolset, exposes
 their state with the possessed pawn transform, releases them explicitly, and
-clears its bookkeeping when PIE ends.
+clears its bookkeeping when PIE ends. Exact game-time holds and queued input
+sequences keep measured routes independent of MCP response latency. Console
+execution is restricted to project-owned `Rewind.*` commands.
 
 `AutomationTestToolset` is enabled beside `EditorToolset`. The running MCP
 server therefore owns the complete agent loop: editor and log inspection,

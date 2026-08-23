@@ -13,28 +13,31 @@ wrong and must be corrected.
 | `docs/adr/ADR-0002_world-determinism.md` | Accepted. World does not learn the player |
 | `docs/adr/ADR-0003_anchor-semantics.md` | Accepted. One player-chosen gate override. No Insight in this proof |
 | `docs/adr/ADR-0004_save-and-session.md` | Accepted. Knowledge and Anchors persist. Clean save is reachable |
-| `docs/adr/ADR-0005_asset-storage.md` | Accepted. Unreal binaries via Git LFS. No `.uasset` in history yet |
+| `docs/adr/ADR-0005_asset-storage.md` | Accepted. Unreal binaries via Git LFS. REW-0007 adds the first content import: 31 Tier 1 character `.uasset` files, 12.61 MiB measured |
 | `docs/adr/ADR-0006_cpp-and-blueprint.md` | Accepted. C++ owns FL systems; Blueprint may place and present |
 | `docs/adr/ADR-0007_camera-and-perspective.md` | Accepted and implemented. Camera is authored, follows inside a composition, player does not aim it |
-| `docs/adr/ADR-0008_what-an-anchor-is-worth.md` | Accepted. An Anchor must release a contested resource. `courtyard_gate_open` does not pass as implemented |
+| `docs/adr/ADR-0008_what-an-anchor-is-worth.md` | Accepted and implemented in the Chapter 1 chain. Holding `courtyard_gate_open` leaves the only fuse in the building socket, releasing both the six-second lift route and immediate access to the main route |
 | `Rewind/Rewind.uproject` | Unreal Engine 5.8 C++ project. Loop clock, apply order, session save, CleanSave |
-| `Rewind/Content/Maps/FiveLoops.umap` | Default map. Existing 4C, courtyard, street and hub blockout plus lock, generator, gate, patrol, turnstile and Anchor board. REW-0006 added the loop-clocked radio, one carried fuse and two exclusive sockets through the C++ proof layout. Lift, stairs and the spatial rebuild do not exist |
+| `Rewind/Content/Maps/FiveLoops.umap` | Default map. C++ builds 4C on floor 4, its common hallway, cage-lift shaft, three-flight switchback stairs, entrance hallway, a 170 m service route folded around one large courtyard, and Transit Hub. Eleven playable regions declare complete cameras |
 | `docs/design/` | Five accepted documents. Ownership in `docs/design/README.md` |
-| `docs/acceptance/five-loops-test.md` | Accepted. Criteria FL-01 to FL-16. All sixteen had named evidence before REW-0005 amended FL-07, FL-13 and the meaning of FL-14; the amended criteria do not yet have evidence |
-| `docs/playtests/` | Evidence from named runs of named builds. One record, `five-loops-2026-08-22.md`, Complete for the earlier build and criteria, with four raw `LogRewind` captures beside it |
+| `docs/acceptance/five-loops-test.md` | Accepted. Criteria FL-01 to FL-16. The earlier record evidences all sixteen against their pre-REW-0005 wording; REW-0007 re-verifies the rebuilt chain's touched criteria FL-01, FL-04, FL-06, FL-07, FL-09, FL-12, FL-13 and FL-14 |
+| `docs/playtests/` | Evidence from named runs of named builds. The earlier complete Five Loops record remains; REW-0007 adds a Chapter 1 three-loop record for the rebuilt chain |
 | `.codex/config.toml` and `.mcp.json` | Project-scoped clients for the running editor's MCP endpoint on localhost. They resolve only while this project's editor is open |
 | `docs/EDITOR_AUTOMATION.md` | Canonical engine, editor, MCP, plugin, toolset, build and agent-playtest procedure |
 | `docs/concepts_sandbox/legacy-rewind/` | Imported design, roadmaps and task files from the previous project, plus a verified code inventory and a conflict register. Non-authority |
 | `docs/baseline/acme-2026-08-19/` | Frozen provenance for the working model itself. Never edited, never authority |
-| `.gitignore` / `.gitattributes` | Ignore generated UE output. LFS tracks Unreal binaries. No `.uasset` committed yet |
-| `docs/CURRENT_TASK.md` | REW-0007, Ready. Completes the Chapter 1 spatial chain after REW-0006 was superseded. Its claim is on `main`; REW-0008 supplied and verified the editor-automation prerequisite before restoring it |
-| `docs/concept/` | Target images produced by the owner. Targets, never rules. Three listed in its README |
+| `.gitignore` / `.gitattributes` | Ignore generated UE output. LFS tracks Unreal binaries, including the Tier 1 character assets |
+| `docs/CURRENT_TASK.md` | Restored task template. REW-0007 is complete and archived; no successor task is approved |
+| `docs/concept/` | Nine owner-produced target and construction-reference images: 4C, fuse box, stairwell, lift, three circulation/interaction sketches and the settled top- and ground-floor plans. Targets and blockout clarification, never game rules |
 | `docs/finished/REW-0004_...md` | Superseded by REW-0006 after its frozen scope conflicted with the lift-or-stairs branch decided by REW-0005 |
-| `Rewind/Source/Rewind/RewindCameraRig.cpp` | The authored camera of ADR-0007. Regions declare rotation, travel axis, bounds, dead zone and player volume. Compiled; no FL criterion re-run under it |
+| `Rewind/Source/Rewind/RewindCameraRig.cpp` | The authored camera of ADR-0007. Eleven enumerated regions declare rotation, travel axis, bounds, dead zone and player volume: 4C, fourth-floor hallway, lift shaft, three flights, two landings, entrance hallway, the courtyard and Transit Hub |
 | `Rewind/Source/Rewind/RewindRadio.cpp` | Four channels on the loop clock. The accepted channel speaks `7312` across 20 seconds at phases 4, 9, 14 and 19 of a 50-second cycle. A full sequence grants the stored fact; individual digits remain player memory |
-| `Rewind/Source/Rewind/RewindFuse.cpp` and `RewindFuseSocket.cpp` | One carried LoopWorld fuse with two exclusive sockets. It resets to its authored 4C position. The generator requires the courtyard socket; the building socket has no lift to power yet |
-| `Rewind/Source/RewindEditor/` | Editor-only module registering `RewindEditor.RewindPIEInputToolset`: player-state read, key press/release/tap and release-all through Unreal's simulated player input path |
-| `AutomationTestToolset` | Enabled and verified against the running editor. Discovery found four `Rewind.*` tests; `Rewind.Ids.MatchDesign` passed 1/1 with no errors or warnings |
+| `Rewind/Source/Rewind/RewindFuse.cpp` and `RewindFuseSocket.cpp` | One carried LoopWorld fuse with two exclusive sockets. The courtyard socket enables the generator; the building socket powers the lift. The lift refuses an empty building socket |
+| `Rewind/Source/Rewind/RewindLift.cpp` and `RewindStairwell.cpp` | A physical six-second cage journey between floor 4 and entrance, plus three always-available 24-step flights. Geometry measures 50.40 s minimum; the formal PIE routes measured 55.67 s by stairs and 6.00 s by lift, a 49.67 s difference |
+| `Rewind/Content/Characters/Tier1/` | CC0 Quaternius Tier 1: 21 in-place animations and both pack mannequins, 31 assets and 12.61 MiB. UAL1 idle/walk drive the visible blockout player |
+| `Rewind/Source/RewindEditor/` | Editor-only PIE-input bridge: state, tap, held keys, exact game-time holds, queued measured sequences, restricted `Rewind.*` console calls and release-all through simulated Unreal input |
+| `AutomationTestToolset` | Enabled and verified. All six discoverable `Rewind.*` tests passed together, 6/6 with no errors, in 0.0411 seconds |
+| `docs/finished/REW-0007_...md` | Complete. The rebuilt Chapter 1 chain, timing construction, eleven cameras, Tier 1 import and three-loop evidence are archived |
 | `docs/finished/REW-0008_...md` | Complete. Canonical editor/MCP context, project-scoped Codex config, PIE-input toolset and named automation-test execution |
 | `docs/finished/REW-0006_...md` | Superseded after play established 20/50 as the radio rule while its frozen scope still required 45/60. Radio and fuse work retained for REW-0007 |
 | `docs/finished/REW-0003_five-loops-test-implementation.md` | Complete. Five Loops Test implementation, archived 2026-08-23 |
@@ -42,13 +45,10 @@ wrong and must be corrected.
 
 ## What does not exist
 
-- **The complete Chapter 1 chain as designed.** The 20/50 radio, one carried
-  fuse, two exclusive sockets and the generator's courtyard-socket dependency
-  exist. The lift, stairs, landing, shaft and spatial rebuild do not. The
-  existing proof layout still allows the hub to be reached without the
-  designed lift-or-stairs consequence, so it is not evidence for Loop B or
-  Loop C. REW-0007 is the Draft successor intended to close the gap after its
-  identity claim lands on `main`.
+- **Finished environment art.** The complete Chapter 1 gameplay chain now
+  exists as measured C++ blockout geometry. The nine owner reference images are
+  targets only; final models, materials, rain, neon treatment and prop dressing
+  remain outside REW-0007.
 - **A packaged game build.** Editor Win64 Development compiled and run in PIE;
   a cooked package has not been made, so nothing here is evidence about a
   shipped build.
@@ -157,12 +157,12 @@ specific thing `AGENTS.md` "Evidence Discipline" exists to prevent.
 
 ## Known gaps and risks
 
-- **The central hypothesis is only half answered.** The loop is proven
-  deterministic and knowledge does persist, so a player who knows the answer
-  skips work. What the evidence also shows is that skipping the work buys
-  almost nothing: every turnstile crossing landed within 0.7 s of the gate
-  opening, because the space is small enough that even the full chain finishes
-  early. Whether that is enjoyable is untested and is not an FL criterion.
+- **The rebuilt chain answers the timing defect, not enjoyment.** The formal
+  REW-0007 run measured the naive Loop B at the 240-second timeout without hub
+  entry and the held-Anchor Loop C at hub entry by 90.67 seconds, at least
+  149.33 seconds apart. The earlier tiny-space finding is therefore superseded
+  for this blockout. Whether traversing and repeating this space is enjoyable
+  remains untested and is not an FL criterion.
 - **Legacy material still contradicts the decided determinism rule.** ADR-0002
   chose a world that does not learn the player. The imported GDD still
   contains both that game and a game whose details shift. The sandbox is

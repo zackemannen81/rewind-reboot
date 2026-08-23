@@ -32,8 +32,16 @@ public:
 	/** The region containing this location, or null when the location is outside every region. */
 	static ARewindCameraRegion* FindContaining(const UWorld* World, const FVector& Location);
 
-	/** Set the fields a spawned region needs. Placed regions author them instead. */
-	void Configure(FName InName, const FVector& InPlayerVolumeExtent);
+	/** Set every field a spawned region needs. Placed regions author them instead. */
+	void Configure(
+		FName InName,
+		const FVector& InPlayerVolumeExtent,
+		ERewindTravelAxis InTravelAxis = ERewindTravelAxis::X,
+		const FVector& InCameraOffset = FVector(0.f, -1600.f, 260.f),
+		const FRotator& InCameraRotation = FRotator(-6.f, 90.f, 0.f),
+		double InTravelPadding = 260.0,
+		double InDeadZone = 220.0,
+		bool bInCutOnEntry = false);
 
 	bool Contains(const FVector& Location) const;
 
@@ -53,6 +61,9 @@ public:
 	double GetDeadZone() const { return DeadZone; }
 	bool CutsOnEntry() const { return bCutOnEntry; }
 	FName GetRegionName() const { return RegionName; }
+	ERewindTravelAxis GetTravelAxis() const { return TravelAxis; }
+	FVector GetPlayerVolumeExtent() const { return PlayerVolumeExtent; }
+	double GetTravelPadding() const { return TravelPadding; }
 
 	/** Screen-right in world space, derived from the camera rotation so that input matches the frame. */
 	FVector GetScreenRight() const;
