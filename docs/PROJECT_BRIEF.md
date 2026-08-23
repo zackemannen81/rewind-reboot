@@ -52,12 +52,38 @@ answer to one question:
 > Is it enjoyable to experience the same deterministic world several times and
 > become objectively better at it because you know more?
 
-That proof is chartered as the Five Loops Test. It is the whole of the current
-milestone, and it is deliberately smaller than Chapter 1. When it passes, the
-project has evidence for its central hypothesis. Until it passes, the project
-has a hypothesis.
+That proof was chartered as the Five Loops Test, deliberately smaller than
+Chapter 1. `docs/acceptance/five-loops-test.md` owns what it had to demonstrate.
 
-`docs/acceptance/` owns what the proof must demonstrate, once a task writes it.
+**It passed on 2026-08-23.** All sixteen criteria carry named evidence in
+`docs/playtests/five-loops-2026-08-22.md`.
+
+It answered half of the question and it answered the other half in a way nobody
+asked for. The world is deterministic, knowledge persists, and a player who
+knows the answer skips work: that half holds. But the evidence also shows the
+loop has no time pressure. Every turnstile crossing in every run landed within
+0.7 seconds of the gate opening, because the authored space is small enough
+that even the full puzzle chain finishes early. FL-14 passes on its wording,
+and its number measures the gate cycle rather than the player.
+
+So the first proof is complete and the question above is not yet answered. What
+was proven is the machinery. What remains is whether the machinery is worth
+playing.
+
+## The phase after the proof
+
+The current phase is the one this brief promised: *prove the loop, then earn the
+right to build content for it.* That right is earned.
+
+The next milestone is a space worth looping through. Concretely, that means the
+authored space rebuilt under the camera decided in
+[`ADR-0007`](adr/ADR-0007_camera-and-perspective.md), at a scale where the loop
+timer means something, and a first test of whether transitions between areas
+carry the same grammar.
+
+This is a smaller step than Chapter 1 and deliberately so. The non-goals below
+did not move, and none of them needed to: blockout level design was never on
+that list, and final art still is.
 
 ## Engine
 
@@ -107,7 +133,9 @@ to build content for it.
 | Observed | The previous project produced authored Chapter 1 content, a player controller, patrol behaviour and interaction scripts in Unity |
 | Observed | Its loop timer, knowledge persistence and anchor storage existed; world reset, canonical anchor application and Echo replay did not |
 | Supported inference | The authored Chapter 1 golden path is detailed enough to support a five-loop test without new design invention |
-| Not yet proven | That the loop is fun; that knowledge-based progression sustains a full game; that the deterministic model survives contact with an authored space |
+| Observed | The deterministic model survives contact with an authored space. FL-01 to FL-16 all carry named evidence, from four logged runs |
+| Observed | The authored space is too small for the loop timer to exert any pressure. Measured: the golden path is about 34 m, and every turnstile crossing landed within 0.7 s of the gate opening |
+| Not yet proven | That the loop is fun; that knowledge-based progression sustains a full game |
 
 `docs/CURRENT_STATUS.md` is the authority on what exists. If this document and
 the status document disagree about reality, the status document is right.
