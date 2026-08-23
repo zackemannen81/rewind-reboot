@@ -14,9 +14,16 @@
 
 namespace
 {
-	/** `chapter-1-authored.md`: a 45 second sequence repeating every 60. */
-	constexpr double RadioCycle = 60.0;
-	constexpr double RadioSequence = 45.0;
+	/**
+	 * `chapter-1-authored.md`: a 20 second sequence repeating every 50, with the
+	 * four digits of 7312 spoken at phases 4, 9, 14 and 19. The cycle is 50 so
+	 * that it does not lock in step with the patrol's 40 or the turnstile's 30.
+	 */
+	constexpr double RadioCycle = 50.0;
+	constexpr double RadioSequence = 20.0;
+	constexpr double DigitPhases[] = { 4.0, 9.0, 14.0, 19.0 };
+	const TCHAR* DigitWords[] = { TEXT("seven"), TEXT("three"), TEXT("one"), TEXT("two") };
+	constexpr int32 DigitCount = UE_ARRAY_COUNT(DigitPhases);
 
 	/** Not a rule. The document says there are channels and one carries the code. */
 	constexpr int32 RadioChannelCount = 4;
@@ -101,25 +108,19 @@ bool ARewindRadio::IsBeingHeard() const
 
 void ARewindRadio::ReportFragment(double Phase)
 {
-	// Four fragments across the sequence, so a 45 second wait reads as
-	// something arriving rather than as nothing happening.
-	static const TCHAR* Fragments[] = {
-		TEXT("...blue shift..."),
-		TEXT("...seven..."),
-		TEXT("...three..."),
-		TEXT("...one... two..."),
-	};
-	constexpr int32 FragmentCount = UE_ARRAY_COUNT(Fragments);
-
-	const int32 Due = FMath::Clamp(
-		static_cast<int32>((Phase / RadioSequence) * FragmentCount), 0, FragmentCount);
-
-	while (FragmentsReported < Due)
+	// A digit heard is a digit kept. Each one is spoken at its authored phase,
+	// and a player standing here for only part of a sequence still leaves with
+	// what was said while they stood. Nothing about this is stored: the digits
+	// live in the player's memory, like the patrol's timing.
+	while (FragmentsReported < DigitCount && Phase >= DigitPhases[FragmentsReported])
 	{
 		if (GEngine)
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 4.f, FColor::Cyan, Fragments[FragmentsReported]);
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan,
+				FString::Printf(TEXT("Radio:  ...%s..."), DigitWords[FragmentsReported]));
 		}
+		RewindLog::Event(this, FString::Printf(TEXT("Radio: digit %d spoken (%s) at phase %.1f"),
+			FragmentsReported + 1, DigitWords[FragmentsReported], DigitPhases[FragmentsReported]));
 		++FragmentsReported;
 	}
 }
@@ -140,21 +141,34 @@ void ARewindRadio::Tick(float DeltaSeconds)
 	const double Phase = FMath::Fmod(Elapsed, RadioCycle);
 	const bool bInSequence = Phase < RadioSequence;
 
+	// The count of digits already spoken this sequence is carried whether or
+	// not anyone is listening, so that arriving late reports only what is still
+	// to come rather than replaying what was missed.
+	if (bInSequence)
+	{
+		if (IsBeingHeard())
+		{
+			ReportFragment(Phase);
+		}
+		else
+		{
+			while (FragmentsReported < DigitCount && Phase >= DigitPhases[FragmentsReported])
+			{
+				++FragmentsReported;
+			}
+		}
+	}
+
 	if (IsBeingHeard())
 	{
 		if (ListeningSince < 0.0)
 		{
 			ListeningSince = Elapsed;
 		}
-		if (bInSequence)
-		{
-			ReportFragment(Phase);
-		}
 	}
 	else
 	{
 		ListeningSince = -1.0;
-		FragmentsReported = 0;
 	}
 
 	// The broadcast is a world clock like the patrol and the turnstile, so its
