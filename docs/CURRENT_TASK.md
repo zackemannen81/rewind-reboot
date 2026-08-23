@@ -3,11 +3,11 @@
 Task ID: REW-0006
 Parent Task: None
 Supersedes: REW-0004
-Status: Draft
+Status: Ready
 Owner: Claude
 Created: 2026-08-23
 Last updated: 2026-08-23
-Charter frozen at: not frozen
+Charter frozen at: 2026-08-23
 
 ## Read First
 
@@ -143,16 +143,16 @@ region declaring a camera, and a playtest record showing the three loops.
 
 ## Checklist
 
-- [ ] Merge the `REW-0006` identity claim to `main` before moving this
+- [x] Merge the `REW-0006` identity claim to `main` before moving this
       charter to `Ready`
-- [ ] Implement the radio sequence and channels
+- [x] Implement the radio sequence and channels
 - [ ] Implement the carried fuse and the two sockets
 - [ ] Implement the lift and the stairs
 - [ ] Build 4C, landing, stairwell and shaft, courtyard, street, hub
 - [ ] Declare a camera for every region
 - [ ] Import the Tier 1 animations and the mannequin, measure the size
 - [ ] Measure both timing rules and adjust the layout until they hold
-- [ ] Settle the fuse box labelling question
+- [x] Settle the fuse box labelling question: design flow wins, style stands
 - [ ] Demonstrate the three loops and write the playtest record
 - [ ] Update status, system document, file map
 - [ ] Add a signed journal entry and archive this task
@@ -199,15 +199,18 @@ Only non-semantic corrections are allowed after `Ready`.
 
 ## Handoff and Follow-ups
 
-- Current state: Draft. Not yet claimed on `main`, so not yet `Ready`.
+- Current state: Ready, charter frozen 2026-08-23. Work is on branch
+  `rew-0006/radio-sequence`.
 - Next recommended step: claim `REW-0006` on `main`, then implement the
   radio sequence, because it is the only chain element with no existing
   actor to extend and it sets the loop's first cost.
 - Blockers: none.
 - Child tasks: none.
-- Resume condition: not applicable while Draft.
+- Resume condition: any working session on this machine with Unreal 5.8.
 - Verification gaps: none yet; nothing has been done.
-- Open questions: the fuse box labelling discrepancy, which is in scope.
+- Open questions: none. The fuse box question is settled in
+  `docs/concept/README.md`: the design's flow wins and the image's style
+  stands.
 
 ## Finalize When Complete
 

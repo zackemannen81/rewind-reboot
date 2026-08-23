@@ -41,16 +41,19 @@ The stairwell image is the strongest confirmation, because it shows the space
 `chapter-1-authored.md` decided before the image was made: a stairwell and a
 shaft beside it, on the floor the apartment is on.
 
-## One discrepancy worth settling
+## One discrepancy, settled
 
 `fuse-box-detail.png` labels its circuits `HALL LIGHT`, `LIVING AC` and
 `RECEPTACLES`. Those are an apartment's own circuits.
-[`chapter-1-authored.md`](../design/chapter-1-authored.md) decided a different
-thing: one fuse and two sockets, one running the lift and one letting the
-courtyard generator start.
+[`chapter-1-authored.md`](../design/chapter-1-authored.md) decided one fuse and
+two sockets, one running the lift and one letting the courtyard generator start.
 
-So either the box in the image is a second, smaller box that is not the one the
-chain uses, or the design's building socket lives somewhere the art has not
-drawn yet, or the labels change. The image is not wrong; it is a picture made
-before the rule existed. It is recorded here so the question is settled
-deliberately rather than discovered when someone models it.
+**Settled 2026-08-23: the design's flow wins, the image's style stands.** The
+labelling is content rather than look, and the look is what this image is a
+target for. Whatever is modelled carries the design's two sockets; the panel's
+material, its lit socket, the printed door label as an object, and the way the
+whole thing sits in near-black with the city behind it are all correct and are
+what the image is here to specify.
+
+This is the rule at the top of this file working as intended rather than an
+exception to it: the document decided, the image aimed.
