@@ -31,5 +31,6 @@ still the protocol extraction; that identity stays taken. New claims use `REW`.
 | REW-0001 | establish canonical project state | Grok | 2026-08-19 | docs/finished/REW-0001_establish-canonical-project-state.md |
 | REW-0002 | Five Loops Test authority | Grok | 2026-08-19 | docs/finished/REW-0002_five-loops-test-authority.md |
 | REW-0003 | Five Loops Test implementation | Grok, then Claude | 2026-08-19 | docs/finished/REW-0003_five-loops-test-implementation.md |
-| REW-0004 | Chapter 1 spatial and camera foundation | Claude | 2026-08-23 | docs/CURRENT_TASK.md |
+| REW-0004 | Chapter 1 spatial and camera foundation | Claude | 2026-08-23 | docs/finished/REW-0004_chapter-1-spatial-and-camera-foundation.md |
 | REW-0005 | Rewind consequence and the Chapter 1 chain | Claude | 2026-08-23 | docs/finished/REW-0005_rewind-consequence-and-chapter-1-chain.md |
+| REW-0006 | Chapter 1 space, the chain made playable | Claude | 2026-08-23 | docs/CURRENT_TASK.md |
