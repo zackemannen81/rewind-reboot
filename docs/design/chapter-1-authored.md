@@ -195,10 +195,10 @@ one thing and each solution creates the next problem. These are shapes the
 space must support, not a script the player must follow.
 
 **Loop A — information costs time.** The player knows nothing. They find the
-radio, find the channel, and wait through a full 45-second sequence to
-obtain `7312`. They may also find the fuse. They do not reach Transit Hub,
-because the sequence has taken a fifth of the loop and they did not know
-where anything was.
+radio, find the channel, and hear the four digits across the 20-second
+sequence to obtain `7312`. They may also find the fuse. They do not reach
+Transit Hub, because learning the radio costs between 20 and 50 seconds and
+they did not know where anything was.
 
 **Loop B — information saves time, and matter costs it.** `radio_code_7312`
 is true, so the radio is skipped entirely and the lock opens on arrival.

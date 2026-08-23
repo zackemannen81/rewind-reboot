@@ -18,29 +18,33 @@ wrong and must be corrected.
 | `docs/adr/ADR-0007_camera-and-perspective.md` | Accepted and implemented. Camera is authored, follows inside a composition, player does not aim it |
 | `docs/adr/ADR-0008_what-an-anchor-is-worth.md` | Accepted. An Anchor must release a contested resource. `courtyard_gate_open` does not pass as implemented |
 | `Rewind/Rewind.uproject` | Unreal Engine 5.8 C++ project. Loop clock, apply order, session save, CleanSave |
-| `Rewind/Content/Maps/FiveLoops.umap` | Default map. 4C, courtyard, street, hub blockout plus radio, lock, fuse, generator, gate, patrol, turnstile, Anchor board. Outdoor run bounded and continuous; gate, turnstile and patrol barrier each span the corridor |
+| `Rewind/Content/Maps/FiveLoops.umap` | Default map. Existing 4C, courtyard, street and hub blockout plus lock, generator, gate, patrol, turnstile and Anchor board. REW-0006 added the loop-clocked radio, one carried fuse and two exclusive sockets through the C++ proof layout. Lift, stairs and the spatial rebuild do not exist |
 | `docs/design/` | Five accepted documents. Ownership in `docs/design/README.md` |
-| `docs/acceptance/five-loops-test.md` | Accepted. Criteria FL-01 to FL-16. **All sixteen have named evidence** |
-| `docs/playtests/` | Evidence from named runs of named builds. One record, `five-loops-2026-08-22.md`, Complete, with four raw `LogRewind` captures beside it |
+| `docs/acceptance/five-loops-test.md` | Accepted. Criteria FL-01 to FL-16. All sixteen had named evidence before REW-0005 amended FL-07, FL-13 and the meaning of FL-14; the amended criteria do not yet have evidence |
+| `docs/playtests/` | Evidence from named runs of named builds. One record, `five-loops-2026-08-22.md`, Complete for the earlier build and criteria, with four raw `LogRewind` captures beside it |
 | `.mcp.json` | Points Claude Code at the running editor's MCP endpoint on localhost. Resolves only while the editor is open |
 | `docs/concepts_sandbox/legacy-rewind/` | Imported design, roadmaps and task files from the previous project, plus a verified code inventory and a conflict register. Non-authority |
 | `docs/baseline/acme-2026-08-19/` | Frozen provenance for the working model itself. Never edited, never authority |
 | `.gitignore` / `.gitattributes` | Ignore generated UE output. LFS tracks Unreal binaries. No `.uasset` committed yet |
-| `docs/CURRENT_TASK.md` | REW-0006, Draft. Chapter 1 space, the chain made playable. Supersedes REW-0004 |
+| `docs/CURRENT_TASK.md` | REW-0007, Draft. Completes the Chapter 1 spatial chain after REW-0006 was superseded. Its identity claim is on the supersession branch and is not valid until that branch merges to `main` |
 | `docs/concept/` | Target images produced by the owner. Targets, never rules. Three listed in its README |
-| `docs/paused/REW-0004_...md` | Paused after the camera, before the spatial rebuild. Resumes when REW-0005 states the chain the space must hold |
+| `docs/finished/REW-0004_...md` | Superseded by REW-0006 after its frozen scope conflicted with the lift-or-stairs branch decided by REW-0005 |
 | `Rewind/Source/Rewind/RewindCameraRig.cpp` | The authored camera of ADR-0007. Regions declare rotation, travel axis, bounds, dead zone and player volume. Compiled; no FL criterion re-run under it |
+| `Rewind/Source/Rewind/RewindRadio.cpp` | Four channels on the loop clock. The accepted channel speaks `7312` across 20 seconds at phases 4, 9, 14 and 19 of a 50-second cycle. A full sequence grants the stored fact; individual digits remain player memory |
+| `Rewind/Source/Rewind/RewindFuse.cpp` and `RewindFuseSocket.cpp` | One carried LoopWorld fuse with two exclusive sockets. It resets to its authored 4C position. The generator requires the courtyard socket; the building socket has no lift to power yet |
+| `docs/finished/REW-0006_...md` | Superseded after play established 20/50 as the radio rule while its frozen scope still required 45/60. Radio and fuse work retained for REW-0007 |
 | `docs/finished/REW-0003_five-loops-test-implementation.md` | Complete. Five Loops Test implementation, archived 2026-08-23 |
 | `docs/backlog/five-loops-test.md` | Authority resolved by REW-0002. Implementation activated as REW-0003 |
 
 ## What does not exist
 
-- **The Chapter 1 chain as designed.** `chapter-1-authored.md` states a
-  carried fuse, two exclusive sockets, a lift that depends on one of them,
-  stairs that cost a turnstile period more, and a radio that costs 45
-  seconds. The build has none of it: the fuse is still routed with one
-  consumer, there is no lift and no stairwell. The rules are ahead of the
-  implementation, deliberately, and REW-0004 is the task that closes the gap.
+- **The complete Chapter 1 chain as designed.** The 20/50 radio, one carried
+  fuse, two exclusive sockets and the generator's courtyard-socket dependency
+  exist. The lift, stairs, landing, shaft and spatial rebuild do not. The
+  existing proof layout still allows the hub to be reached without the
+  designed lift-or-stairs consequence, so it is not evidence for Loop B or
+  Loop C. REW-0007 is the Draft successor intended to close the gap after its
+  identity claim lands on `main`.
 - **A packaged game build.** Editor Win64 Development compiled and run in PIE;
   a cooked package has not been made, so nothing here is evidence about a
   shipped build.
