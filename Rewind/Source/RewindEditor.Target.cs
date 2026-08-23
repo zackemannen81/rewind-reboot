@@ -10,6 +10,6 @@ public class RewindEditorTarget : TargetRules
 		Type = TargetType.Editor;
 		DefaultBuildSettings = BuildSettingsVersion.V7;
 		IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_8;
-		ExtraModuleNames.Add("Rewind");
+		ExtraModuleNames.AddRange(new string[] { "Rewind", "RewindEditor" });
 	}
 }

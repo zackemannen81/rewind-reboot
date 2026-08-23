@@ -19,9 +19,9 @@ until it has been restated in an owning document under `docs/`.**
   progression.
 - Engine: Unreal Engine 5.8, decided in
   `docs/adr/ADR-0001_engine-unreal-engine-5.md`.
-- Current phase: bootstrap. The docs-first structure and the imported legacy
-  material exist. No RE:WIND game project, no design authority and no
-  implementation exist in this repository.
+- Current phase: Chapter 1 authored-space implementation after the Five Loops
+  proof. An Unreal Engine 5.8 C++ project and accepted game rules exist; use
+  `docs/CURRENT_STATUS.md` for the exact implemented boundary.
 - Status: private, all rights reserved. The license is an open decision in
   `docs/PROJECT_BRIEF.md`.
 
@@ -40,6 +40,21 @@ Read these in order before changing the repository:
 
 Read decision records under `docs/adr/` when the task touches a decided
 boundary, and the design documents under `docs/design/` that the task names.
+
+## Unreal Editor And Agent Playtests
+
+- Before Unreal work, read `docs/EDITOR_AUTOMATION.md`. It owns the editor,
+  MCP, plugin, toolset, build and agent-playtest procedure.
+- Start Codex or another agent from the repository root so its committed MCP
+  configuration is in scope. The Unreal MCP server exists only while this
+  project's editor is open; editor autostart is not Windows autostart.
+- Before claiming editor or PIE evidence, verify the endpoint and the required
+  toolsets in the current session. Restart the agent session from the repo root
+  if the configured Unreal tools are absent.
+- Drive gameplay through the project PIE-input toolset, always release held
+  keys before stopping PIE, and use named Unreal automation tests for
+  repeatable acceptance. Desktop focus and Windows input emulation are not
+  evidence.
 
 ## Documentation Ownership
 
