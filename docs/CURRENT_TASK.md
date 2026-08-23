@@ -126,12 +126,18 @@ document.
       to `Ready`
 - [x] Write what an Anchor is worth, and decide the scarcity question:
       ADR-0008 and the rule in `docs/design/anchors.md`
-- [ ] Decide the radio's cost
-- [ ] Decide what the fuse is, and which bucket holds it
-- [ ] Decide the lift and the stairs
-- [ ] Supersede the contradicted parts of `chapter-1-authored.md`
-- [ ] State the three loops in testable terms
-- [ ] Check every rule against ADR-0002
+- [x] Decide the radio's cost: a 45 s sequence repeating every 60 s, on the
+      loop clock, with channel choice as unstored player knowledge
+- [x] Decide what the fuse is, and which bucket holds it: one carried fuse,
+      two exclusive sockets, and LoopWorld already held it. No new bucket
+- [x] Decide the lift and the stairs: the lift runs only while the fuse is
+      in the building socket, and the stairs cost at least one turnstile
+      period more
+- [x] Supersede the contradicted parts of `chapter-1-authored.md`: the fuse
+      is carried, not routed
+- [x] State the three loops in testable terms, plus statements 10 to 15
+- [x] Check every rule against ADR-0002: the only loop-count mentions are
+      the ones forbidding it
 - [ ] Update status, system document
 - [ ] Add a signed journal entry, archive this task, restore REW-0004
 

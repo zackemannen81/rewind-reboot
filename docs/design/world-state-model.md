@@ -22,6 +22,13 @@ LoopWorld plus PlayerBody is the loop-volatile world. ADR-0002's "world
 configuration" at time `t` is Baseline, then Anchors, then LoopWorld
 simulated to `t`, with PlayerBody from this-loop play.
 
+**An object the player is carrying is LoopWorld, not PlayerBody.** Being
+held is one of the positions an object can be in, alongside sitting in a
+drawer or in a socket. There is no inventory bucket and none is needed: a
+carried object is discarded with the rest of LoopWorld at loop start and
+rebuilt at its authored position, which is the behaviour a carried object
+wants anyway.
+
 ## Apply order at loop start
 
 A single ordered apply. Object-local reset that runs later and overwrites
