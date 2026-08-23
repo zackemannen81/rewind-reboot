@@ -34,8 +34,17 @@ ARewindFourCBlockout::ARewindFourCBlockout()
 	const float HalfD = ApartmentDepth * 0.5f;
 	const float WallZ = WallHeight * 0.5f;
 
+	// The camera side has no fourth wall. ADR-0007 films this room from -Y, so
+	// a wall at -390 would put the audience outside the box looking at its
+	// back. It keeps its collision and loses its visibility: the player is
+	// still contained, and the frame can see in.
 	AddBox(TEXT("Wall_West"), FVector(0.f, -HalfD + WallThickness * 0.5f, WallZ),
 		FVector(ApartmentWidth, WallThickness, WallHeight));
+	if (UStaticMeshComponent* NearWall = Cast<UStaticMeshComponent>(
+			GetDefaultSubobjectByName(TEXT("Wall_West"))))
+	{
+		NearWall->SetVisibility(false);
+	}
 	AddBox(TEXT("Wall_East"), FVector(0.f, HalfD - WallThickness * 0.5f, WallZ),
 		FVector(ApartmentWidth, WallThickness, WallHeight));
 	AddBox(TEXT("Wall_South"), FVector(-HalfW + WallThickness * 0.5f, 0.f, WallZ),

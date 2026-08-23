@@ -1,8 +1,7 @@
 #include "RewindCharacter.h"
 
 #include "RewindInteractable.h"
-#include "Camera/CameraComponent.h"
-#include "GameFramework/SpringArmComponent.h"
+#include "RewindCameraRegion.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Engine/World.h"
@@ -11,23 +10,44 @@
 
 ARewindCharacter::ARewindCharacter()
 {
+	PrimaryActorTick.bCanEverTick = true;
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.f);
+
+	// ADR-0007: the player does not aim the camera, so controller rotation
+	// drives nothing. The body turns to face where it walks instead, which is
+	// what reads from an authored angle.
 	bUseControllerRotationPitch = false;
-	bUseControllerRotationYaw = true;
+	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
 
-	GetCharacterMovement()->bOrientRotationToMovement = false;
-	GetCharacterMovement()->MaxWalkSpeed = 500.f;
+	GetCharacterMovement()->bOrientRotationToMovement = true;
+	GetCharacterMovement()->RotationRate = FRotator(0.f, 540.f, 0.f);
 
-	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
-	CameraBoom->SetupAttachment(RootComponent);
-	CameraBoom->TargetArmLength = 300.f;
-	CameraBoom->bUsePawnControlRotation = true;
+	// `chapter-1-authored.md`: 200 cm/s. It was 500, which is a sprint and was
+	// never a decision. Travel time is a design resource here.
+	GetCharacterMovement()->MaxWalkSpeed = 200.f;
 
-	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
-	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
-	FollowCamera->bUsePawnControlRotation = false;
+	// The camera is ARewindCameraRig. This pawn owns none.
 	AutoPossessPlayer = EAutoReceiveInput::Disabled;
+}
+
+void ARewindCharacter::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+
+	// The player volume may be narrower than the region's collision geometry,
+	// and where it is, that is authored rather than accidental. Clamping the
+	// body is a write to PlayerBody, which `world-state-model.md` discards at
+	// every loop start, so it is not world state.
+	if (const ARewindCameraRegion* Region =
+			ARewindCameraRegion::FindContaining(GetWorld(), GetActorLocation()))
+	{
+		const FVector Clamped = Region->ClampToPlayerVolume(GetActorLocation());
+		if (!Clamped.Equals(GetActorLocation(), 0.01))
+		{
+			SetActorLocation(Clamped);
+		}
+	}
 }
 
 void ARewindCharacter::BeginPlay()
@@ -45,8 +65,6 @@ void ARewindCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	PlayerInputComponent->BindAxis(TEXT("MoveForward"), this, &ARewindCharacter::MoveForward);
 	PlayerInputComponent->BindAxis(TEXT("MoveRight"), this, &ARewindCharacter::MoveRight);
-	PlayerInputComponent->BindAxis(TEXT("Turn"), this, &ARewindCharacter::Turn);
-	PlayerInputComponent->BindAxis(TEXT("LookUp"), this, &ARewindCharacter::LookUp);
 	PlayerInputComponent->BindAction(TEXT("Interact"), IE_Pressed, this, &ARewindCharacter::Interact);
 	PlayerInputComponent->BindAction(TEXT("Jump"), IE_Pressed, this, &ACharacter::Jump);
 
@@ -62,30 +80,49 @@ void ARewindCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	PlayerInputComponent->BindKey(EKeys::Nine, IE_Pressed, this, &ARewindCharacter::Digit9);
 }
 
+bool ARewindCharacter::GetScreenAxes(FVector& OutRight, FVector& OutDepth) const
+{
+	// Input is expressed against the frame the player is looking at, not
+	// against world axes. Otherwise "right" stops meaning right on screen the
+	// moment a region is angled differently, and an authored camera would make
+	// the game harder to control rather than easier to read.
+	const ARewindCameraRegion* Region =
+		ARewindCameraRegion::FindContaining(GetWorld(), GetActorLocation());
+	if (!Region)
+	{
+		return false;
+	}
+	OutRight = Region->GetScreenRight();
+	OutDepth = Region->GetScreenDepth();
+	return true;
+}
+
 void ARewindCharacter::MoveForward(float Value)
 {
-	if (Controller && Value != 0.f)
+	if (!Controller || Value == 0.f)
 	{
-		AddMovementInput(FRotationMatrix(FRotator(0.f, GetControlRotation().Yaw, 0.f)).GetUnitAxis(EAxis::X), Value);
+		return;
+	}
+	FVector Right, Depth;
+	if (GetScreenAxes(Right, Depth))
+	{
+		// Forward moves into the frame, which is the depth the player volume
+		// allows. `camera-and-movement.md` keeps that band narrow on purpose.
+		AddMovementInput(Depth, Value);
 	}
 }
 
 void ARewindCharacter::MoveRight(float Value)
 {
-	if (Controller && Value != 0.f)
+	if (!Controller || Value == 0.f)
 	{
-		AddMovementInput(FRotationMatrix(FRotator(0.f, GetControlRotation().Yaw, 0.f)).GetUnitAxis(EAxis::Y), Value);
+		return;
 	}
-}
-
-void ARewindCharacter::Turn(float Value)
-{
-	AddControllerYawInput(Value);
-}
-
-void ARewindCharacter::LookUp(float Value)
-{
-	AddControllerPitchInput(Value);
+	FVector Right, Depth;
+	if (GetScreenAxes(Right, Depth))
+	{
+		AddMovementInput(Right, Value);
+	}
 }
 
 void ARewindCharacter::Interact()

@@ -13,14 +13,13 @@ class REWIND_API ARewindCharacter : public ACharacter
 public:
 	ARewindCharacter();
 	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaSeconds) override;
 
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 
 private:
 	void MoveForward(float Value);
 	void MoveRight(float Value);
-	void Turn(float Value);
-	void LookUp(float Value);
 	void Interact();
 	void EnterDigit(int32 Digit);
 	void Digit0() { EnterDigit(0); }
@@ -36,9 +35,6 @@ private:
 
 	IRewindInteractable* FindInteractable() const;
 
-	UPROPERTY(VisibleAnywhere)
-	TObjectPtr<class USpringArmComponent> CameraBoom;
-
-	UPROPERTY(VisibleAnywhere)
-	TObjectPtr<class UCameraComponent> FollowCamera;
+	/** Screen axes for input, taken from the region the player is standing in. */
+	bool GetScreenAxes(FVector& OutRight, FVector& OutDepth) const;
 };

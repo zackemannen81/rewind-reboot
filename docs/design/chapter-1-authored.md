@@ -40,18 +40,29 @@ The loop timer duration is **240 seconds**. It was 420.
 This is the rule the previous values failed, and it is stated as a
 relationship rather than a distance so that it survives a change of speed.
 
-**The naive path must exceed the learned path by at least one turnstile
-period of travel at the authored walk speed.**
+**A naive run must take at least one turnstile period longer to reach the
+turnstile than a learned run.**
 
-The naive path visits the radio, the fuse, the generator and the gate. The
-learned path skips all four, because `radio_code_7312` is known and
-`courtyard_gate_open` is held. The difference is everything knowledge buys.
+Stated in time, not in distance. The first draft of this rule said sixty
+metres of path, which measured the wrong thing: a saving can come from a
+loop spent listening to a radio, or from a slow route taken because a
+resource is somewhere else, and neither is a distance. Any lever that
+produces the difference satisfies the rule.
 
-At 200 cm/s and a 30-second turnstile cycle, that difference must be at
-least **60 metres**. Measured on the build this rule was written against, it
-was **8.3 metres**, so a learned run and a naive run always reached the same
-turnstile window and the crossing time measured the gate rather than the
-player.
+The naive run does whatever the puzzle costs a player who knows nothing.
+The learned run has `radio_code_7312` and `courtyard_gate_open`. The
+difference is everything knowledge buys.
+
+With a 30-second turnstile cycle, that difference must exceed 30 seconds,
+so the two runs reach different open windows. Measured on the build this
+rule was written against, the difference was 8.3 metres of walking, about
+3 seconds, so both runs always reached the same window and the crossing
+time measured the gate rather than the player.
+
+Distance is one way to produce the difference and the most expensive one.
+See [`fuse-radio-and-elevator.md`](../backlog/fuse-radio-and-elevator.md)
+for a structure that produces it from mechanics instead. That proposal is
+not authority and nothing here depends on it.
 
 The consequence for layout: **an Anchor must save a journey, not a button
 press.** The fuse and generator belong on a branch off the route, not as
@@ -116,8 +127,7 @@ and closed for the rest. Phase is `t` modulo 30 seconds.
    the patrol.
 7. The turnstile is open when `(t modulo 30) <= 2.5`. It is open at
    `t = 0` and at `t = 30`, and closed at `t = 2.6` and at `t = 29`.
-8. The naive path exceeds the learned path by at least one turnstile
-   period of travel at the authored walk speed. At 200 cm/s and a 30
-   second cycle that is 60 metres.
+8. A naive run reaches the turnstile at least one turnstile period later
+   than a learned run. With a 30 second cycle that is 30 seconds.
 9. A run that knows nothing and a run that knows everything reach the
    turnstile in different open windows.

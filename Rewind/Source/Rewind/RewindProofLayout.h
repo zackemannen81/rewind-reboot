@@ -14,6 +14,7 @@ public:
 	void EnsureContents();
 	void EnsureLights();
 	void EnsureExposure();
+	void EnsureCamera();
 
 private:
 	template <typename T>
@@ -37,4 +38,6 @@ private:
 	TObjectPtr<class ARewindPatrol> Patrol;
 	UPROPERTY()
 	TObjectPtr<class ARewindTurnstile> Turnstile;
+	UPROPERTY()
+	TObjectPtr<class ARewindCameraRig> CameraRig;
 };
