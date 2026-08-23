@@ -11,7 +11,7 @@ class REWIND_API URewindDeveloperSettings : public UDeveloperSettings
 
 public:
 	UPROPERTY(Config, EditAnywhere, Category = "Loop")
-	float LoopDurationSeconds = 420.f;
+	float LoopDurationSeconds = 240.f;
 
 	UPROPERTY(Config, EditAnywhere, Category = "Save")
 	FString SaveSlotName = TEXT("RewindSession");

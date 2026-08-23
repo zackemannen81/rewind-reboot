@@ -157,6 +157,17 @@ void ARewindRadio::Tick(float DeltaSeconds)
 		FragmentsReported = 0;
 	}
 
+	// The broadcast is a world clock like the patrol and the turnstile, so its
+	// transitions are logged whether or not anyone is listening. Without this
+	// the sequence cannot be checked at a stated `t`, and FL-04's evidence
+	// would rest on the player's report.
+	if (bInSequence != bWasInSequence)
+	{
+		RewindLog::Event(this, FString::Printf(
+			TEXT("Radio: broadcast %s  (phase=%.2f of %.0fs)"),
+			bInSequence ? TEXT("SEQUENCE") : TEXT("STATIC"), Phase, RadioCycle));
+	}
+
 	// The sequence just ended. Listening for at least its full length, ending
 	// here, is the same thing as having been present from its start, and it
 	// does not depend on catching the exact frame the sequence began.

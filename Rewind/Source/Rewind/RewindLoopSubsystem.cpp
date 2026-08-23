@@ -150,8 +150,11 @@ void URewindLoopSubsystem::CleanSaveAndRestart()
 
 float URewindLoopSubsystem::GetLoopDurationSeconds() const
 {
-	const URewindDeveloperSettings* Settings = GetDefault<URewindDeveloperSettings>();
-	return Settings ? Settings->LoopDurationSeconds : 420.f;
+	// GetDefault never returns null, so the settings object is the only place
+	// this number lives in code. It had a second copy here as a fallback, and a
+	// number in two places drifts: the design said 240 while this said 420.
+	// `chapter-1-authored.md` owns the value.
+	return GetDefault<URewindDeveloperSettings>()->LoopDurationSeconds;
 }
 
 void URewindLoopSubsystem::RegisterConsoleCommands()
