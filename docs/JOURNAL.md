@@ -4,6 +4,60 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-24 — REW-0009 complete, rewind is causal rather than global
+
+- Date: 2026-08-24
+- Author: Codex
+- Task: REW-0009
+- Branch: `codex/rew-0009-event-driven-rewind`
+- Change: ADR-0009 makes event-driven rewind the default. A loop now ends by
+  authored causal-contract failure, player death or successful first-time
+  Anchor commit. Contract failure and commit latch a perceptible one-to-three
+  second prelude before loop-start apply. Elapsed time still starts at zero and
+  drives radio, patrol, turnstile and deliberately timed situations; it no
+  longer ends Chapter 1 merely by reaching a global duration.
+- Chapter 1 authority: `GroundFuseGate` checks ground-floor power or an
+  already active `courtyard_gate_open` Anchor at the no-return threshold.
+  Missing both causes the signaled rewind. Carrying the fuse down passes the
+  checkpoint and enables the generator. A successful explicit gate-Anchor
+  commit then ends that loop, so the next loop can keep the fuse in the
+  building socket, use the lift and continue toward Transit. The second socket
+  is now named by its authored location, ground floor, rather than by the
+  timer-driven implementation's courtyard label.
+- Acceptance: FL-02 and FL-03 are amended without renumbering; FL-01 and FL-07
+  use the ground-floor power name; FL-17 and FL-18 cover the causal checkpoint,
+  prelude bounds and Anchor-commit boundary. Earlier playtests remain evidence
+  for the timer-driven builds and their old criteria, not for the amended
+  surface.
+- Owner blockout inspection: the live saved Handmade level was inspected
+  without modification. It contains four large alternating stair flights and
+  three owner-placed 35 mm, 16:9 CineCameraActors for 4C, the upper hallway and
+  the stairwell. The map remained owner work outside this task and was not
+  moved, committed or cited by path from this immutable record.
+- Routed work: `docs/backlog/event-driven-rewind-implementation.md` owns the
+  proposed C++ checkpoint/prelude/commit work.
+  `docs/backlog/handmade-level-adoption.md` owns stabilizing and adopting the
+  owner blockout while preserving its layout and camera transforms. The older
+  global loop-pressure proposal is resolved by ADR-0009; its measurements
+  remain historical.
+- Current implementation gap: `URewindLoopSubsystem` still ends automatically
+  at 240 seconds or on death, has no causal-contract or Anchor-commit reason,
+  and has no latched prelude. The current build therefore does not pass amended
+  FL-02 or new FL-17/FL-18.
+- Verification: searched live authority and acceptance for conflicting timer
+  rules and reviewed every remaining match as history, rejected alternative or
+  explicit implementation gap; fifteen changed Markdown files had zero broken
+  relative links and zero unclosed fences; ownership reviewed manually;
+  `git diff --check` clean; diff-type audit found no C++, header, Blueprint,
+  `.uasset`, `.umap`, project or config change.
+- Not run: Unreal build, PIE, automation tests and packaged build. REW-0009 was
+  frozen as authority-only, and the status documents explicitly do not claim
+  the new rule is implemented.
+- Handoff: activate the event-driven implementation proposal first. Give the
+  owner blockout a stable tracked path before any immutable task cites it, then
+  activate level adoption against ADR-0007 and ADR-0009.
+- Signature: Codex
+
 ## 2026-08-23 — REW-0007 complete, Chapter 1 has its authored spatial chain
 
 - Date: 2026-08-23
