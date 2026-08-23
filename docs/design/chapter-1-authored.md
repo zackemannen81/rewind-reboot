@@ -21,9 +21,53 @@ courtyard, street, Transit Hub.
 
 The loop-start pose is in Apartment 4C.
 
-## Loop duration
+## Movement and loop duration
 
-The loop timer duration is 420 seconds.
+Revised 2026-08-23 under REW-0004. The previous values were 420 seconds and
+an unauthored walk speed inherited from the Unreal third-person template.
+They are recorded here because
+[`five-loops-2026-08-22.md`](../playtests/five-loops-2026-08-22.md) is
+evidence taken under them and remains true of that build.
+
+The player's walk speed is **200 cm per second**. It was 500, which is a
+sprint and was never a decision. Travel time is a design resource in a game
+about repeating a route, and at 500 it rounded to nothing.
+
+The loop timer duration is **240 seconds**. It was 420.
+
+## The knowledge saving
+
+This is the rule the previous values failed, and it is stated as a
+relationship rather than a distance so that it survives a change of speed.
+
+**A naive run must take at least one turnstile period longer to reach the
+turnstile than a learned run.**
+
+Stated in time, not in distance. The first draft of this rule said sixty
+metres of path, which measured the wrong thing: a saving can come from a
+loop spent listening to a radio, or from a slow route taken because a
+resource is somewhere else, and neither is a distance. Any lever that
+produces the difference satisfies the rule.
+
+The naive run does whatever the puzzle costs a player who knows nothing.
+The learned run has `radio_code_7312` and `courtyard_gate_open`. The
+difference is everything knowledge buys.
+
+With a 30-second turnstile cycle, that difference must exceed 30 seconds,
+so the two runs reach different open windows. Measured on the build this
+rule was written against, the difference was 8.3 metres of walking, about
+3 seconds, so both runs always reached the same window and the crossing
+time measured the gate rather than the player.
+
+Distance is one way to produce the difference and the most expensive one.
+See [`fuse-radio-and-elevator.md`](../backlog/fuse-radio-and-elevator.md)
+for a structure that produces it from mechanics instead. That proposal is
+not authority and nothing here depends on it.
+
+The consequence for layout: **an Anchor must save a journey, not a button
+press.** The fuse and generator belong on a branch off the route, not as
+stops along it. A generator the player passes on the way is worth no time to
+hold open.
 
 ## Radio and code
 
@@ -83,3 +127,7 @@ and closed for the rest. Phase is `t` modulo 30 seconds.
    the patrol.
 7. The turnstile is open when `(t modulo 30) <= 2.5`. It is open at
    `t = 0` and at `t = 30`, and closed at `t = 2.6` and at `t = 29`.
+8. A naive run reaches the turnstile at least one turnstile period later
+   than a learned run. With a 30 second cycle that is 30 seconds.
+9. A run that knows nothing and a run that knows everything reach the
+   turnstile in different open windows.

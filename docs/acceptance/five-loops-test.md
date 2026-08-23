@@ -109,7 +109,11 @@ Owner: [`chapter-1-authored.md`](../design/chapter-1-authored.md)
 
 From a clean save, the player can enter Apartment 4C, use `7312`, route
 power, start the generator, open the gate, use the patrol window, and
-pass the turnstile into Transit Hub, all inside one 420-second loop.
+pass the turnstile into Transit Hub, all inside one loop.
+
+The duration is not restated here. `chapter-1-authored.md` owns it, and a
+number written in two places drifts. It was 420 seconds when this criterion
+was first passed and is 240 seconds as of 2026-08-23.
 
 Owner: [`chapter-1-authored.md`](../design/chapter-1-authored.md)
 

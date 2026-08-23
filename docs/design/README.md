@@ -21,3 +21,4 @@ is not a rule. It is a proposal.
 | [`world-state-model.md`](world-state-model.md) | Accepted | State buckets and loop-start apply order |
 | [`save-and-session.md`](save-and-session.md) | Accepted | Persistence, session load, clean save, knowledge facts |
 | [`chapter-1-authored.md`](chapter-1-authored.md) | Accepted | Authored space, timings and puzzle facts for the first proof |
+| [`camera-and-movement.md`](camera-and-movement.md) | Accepted | How the world is framed, and the volume the player moves in |

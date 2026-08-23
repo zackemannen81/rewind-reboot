@@ -1,6 +1,7 @@
 #include "RewindWorldStateSubsystem.h"
 
 #include "RewindLog.h"
+#include "RewindCameraRig.h"
 #include "RewindFourCBlockout.h"
 #include "RewindProofLayout.h"
 #include "RewindLoopParticipant.h"
@@ -115,6 +116,14 @@ void URewindWorldStateSubsystem::PlacePlayerBody()
 	const FVector P = Start.GetLocation();
 	RewindLog::Baseline(FString::Printf(
 		TEXT("Player: placed at loop-start pose (%.0f, %.0f, %.0f)"), P.X, P.Y, P.Z));
+
+	// The camera takes its region's pose immediately at loop start, per
+	// `camera-and-movement.md`. This is world state notifying presentation; it
+	// never reads anything back, so the camera stays outside the model.
+	for (TActorIterator<ARewindCameraRig> It(World); It; ++It)
+	{
+		It->SnapToPlayer();
+	}
 }
 
 FTransform URewindWorldStateSubsystem::GetLoopStartPose() const

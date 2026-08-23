@@ -23,3 +23,5 @@ Assign a `REW-NNNN` identity only when a proposal is explicitly activated.
 | [`loop-pressure-and-interaction.md`](loop-pressure-and-interaction.md) | Proposed | Measured: the golden path is ~34 m, about 7 s of movement in a 420 s loop. Loop-duration and space-scale levers, none chosen |
 | [`traversal-as-knowledge.md`](traversal-as-knowledge.md) | Proposed | Spatial and route knowledge as a progression axis. Canon supports the mechanism; the single-line space gives it nothing to act on. Successor proof, not an FL expansion |
 | [`character-animation-source.md`](character-animation-source.md) | Proposed | A named CC0 animation subset for blockout, in tiers. Tier 1 is 21 clips serving ADR-0007; the full 254 is the wrong shape of import |
+| [`fuse-radio-and-elevator.md`](fuse-radio-and-elevator.md) | Proposed | One fuse, two consumers, and an Anchor that frees it. The intended Chapter 1 structure, recoverable from the GDD, conflicting with three accepted rules |
+| [`what-anchors-are-for.md`](what-anchors-are-for.md) | Proposed | An Anchor frees a resource rather than granting an unlock, and must be scarce or the rewind becomes a save state |

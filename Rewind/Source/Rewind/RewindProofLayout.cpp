@@ -1,6 +1,8 @@
 #include "RewindProofLayout.h"
 
 #include "RewindAnchorBoard.h"
+#include "RewindCameraRegion.h"
+#include "RewindCameraRig.h"
 #include "RewindCodeLock.h"
 #include "RewindCourtyardGate.h"
 #include "RewindFourCBlockout.h"
@@ -61,8 +63,15 @@ ARewindProofLayout::ARewindProofLayout()
 	const float EdgeThickness = 20.f;
 	const float EdgeY = 390.f;
 
+	// Camera side: collision without visibility, for the same reason 4C has no
+	// fourth wall. It still stops the player leaving the run.
 	AddFloor(TEXT("EdgeWall_YNeg"), FVector(EdgeCenterX, -EdgeY, EdgeHeight * 0.5f),
 		FVector(EdgeLengthX, EdgeThickness, EdgeHeight));
+	if (UStaticMeshComponent* NearEdge = Cast<UStaticMeshComponent>(
+			GetDefaultSubobjectByName(TEXT("EdgeWall_YNeg"))))
+	{
+		NearEdge->SetVisibility(false);
+	}
 	AddFloor(TEXT("EdgeWall_YPos"), FVector(EdgeCenterX, EdgeY, EdgeHeight * 0.5f),
 		FVector(EdgeLengthX, EdgeThickness, EdgeHeight));
 	AddFloor(TEXT("EdgeWall_XEnd"), FVector(3240.f, 0.f, EdgeHeight * 0.5f),
@@ -112,6 +121,70 @@ void ARewindProofLayout::EnsureContents()
 
 	EnsureLights();
 	EnsureExposure();
+	EnsureCamera();
+}
+
+void ARewindProofLayout::EnsureCamera()
+{
+	UWorld* World = GetWorld();
+	if (!World)
+	{
+		return;
+	}
+
+	FActorSpawnParameters Params;
+	Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+	// One region per authored area, matching the blockout this rebuild starts
+	// from. `camera-and-movement.md` requires every playable location to be in
+	// exactly one region, so these spans are contiguous and cover the whole run
+	// from 4C at X=-400 to the hub end at X=3250.
+	bool bHasRegion = false;
+	for (TActorIterator<ARewindCameraRegion> It(World); It; ++It)
+	{
+		bHasRegion = true;
+		break;
+	}
+	if (!bHasRegion)
+	{
+		struct FRegionSpec
+		{
+			const TCHAR* Name;
+			double CentreX;
+			double HalfX;
+		};
+		// Contiguous by construction: 4C -400..400, courtyard 400..1450,
+		// street 1450..2350, hub 2350..3250.
+		const FRegionSpec Specs[] = {
+			{ TEXT("Apartment4C"), 0.0,    400.0 },
+			{ TEXT("Courtyard"),   925.0,  525.0 },
+			{ TEXT("Street"),      1900.0, 450.0 },
+			{ TEXT("TransitHub"),  2800.0, 450.0 },
+		};
+
+		for (const FRegionSpec& Spec : Specs)
+		{
+			ARewindCameraRegion* Region = World->SpawnActor<ARewindCameraRegion>(
+				FVector(Spec.CentreX, 0.f, 150.f), FRotator::ZeroRotator, Params);
+			if (Region)
+			{
+				Region->Configure(FName(Spec.Name), FVector(Spec.HalfX, 380.f, 400.f));
+			}
+		}
+	}
+
+	if (!CameraRig)
+	{
+		for (TActorIterator<ARewindCameraRig> It(World); It; ++It)
+		{
+			CameraRig = *It;
+			break;
+		}
+	}
+	if (!CameraRig)
+	{
+		CameraRig = World->SpawnActor<ARewindCameraRig>(FVector::ZeroVector, FRotator::ZeroRotator, Params);
+	}
 }
 
 void ARewindProofLayout::EnsureExposure()
