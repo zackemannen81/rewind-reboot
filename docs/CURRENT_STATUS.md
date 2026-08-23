@@ -22,16 +22,20 @@ wrong and must be corrected.
 | `docs/design/` | Five accepted documents. Ownership in `docs/design/README.md` |
 | `docs/acceptance/five-loops-test.md` | Accepted. Criteria FL-01 to FL-16. All sixteen had named evidence before REW-0005 amended FL-07, FL-13 and the meaning of FL-14; the amended criteria do not yet have evidence |
 | `docs/playtests/` | Evidence from named runs of named builds. One record, `five-loops-2026-08-22.md`, Complete for the earlier build and criteria, with four raw `LogRewind` captures beside it |
-| `.mcp.json` | Points Claude Code at the running editor's MCP endpoint on localhost. Resolves only while the editor is open |
+| `.codex/config.toml` and `.mcp.json` | Project-scoped clients for the running editor's MCP endpoint on localhost. They resolve only while this project's editor is open |
+| `docs/EDITOR_AUTOMATION.md` | Canonical engine, editor, MCP, plugin, toolset, build and agent-playtest procedure |
 | `docs/concepts_sandbox/legacy-rewind/` | Imported design, roadmaps and task files from the previous project, plus a verified code inventory and a conflict register. Non-authority |
 | `docs/baseline/acme-2026-08-19/` | Frozen provenance for the working model itself. Never edited, never authority |
 | `.gitignore` / `.gitattributes` | Ignore generated UE output. LFS tracks Unreal binaries. No `.uasset` committed yet |
-| `docs/CURRENT_TASK.md` | REW-0007, Draft. Completes the Chapter 1 spatial chain after REW-0006 was superseded. Its identity claim is on the supersession branch and is not valid until that branch merges to `main` |
+| `docs/CURRENT_TASK.md` | REW-0007, Ready. Completes the Chapter 1 spatial chain after REW-0006 was superseded. Its claim is on `main`; REW-0008 supplied and verified the editor-automation prerequisite before restoring it |
 | `docs/concept/` | Target images produced by the owner. Targets, never rules. Three listed in its README |
 | `docs/finished/REW-0004_...md` | Superseded by REW-0006 after its frozen scope conflicted with the lift-or-stairs branch decided by REW-0005 |
 | `Rewind/Source/Rewind/RewindCameraRig.cpp` | The authored camera of ADR-0007. Regions declare rotation, travel axis, bounds, dead zone and player volume. Compiled; no FL criterion re-run under it |
 | `Rewind/Source/Rewind/RewindRadio.cpp` | Four channels on the loop clock. The accepted channel speaks `7312` across 20 seconds at phases 4, 9, 14 and 19 of a 50-second cycle. A full sequence grants the stored fact; individual digits remain player memory |
 | `Rewind/Source/Rewind/RewindFuse.cpp` and `RewindFuseSocket.cpp` | One carried LoopWorld fuse with two exclusive sockets. It resets to its authored 4C position. The generator requires the courtyard socket; the building socket has no lift to power yet |
+| `Rewind/Source/RewindEditor/` | Editor-only module registering `RewindEditor.RewindPIEInputToolset`: player-state read, key press/release/tap and release-all through Unreal's simulated player input path |
+| `AutomationTestToolset` | Enabled and verified against the running editor. Discovery found four `Rewind.*` tests; `Rewind.Ids.MatchDesign` passed 1/1 with no errors or warnings |
+| `docs/finished/REW-0008_...md` | Complete. Canonical editor/MCP context, project-scoped Codex config, PIE-input toolset and named automation-test execution |
 | `docs/finished/REW-0006_...md` | Superseded after play established 20/50 as the radio rule while its frozen scope still required 45/60. Radio and fuse work retained for REW-0007 |
 | `docs/finished/REW-0003_five-loops-test-implementation.md` | Complete. Five Loops Test implementation, archived 2026-08-23 |
 | `docs/backlog/five-loops-test.md` | Authority resolved by REW-0002. Implementation activated as REW-0003 |
@@ -167,17 +171,21 @@ specific thing `AGENTS.md` "Evidence Discipline" exists to prevent.
   this. The legacy C# is design reference from now on, and the cost is
   contained because the systems that mattered were not running in the
   committed scene anyway.
-- **No verification tooling exists.** There is no link checker. Building is
-  manual, and every task states which checks it could not run.
+- **Documentation verification is still manual.** There is no link checker or
+  CI gate. Unreal Editor Win64 Development builds locally, and MCP can drive
+  PIE input and named automation tests, but every task still names exactly
+  what it ran and what it did not.
 - **The instrumentation resolves to a tick, not an instant.** `LogRewind`
   writes a transition on the tick that first observes it, so two loops report
   the same boundary up to about 0.25 s apart. The offset is constant inside a
   loop, which is tick phase and not drift. Any criterion whose evidence needs
   exact equality at an arbitrary `t` is not closed by the log alone.
-- **The editor cannot be driven and rebuilt at the same time.** The MCP
-  endpoint lives inside the editor, and the editor holds the build lock.
-  It also exposes no console-command and no input tool, so no criterion
-  needing player action can be evidenced without a human at the keyboard.
+- **The editor still cannot be driven and rebuilt at the same time.** The MCP
+  endpoint lives inside the editor, and the editor holds the module build
+  lock. REW-0008 added project-owned PIE input and enabled automation-test
+  discovery/execution, so player-action evidence no longer requires a human
+  at the keyboard. Agents still need separate build and live-editor phases and
+  a session started from the repo root so the MCP config is loaded.
 - **Git LFS quota.** ADR-0005 put binaries in LFS. The Five Loops Test must
   stay a blockout. A large art import is a new decision.
 - **The `LICENSE` file disagrees with the intended default.** Apache-2.0 text

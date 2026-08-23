@@ -4,6 +4,50 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-23 — REW-0008 complete, agents can drive and test PIE
+
+- Date: 2026-08-23
+- Author: Codex
+- Task: REW-0008
+- Branch: `rew-0008/editor-automation`
+- Change: added the editor-only `RewindEditor` module and registered
+  `RewindEditor.RewindPIEInputToolset`. It reads player-zero state and sends
+  press, release and tap events through Unreal's simulated player-input path,
+  tracks project-injected held keys, supplies release-all, and clears tracking
+  when PIE ends. `AutomationTestToolset` is enabled. `.codex/config.toml` now
+  gives Codex the same localhost MCP endpoint already present in the committed
+  `.mcp.json` files. `AGENTS.md` routes Unreal work to the new canonical
+  `docs/EDITOR_AUTOMATION.md` instead of carrying the full machine procedure.
+- Build evidence: Unreal Editor Win64 Development succeeded with UE 5.8 after
+  compiling and linking `UnrealEditor-RewindEditor.dll`. No engine plugin
+  source was changed.
+- MCP evidence: a raw streamable-HTTP handshake on `127.0.0.1:8000/mcp`
+  negotiated protocol `2025-06-18`. `list_toolsets` returned the project input
+  toolset, `EditorAppToolset`, `LogsToolset` and `AutomationTestToolset`.
+- PIE evidence: MCP started standard PIE and confirmed it running. Player zero
+  possessed `RewindCharacter_0` at `(-150, 0, 98.15)`. Pressing `W` through the
+  project toolset and then releasing it moved the pawn 337.90 cm to
+  `(-150, 337.90, 98.15)`. The held-key list contained `W` while pressed and
+  was empty after release; release-all reported no remaining keys. The same run
+  returned a 623,908-character base64 PNG viewport payload, read 58
+  `LogRewind` entries and stopped PIE cleanly.
+- Automation evidence: discovery reached `ready` and listed four existing
+  `Rewind.*` tests. `Rewind.Ids.MatchDesign` ran by name and passed 1/1 in
+  0.00695 seconds with zero errors and zero warnings; status and result calls
+  both reported the completed pass.
+- Verification: successful editor build; live MCP inventory; start, state,
+  input, release-all, viewport, log and stop calls; named automation-test run;
+  live-document links and fences reviewed; `git diff --check` clean. No
+  packaged build was made, and no REW-0007 gameplay acceptance was run. The
+  Desktop app's packaged `codex.exe` could not be invoked from PowerShell due
+  to WindowsApps access control, so `codex mcp list --json` was not evidence;
+  the raw live handshake and tool calls were.
+- Handoff: REW-0008 is archived Complete. REW-0007 is restored unchanged in
+  its frozen gameplay charter at `Ready`; its tooling blocker is removed. The
+  next work remains the lift and stairs, followed by the authored spatial
+  chain and its task-owned playtest gates.
+- Signature: Codex
+
 ## 2026-08-23 — REW-0006 superseded after the played radio rule changed
 
 - Date: 2026-08-23

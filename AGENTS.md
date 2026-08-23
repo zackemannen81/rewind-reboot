@@ -199,11 +199,13 @@ Verify in proportion to risk, and state what was not verified.
   duplicated, `git diff --check` is clean.
 - Design tasks: every rule has exactly one owning document, and every rule the
   acceptance criteria depend on is stated in testable terms.
-- Implementation tasks: the gates named in the charter. Until an Unreal project
-  exists in this repository, no build, test or automation gate may be claimed.
+- Implementation tasks: the gates named in the charter. Unreal build, editor,
+  PIE-input and automation-test procedures are in
+  `docs/EDITOR_AUTOMATION.md`.
 
-This repository has no tooling. Verification is manual review, and every task
-states which checks it ran and which it could not.
+Every task states which checks it ran and which it could not. A successful
+compile is never substituted for the PIE or automation evidence its charter
+requires.
 
 ## Safety and External Effects
 

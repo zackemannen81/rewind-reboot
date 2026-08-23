@@ -10,6 +10,4 @@ restored to `docs/CURRENT_TASK.md` unchanged when its resume condition is met.
 This is not a general backlog. Work that was never chartered belongs in
 `docs/backlog/`.
 
-| Task | Status | Resume condition |
-| --- | --- | --- |
-| [`REW-0007`](REW-0007_complete-the-chapter-1-spatial-chain.md) | Paused | REW-0008 is complete and its editor automation is verified |
+No tasks are paused.

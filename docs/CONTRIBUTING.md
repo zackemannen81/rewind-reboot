@@ -75,7 +75,8 @@ be added there; they are still not authority.
 
 ## Verification
 
-This repository has no tooling yet. Until an Unreal project exists, no build,
-test or automation gate may be claimed. Verification is manual review plus
+The Unreal project has a documented editor build, MCP-driven PIE-input bridge
+and automation-test toolset. Follow `docs/EDITOR_AUTOMATION.md` for those
+checks. Documentation verification still includes manual review and
 `git diff --check`, and every task states which checks it ran and which it
 could not.
