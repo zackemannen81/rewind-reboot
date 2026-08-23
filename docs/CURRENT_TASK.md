@@ -2,11 +2,11 @@
 
 Task ID: REW-0005
 Parent Task: REW-0004, paused pending this task
-Status: Draft
+Status: Ready
 Owner: Claude
 Created: 2026-08-23
 Last updated: 2026-08-23
-Charter frozen at: not frozen
+Charter frozen at: 2026-08-23
 
 ## Read First
 
@@ -122,9 +122,10 @@ document.
 
 ## Checklist
 
-- [ ] Merge the `REW-0005` identity claim to `main` before moving this charter
+- [x] Merge the `REW-0005` identity claim to `main` before moving this charter
       to `Ready`
-- [ ] Write what an Anchor is worth, and decide the scarcity question
+- [x] Write what an Anchor is worth, and decide the scarcity question:
+      ADR-0008 and the rule in `docs/design/anchors.md`
 - [ ] Decide the radio's cost
 - [ ] Decide what the fuse is, and which bucket holds it
 - [ ] Decide the lift and the stairs
@@ -174,13 +175,15 @@ Only non-semantic corrections are allowed after `Ready`.
 
 ## Handoff and Follow-ups
 
-- Current state: Draft. Not yet claimed on `main`, so not yet `Ready`.
+- Current state: Ready, charter frozen 2026-08-23. Work is on branch
+  `rew-0005/anchor-consequence`.
 - Next recommended step: claim `REW-0005` on `main`, then decide what an Anchor
   is worth, because the Chapter 1 chain is an instance of that answer and reads
   as arbitrary without it.
 - Blockers: none.
 - Child tasks: none. This task is itself REW-0004's child.
-- Resume condition: not applicable while Draft.
+- Resume condition: any session with the repository. This task writes rules
+  and needs no editor.
 - Verification gaps: none yet; nothing has been done.
 - Open questions: whether a carried fuse needs a bucket `world-state-model.md`
   does not have. PlayerBody is discarded at loop start, which is the behaviour a
