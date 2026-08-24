@@ -73,6 +73,13 @@ ARewindCharacter::ARewindCharacter()
 	MannequinBody = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("MannequinBody"));
 	MannequinBody->SetupAttachment(RootComponent);
 	MannequinBody->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	// The imported mannequin is authored with its origin at the feet and faces
+	// across the character's +X axis. ACharacter's root is the centre of its
+	// capsule, so place the feet at the capsule bottom and align the mesh's
+	// animation-forward direction with CharacterMovement.
+	MannequinBody->SetRelativeLocation(FVector(
+		0.f, 0.f, -GetCapsuleComponent()->GetUnscaledCapsuleHalfHeight()));
+	MannequinBody->SetRelativeRotation(FRotator(0.f, -90.f, 0.f));
 	if (Mannequin.Succeeded())
 	{
 		MannequinBody->SetSkeletalMeshAsset(Mannequin.Object);

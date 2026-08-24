@@ -4,6 +4,51 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-24 — REW-0010 complete, owner-scale stairwell blockout
+
+- Date: 2026-08-24
+- Author: Codex
+- Task: REW-0010
+- Branch: `codex/rew-0010-stairwell-blockout`
+- Change: preserved the owner-authored Handmade2 construction as the untouched
+  stable reference `/Game/Maps/Reference/FiveLoops_Handmade2_Reference` and
+  built `/Game/Maps/FiveLoops_Stairwell_Blockout` as a separate human-scale
+  four-floor switchback. Floor surfaces are at Z = 0, 300, 600, 900 and
+  1200 cm. Four alternating flights each use seventeen 17.65 cm risers,
+  28 cm treads and 170 cm width; invisible ramps provide continuous capsule
+  collision while visible steps retain the authored shape.
+- Door and circulation correction: floors 1-3 have static closed doors on the
+  same side as 4C. The entrance and fourth-floor openings remain open. The
+  stairs follow the owner-corrected guardrail direction rather than the earlier
+  sketch's outer first run.
+- Runtime isolation: the standalone map tags its WorldSettings with
+  `Rewind.SkipProofLayout`. `URewindWorldStateSubsystem` honors that opt-out, so
+  the C++ Five Loops proof is not generated over the authored map in PIE. The
+  existing proof remains the default for maps without the tag.
+- Character correction: the imported mannequin is offset to the capsule bottom
+  and rotated -90 degrees relative to the character root. Feet now meet the
+  collision floor and forward locomotion uses the animation's forward facing.
+- Verification: the stable reference and its source each enumerated 26 actors;
+  `stairwayCamera` matched at `(17020, -6330, 1360)`, rotation `(0, 180, 0)`.
+  The saved target reopened with 33 actors. Standard possessed PIE descended
+  all four flights and reported Z = 1298, 998, 698, 398 and 98 cm at the five
+  levels; held keys were released before PIE stopped. An MCP viewport capture
+  showed the complete four-floor composition. Unreal Editor Win64 Development
+  built successfully after the C++ changes.
+- Storage evidence: the target map is 441,048 bytes and the reference is
+  462,724 bytes. Both map paths resolve Git attributes to LFS for filter, diff
+  and merge with text unset. Locally imported Fab, OldWall and PaintedBrickWall
+  content was inventoried but remains untracked; REW-0010 neither approves its
+  license/provenance nor spends repository storage on it.
+- Not verified: no packaged build and no final environment-art pass. Runtime
+  vertical camera following, complete authored-map camera coverage, reflections
+  and final lighting remain outside the frozen stairwell charter.
+- Handoff: merge REW-0010 before claiming its successor. The next bounded task
+  should adopt playable camera coverage around the authored stairwell and its
+  adjacent upper/ground circulation; a separate decision must move environment
+  art off the project brief's non-goal list and approve imported-asset storage.
+- Signature: Codex
+
 ## 2026-08-24 — REW-0009 complete, rewind is causal rather than global
 
 - Date: 2026-08-24

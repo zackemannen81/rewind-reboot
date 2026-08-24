@@ -11,7 +11,13 @@
 #include "GameFramework/Pawn.h"
 #include "GameFramework/PlayerController.h"
 #include "Engine/World.h"
+#include "GameFramework/WorldSettings.h"
 #include "Engine/GameInstance.h"
+
+namespace
+{
+	const FName SkipProofLayoutTag(TEXT("Rewind.SkipProofLayout"));
+}
 
 bool URewindWorldStateSubsystem::ShouldCreateSubsystem(UObject* Outer) const
 {
@@ -23,6 +29,15 @@ void URewindWorldStateSubsystem::EnsureAuthoredSpace()
 {
 	UWorld* World = GetWorld();
 	if (!World)
+	{
+		return;
+	}
+
+	// Standalone authored-space and geometry blockouts own their contents. The
+	// proof layout is still the default, but an explicit map tag prevents it
+	// from being generated on top of those authored actors during PIE.
+	if (const AWorldSettings* WorldSettings = World->GetWorldSettings();
+		WorldSettings && WorldSettings->ActorHasTag(SkipProofLayoutTag))
 	{
 		return;
 	}

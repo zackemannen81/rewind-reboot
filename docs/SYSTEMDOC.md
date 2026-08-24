@@ -19,6 +19,21 @@ termination. That rule is not implemented: the running C++ proof still ends at
 does not end after a successful Anchor commit. The mismatch is an explicit
 implementation gap, not a claim that the accepted rule already works.
 
+`/Game/Maps/FiveLoops_Stairwell_Blockout` is the first standalone authored
+geometry map. It preserves the owner's switchback shape at human scale: five
+floor surfaces at Z = 0, 300, 600, 900 and 1200 cm and four alternating
+flights, each 170 cm wide with seventeen 28 cm treads and 17.65 cm risers.
+Invisible alternating ramps provide continuous capsule collision over the
+visible steps. Floors 1-3 have static closed doors on the same side as the 4C
+and entrance openings. The map carries the WorldSettings tag
+`Rewind.SkipProofLayout`, which makes `URewindWorldStateSubsystem` leave its
+authored contents alone instead of spawning `ARewindProofLayout` over them.
+
+The runtime mannequin is offset by the capsule half-height so its feet meet the
+capsule bottom and is rotated -90 degrees relative to the character root so the
+imported animation-forward direction matches movement. This alignment is
+presentation only; the capsule remains authoritative for collision.
+
 ## The working model in one page
 
 ```text

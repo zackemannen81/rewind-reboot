@@ -17,7 +17,14 @@ rewind-reboot/
 │   ├── Source/RewindEditor/        editor-only MCP PIE-input toolset
 │   ├── Config/                     default engine, game, input, editor
 │   └── Content/
+│       ├── FiveLoops_Handmade.umap owner-authored original construction map
+│       ├── FiveLoops_Handmade2.umap
+│       │                            owner-authored revised stair construction
 │       ├── Maps/FiveLoops.umap     empty level; Chapter 1 blockout spawned in C++
+│       ├── Maps/FiveLoops_Stairwell_Blockout.umap
+│       │                            authored five-level human-scale stairwell
+│       ├── Maps/Reference/FiveLoops_Handmade2_Reference.umap
+│       │                            untouched owner-layout reference
 │       └── Characters/Tier1/       21 CC0 animations and two pack mannequins
 ├── docs/
 │   ├── CURRENT_TASK.md             active task when one is approved; otherwise the restored template
@@ -68,5 +75,7 @@ records that may not be edited.
 ## Not yet present
 
 Generated Unreal output (`Binaries/`, `Intermediate/`, `Saved/`,
-`DerivedDataCache/`) is not in git. The only imported content is the measured
+`DerivedDataCache/`) is not in git. Tracked imported content is the measured
 12.61 MiB Tier 1 character subset under `Rewind/Content/Characters/Tier1/`.
+Locally imported Fab, OldWall and PaintedBrickWall content is untracked pending
+an explicit provenance and size decision under ADR-0005.
