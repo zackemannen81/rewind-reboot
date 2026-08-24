@@ -131,9 +131,9 @@ as C++ gameplay actors; the map is the explicit editor and game startup target.
 - `Rewind/Content/Maps/FiveLoops_Stairwell_Blockout.umap`
 - `Rewind/Content/Maps/Reference/FiveLoops_Handmade2_Reference.umap`
 - `Rewind/Content/FiveLoops_Handmade2.umap`
-- `docs/concept/apartment-4c.png`
-- `docs/concept/top-floor-plan.png`
-- `docs/concept/fuse-box-closeup.png`
+- `docs/concept/apartment-4c-interior.png`
+- `docs/concept/chapter-1-top-floor-plan.png`
+- `docs/concept/fuse-box-detail.png`
 - `docs/concept/stairwell-4c-landing.png`
 - `Rewind/Source/Rewind/RewindRadio.cpp`
 - `Rewind/Source/Rewind/RewindCodeLock.cpp`
@@ -170,7 +170,8 @@ as C++ gameplay actors; the map is the explicit editor and game startup target.
 
 ## Charter Amendment Log
 
-- none
+- 2026-08-24: corrected three mistyped tracked concept-reference filenames;
+  no goal, deliverable, scope, definition or verification gate changed.
 
 ## Verification
 
