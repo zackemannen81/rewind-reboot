@@ -8,7 +8,8 @@ UENUM()
 enum class ERewindTravelAxis : uint8
 {
 	X,
-	Y
+	Y,
+	Z
 };
 
 /**
@@ -41,7 +42,8 @@ public:
 		const FRotator& InCameraRotation = FRotator(-6.f, 90.f, 0.f),
 		double InTravelPadding = 260.0,
 		double InDeadZone = 220.0,
-		bool bInCutOnEntry = false);
+		bool bInCutOnEntry = false,
+		float InFieldOfView = 50.f);
 
 	bool Contains(const FVector& Location) const;
 
@@ -58,6 +60,7 @@ public:
 	FVector GetCameraLocation(double TravelCoord) const;
 
 	FRotator GetCameraRotation() const { return CameraRotation; }
+	float GetFieldOfView() const { return FieldOfView; }
 	double GetDeadZone() const { return DeadZone; }
 	bool CutsOnEntry() const { return bCutOnEntry; }
 	FName GetRegionName() const { return RegionName; }
@@ -83,12 +86,16 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Camera")
 	ERewindTravelAxis TravelAxis = ERewindTravelAxis::X;
 
-	/** Camera position relative to the volume centre. The travel component is ignored. */
+	/** Camera position relative to the player coordinate. Its travel component is the framing offset. */
 	UPROPERTY(EditAnywhere, Category = "Camera")
 	FVector CameraOffset = FVector(0.f, -1600.f, 260.f);
 
 	UPROPERTY(EditAnywhere, Category = "Camera")
 	FRotator CameraRotation = FRotator(-6.f, 90.f, 0.f);
+
+	/** Horizontal field of view in degrees. Every region authors its own lens. */
+	UPROPERTY(EditAnywhere, Category = "Camera", meta = (ClampMin = "5.0", ClampMax = "170.0"))
+	float FieldOfView = 50.f;
 
 	/** How far inside the volume edge the camera stops, so a region cannot show what was not built. */
 	UPROPERTY(EditAnywhere, Category = "Camera")

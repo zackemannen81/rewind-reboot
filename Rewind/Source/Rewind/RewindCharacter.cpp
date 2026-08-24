@@ -9,6 +9,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Engine/World.h"
+#include "Materials/MaterialInterface.h"
 #include "WorldCollision.h"
 #include "Engine/OverlapResult.h"
 
@@ -69,6 +70,8 @@ ARewindCharacter::ARewindCharacter()
 		TEXT("/Game/Characters/Tier1/UAL1/Tier1_UAL1/SkeletalMeshes/Tier1_UAL1Idle_Loop.Tier1_UAL1Idle_Loop"));
 	static ConstructorHelpers::FObjectFinder<UAnimSequence> Walk(
 		TEXT("/Game/Characters/Tier1/UAL1/Tier1_UAL1/SkeletalMeshes/Tier1_UAL1Walk_Loop.Tier1_UAL1Walk_Loop"));
+	static ConstructorHelpers::FObjectFinder<UMaterialInterface> Silhouette(
+		TEXT("/Game/Art/Materials/Stairwell/MI_CharacterSilhouette.MI_CharacterSilhouette"));
 
 	MannequinBody = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("MannequinBody"));
 	MannequinBody->SetupAttachment(RootComponent);
@@ -86,6 +89,13 @@ ARewindCharacter::ARewindCharacter()
 		IdleAnimation = Idle.Succeeded() ? Idle.Object : nullptr;
 		WalkAnimation = Walk.Succeeded() ? Walk.Object : nullptr;
 		MannequinBody->SetAnimationMode(EAnimationMode::AnimationSingleNode);
+		if (Silhouette.Succeeded())
+		{
+			for (int32 MaterialIndex = 0; MaterialIndex < MannequinBody->GetNumMaterials(); ++MaterialIndex)
+			{
+				MannequinBody->SetMaterial(MaterialIndex, Silhouette.Object);
+			}
+		}
 		if (IdleAnimation)
 		{
 			MannequinBody->PlayAnimation(IdleAnimation, true);

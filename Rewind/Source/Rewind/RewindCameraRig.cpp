@@ -2,6 +2,7 @@
 
 #include "RewindCameraRegion.h"
 #include "RewindLog.h"
+#include "Camera/CameraComponent.h"
 #include "Engine/World.h"
 #include "GameFramework/Pawn.h"
 #include "GameFramework/PlayerController.h"
@@ -29,7 +30,10 @@ const APawn* ARewindCameraRig::GetPlayer() const
 	return Controller ? Controller->GetPawn() : nullptr;
 }
 
-bool ARewindCameraRig::ResolveTarget(FVector& OutLocation, FRotator& OutRotation)
+bool ARewindCameraRig::ResolveTarget(
+	FRotator& OutRotation,
+	float& OutFieldOfView,
+	double& OutTravel)
 {
 	const APawn* Pawn = GetPlayer();
 	if (!Pawn)
@@ -39,12 +43,9 @@ bool ARewindCameraRig::ResolveTarget(FVector& OutLocation, FRotator& OutRotation
 
 	const FVector PlayerLocation = Pawn->GetActorLocation();
 
-	// Regions are authored edge to edge, so a player standing exactly on a
-	// boundary is inside both and the search returns whichever the actor
-	// iterator reaches first. That flipped the frame back and forth eight times
-	// in nine seconds during the first played test. Keeping the region the
-	// player is already in until they genuinely leave it costs one check and
-	// removes the whole class of thrash.
+	// Regions are authored edge to edge using half-open volumes. Keeping the
+	// current region until the player genuinely leaves it still avoids needless
+	// searches and makes the handoff state explicit.
 	ARewindCameraRegion* Region = (ActiveRegion && ActiveRegion->Contains(PlayerLocation))
 		? ActiveRegion.Get()
 		: ARewindCameraRegion::FindContaining(GetWorld(), PlayerLocation);
@@ -75,6 +76,7 @@ bool ARewindCameraRig::ResolveTarget(FVector& OutLocation, FRotator& OutRotation
 			CurrentTravel = Region->ClampTravel(Region->GetTravelCoord(PlayerLocation));
 			bHasTravel = true;
 			SetActorRotation(Region->GetCameraRotation());
+			GetCameraComponent()->SetFieldOfView(Region->GetFieldOfView());
 		}
 	}
 
@@ -96,16 +98,18 @@ bool ARewindCameraRig::ResolveTarget(FVector& OutLocation, FRotator& OutRotation
 		TargetTravel = PlayerTravel - Zone;
 	}
 
-	OutLocation = ActiveRegion->GetCameraLocation(ActiveRegion->ClampTravel(TargetTravel));
+	OutTravel = ActiveRegion->ClampTravel(TargetTravel);
 	OutRotation = ActiveRegion->GetCameraRotation();
+	OutFieldOfView = ActiveRegion->GetFieldOfView();
 	return true;
 }
 
 void ARewindCameraRig::SnapToPlayer()
 {
-	FVector TargetLocation;
 	FRotator TargetRotation;
-	if (!ResolveTarget(TargetLocation, TargetRotation))
+	float TargetFieldOfView = 50.f;
+	double TargetTravel = 0.0;
+	if (!ResolveTarget(TargetRotation, TargetFieldOfView, TargetTravel))
 	{
 		return;
 	}
@@ -114,15 +118,17 @@ void ARewindCameraRig::SnapToPlayer()
 	bHasTravel = true;
 	SetActorLocation(ActiveRegion->GetCameraLocation(CurrentTravel));
 	SetActorRotation(TargetRotation);
+	GetCameraComponent()->SetFieldOfView(TargetFieldOfView);
 }
 
 void ARewindCameraRig::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
-	FVector TargetLocation;
 	FRotator TargetRotation;
-	if (!ResolveTarget(TargetLocation, TargetRotation))
+	float TargetFieldOfView = 50.f;
+	double TargetTravel = 0.0;
+	if (!ResolveTarget(TargetRotation, TargetFieldOfView, TargetTravel))
 	{
 		return;
 	}
@@ -134,7 +140,6 @@ void ARewindCameraRig::Tick(float DeltaSeconds)
 	const double Alpha = FMath::Min(1.0, FollowSpeed * Scale);
 	const double RotationAlpha = FMath::Min(1.0, RotationBlendSpeed * Scale);
 
-	const double TargetTravel = ActiveRegion->GetTravelCoord(TargetLocation);
 	CurrentTravel += (TargetTravel - CurrentTravel) * Alpha;
 	if (FMath::Abs(TargetTravel - CurrentTravel) < 0.05)
 	{
@@ -146,5 +151,8 @@ void ARewindCameraRig::Tick(float DeltaSeconds)
 	// Slerp rather than a rotator lerp, so a blend between two regions never
 	// takes the long way round.
 	SetActorRotation(FQuat::Slerp(GetActorQuat(), TargetRotation.Quaternion(),
+		static_cast<float>(RotationAlpha)));
+	GetCameraComponent()->SetFieldOfView(FMath::Lerp(
+		GetCameraComponent()->FieldOfView, TargetFieldOfView,
 		static_cast<float>(RotationAlpha)));
 }

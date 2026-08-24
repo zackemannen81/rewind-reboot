@@ -35,6 +35,34 @@ struct FRewindPIEInputResult
 	UPROPERTY(BlueprintReadOnly, Category = "Rewind PIE Input")
 	FVector PlayerLocation = FVector::ZeroVector;
 
+	/** Player zero's current view target, when available. */
+	UPROPERTY(BlueprintReadOnly, Category = "Rewind PIE Input")
+	FString ViewTargetName;
+
+	/** Active authored camera-region name, when the view target is the RE:WIND rig. */
+	UPROPERTY(BlueprintReadOnly, Category = "Rewind PIE Input")
+	FString ActiveRegionName;
+
+	/** X, Y or Z for the active authored camera region. */
+	UPROPERTY(BlueprintReadOnly, Category = "Rewind PIE Input")
+	FString ActiveTravelAxis;
+
+	/** Runtime view-target location in centimetres. */
+	UPROPERTY(BlueprintReadOnly, Category = "Rewind PIE Input")
+	FVector CameraLocation = FVector::ZeroVector;
+
+	/** Runtime view-target rotation. */
+	UPROPERTY(BlueprintReadOnly, Category = "Rewind PIE Input")
+	FRotator CameraRotation = FRotator::ZeroRotator;
+
+	/** Runtime horizontal field of view in degrees. */
+	UPROPERTY(BlueprintReadOnly, Category = "Rewind PIE Input")
+	float CameraFieldOfView = 0.f;
+
+	/** Absolute path requested for a PIE viewport screenshot, when applicable. */
+	UPROPERTY(BlueprintReadOnly, Category = "Rewind PIE Input")
+	FString ScreenshotPath;
+
 	/** Keys pressed through this toolset and not yet released through it. */
 	UPROPERTY(BlueprintReadOnly, Category = "Rewind PIE Input")
 	TArray<FString> HeldKeys;
@@ -87,6 +115,10 @@ public:
 	/** Read PIE and player-zero state without changing input. */
 	UFUNCTION(meta = (AICallable), Category = "Rewind PIE Input")
 	static FRewindPIEInputResult GetPlayerState();
+
+	/** Request a clean screenshot from the active PIE game viewport on its next frame. */
+	UFUNCTION(meta = (AICallable), Category = "Rewind PIE Input")
+	static FRewindPIEInputResult CapturePIEScreenshot();
 
 	/** Editor lifecycle hook; clears bookkeeping after PIE destroys its input stack. */
 	static void ClearTrackedKeys();

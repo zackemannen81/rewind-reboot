@@ -4,6 +4,58 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-24 — REW-0011 complete, authored stairwell presentation slice
+
+- Date: 2026-08-24
+- Author: Codex
+- Task: REW-0011
+- Branch: `codex/rew-0011-stairwell-camera-lighting`
+- Change: the isolated owner-scale stairwell now has three authored vertical
+  camera regions. Entrance, stairs and upper threshold cover Z `[-100, 180)`,
+  `[180, 1180)` and `[1180, 1500)` with half-open thresholds, Z-only travel,
+  fixed authored rotations and explicit 42/37.5/37.5 degree horizontal FOV.
+  The upper frame starts at `(1520, 0, 1150)`, yaw 180, preserving the owner's
+  35 mm `StairwayCamera` composition.
+- Presentation: two project-owned procedural masters and six instances provide
+  rough upper plaster, a separate muted-green lower wall band, dark floor,
+  metal, door and near-black character surfaces. Five local shadow-casting
+  practicals, cool fill, manual exposure, ambient occlusion and restrained SSR
+  establish a first-pass visual grammar. The eight assets total 108,671 bytes;
+  no third-party environment binary is tracked or referenced.
+- Traversal correction: reverse PIE found the capsule meeting the underside of
+  each intermediate landing 56 cm before its top. Floors 1-4 retain their outer
+  boundary but reduce landing depth from 180 to 130 cm, moving only the stair-
+  side inner edge by 50 cm. The final input route reached Z 1298.15, 1002.75,
+  706.73, 402.75 and 106.73 cm down, then 399.84, 706.49, 999.84 and 1298.15 cm
+  back up. Region order was Upper, Stairs, Entrance, Stairs, Upper; every state
+  reported the authored rig as view target and no held key remained.
+- Camera and visual evidence: start PIE reported camera `(1520, 0, 1150)`,
+  rotation `(0, 180, 0)`, FOV 37.5 and `Stairwell_Upper`. At the entrance it
+  reported `(1400, 0, 260)`, rotation `(-3, 180, 0)`, FOV 42 and
+  `Stairwell_Entrance`. Clean game-viewport PNGs showed the dark silhouette,
+  separated plaster bands, localized warm/cool pools, cast rail shadows and
+  readable alternating flights. The procedural breakup was reduced and made
+  finer after the first capture read as marble.
+- Saved-map and storage evidence: the map reopened with 29 actors and three
+  camera regions. Its dependency closure contains engine basics, `/Script`
+  modules and the five project material instances it uses; no `/Game/Fab`
+  reference remains. The map is 445,289 bytes. All `.uasset` and `.umap`
+  additions resolve to Git LFS under ADR-0005.
+- Verification: UE 5.8 `RewindEditor Win64 Development` built successfully in
+  7.85 seconds after the final code change. All seven `Rewind.*` automation
+  tests passed, 7/7 in 0.06182 seconds with zero errors and warnings;
+  `Rewind.Camera.Region.VerticalTravel` asserts Z travel, offset, bounds, FOV
+  and exact-one ownership around a shared threshold. Links, fences, design
+  ownership, staged LFS objects and `git diff --check` were reviewed.
+- Not verified: no packaged build, final textures, authored damage decals,
+  prop dressing, rain, neon, audio or wider Handmade-map camera coverage. The
+  isolated slice does not implement ADR-0009 event-driven rewind or claim the
+  full Chapter 1 level playable.
+- Handoff: the wider Handmade adoption remains a backlog proposal. The next
+  task may choose event-driven rewind implementation or one separately
+  chartered adjacent-space slice; neither is implied by this completion.
+- Signature: Codex
+
 ## 2026-08-24 — REW-0010 complete, owner-scale stairwell blockout
 
 - Date: 2026-08-24

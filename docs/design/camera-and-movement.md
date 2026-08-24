@@ -21,11 +21,13 @@ A region declares all of the following. A region that declares fewer is
 unfinished, not a region that falls back to a default.
 
 1. The camera's rotation, which is fixed for the region.
-2. A single **travel axis**, the one axis along which the camera may move.
+2. A single **travel axis** — X, Y or Z — along which the camera may move.
 3. **Bounds** on that axis: the camera's first and last permitted position.
 4. A **dead zone**, the centred band the player may move within before the
    camera responds.
 5. The **player volume**: the bounded space the player may occupy in the region.
+6. An explicit horizontal lens/FOV. There is no runtime fallback lens for an
+   otherwise finished region.
 
 Regions are authored per location, not derived from geometry. Two rooms of the
 same shape may frame differently, and that is the point.
@@ -38,6 +40,10 @@ region.
 
 **The camera moves on one axis only**, the region's travel axis. It does not
 track the player on the other two.
+
+The camera offset component on the travel axis is a framing offset. The player
+coordinate is constrained first and that authored offset is then applied; it
+is not read back from the already-offset camera as a new player coordinate.
 
 **It does not move while the player is inside the dead zone.** When the player
 leaves the dead zone, the camera follows so that the player remains at the
@@ -57,6 +63,10 @@ anything else on purpose.
 
 When the player crosses a region threshold, the entering region's camera takes
 over.
+
+Adjacent player volumes are half-open at their positive edge. A shared
+threshold therefore belongs to the entering region only, so an exact boundary
+coordinate can never satisfy two regions at once.
 
 **A blend is the default.** A cut is permitted only where the threshold is a
 real visual break, such as a doorway or an elevator, and it is authored on the
@@ -124,7 +134,8 @@ These are the statements later acceptance may cite. They are not themselves
 acceptance criteria.
 
 1. Every playable location is inside exactly one region, and every region
-   declares rotation, travel axis, bounds, dead zone and player volume.
+   declares rotation, X/Y/Z travel axis, bounds, dead zone, player volume and
+   horizontal FOV.
 2. Within a region, camera rotation does not change during play.
 3. The camera does not move while the player is inside the dead zone.
 4. The camera's position on its travel axis is always within the region's

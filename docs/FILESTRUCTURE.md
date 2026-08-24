@@ -13,8 +13,8 @@ rewind-reboot/
 ├── .codex/config.toml              project-scoped Codex client for the same editor endpoint
 ├── Rewind/                         Unreal Engine 5.8 blank C++ project
 │   ├── Rewind.uproject             engine 5.8; runtime and editor modules; MCP/toolset plugins
-│   ├── Source/Rewind/              loop, session, measured Chapter 1 layout, lift, stairs, puzzle actors, character
-│   ├── Source/RewindEditor/        editor-only MCP PIE-input toolset
+│   ├── Source/Rewind/              loop, session, Chapter 1, authored camera and named runtime tests
+│   ├── Source/RewindEditor/        editor-only MCP PIE-input and clean screenshot toolset
 │   ├── Config/                     default engine, game, input, editor
 │   └── Content/
 │       ├── FiveLoops_Handmade.umap owner-authored original construction map
@@ -25,6 +25,8 @@ rewind-reboot/
 │       │                            authored five-level human-scale stairwell
 │       ├── Maps/Reference/FiveLoops_Handmade2_Reference.umap
 │       │                            untouched owner-layout reference
+│       ├── Art/Materials/Stairwell/
+│       │                            project-owned masters and instances for the presentation slice
 │       └── Characters/Tier1/       21 CC0 animations and two pack mannequins
 ├── docs/
 │   ├── CURRENT_TASK.md             active task when one is approved; otherwise the restored template
@@ -44,7 +46,9 @@ rewind-reboot/
 │   │   ├── anchors.md
 │   │   ├── world-state-model.md
 │   │   ├── save-and-session.md
-│   │   └── chapter-1-authored.md
+│   │   ├── chapter-1-authored.md
+│   │   ├── camera-and-movement.md
+│   │   └── stairwell-visual-direction.md
 │   ├── acceptance/
 │   │   └── five-loops-test.md      first product proof, FL-01 to FL-16
 │   ├── playtests/                  indexed evidence, including the Chapter 1 three-loop record
@@ -77,5 +81,7 @@ records that may not be edited.
 Generated Unreal output (`Binaries/`, `Intermediate/`, `Saved/`,
 `DerivedDataCache/`) is not in git. Tracked imported content is the measured
 12.61 MiB Tier 1 character subset under `Rewind/Content/Characters/Tier1/`.
-Locally imported Fab, OldWall and PaintedBrickWall content is untracked pending
-an explicit provenance and size decision under ADR-0005.
+The stairwell material slice uses only project-authored Unreal assets. Locally
+imported Fab, OldWall and PaintedBrickWall working material remains outside the
+tracked dependency closure pending an explicit provenance and size decision
+under ADR-0005.
