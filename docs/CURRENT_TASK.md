@@ -1,12 +1,12 @@
 # Current Task
 
-Task ID:
+Task ID: REW-0011
 Parent Task: None
-Status: Draft
-Owner:
-Created:
-Last updated:
-Charter frozen at:
+Status: Ready
+Owner: Codex
+Created: 2026-08-24
+Last updated: 2026-08-24
+Charter frozen at: 2026-08-24
 
 ## Read First
 
@@ -18,86 +18,207 @@ Charter frozen at:
 - `docs/SYSTEMDOC.md`
 - `docs/JOURNAL.md`
 - `docs/FILESTRUCTURE.md`
-- Relevant ADRs under `docs/adr/`
+- `docs/EDITOR_AUTOMATION.md`
+- `docs/adr/ADR-0005_asset-storage.md`
+- `docs/adr/ADR-0007_camera-and-perspective.md`
+- `docs/design/camera-and-movement.md`
+- `docs/backlog/handmade-level-adoption.md`
+- `docs/concept/stairwell-4c-landing.png`
 
 ## Task Summary
-A task is never considered done until:
-JOURNAL.md, SYSTEMDOC.md, CURRENT_STATUS.md is a jour.
 
-Describe the task, why it is being done now and the intended outcome.
+REW-0010 established the owner-shaped stairwell at human scale and proved
+capsule traversal, but its single runtime camera cannot follow the player
+vertically and its temporary blockout lighting does not express the owner's
+fixed-camera reference. The owner explicitly requested a playable camera,
+silhouette, shadow, reflection and lighting pass. This task implements that
+request as one bounded stairwell vertical slice before the wider authored map
+is adopted.
+
+The construction map remains spatial authority for this task. The tracked
+stairwell concept image is a visual target, not a source of dimensions or game
+rules.
 
 ## Task Charter
 
-The charter is editable while status is `Draft` and immutable once status is
-`Ready`.
+The charter is frozen. Goal, primary deliverable, scope, out-of-scope,
+definition of done and minimum verification gates do not change.
 
 ### Goal
 
-Define one primary outcome.
+Turn the human-scale stairwell into a playable fixed-camera presentation slice
+whose camera coverage, silhouette and lighting demonstrate the intended visual
+grammar without claiming final Chapter 1 art.
 
 ### Primary Deliverable
 
-Name the concrete artifact or behavior that completes the task.
+An updated tracked `/Game/Maps/FiveLoops_Stairwell_Blockout` in which a
+possessed player can descend from 4C to the entrance under authored camera
+handoffs and vertical following, with a documented, reproducible first-pass
+stairwell material and lighting treatment.
 
 ### In Scope
 
-- List work required for the primary deliverable.
+- Amend `docs/PROJECT_BRIEF.md` by explicit owner direction to permit one
+  bounded environment-presentation vertical slice while retaining final art,
+  a general environment kit and an asset pipeline as non-goals.
+- Create one owning design document for the stairwell slice's visual rules:
+  dirty plaster above, green painted dirty plaster below, worn concrete or
+  dark stone circulation surfaces, sparse damage, localized practical light,
+  dark readable character silhouette and restrained floor reflection.
+- Verify license terms, provenance and measured size before tracking any
+  third-party asset. Restore and track only the exact dependency closure the
+  slice uses; do not import a complete pack merely because it is available.
+- Extend authored camera regions to support Z as their one legal travel axis.
+- Give regions an explicit authored lens/FOV and preserve the owner's
+  `StairwayCamera` position and 35 mm framing as the starting composition.
+- Author complete, non-overlapping camera coverage for the upper threshold,
+  stair traversal and entrance threshold, using blends except at real visual
+  breaks.
+- Tune post process, practical lights, shadows, exposure, silhouette and
+  rough/reflection response so stairs, landings, doors and the player remain
+  readable in the composed frame.
+- Preserve the REW-0010 floor elevations, stair dimensions, door sides and
+  capsule collision route except for a measured fix required by play evidence.
+- Update durable status, system, file map, design ownership, backlog routing
+  and journal in the same change.
 
 ### Out of Scope
 
-- List adjacent work that must not be absorbed.
+- Rebuilding or dressing Apartment 4C, the lift shaft, full upper hallway,
+  full ground hallway, courtyard, street or Transit Hub.
+- Claiming the full Handmade map playable or resolving every Chapter 1 camera
+  region.
+- Implementing ADR-0009 event-driven rewind, fuse/generator puzzle actors,
+  interaction close-ups, rain, neon city dressing, sound or rewind effects.
+- Final environment art, a reusable environment kit, procedural dressing,
+  broad asset ingestion or a project-wide material pipeline.
+- Committing OldWall, PaintedBrickWall or any Fab asset whose license,
+  provenance or actual use is not verified.
 
 ### Definition of Done
 
-- Define objective, verifiable completion conditions.
+- A possessed player can traverse continuously from floor 4 to entrance and
+  back while the active view remains an authored third-person camera.
+- Every traversed point belongs to exactly one declared region; the stair
+  region follows on Z only, respects dead-zone and bounds, and never changes
+  its authored rotation.
+- Upper and entrance thresholds hand off predictably and return to the correct
+  region in the reverse direction.
+- The stair composition starts from the owner camera's 35 mm framing and each
+  region declares its lens/FOV explicitly.
+- Captured editor and PIE frames show a readable dark silhouette, localized
+  practical light, cast shadows, separated wall bands, legible treads and a
+  restrained floor reflection without crushed-black navigation surfaces.
+- The map reopens without missing references. Every newly tracked binary is
+  covered by Git LFS and has recorded provenance, license basis and size.
+- REW-0010 geometry and reference-camera evidence remain unchanged except for
+  measured, reported adjustments permitted by this charter.
+- Status, system, design ownership, file structure, backlog and journal state
+  exactly what was and was not achieved.
 
 ### Minimum Verification Gates
 
-- [ ] Define checks that may be strengthened but not removed after `Ready`.
+- [ ] Owner camera transform, focal length and target framing recorded before
+  implementation
+- [ ] Selected asset dependency closure, provenance, license basis and byte
+  size recorded before staging
+- [ ] Unreal Editor Win64 Development build
+- [ ] Saved-map reopen with missing-reference and actor/region enumeration
+- [ ] Named region coverage audit proving exactly one region per sampled route
+  point
+- [ ] MCP-driven possessed PIE descent and ascent with held keys released
+- [ ] Camera-state evidence for Z-only follow, fixed rotation, dead zone,
+  bounds and both threshold handoffs
+- [ ] Editor and PIE viewport captures reviewed against the owned visual rules
+- [ ] Git LFS attributes and staged object audit
+- [ ] Manual link, fence and design-ownership review
+- [ ] `git diff --check` clean
 
 ## References
 
-- Add relevant documents, code, decisions and external contracts.
+- `docs/adr/ADR-0005_asset-storage.md`
+- `docs/adr/ADR-0007_camera-and-perspective.md`
+- `docs/design/camera-and-movement.md`
+- `docs/backlog/handmade-level-adoption.md`
+- `docs/concept/stairwell-4c-landing.png`
+- `Rewind/Content/Maps/FiveLoops_Stairwell_Blockout.umap`
+- `Rewind/Content/Maps/Reference/FiveLoops_Handmade2_Reference.umap`
+- `Rewind/Source/Rewind/RewindCameraRegion.h`
+- `Rewind/Source/Rewind/RewindCameraRig.cpp`
 
 ## Checklist
 
-- [ ] Break work into concrete, ordered steps.
-- [ ] Keep this checklist aligned with actual progress.
-- [ ] Add verification and documentation steps.
+- [x] Claim REW-0011 and merge the claim to `main`
+- [x] Read the repository, camera, storage and editor authority
+- [x] Freeze the bounded vertical-slice charter
+- [ ] Record pre-change camera, region, dependency and viewport evidence
+- [ ] Restate the bounded visual rules and project-phase exception
+- [ ] Verify and restore only the required licensed asset closure
+- [ ] Implement Z travel axis and explicit per-region lens
+- [ ] Author upper, stair and entrance camera coverage
+- [ ] Author the material, lighting, silhouette, shadow and reflection pass
+- [ ] Build, reopen and run the complete PIE camera/traversal verification
+- [ ] Update durable documentation and backlog routing
+- [ ] Verify, archive and merge the task
 
 ## Decisions and Notes
-- A checkpoint after each step or substep is required. Checklist is therefore updated along the work and `CURRENT_STATUS.md` is always updated when changes affect the behavior.
-- Record decisions and assumptions within the frozen charter.
-- Classify discoveries using `docs/TASK_WORKFLOW.md`.
+
+- The owner's 2026-08-24 request explicitly authorizes a bounded presentation
+  slice. It does not authorize final Chapter 1 art or an asset pipeline.
+- REW-0010 geometry is the spatial source. Concept art cannot silently move
+  walls, doors, landings or floor heights.
+- The local third-party import backup is discovery input only. Nothing becomes
+  repository content until its exact license basis and actual dependency are
+  verified.
+- A checkpoint after each implementation wave updates this checklist and every
+  affected behavior surface.
 
 ## Charter Amendment Log
 
 Only non-semantic corrections are allowed after `Ready`.
 
--none
+- none
 
 ## Verification
 
-- [ ] Define task-appropriate technical checks.
-- [ ] Define manual or scenario validation when relevant.
-- [ ] Document skipped checks and reasons.
+- [ ] Pre-change inventory and framing
+- [ ] Asset license/provenance/size audit
+- [ ] Unreal build
+- [ ] Map reopen and missing-reference audit
+- [ ] Region coverage and camera-state audit
+- [ ] PIE descent and ascent
+- [ ] Editor and PIE visual review
+- [ ] LFS/staging audit
+- [ ] Links, fences, ownership and `git diff --check`
+- [ ] Skipped checks and reasons recorded
 
 ## Documentation Updates
 
+- [ ] `docs/PROJECT_BRIEF.md`
 - [ ] `docs/CURRENT_STATUS.md`
 - [ ] `docs/SYSTEMDOC.md`
 - [ ] `docs/JOURNAL.md`
-- [ ] `docs/FILESTRUCTURE.md` when structure changes
-- [ ] ADRs when long-lived decisions change
+- [ ] `docs/FILESTRUCTURE.md`
+- [ ] `docs/design/README.md`
+- [ ] stairwell visual-direction owner
+- [ ] `docs/design/camera-and-movement.md`
+- [ ] `docs/backlog/handmade-level-adoption.md`
+- [ ] `docs/backlog/README.md`
 
 ## Handoff and Follow-ups
 
-- Current state:
-- Next recommended step:
-- Blockers:
-- Child tasks:
-- Resume condition:
-- Open questions:
+- Current state: Ready. The identity is merged and the charter is frozen.
+- Next recommended step: restore the editor and record the clean pre-change
+  camera/region/dependency evidence before changing runtime or map state.
+- Blockers: exact third-party license/provenance must be verified before any
+  imported environment asset is staged.
+- Child tasks: none.
+- Resume condition: met for camera work; asset work resumes per asset after
+  its license gate passes.
+- Open questions: which exact practical-light and wall/floor assets survive the
+  dependency/provenance audit; whether the wider Handmade adoption follows
+  event-driven rewind implementation or another bounded presentation slice.
 
 ## Finalize When Complete
 
