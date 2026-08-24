@@ -86,7 +86,7 @@ A saved `/Game/Maps/FiveLoops_Stairwell_Blockout` whose
 ## Checklist
 
 - [x] Inspect `4c_camera`, PlayerStart and `Apartment4C_Region`.
-- [ ] Derive and apply the runtime region values.
+- [x] Derive and apply the runtime region values.
 - [ ] Save/reopen and inspect the authored map.
 - [ ] Verify standard PIE state, clean viewport and held-key cleanup.
 - [ ] Run relevant automation, LFS and documentation checks.
@@ -123,9 +123,9 @@ A saved `/Game/Maps/FiveLoops_Stairwell_Blockout` whose
 
 ## Handoff and Follow-ups
 
-- Current state: reference values inspected; implementation not started.
-- Next recommended step: apply `(640, -250, -10)`, `(0, 180, 0)` and
-  `37.497356` to `Apartment4C_Region`.
+- Current state: the reference-derived offset, rotation and FOV are applied and
+  saved; clean reopen and PIE verification remain.
+- Next recommended step: reopen the map and record the initial runtime camera.
 - Blockers: none known.
 - Child tasks: none.
 - Resume condition: n/a.
