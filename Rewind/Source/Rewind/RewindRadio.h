@@ -10,7 +10,7 @@
  * The radio, per `docs/design/chapter-1-authored.md`.
  *
  * It broadcasts on the loop clock and never reads loop count, which ADR-0002
- * forbids. The code sequence takes 45 seconds and repeats every 60, so the
+ * forbids. The code sequence takes 20 seconds and repeats every 50, so the
  * fact is obtained by being present for a whole sequence rather than by
  * pressing a key. That cost is the loop's first lesson: information is
  * expensive once and free afterwards.

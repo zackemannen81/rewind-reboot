@@ -4,6 +4,45 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-24 — REW-0012 complete, authored 4C and lift slice
+
+- Date: 2026-08-24
+- Author: Codex
+- Task: REW-0012
+- Branch: `codex/rew-0012-authored-4c-lift`
+- Change: `/Game/Maps/FiveLoops_Stairwell_Blockout` is now the editor and game
+  default and extends the accepted stairwell with a 700 by 1200 by 300 cm 4C,
+  fourth-floor common hall, entrance hall and cutaway lift shaft/cage. The
+  saved map contains the deterministic radio, manual `7312` lock, one carried
+  fuse, building and ground sockets, and 52 actors after final reopen. The
+  procedural proof remains preserved separately and is not overlaid in PIE.
+- Camera and presentation: four new half-open Apartment4C, TopHall, LiftShaft
+  and GroundHall regions extend the three accepted stair regions. They use
+  Y/Y/Z/Y travel and explicit 55/65/60/65 degree FOV. Project-owned materials,
+  a moderately reflective 4C floor, localized warm practicals, cool shaft fill,
+  cast shadows and stable exposure continue the first-pass visual grammar; no
+  unapproved Fab or marketplace asset was added.
+- Gameplay: wrong `1111` was rejected and `7312` opened the hall. The placed
+  fuse powered the building socket. An empty-socket run logged lift refusal.
+  The powered cage measured exactly 6.00 seconds down and 6.00 seconds up and
+  handed the capsule cleanly to GroundHall and TopHall instead of wedging it on
+  a coplanar floor seam. The unchanged stair route is backed by REW-0011 plus
+  current upper/lower handoff evidence; the second socket is backed by the
+  shared exclusive fuse state plus the formal prior two-destination playtest.
+- Verification: UE 5.8 `RewindEditor Win64 Development` built editor-closed in
+  8.91 seconds after the final C++ change. All eight discoverable `Rewind.*`
+  tests passed together, 8/8 in 0.077351 seconds; the new
+  `Rewind.Project.DefaultAuthoredMap` locks both startup settings. Every PIE
+  evidence run released held inputs before stop. Saved binaries resolve through
+  Git LFS; live links, fences and the staged diff were checked.
+- Not verified: no packaged build, final art, final audio, authored decals,
+  rain/neon dressing, event-driven rewind, courtyard, streets or Transit. The
+  full inherited stair route and ground-socket seating were not replayed in
+  this task; their composite evidence is explicit in the playtest record.
+- Handoff: owner playtest the authored default map. Any courtyard extension or
+  ADR-0009 implementation requires a new bounded charter.
+- Signature: Codex
+
 ## 2026-08-24 — REW-0011 complete, authored stairwell presentation slice
 
 - Date: 2026-08-24

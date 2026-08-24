@@ -36,13 +36,19 @@ ARewindLift::ARewindLift()
 		return Part;
 	};
 
-	Platform = AddCabinPart(TEXT("Platform"), FVector(0.f, 0.f, -5.f), FVector(2.2f, 2.4f, 0.1f));
+	Platform = AddCabinPart(TEXT("Platform"), FVector(0.f, 0.f, -5.f), FVector(4.f, 2.4f, 0.1f));
 	// The platform is the interaction target. It overlaps rather than blocks so
 	// the passenger can stand in the cage while it moves.
 	Platform->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	Platform->SetCollisionResponseToAllChannels(ECR_Overlap);
-	CabinBack = AddCabinPart(TEXT("CabinBack"), FVector(0.f, 115.f, 110.f), FVector(2.2f, 0.1f, 2.2f));
-	CabinRoof = AddCabinPart(TEXT("CabinRoof"), FVector(0.f, 0.f, 220.f), FVector(2.2f, 2.4f, 0.1f));
+	CabinFloorCollision = AddCabinPart(
+		TEXT("CabinFloorCollision"), FVector(0.f, 0.f, -5.f), FVector(4.f, 2.4f, 0.1f));
+	CabinFloorCollision->SetVisibility(false);
+	CabinFloorCollision->SetHiddenInGame(true);
+	CabinFloorCollision->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	CabinFloorCollision->SetCollisionResponseToAllChannels(ECR_Block);
+	CabinBack = AddCabinPart(TEXT("CabinBack"), FVector(0.f, 115.f, 110.f), FVector(3.3f, 0.1f, 2.2f));
+	CabinRoof = AddCabinPart(TEXT("CabinRoof"), FVector(0.f, 0.f, 220.f), FVector(3.3f, 2.4f, 0.1f));
 
 	auto AddShaftRail = [this, Cube](FName Name, float X)
 	{
@@ -70,6 +76,9 @@ void ARewindLift::Configure(double InTopZ, double InBottomZ)
 	const FVector RailScale = FVector(0.12f, 0.12f, static_cast<float>((TopZ - BottomZ) / 100.0));
 	ShaftLeft->SetRelativeScale3D(RailScale);
 	ShaftRight->SetRelativeScale3D(RailScale);
+	TravelStartZ = TopZ;
+	TravelTargetZ = BottomZ;
+	bAtEntranceFloor = false;
 	SetCabinZ(TopZ);
 }
 
@@ -80,13 +89,8 @@ void ARewindLift::SetCabinZ(double Z)
 
 bool ARewindLift::TryInteract(APawn* InstigatorPawn)
 {
-	if (!InstigatorPawn || bDescending)
+	if (!InstigatorPawn || bMoving)
 	{
-		return false;
-	}
-	if (bAtEntranceFloor)
-	{
-		RewindLog::Event(this, TEXT("Lift: refused, cage already at entrance floor"));
 		return false;
 	}
 
@@ -109,16 +113,23 @@ bool ARewindLift::TryInteract(APawn* InstigatorPawn)
 	}
 
 	Passenger = InstigatorPawn;
-	PassengerOffset = Passenger->GetActorLocation()
-		- (GetActorLocation() + FVector(0.f, 0.f, static_cast<float>(TopZ)));
-	DescentStartedAt = Loop->GetElapsedLoopTime();
-	bDescending = true;
+	TravelStartZ = bAtEntranceFloor ? BottomZ : TopZ;
+	TravelTargetZ = bAtEntranceFloor ? TopZ : BottomZ;
+	FVector PassengerLocation = Passenger->GetActorLocation();
+	PassengerLocation.X = GetActorLocation().X;
+	PassengerLocation.Y = GetActorLocation().Y;
+	Passenger->SetActorLocation(PassengerLocation, false, nullptr, ETeleportType::TeleportPhysics);
+	PassengerOffset = PassengerLocation
+		- (GetActorLocation() + FVector(0.f, 0.f, static_cast<float>(TravelStartZ)));
+	TravelStartedAt = Loop->GetElapsedLoopTime();
+	bMoving = true;
 	if (ACharacter* Character = Cast<ACharacter>(Passenger))
 	{
 		Character->GetCharacterMovement()->DisableMovement();
 	}
 	RewindLog::Event(this, FString::Printf(
-		TEXT("Lift: descent started, building fuse present (authored %.1fs)"),
+		TEXT("Lift: %s started, building fuse present (authored %.1fs)"),
+		bAtEntranceFloor ? TEXT("ascent") : TEXT("descent"),
 		RewindChapter1Metrics::LiftTravelSeconds));
 	return true;
 }
@@ -138,7 +149,7 @@ void ARewindLift::Tick(float DeltaSeconds)
 			: TEXT("Lift: UNPOWERED, building socket empty"));
 	}
 
-	if (!bDescending || !Passenger)
+	if (!bMoving || !Passenger)
 	{
 		return;
 	}
@@ -154,9 +165,9 @@ void ARewindLift::Tick(float DeltaSeconds)
 	{
 		return;
 	}
-	const double Travelled = Loop->GetElapsedLoopTime() - DescentStartedAt;
+	const double Travelled = Loop->GetElapsedLoopTime() - TravelStartedAt;
 	const double Alpha = FMath::Clamp(Travelled / RewindChapter1Metrics::LiftTravelSeconds, 0.0, 1.0);
-	const double CabinZ = FMath::Lerp(TopZ, BottomZ, Alpha);
+	const double CabinZ = FMath::Lerp(TravelStartZ, TravelTargetZ, Alpha);
 	SetCabinZ(CabinZ);
 	Passenger->SetActorLocation(
 		GetActorLocation() + FVector(0.f, 0.f, static_cast<float>(CabinZ)) + PassengerOffset,
@@ -164,9 +175,19 @@ void ARewindLift::Tick(float DeltaSeconds)
 
 	if (Alpha >= 1.0)
 	{
-		bAtEntranceFloor = true;
+		bAtEntranceFloor = FMath::IsNearlyEqual(TravelTargetZ, BottomZ);
+		// Put the passenger on the authored hall side of the threshold before
+		// restoring walking. The moving cabin floor and the static landing are
+		// coplanar, and leaving the capsule on their seam can wedge it between
+		// two otherwise valid blocking surfaces.
+		FVector ExitLocation = Passenger->GetActorLocation();
+		ExitLocation.X = GetActorLocation().X + 240.f;
+		ExitLocation.Y = GetActorLocation().Y;
+		Passenger->SetActorLocation(ExitLocation, false, nullptr, ETeleportType::TeleportPhysics);
 		RewindLog::Event(this, FString::Printf(
-			TEXT("Lift: entrance floor reached, measured descent %.2fs"), Travelled));
+			TEXT("Lift: %s reached, measured %s %.2fs"),
+			bAtEntranceFloor ? TEXT("entrance floor") : TEXT("4C"),
+			bAtEntranceFloor ? TEXT("descent") : TEXT("ascent"), Travelled));
 		ReleasePassenger();
 	}
 }
@@ -178,13 +199,15 @@ void ARewindLift::ReleasePassenger()
 		Character->GetCharacterMovement()->SetMovementMode(MOVE_Walking);
 	}
 	Passenger = nullptr;
-	bDescending = false;
+	bMoving = false;
 }
 
 void ARewindLift::RestoreFromBaseline()
 {
 	ReleasePassenger();
 	bAtEntranceFloor = false;
+	TravelStartZ = TopZ;
+	TravelTargetZ = BottomZ;
 	SetCabinZ(TopZ);
 	bPowerLogged = false;
 	RewindLog::Baseline(TEXT("Lift: at 4C, unpowered; building socket empty"));

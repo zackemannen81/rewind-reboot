@@ -8,8 +8,9 @@ writes them.
 An Unreal Engine 5.8 C++ project exists at `Rewind/Rewind.uproject`. The loop
 clock, ordered world-state apply, session knowledge, one Anchor, clean save,
 authored camera, loop-clocked radio, contested fuse, lift, stairs and rebuilt
-Chapter 1 blockout are implemented. The standalone owner-shaped stairwell also
-has a bounded first-pass presentation slice. An editor-only module exposes
+Chapter 1 blockout are implemented. The owner-shaped stairwell, Apartment 4C,
+fourth-floor common hall and lift now form the bounded authored presentation
+slice and the project's editor/game default. An editor-only module exposes
 project PIE input and clean game-viewport capture through the MCP toolset
 registry, and the engine automation-test toolset is enabled. The sections below
 distinguish the running proof from later art and product work.
@@ -38,6 +39,21 @@ horizontal FOV derived from its 35 mm lens; the entrance uses X = 1400 cm,
 pitch = -3 degrees and 42 degrees FOV. The runtime camera applies the region's
 travel-axis framing offset after clamping the player coordinate and blends
 explicit FOV with position and rotation.
+
+Four additional half-open regions extend the same map through Apartment 4C,
+the common hall, the lift shaft and the entrance hall. The apartment and hall
+regions follow Y, while the cutaway shaft follows Z. Their fixed lenses are
+55, 65, 60 and 65 degrees respectively. Standard PIE starts from the 4C
+PlayerStart at `(-900, 1650, 1296)`; the authored map is named by both
+`EditorStartupMap` and `GameDefaultMap`.
+
+The saved extension blocks 4C at 700 by 1200 by 300 cm, keeps the common hall
+at 360 cm width, and uses the existing 1200 cm floor-four-to-entrance
+separation. It places the loop-clocked radio, manual `7312` lock, one carried
+fuse, both exclusive sockets and the bidirectional powered cage directly in
+the authored map. The cage has a blocking floor, centres its passenger during
+travel and hands the capsule to the hall side of the coplanar threshold before
+walking resumes.
 
 The map uses project-owned procedural master materials and instances for upper
 plaster, the separate green lower wall band, dark circulation surfaces,
@@ -155,7 +171,8 @@ representation for causal-contract failure, Anchor commit, a latched rewind or
 the one-to-three-second prelude required by ADR-0009. This paragraph describes
 the current implementation; it does not restate the accepted rule.
 
-`/Game/Maps/FiveLoops` loads `ARewindProofLayout`, which spawns 4C on floor 4,
+`/Game/Maps/FiveLoops` is the preserved procedural proof map. It loads
+`ARewindProofLayout`, which spawns 4C on floor 4,
 its common hallway, a cage-lift shaft, three switchback stair flights, the
 entrance hallway, one large courtyard and Transit Hub. The 170 m service route
 folds around the courtyard patrol yard and rejoins the main route at the
@@ -222,7 +239,7 @@ the 170 m generator branch from the next loop. That releases the one fuse for
 the building socket, which in turn releases the lift and enough loop time to
 reach Transit Hub.
 
-Eleven authored camera regions cover 4C, the fourth-floor common hallway, the
+Eleven authored camera regions cover the procedural proof's 4C, common hallway, the
 lift shaft, all three stair flights, both switchback landings, the entrance
 hallway, the complete courtyard and Transit Hub. Each declares its player
 volume, travel axis, offset, rotation, padding, dead zone and transition mode.
@@ -230,6 +247,9 @@ Separate switchback landing volumes allow the player to cross between the
 flights' alternating Y lanes without violating the one-region rule. The large
 courtyard composition holds the gate, generator, patrol yard and Transit route
 in the same spatial field, matching the settled ground-floor plan.
+
+The authored building slice separately uses seven regions: the three accepted
+stairwell regions plus Apartment4C, TopHall, LiftShaft and GroundHall.
 
 The authored camera type supports X, Y or Z as the one legal travel axis and
 stores an explicit horizontal FOV per region. Region player volumes are

@@ -1,12 +1,12 @@
-# Authored stairwell visual direction
+# Authored building-slice visual direction
 
 Status: Accepted
 Owns: the first-pass material, lighting, silhouette and reflection grammar of
-the standalone authored stairwell presentation slice
+the authored stairwell, Apartment 4C, fourth-floor common hall and lift slice
 Does not own: final environment art, reusable environment kits, asset-pipeline
 policy, Chapter 1 puzzle rules, camera mechanics or the wider Handmade map
-Source direction: owner request on 2026-08-24 and the tracked
-[`stairwell-4c-landing.png`](../concept/stairwell-4c-landing.png) target
+Source direction: owner requests on 2026-08-24 and the tracked stairwell, 4C,
+lift and interaction reference images under [`docs/concept/`](../concept/)
 
 A rule that is not in this document is not a visual rule for this slice.
 
@@ -51,6 +51,25 @@ Floor response is rough and restrained. Reflections may hold a small practical
 or color echo, but the stairwell is not wet, mirrored or rain-dressed in this
 slice.
 
+## 4C, common hall and lift extension
+
+The extension uses the stairwell family rather than introducing a second art
+style. The common hall retains the separated warm-grey upper plaster and muted
+green lower band. Apartment 4C is slightly warmer and more domestic through
+localized practicals and sparse blockout furniture, but its worn plaster,
+rough floor and restrained values still belong to the same building.
+
+The radio, code panel, loose fuse and both fuse sockets must read as distinct
+interaction landmarks from their authored cameras. They may use a small local
+value or color accent, but they do not become bright UI props. The lift shaft is
+the darkest and most vertical part of the slice: near-black metal, warm cage
+light and cool depth separation reveal travel without flattening the shaft.
+
+The apartment floor may carry a slightly stronger soft reflection than the dry
+stair treads, enough to catch one practical or cool window echo. It is not a
+wet floor. The lift cage and rails separate by specular response and silhouette,
+not by bright albedo.
+
 ## Composition boundary
 
 The owner-placed `StairwayCamera` at 35 mm is the starting composition. Runtime
@@ -61,7 +80,8 @@ only what must remain visually readable inside those frames.
 
 This treatment is deliberately made from project-owned procedural materials
 and basic geometry. It demonstrates the grammar above. It is not evidence that
-final textures, props, decals, fixtures, rain, neon or environment art exist.
+final textures, authored prop models, decals, rain, neon or finished environment
+art exist.
 
 ## Testable statements
 
@@ -73,5 +93,7 @@ final textures, props, decals, fixtures, rain, neon or environment art exist.
    damp decal would.
 4. Floor response is rough enough that reflections remain secondary to the
    route and silhouette.
-5. The slice can satisfy all four statements without a third-party asset
+5. 4C, its common hall and the lift remain recognizably part of the same
+   building while interactions read as distinct landmarks.
+6. The slice can satisfy all five statements without a third-party asset
    dependency.

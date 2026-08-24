@@ -92,12 +92,13 @@ This is a smaller step than Chapter 1 and deliberately so. The non-goals below
 did not move, and none of them needed to: blockout level design was never on
 that list, and final art still is.
 
-The owner approved one bounded exception on 2026-08-24: the authored
-stairwell may receive a first-pass presentation vertical slice so camera,
-silhouette, light, shadow, wall separation and floor response can be judged in
-the space that was actually built. This exception proves a visual grammar; it
-does not authorize final environment art, a reusable kit, broad third-party
-asset ingestion or an asset pipeline.
+The owner approved bounded authored-building presentation slices on
+2026-08-24. The stairwell established the first-pass visual grammar; REW-0012
+extends that same grammar into Apartment 4C, its fourth-floor common hallway
+and the lift shaft/cage so camera, silhouette, light, shadow, wall separation,
+floor response and puzzle-object legibility can be judged along one connected
+player route. This approval does not authorize final environment art, a
+reusable kit, broad third-party asset ingestion or an asset pipeline.
 
 ## Engine
 
@@ -118,9 +119,9 @@ justify scope in the current phase:
   bubbles.
 - A general-purpose time engine. The loop needs to reset one small authored
   space correctly, not model time.
-- Environment polish beyond the explicitly bounded stairwell presentation
-  slice, final art, a brutalist environment kit, procedural asset generation,
-  or an asset pipeline.
+- Environment polish beyond the explicitly bounded stairwell plus 4C/common
+  hall/lift presentation slices, final art, a brutalist environment kit,
+  procedural asset generation, or an asset pipeline.
 - Sound design beyond what an acceptance criterion depends on.
 - A narrative script. Chapter 1's authored content becomes design authority only
   where the product proof needs it.
