@@ -39,3 +39,4 @@ still the protocol extraction; that identity stays taken. New claims use `REW`.
 | REW-0009 | Event-driven rewind authority | Codex | 2026-08-24 | docs/finished/REW-0009_event-driven-rewind-authority.md |
 | REW-0010 | Owner-scale Chapter 1 stairwell blockout | Codex | 2026-08-24 | docs/finished/REW-0010_owner-scale-chapter-1-stairwell-blockout.md |
 | REW-0011 | Authored stairwell camera and lighting vertical slice | Codex | 2026-08-24 | docs/CURRENT_TASK.md |
+| REW-0012 | Authored 4C, fourth-floor hall and lift slice | Codex | 2026-08-24 | docs/CURRENT_TASK.md |
