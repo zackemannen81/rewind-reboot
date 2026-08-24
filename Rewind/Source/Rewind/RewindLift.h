@@ -23,6 +23,10 @@ public:
 	void Configure(double InTopZ, double InBottomZ);
 	static constexpr double GetAuthoredTravelSeconds();
 
+	/** Local-space hall offset used when releasing the passenger at either landing. */
+	UPROPERTY(EditAnywhere, Category = "RE:WIND|Lift")
+	FVector HallExitOffset = FVector(240.f, 0.f, 0.f);
+
 private:
 	void SetCabinZ(double Z);
 	void ReleasePassenger();

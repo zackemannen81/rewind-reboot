@@ -181,8 +181,10 @@ void ARewindLift::Tick(float DeltaSeconds)
 		// coplanar, and leaving the capsule on their seam can wedge it between
 		// two otherwise valid blocking surfaces.
 		FVector ExitLocation = Passenger->GetActorLocation();
-		ExitLocation.X = GetActorLocation().X + 240.f;
-		ExitLocation.Y = GetActorLocation().Y;
+		const FVector HallLocation = GetActorLocation()
+			+ GetActorTransform().TransformVectorNoScale(HallExitOffset);
+		ExitLocation.X = HallLocation.X;
+		ExitLocation.Y = HallLocation.Y;
 		Passenger->SetActorLocation(ExitLocation, false, nullptr, ETeleportType::TeleportPhysics);
 		RewindLog::Event(this, FString::Printf(
 			TEXT("Lift: %s reached, measured %s %.2fs"),
