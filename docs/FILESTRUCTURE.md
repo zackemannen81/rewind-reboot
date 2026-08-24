@@ -17,6 +17,9 @@ rewind-reboot/
 │   ├── Source/RewindEditor/        editor-only MCP PIE-input toolset
 │   ├── Config/                     default engine, game, input, editor
 │   └── Content/
+│       ├── FiveLoops_Handmade.umap owner-authored original construction map
+│       ├── FiveLoops_Handmade2.umap
+│       │                            owner-authored revised stair construction
 │       ├── Maps/FiveLoops.umap     empty level; Chapter 1 blockout spawned in C++
 │       ├── Maps/FiveLoops_Stairwell_Blockout.umap
 │       │                            authored five-level human-scale stairwell
