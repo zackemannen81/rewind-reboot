@@ -20,6 +20,8 @@ wrong and must be corrected.
 | `docs/adr/ADR-0009_event-driven-loop-termination.md` | Accepted, not implemented. Causal-contract failure, death and successful Anchor commit replace the global timer as default loop-end classes; contract failure and commit require a one-to-three-second prelude |
 | `Rewind/Rewind.uproject` | Unreal Engine 5.8 C++ project. Loop clock, apply order, session save, CleanSave. The running loop still ends automatically at 240 seconds or on death and therefore does not yet comply with ADR-0009 |
 | `Rewind/Content/Maps/FiveLoops.umap` | Default map. C++ builds 4C on floor 4, its common hallway, cage-lift shaft, three-flight switchback stairs, entrance hallway, a 170 m service route folded around one large courtyard, and Transit Hub. Eleven playable regions declare complete cameras |
+| `Rewind/Content/Maps/FiveLoops_Stairwell_Blockout.umap` | Standalone owner-shaped stairwell blockout: entrance plus floors 1-4 at 300 cm intervals, four alternating 17-step flights, capsule collision ramps, enclosure, guardrails, PlayerStart and the owner-placed `StairwayCamera`. It opts out of the procedural proof layout |
+| `Rewind/Content/Maps/Reference/FiveLoops_Handmade2_Reference.umap` | Stable untouched Git LFS reference copy. Its 26-actor inventory and stair camera transform match the owner source at REW-0010 completion |
 | `docs/design/` | Six accepted documents. Ownership in `docs/design/README.md`; loop and Chapter 1 rules now state event-driven rewind |
 | `docs/acceptance/five-loops-test.md` | Accepted. Criteria FL-01 to FL-18. Existing playtests remain evidence for their timer-driven builds and pre-2026-08-24 wording; no build evidence exists for amended FL-01, FL-02, FL-03 or FL-07, or for new FL-17 and FL-18 |
 | `docs/playtests/` | Evidence from named runs of named builds. The earlier complete Five Loops record remains; REW-0007 adds a Chapter 1 three-loop record for the rebuilt chain |
@@ -28,7 +30,7 @@ wrong and must be corrected.
 | `docs/concepts_sandbox/legacy-rewind/` | Imported design, roadmaps and task files from the previous project, plus a verified code inventory and a conflict register. Non-authority |
 | `docs/baseline/acme-2026-08-19/` | Frozen provenance for the working model itself. Never edited, never authority |
 | `.gitignore` / `.gitattributes` | Ignore generated UE output. LFS tracks Unreal binaries, including the Tier 1 character assets |
-| `docs/CURRENT_TASK.md` | Restored task template. REW-0009 is complete and archived; no successor task is approved |
+| `docs/CURRENT_TASK.md` | Restored task template. REW-0010 is complete and archived; no successor task is approved |
 | `docs/concept/` | Nine owner-produced target and construction-reference images: 4C, fuse box, stairwell, lift, three circulation/interaction sketches and the settled top- and ground-floor plans. Targets and blockout clarification, never game rules |
 | `docs/finished/REW-0004_...md` | Superseded by REW-0006 after its frozen scope conflicted with the lift-or-stairs branch decided by REW-0005 |
 | `Rewind/Source/Rewind/RewindCameraRig.cpp` | The authored camera of ADR-0007. Eleven enumerated regions declare rotation, travel axis, bounds, dead zone and player volume: 4C, fourth-floor hallway, lift shaft, three flights, two landings, entrance hallway, the courtyard and Transit Hub |
@@ -41,6 +43,7 @@ wrong and must be corrected.
 | `docs/finished/REW-0007_...md` | Complete. The rebuilt Chapter 1 chain, timing construction, eleven cameras, Tier 1 import and three-loop evidence are archived |
 | `docs/finished/REW-0008_...md` | Complete. Canonical editor/MCP context, project-scoped Codex config, PIE-input toolset and named automation-test execution |
 | `docs/finished/REW-0009_...md` | Complete. Event-driven loop termination accepted; product, design and FL authority amended; implementation and owner-level adoption routed separately |
+| `docs/finished/REW-0010_...md` | Complete on its task branch. Human-scale four-floor stairwell, stable owner reference, traversal evidence and procedural-layout opt-out |
 | `docs/finished/REW-0006_...md` | Superseded after play established 20/50 as the radio rule while its frozen scope still required 45/60. Radio and fuse work retained for REW-0007 |
 | `docs/finished/REW-0003_five-loops-test-implementation.md` | Complete. Five Loops Test implementation, archived 2026-08-23 |
 | `docs/backlog/five-loops-test.md` | Authority resolved by REW-0002. Implementation activated as REW-0003 |
@@ -52,9 +55,11 @@ wrong and must be corrected.
   still exposes only Timer and Death and automatically resets at 240 seconds.
   The accepted rule is ahead of implementation.
 - **Finished environment art.** The complete Chapter 1 gameplay chain now
-  exists as measured C++ blockout geometry. The nine owner reference images are
-  targets only; final models, materials, rain, neon treatment and prop dressing
-  remain outside REW-0007.
+  exists as measured C++ blockout geometry and an isolated human-scale
+  stairwell exists as an authored map. Owner references and locally imported
+  environment assets are targets or untracked working material only; final
+  models, materials, rain, neon treatment and prop dressing are not integrated
+  or approved for repository storage.
 - **A packaged game build.** Editor Win64 Development compiled and run in PIE;
   a cooked package has not been made, so nothing here is evidence about a
   shipped build.

@@ -1,10 +1,11 @@
 # Owner Handmade level adoption
 
-Status: Proposed
+Status: Proposed; stairwell foundation completed by REW-0010
 Discovered: 2026-08-24, during REW-0009, from the owner-authored live Unreal
 blockout
 Owner: unassigned
-Activated: not activated. No REW identity is claimed for this.
+Activated: the complete adoption is not activated. REW-0010 completed only the
+stable reference and isolated human-scale stairwell foundation.
 
 The owner has built the intended Chapter 1 plan directly in Unreal rather than
 asking a later task to infer it from concept art. REW-0009 inspected that level
@@ -44,8 +45,8 @@ ends a loop before geometry encoded the timer-driven chain again.
 
 ## Dependencies
 
-- The owner-authored level is saved and assigned a stable tracked path before
-  an immutable task or journal record cites it.
+- Met by REW-0010: an untouched reference is saved at a stable Git LFS path and
+  the isolated human-scale stairwell is saved separately.
 - ADR-0007 for authored camera behavior.
 - ADR-0009 and the event-driven implementation proposal before the adopted map
   is claimed playable.
@@ -64,5 +65,6 @@ ends a loop before geometry encoded the timer-driven chain again.
 
 ## Not proposed
 
-Final environment art, materials, rain, neon dressing, final rewind effects or
-changing the accepted puzzle chain.
+REW-0010 did not implement final environment art, materials, rain, neon
+dressing, final rewind effects or the accepted puzzle chain. Those remain
+outside this proposal unless a later decision changes the project phase.

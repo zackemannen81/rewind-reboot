@@ -84,33 +84,33 @@ ARewindProofLayout::ARewindProofLayout()
 
 	// Narrow collision edges keep the branch honest around the yard. The lower
 	// outer edge is hidden because the courtyard camera is authored from there.
-	constexpr float WallHeight = 300.f;
-	constexpr float WallThickness = 20.f;
-	AddBox(TEXT("MainRouteFarWall"), FVector(9010.f, 390.f, WallHeight * .5f),
-		FVector(9800.f, WallThickness, WallHeight));
-	AddBox(TEXT("BranchInnerTop"), FVector(7755.f, -410.f, WallHeight * .5f),
-		FVector(5690.f, WallThickness, WallHeight));
-	AddBox(TEXT("GeneratorDeadEnd"), FVector(11000.f, -410.f, WallHeight * .5f),
-		FVector(800.f, WallThickness, WallHeight));
-	AddBox(TEXT("HubNearWall"), FVector(12650.f, -410.f, WallHeight * .5f),
-		FVector(2500.f, WallThickness, WallHeight), false);
-	AddBox(TEXT("BranchInnerLeft"), FVector(4910.f, -2777.5f, WallHeight * .5f),
-		FVector(WallThickness, 4755.f, WallHeight));
-	AddBox(TEXT("BranchInnerBottom"), FVector(7755.f, -5155.f, WallHeight * .5f),
-		FVector(5690.f, WallThickness, WallHeight));
-	AddBox(TEXT("BranchInnerRight"), FVector(10600.f, -2777.5f, WallHeight * .5f),
-		FVector(WallThickness, 4755.f, WallHeight));
+	constexpr float ProofWallHeight = 300.f;
+	constexpr float ProofWallThickness = 20.f;
+	AddBox(TEXT("MainRouteFarWall"), FVector(9010.f, 390.f, ProofWallHeight * .5f),
+		FVector(9800.f, ProofWallThickness, ProofWallHeight));
+	AddBox(TEXT("BranchInnerTop"), FVector(7755.f, -410.f, ProofWallHeight * .5f),
+		FVector(5690.f, ProofWallThickness, ProofWallHeight));
+	AddBox(TEXT("GeneratorDeadEnd"), FVector(11000.f, -410.f, ProofWallHeight * .5f),
+		FVector(800.f, ProofWallThickness, ProofWallHeight));
+	AddBox(TEXT("HubNearWall"), FVector(12650.f, -410.f, ProofWallHeight * .5f),
+		FVector(2500.f, ProofWallThickness, ProofWallHeight), false);
+	AddBox(TEXT("BranchInnerLeft"), FVector(4910.f, -2777.5f, ProofWallHeight * .5f),
+		FVector(ProofWallThickness, 4755.f, ProofWallHeight));
+	AddBox(TEXT("BranchInnerBottom"), FVector(7755.f, -5155.f, ProofWallHeight * .5f),
+		FVector(5690.f, ProofWallThickness, ProofWallHeight));
+	AddBox(TEXT("BranchInnerRight"), FVector(10600.f, -2777.5f, ProofWallHeight * .5f),
+		FVector(ProofWallThickness, 4755.f, ProofWallHeight));
 	// Leave the upper 400 cm open where the entrance hall feeds the main route
 	// and the service branch. The wall begins below that junction and still
 	// bounds the full long leg of the U.
-	AddBox(TEXT("BranchOuterLeft"), FVector(4110.f, -2977.5f, WallHeight * .5f),
-		FVector(WallThickness, 5155.f, WallHeight));
-	AddBox(TEXT("BranchOuterBottom"), FVector(7755.f, -5955.f, WallHeight * .5f),
-		FVector(7290.f, WallThickness, WallHeight), false);
-	AddBox(TEXT("BranchOuterRight"), FVector(11400.f, -3077.5f, WallHeight * .5f),
-		FVector(WallThickness, 5755.f, WallHeight));
-	AddBox(TEXT("HubEnd"), FVector(13900.f, 0.f, WallHeight * .5f),
-		FVector(WallThickness, 800.f, WallHeight));
+	AddBox(TEXT("BranchOuterLeft"), FVector(4110.f, -2977.5f, ProofWallHeight * .5f),
+		FVector(ProofWallThickness, 5155.f, ProofWallHeight));
+	AddBox(TEXT("BranchOuterBottom"), FVector(7755.f, -5955.f, ProofWallHeight * .5f),
+		FVector(7290.f, ProofWallThickness, ProofWallHeight), false);
+	AddBox(TEXT("BranchOuterRight"), FVector(11400.f, -3077.5f, ProofWallHeight * .5f),
+		FVector(ProofWallThickness, 5755.f, ProofWallHeight));
+	AddBox(TEXT("HubEnd"), FVector(13900.f, 0.f, ProofWallHeight * .5f),
+		FVector(ProofWallThickness, 800.f, ProofWallHeight));
 }
 
 void ARewindProofLayout::EnsureContents()
