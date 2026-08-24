@@ -2,7 +2,7 @@
 
 Task ID: REW-0014
 Parent Task: REW-0013
-Status: Ready
+Status: In Progress
 Owner: Codex
 Created: 2026-08-24
 Last updated: 2026-08-24
