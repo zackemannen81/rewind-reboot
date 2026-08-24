@@ -10,7 +10,10 @@ clock, ordered world-state apply, session knowledge, one Anchor, clean save,
 authored camera, loop-clocked radio, contested fuse, lift, stairs and rebuilt
 Chapter 1 blockout are implemented. The owner-shaped stairwell, Apartment 4C,
 fourth-floor common hall and lift now form the bounded authored presentation
-slice and the project's editor/game default. An editor-only module exposes
+slice and the project's editor/game default. REW-0012's systems are playable,
+but its saved spatial extension is not owner-correct: it duplicated 4C and the
+lift on the corridor's opposite side rather than using the three existing
+stairs/lift/4C openings. REW-0013 owns that correction. An editor-only module exposes
 project PIE input and clean game-viewport capture through the MCP toolset
 registry, and the engine automation-test toolset is enabled. The sections below
 distinguish the running proof from later art and product work.
@@ -47,12 +50,15 @@ regions follow Y, while the cutaway shaft follows Z. Their fixed lenses are
 PlayerStart at `(-900, 1650, 1296)`; the authored map is named by both
 `EditorStartupMap` and `GameDefaultMap`.
 
-The saved extension blocks 4C at 700 by 1200 by 300 cm, keeps the common hall
-at 360 cm width, and uses the existing 1200 cm floor-four-to-entrance
-separation. It places the loop-clocked radio, manual `7312` lock, one carried
-fuse, both exclusive sockets and the bidirectional powered cage directly in
-the authored map. The cage has a blocking floor, centres its passenger during
-travel and hands the capsule to the hall side of the coplanar threshold before
+The current saved extension blocks a 700 by 1200 by 300 cm 4C, keeps a 360 cm
+common hall and uses the existing 1200 cm floor-four-to-entrance separation,
+but those REW-0012 room and shaft bounds are on the wrong side and are not the
+durable owner layout. The owner geometry already declares one corridor wall at
+approximately X `-260` with three openings centred near Y `328`, `630` and
+`1043`: stairs, lift and 4C respectively. The loop-clocked radio, manual `7312`
+lock, one fuse, both sockets and bidirectional cage remain the gameplay system
+to relocate behind those openings. The cage has a blocking floor, centres its
+passenger during travel and hands the capsule to a configured hall side before
 walking resumes.
 
 The map uses project-owned procedural master materials and instances for upper

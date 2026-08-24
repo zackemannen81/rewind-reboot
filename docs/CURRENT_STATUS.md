@@ -20,7 +20,7 @@ wrong and must be corrected.
 | `docs/adr/ADR-0009_event-driven-loop-termination.md` | Accepted, not implemented. Causal-contract failure, death and successful Anchor commit replace the global timer as default loop-end classes; contract failure and commit require a one-to-three-second prelude |
 | `Rewind/Rewind.uproject` | Unreal Engine 5.8 C++ project. Loop clock, apply order, session save, CleanSave. The running loop still ends automatically at 240 seconds or on death and therefore does not yet comply with ADR-0009 |
 | `Rewind/Content/Maps/FiveLoops.umap` | Preserved procedural proof map, no longer the editor or game default. C++ builds 4C, common hallway, cage lift, proof stairs, courtyard/service route and Transit Hub under eleven camera regions |
-| `Rewind/Content/Maps/FiveLoops_Stairwell_Blockout.umap` | Editor and game default. The owner-shaped stairwell is extended with a human-scale 4C, fourth-floor common hall, cutaway lift shaft/cage and entrance hall. Seven half-open camera regions cover the connected slice. The saved map contains the radio, `7312` lock, one fuse, building and ground sockets, bidirectional powered lift, first-pass project-owned materials and localized shadow-casting lights. It opts out of the procedural proof layout |
+| `Rewind/Content/Maps/FiveLoops_Stairwell_Blockout.umap` | Editor and game default. The accepted stairwell and its three vertical camera regions remain correct. REW-0012 added playable 4C/lift systems and four more regions, but placed its duplicate 4C and lift on the corridor's wrong side instead of using the owner's three existing stair/lift/4C openings. REW-0013 is the active correction; the current saved layout must not be treated as owner-approved |
 | `Rewind/Content/Maps/Reference/FiveLoops_Handmade2_Reference.umap` | Stable untouched Git LFS reference copy. Its 26-actor inventory and stair camera transform match the owner source at REW-0010 completion |
 | `Rewind/Content/FiveLoops_Handmade.umap` and `FiveLoops_Handmade2.umap` | Tracked owner-authored construction maps preserved through Git LFS. They are spatial source material, not runtime defaults or design-rule authority |
 | `docs/design/` | Seven accepted documents. Ownership in `docs/design/README.md`; the added stairwell owner states the bounded first-pass visual grammar without claiming final art |
@@ -31,7 +31,7 @@ wrong and must be corrected.
 | `docs/concepts_sandbox/legacy-rewind/` | Imported design, roadmaps and task files from the previous project, plus a verified code inventory and a conflict register. Non-authority |
 | `docs/baseline/acme-2026-08-19/` | Frozen provenance for the working model itself. Never edited, never authority |
 | `.gitignore` / `.gitattributes` | Ignore generated UE output. LFS tracks Unreal binaries, including the Tier 1 character assets |
-| `docs/CURRENT_TASK.md` | Restored task template. REW-0012 is complete and archived; no successor task is approved |
+| `docs/CURRENT_TASK.md` | REW-0013 is Ready: correct the wrong-side REW-0012 extension against the owner's existing three-opening corridor and remove primitive furniture props |
 | `docs/concept/` | Nine owner-produced target and construction-reference images: 4C, fuse box, stairwell, lift, three circulation/interaction sketches and the settled top- and ground-floor plans. Targets and blockout clarification, never game rules |
 | `docs/finished/REW-0004_...md` | Superseded by REW-0006 after its frozen scope conflicted with the lift-or-stairs branch decided by REW-0005 |
 | `Rewind/Source/Rewind/RewindCameraRig.cpp` | The authored camera of ADR-0007. Regions declare rotation, X/Y/Z travel axis, bounds, dead zone, player volume and explicit FOV. Half-open volumes give shared thresholds exactly one owner. The procedural proof has eleven regions; the authored building slice has seven |
@@ -64,8 +64,10 @@ wrong and must be corrected.
   project-owned presentation pass, but its procedural plaster, basic fixtures
   and primitive geometry are not final art. Authored decals, final models,
   props, rain, neon treatment and wider-map dressing are not integrated.
-  Locally imported environment packs remain outside the tracked dependency
-  closure.
+  Locally imported Fab/environment packs remain outside the tracked dependency
+  closure. The owner has asked that the corrected 4C use no primitive furniture
+  props; imported candidates require a selected provenance/license/size review
+  before any dependency is committed.
 - **A packaged game build.** Editor Win64 Development compiled and run in PIE;
   a cooked package has not been made, so nothing here is evidence about a
   shipped build.

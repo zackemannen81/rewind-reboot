@@ -56,8 +56,10 @@ slice.
 The extension uses the stairwell family rather than introducing a second art
 style. The common hall retains the separated warm-grey upper plaster and muted
 green lower band. Apartment 4C is slightly warmer and more domestic through
-localized practicals and sparse blockout furniture, but its worn plaster,
-rough floor and restrained values still belong to the same building.
+localized practicals, but its worn plaster, rough floor and restrained values
+still belong to the same building. Primitive placeholder furniture is not
+part of the delivered presentation. A room may remain undressed until a small
+selected prop set has verified provenance, license and repository cost.
 
 The radio, code panel, loose fuse and both fuse sockets must read as distinct
 interaction landmarks from their authored cameras. They may use a small local
@@ -78,10 +80,12 @@ thresholds, while their authored rotation remains fixed. Camera behavior is
 owned by [`camera-and-movement.md`](camera-and-movement.md); this document owns
 only what must remain visually readable inside those frames.
 
-This treatment is deliberately made from project-owned procedural materials
-and basic geometry. It demonstrates the grammar above. It is not evidence that
-final textures, authored prop models, decals, rain, neon or finished environment
-art exist.
+The base treatment is deliberately made from project-owned procedural
+materials and the owner's authored building geometry. It demonstrates the
+grammar above. It is not evidence that final textures, authored prop models,
+decals, rain, neon or finished environment art exist. Locally downloaded Fab
+content does not become a project dependency merely by being present in the
+editor.
 
 ## Testable statements
 
