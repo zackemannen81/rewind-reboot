@@ -139,9 +139,9 @@ that arrangement rather than rebuilding it on the opposite side.
 
 - [x] Record the known wrong-side defect and owner correction in live authority.
 - [x] Inventory the existing three-opening geometry and locally imported Fab content.
-- [ ] Remove only the REW-0012 wrong-side geometry and primitive prop dressing.
-- [ ] Rebuild/complete 4C and the shaft behind the existing third/middle openings.
-- [ ] Relocate gameplay, lighting, PlayerStart and camera actors.
+- [x] Remove only the REW-0012 wrong-side geometry and primitive prop dressing.
+- [x] Rebuild/complete 4C and the shaft behind the existing third/middle openings.
+- [x] Relocate gameplay, lighting, PlayerStart and camera actors.
 - [ ] Adapt lift handoff direction without regressing the procedural proof map.
 - [ ] Save/reopen, inspect exact layout and complete PIE interaction/traversal/camera/visual gates.
 - [ ] Run automation, editor-closed build when required, dependency/LFS and documentation checks.
@@ -184,9 +184,10 @@ that arrangement rather than rebuilding it on the opposite side.
 
 ## Handoff and Follow-ups
 
-- Current state: owner correction confirmed; implementation and asset inventory in progress.
-- Next recommended step: inventory imported assets and remove the isolated
-  wrong-side component actors while preserving Actor_0/Actor_2 owner geometry.
+- Current state: corrected geometry and actor relocation are saved in the authored map;
+  clean reopen and gameplay verification remain in progress.
+- Next recommended step: reopen the saved map, record the corrected inventory and
+  run the chartered PIE, camera, interaction and lift gates.
 - Blockers: none known.
 - Child tasks: none.
 - Resume condition: n/a.
