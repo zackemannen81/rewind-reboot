@@ -9,11 +9,10 @@ An Unreal Engine 5.8 C++ project exists at `Rewind/Rewind.uproject`. The loop
 clock, ordered world-state apply, session knowledge, one Anchor, clean save,
 authored camera, loop-clocked radio, contested fuse, lift, stairs and rebuilt
 Chapter 1 blockout are implemented. The owner-shaped stairwell, Apartment 4C,
-fourth-floor common hall and lift now form the bounded authored presentation
-slice and the project's editor/game default. REW-0012's systems are playable,
-but its saved spatial extension is not owner-correct: it duplicated 4C and the
-lift on the corridor's opposite side rather than using the three existing
-stairs/lift/4C openings. REW-0013 owns that correction. An editor-only module exposes
+fourth-floor common hall and lift form the bounded authored presentation slice
+and the project's editor/game default. REW-0013 corrected REW-0012 against the
+owner's existing stairs/lift/4C openings and removed its opposite-side duplicate.
+An editor-only module exposes
 project PIE input and clean game-viewport capture through the MCP toolset
 registry, and the engine automation-test toolset is enabled. The sections below
 distinguish the running proof from later art and product work.
@@ -46,24 +45,24 @@ explicit FOV with position and rotation.
 Four additional half-open regions extend the same map through Apartment 4C,
 the common hall, the lift shaft and the entrance hall. The apartment and hall
 regions follow Y, while the cutaway shaft follows Z. Their fixed lenses are
-55, 65, 60 and 65 degrees respectively. Standard PIE starts from the 4C
-PlayerStart at `(-900, 1650, 1296)`; the authored map is named by both
+60, 58, 60 and 58 degrees respectively. Standard PIE starts from the 4C
+PlayerStart at `(0, 1580, 1296)`; the authored map is named by both
 `EditorStartupMap` and `GameDefaultMap`.
 
-The current saved extension blocks a 700 by 1200 by 300 cm 4C, keeps a 360 cm
-common hall and uses the existing 1200 cm floor-four-to-entrance separation,
-but those REW-0012 room and shaft bounds are on the wrong side and are not the
-durable owner layout. The owner geometry already declares one corridor wall at
-approximately X `-260` with three openings centred near Y `328`, `630` and
-`1043`: stairs, lift and 4C respectively. The loop-clocked radio, manual `7312`
-lock, one fuse, both sockets and bidirectional cage remain the gameplay system
-to relocate behind those openings. The cage has a blocking floor, centres its
-passenger during travel and hands the capsule to a configured hall side before
+The saved extension preserves the owner corridor wall at approximately X
+`-260` with three openings centred near Y `328`, `630` and `1043`: stairs,
+lift and 4C respectively. Apartment 4C occupies the existing 400 by 1050 cm
+floor footprint behind the third opening and is enclosed to 300 cm height. The
+vertical shaft is centred at `(-40, 630)` behind the middle opening across the
+existing 1200 cm floor-four-to-entrance separation. The loop-clocked radio,
+manual `7312` lock, one fuse, both sockets and bidirectional cage occupy those
+corrected spaces. The cage has a blocking floor, centres its passenger during
+travel and transforms its configurable local-space hall offset before
 walking resumes.
 
 The map uses project-owned procedural master materials and instances for upper
 plaster, the separate green lower wall band, dark circulation surfaces,
-guardrails, doors and the player silhouette. Five local shadow-casting point
+guardrails, doors and the player silhouette. Localized shadow-casting point
 lights, restrained cool fill and a manual-exposure post process form the
 first-pass visual grammar. This is a presentation proof, not final art, and it
 has no third-party environment asset dependency.

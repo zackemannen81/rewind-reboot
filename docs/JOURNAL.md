@@ -4,6 +4,45 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-24 — REW-0013 complete, owner-correct 4C and lift layout
+
+- Date: 2026-08-24
+- Author: Codex
+- Task: REW-0013
+- Branch: `codex/rew-0013-correct-building-side`
+- Change: `/Game/Maps/FiveLoops_Stairwell_Blockout` now uses the owner's three
+  existing openings on one corridor wall in the order stairs, lift and 4C.
+  The wrong-side REW-0012 duplicates and primitive furniture were removed.
+  Apartment 4C occupies its existing 400 by 1050 cm footprint at 300 cm room
+  height, while the shaft aligns to the middle opening at `(-40, 630)`.
+- Presentation: gameplay actors, localized lighting and the Apartment4C,
+  TopHall, LiftShaft and GroundHall camera regions were relocated to the
+  corrected spaces. Their Y/Y/Z/Y travel and 60/58/60/58 degree FOV preserve
+  the fixed-camera silhouette grammar. No Fab or Marketplace binary was
+  imported or selected; the corrected rooms intentionally remain undressed.
+- Saved-map and gameplay evidence: the clean saved reopen reported 51 actors
+  and no dirty package. Standard PIE spawned at `(0, 1580, 1298.15)`, rejected
+  `1111`, accepted `7312`, crossed from 4C through the common hall to the
+  unchanged stair region, and entered the cutaway cage without a camera gap or
+  duplicate view. Clean viewport frames cover 4C, all three openings and lift.
+- Lift evidence: an empty building socket refused travel. After seating the
+  one fuse, descent and ascent each measured exactly 6.00 seconds. The rotated
+  authored lift transformed its local hall offset and released at X `-280`
+  into GroundHall and TopHall respectively. Held PIE inputs were empty before
+  every stop; the procedural proof retains its default local handoff.
+- Verification: UE 5.8 `RewindEditor Win64 Development` built editor-closed in
+  44.27 seconds. All eight discoverable `Rewind.*` automation tests passed
+  together, 8/8 in 0.075142 seconds with no errors or warnings. The changed map
+  remains under the existing Git LFS rule; live documentation and diff checks
+  passed.
+- Not verified: no packaged build, final art, selected Fab prop set, final
+  audio, courtyard, streets, Transit, rain/neon dressing or ADR-0009
+  event-driven rewind implementation.
+- Handoff: owner visual review the corrected authored map. Import and dress
+  with specific Fab assets only through a separately bounded provenance,
+  license and repository-cost review.
+- Signature: Codex
+
 ## 2026-08-24 — REW-0012 complete, authored 4C and lift slice
 
 - Date: 2026-08-24
