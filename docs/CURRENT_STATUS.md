@@ -20,7 +20,7 @@ wrong and must be corrected.
 | `docs/adr/ADR-0009_event-driven-loop-termination.md` | Accepted, not implemented. Causal-contract failure, death and successful Anchor commit replace the global timer as default loop-end classes; contract failure and commit require a one-to-three-second prelude |
 | `Rewind/Rewind.uproject` | Unreal Engine 5.8 C++ project. Loop clock, apply order, session save, CleanSave. The running loop still ends automatically at 240 seconds or on death and therefore does not yet comply with ADR-0009 |
 | `Rewind/Content/Maps/FiveLoops.umap` | Preserved procedural proof map, no longer the editor or game default. C++ builds 4C, common hallway, cage lift, proof stairs, courtyard/service route and Transit Hub under eleven camera regions |
-| `Rewind/Content/Maps/FiveLoops_Stairwell_Blockout.umap` | Editor and game default. The accepted stairwell leads to one common corridor whose three preserved openings are stairs, lift and 4C. REW-0013 corrected the building side. REW-0014 has applied the owner's placed 35 mm `4c_camera` transform to the Apartment4C runtime region; saved-reopen and PIE verification are in progress |
+| `Rewind/Content/Maps/FiveLoops_Stairwell_Blockout.umap` | Editor and game default. The accepted stairwell leads to one common corridor whose three preserved openings are stairs, lift and 4C. REW-0013 corrected the building side. REW-0014 applied the owner's placed 35 mm `4c_camera` as the exact Apartment4C runtime start frame: `(750, 1330, 1330)`, rotation `(0, 180, 0)`, horizontal FOV `37.497356` |
 | `Rewind/Content/Maps/Reference/FiveLoops_Handmade2_Reference.umap` | Stable untouched Git LFS reference copy. Its 26-actor inventory and stair camera transform match the owner source at REW-0010 completion |
 | `Rewind/Content/FiveLoops_Handmade.umap` and `FiveLoops_Handmade2.umap` | Tracked owner-authored construction maps preserved through Git LFS. They are spatial source material, not runtime defaults or design-rule authority |
 | `docs/design/` | Seven accepted documents. Ownership in `docs/design/README.md`; the added stairwell owner states the bounded first-pass visual grammar without claiming final art |
@@ -31,7 +31,7 @@ wrong and must be corrected.
 | `docs/concepts_sandbox/legacy-rewind/` | Imported design, roadmaps and task files from the previous project, plus a verified code inventory and a conflict register. Non-authority |
 | `docs/baseline/acme-2026-08-19/` | Frozen provenance for the working model itself. Never edited, never authority |
 | `.gitignore` / `.gitattributes` | Ignore generated UE output. LFS tracks Unreal binaries, including the Tier 1 character assets |
-| `docs/CURRENT_TASK.md` | REW-0014 is In Progress: adopt the owner's placed `4c_camera` as the exact initial runtime frame for Apartment 4C while preserving the region camera system |
+| `docs/CURRENT_TASK.md` | Restored task template. REW-0014 is complete and archived; no task is active on this branch |
 | `docs/concept/` | Nine owner-produced target and construction-reference images: 4C, fuse box, stairwell, lift, three circulation/interaction sketches and the settled top- and ground-floor plans. Targets and blockout clarification, never game rules |
 | `docs/finished/REW-0004_...md` | Superseded by REW-0006 after its frozen scope conflicted with the lift-or-stairs branch decided by REW-0005 |
 | `Rewind/Source/Rewind/RewindCameraRig.cpp` | The authored camera of ADR-0007. Regions declare rotation, X/Y/Z travel axis, bounds, dead zone, player volume and explicit FOV. Half-open volumes give shared thresholds exactly one owner. The procedural proof has eleven regions; the authored building slice has seven |
@@ -48,6 +48,7 @@ wrong and must be corrected.
 | `docs/finished/REW-0009_...md` | Complete. Event-driven loop termination accepted; product, design and FL authority amended; implementation and owner-level adoption routed separately |
 | `docs/finished/REW-0012_...md` | Complete. The authored default map extends the accepted stairwell through 4C, common halls and a bidirectional powered lift under seven camera regions |
 | `docs/finished/REW-0013_...md` | Complete. Corrected REW-0012 to the owner's three-opening corridor, removed primitive furniture and wrong-side duplicates, and verified 4C, hall, stairs and powered bidirectional lift handoffs |
+| `docs/finished/REW-0014_...md` | Complete. The Apartment4C runtime region now starts from the owner's preserved 35 mm `4c_camera` transform and FOV; clean PIE matched all values exactly |
 | `docs/finished/REW-0010_...md` | Complete on its task branch. Human-scale four-floor stairwell, stable owner reference, traversal evidence and procedural-layout opt-out |
 | `docs/finished/REW-0011_...md` | Complete. Isolated stairwell camera coverage, bidirectional route, first-pass material/light grammar and clean PIE visual evidence |
 | `docs/finished/REW-0006_...md` | Superseded after play established 20/50 as the radio rule while its frozen scope still required 45/60. Radio and fuse work retained for REW-0007 |

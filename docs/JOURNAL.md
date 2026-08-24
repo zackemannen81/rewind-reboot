@@ -4,6 +4,40 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-24 — REW-0014 complete, owner-authored 4C start camera
+
+- Date: 2026-08-24
+- Author: Codex
+- Task: REW-0014
+- Branch: `codex/rew-0014-owner-4c-camera`
+- Change: the owner-placed `4c_camera` remains an editor reference at world
+  position `(750, 1330, 1330)`, rotation `(0, 180, 0)` and 35 mm on a 23.76
+  mm-wide 16:9 filmback. `Apartment4C_Region` now derives that exact initial
+  runtime frame through offset `(640, -250, -10)`, the same rotation and
+  horizontal FOV `37.497356`.
+- Saved and PIE evidence: a clean editor restart reopened
+  `/Game/Maps/FiveLoops_Stairwell_Blockout` with both reference and region
+  values intact. Standard PIE reported the sole view target
+  `RewindCameraRig_0`, active region `Apartment4C_Region`, camera position
+  `(750, 1330, 1330)`, rotation `(0, 180, 0)` and FOV `37.497356`. A clean
+  generated viewport capture showed the authored 4C composition.
+- Verification: held PIE keys were empty before stop.
+  `Rewind.Camera.Region.VerticalTravel` and
+  `Rewind.Project.DefaultAuthoredMap` passed together, 2/2 in 0.027780 seconds
+  with no errors or warnings. No C++ changed, so no build was required. The map
+  remains under Git LFS and documentation diff checks passed.
+- Preserved owner work: the pre-existing untracked
+  `Rewind/Content/Art/Texture/` tree was neither inspected, edited nor staged.
+  Additional owner content at `Rewind/Content/Art/Materials/4c_door.uasset` and
+  under `Rewind/Content/Fab/` appeared during verification and was likewise
+  left untouched and unstaged.
+- Not verified: no packaged build, full automation suite, wider route playtest
+  or other camera-region review; none was required by this bounded framing task.
+- Handoff: owner visually review the 4C opening composition. Adjust the
+  reference camera first if another frame is desired, then re-derive the region
+  offset from PlayerStart rather than adding a competing runtime camera.
+- Signature: Codex
+
 ## 2026-08-24 — REW-0013 complete, owner-correct 4C and lift layout
 
 - Date: 2026-08-24

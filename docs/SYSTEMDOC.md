@@ -45,7 +45,10 @@ explicit FOV with position and rotation.
 Four additional half-open regions extend the same map through Apartment 4C,
 the common hall, the lift shaft and the entrance hall. The apartment and hall
 regions follow Y, while the cutaway shaft follows Z. Their fixed lenses are
-60, 58, 60 and 58 degrees respectively. Standard PIE starts from the 4C
+37.497356, 58, 60 and 58 degrees respectively. The Apartment4C region derives
+its initial frame from the preserved editor reference `4c_camera`: world
+position `(750, 1330, 1330)`, rotation `(0, 180, 0)` and a 35 mm lens on its
+23.76 mm-wide filmback. Standard PIE starts from the 4C
 PlayerStart at `(0, 1580, 1296)`; the authored map is named by both
 `EditorStartupMap` and `GameDefaultMap`.
 
