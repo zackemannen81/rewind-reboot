@@ -2,7 +2,7 @@
 
 Task ID: REW-0013
 Parent Task: REW-0012
-Status: Ready
+Status: In Progress
 Owner: Codex
 Created: 2026-08-24
 Last updated: 2026-08-24
@@ -137,8 +137,8 @@ that arrangement rather than rebuilding it on the opposite side.
 
 ## Checklist
 
-- [ ] Record the known wrong-side defect and owner correction in live authority.
-- [ ] Inventory the existing three-opening geometry and locally imported Fab content.
+- [x] Record the known wrong-side defect and owner correction in live authority.
+- [x] Inventory the existing three-opening geometry and locally imported Fab content.
 - [ ] Remove only the REW-0012 wrong-side geometry and primitive prop dressing.
 - [ ] Rebuild/complete 4C and the shaft behind the existing third/middle openings.
 - [ ] Relocate gameplay, lighting, PlayerStart and camera actors.
@@ -184,7 +184,7 @@ that arrangement rather than rebuilding it on the opposite side.
 
 ## Handoff and Follow-ups
 
-- Current state: owner correction confirmed; implementation not started.
+- Current state: owner correction confirmed; implementation and asset inventory in progress.
 - Next recommended step: inventory imported assets and remove the isolated
   wrong-side component actors while preserving Actor_0/Actor_2 owner geometry.
 - Blockers: none known.
