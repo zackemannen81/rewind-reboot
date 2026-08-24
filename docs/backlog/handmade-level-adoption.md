@@ -1,11 +1,13 @@
 # Owner Handmade level adoption
 
-Status: Proposed; stairwell foundation completed by REW-0010
+Status: Proposed; stairwell presentation slice completed by REW-0011
 Discovered: 2026-08-24, during REW-0009, from the owner-authored live Unreal
 blockout
 Owner: unassigned
-Activated: the complete adoption is not activated. REW-0010 completed only the
-stable reference and isolated human-scale stairwell foundation.
+Activated: the complete adoption is not activated. REW-0010 completed the
+stable reference and isolated human-scale stairwell foundation; REW-0011 made
+that isolated stairwell camera-complete, bidirectionally traversable and
+visually presentable without adopting the surrounding Handmade spaces.
 
 The owner has built the intended Chapter 1 plan directly in Unreal rather than
 asking a later task to infer it from concept art. REW-0009 inspected that level
@@ -47,6 +49,9 @@ ends a loop before geometry encoded the timer-driven chain again.
 
 - Met by REW-0010: an untouched reference is saved at a stable Git LFS path and
   the isolated human-scale stairwell is saved separately.
+- Met by REW-0011 for the isolated stairwell only: complete vertical camera
+  coverage, a 35 mm starting composition, project-owned first-pass materials,
+  practical lighting and a floor-4-to-entrance-and-back capsule route.
 - ADR-0007 for authored camera behavior.
 - ADR-0009 and the event-driven implementation proposal before the adopted map
   is claimed playable.
@@ -65,6 +70,7 @@ ends a loop before geometry encoded the timer-driven chain again.
 
 ## Not proposed
 
-REW-0010 did not implement final environment art, materials, rain, neon
-dressing, final rewind effects or the accepted puzzle chain. Those remain
-outside this proposal unless a later decision changes the project phase.
+REW-0011 did not implement final environment art, authored decals, props, rain,
+neon dressing, final rewind effects, the accepted puzzle chain or any space
+outside the isolated stairwell. Those remain outside this proposal unless a
+later decision changes the project phase.

@@ -34,13 +34,15 @@ void ARewindCameraRegion::Configure(
 	const FRotator& InCameraRotation,
 	double InTravelPadding,
 	double InDeadZone,
-	bool bInCutOnEntry)
+	bool bInCutOnEntry,
+	float InFieldOfView)
 {
 	RegionName = InName;
 	PlayerVolumeExtent = InPlayerVolumeExtent;
 	TravelAxis = InTravelAxis;
 	CameraOffset = InCameraOffset;
 	CameraRotation = InCameraRotation;
+	FieldOfView = InFieldOfView;
 	TravelPadding = InTravelPadding;
 	DeadZone = InDeadZone;
 	bCutOnEntry = bInCutOnEntry;
@@ -48,10 +50,14 @@ void ARewindCameraRegion::Configure(
 
 bool ARewindCameraRegion::Contains(const FVector& Location) const
 {
-	const FVector Local = Location - GetActorLocation();
-	return FMath::Abs(Local.X) <= PlayerVolumeExtent.X
-		&& FMath::Abs(Local.Y) <= PlayerVolumeExtent.Y
-		&& FMath::Abs(Local.Z) <= PlayerVolumeExtent.Z;
+	const FVector Min = GetActorLocation() - PlayerVolumeExtent;
+	const FVector Max = GetActorLocation() + PlayerVolumeExtent;
+
+	// Half-open volumes let adjacent regions share an authored threshold
+	// without making that exact coordinate belong to both of them.
+	return Location.X >= Min.X && Location.X < Max.X
+		&& Location.Y >= Min.Y && Location.Y < Max.Y
+		&& Location.Z >= Min.Z && Location.Z < Max.Z;
 }
 
 FVector ARewindCameraRegion::ClampToPlayerVolume(const FVector& Location) const
@@ -65,13 +71,31 @@ FVector ARewindCameraRegion::ClampToPlayerVolume(const FVector& Location) const
 
 double ARewindCameraRegion::GetTravelCoord(const FVector& Location) const
 {
-	return TravelAxis == ERewindTravelAxis::X ? Location.X : Location.Y;
+	switch (TravelAxis)
+	{
+	case ERewindTravelAxis::X:
+		return Location.X;
+	case ERewindTravelAxis::Y:
+		return Location.Y;
+	case ERewindTravelAxis::Z:
+		return Location.Z;
+	default:
+		return Location.X;
+	}
 }
 
 double ARewindCameraRegion::ClampTravel(double Coord) const
 {
 	const FVector Centre = GetActorLocation();
-	const double Half = TravelAxis == ERewindTravelAxis::X ? PlayerVolumeExtent.X : PlayerVolumeExtent.Y;
+	double Half = PlayerVolumeExtent.X;
+	if (TravelAxis == ERewindTravelAxis::Y)
+	{
+		Half = PlayerVolumeExtent.Y;
+	}
+	else if (TravelAxis == ERewindTravelAxis::Z)
+	{
+		Half = PlayerVolumeExtent.Z;
+	}
 	const double CentreCoord = GetTravelCoord(Centre);
 
 	// Padding pulls the camera's travel inside the volume, so the frame never
@@ -87,11 +111,15 @@ FVector ARewindCameraRegion::GetCameraLocation(double TravelCoord) const
 	FVector Location = GetActorLocation() + CameraOffset;
 	if (TravelAxis == ERewindTravelAxis::X)
 	{
-		Location.X = TravelCoord;
+		Location.X = TravelCoord + CameraOffset.X;
+	}
+	else if (TravelAxis == ERewindTravelAxis::Y)
+	{
+		Location.Y = TravelCoord + CameraOffset.Y;
 	}
 	else
 	{
-		Location.Y = TravelCoord;
+		Location.Z = TravelCoord + CameraOffset.Z;
 	}
 	return Location;
 }

@@ -47,7 +47,10 @@ protected:
 
 private:
 	const APawn* GetPlayer() const;
-	bool ResolveTarget(FVector& OutLocation, FRotator& OutRotation);
+	bool ResolveTarget(
+		FRotator& OutRotation,
+		float& OutFieldOfView,
+		double& OutTravel);
 
 	UPROPERTY()
 	TObjectPtr<ARewindCameraRegion> ActiveRegion;

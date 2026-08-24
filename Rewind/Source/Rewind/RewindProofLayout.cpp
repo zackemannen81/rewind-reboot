@@ -335,7 +335,8 @@ void ARewindProofLayout::EnsureCamera()
 		RewindLog::Baseline(FString::Printf(
 			TEXT("Camera region: %s axis=%s extent=(%.0f,%.0f,%.0f) padding=%.0f deadzone=%.0f"),
 			*It->GetRegionName().ToString(),
-			It->GetTravelAxis() == ERewindTravelAxis::X ? TEXT("X") : TEXT("Y"),
+			It->GetTravelAxis() == ERewindTravelAxis::X ? TEXT("X")
+				: It->GetTravelAxis() == ERewindTravelAxis::Y ? TEXT("Y") : TEXT("Z"),
 			It->GetPlayerVolumeExtent().X, It->GetPlayerVolumeExtent().Y,
 			It->GetPlayerVolumeExtent().Z, It->GetTravelPadding(), It->GetDeadZone()));
 	}

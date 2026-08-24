@@ -1,11 +1,16 @@
 #include "RewindPIEInputToolset.h"
 
+#include "Camera/CameraComponent.h"
 #include "Editor.h"
 #include "GameFramework/Pawn.h"
 #include "GameFramework/PlayerController.h"
+#include "HAL/FileManager.h"
 #include "InputKeyEventArgs.h"
 #include "Kismet/GameplayStatics.h"
+#include "Misc/Paths.h"
 #include "TimerManager.h"
+#include "UObject/UnrealType.h"
+#include "UnrealClient.h"
 
 namespace
 {
@@ -22,6 +27,43 @@ namespace
 			{
 				Result.PawnName = Pawn->GetName();
 				Result.PlayerLocation = Pawn->GetActorLocation();
+			}
+
+			if (AActor* ViewTarget = PlayerController->GetViewTarget())
+			{
+				Result.ViewTargetName = ViewTarget->GetName();
+				Result.CameraLocation = ViewTarget->GetActorLocation();
+				Result.CameraRotation = ViewTarget->GetActorRotation();
+
+				if (const UCameraComponent* Camera = ViewTarget->FindComponentByClass<UCameraComponent>())
+				{
+					Result.CameraFieldOfView = Camera->FieldOfView;
+				}
+
+				// Keep the editor bridge independent of the runtime module's private
+				// headers. These are evidence-only reads of reflected authored state.
+				if (const FObjectProperty* ActiveRegionProperty =
+					FindFProperty<FObjectProperty>(ViewTarget->GetClass(), TEXT("ActiveRegion")))
+				{
+					if (const UObject* Region = ActiveRegionProperty->GetObjectPropertyValue_InContainer(ViewTarget))
+					{
+						if (const FNameProperty* RegionNameProperty =
+							FindFProperty<FNameProperty>(Region->GetClass(), TEXT("RegionName")))
+						{
+							Result.ActiveRegionName =
+								RegionNameProperty->GetPropertyValue_InContainer(Region).ToString();
+						}
+						if (const FEnumProperty* TravelAxisProperty =
+							FindFProperty<FEnumProperty>(Region->GetClass(), TEXT("TravelAxis")))
+						{
+							const void* AxisAddress = TravelAxisProperty->ContainerPtrToValuePtr<void>(Region);
+							const int64 AxisValue = TravelAxisProperty->GetUnderlyingProperty()
+								->GetSignedIntPropertyValue(AxisAddress);
+							Result.ActiveTravelAxis = TravelAxisProperty->GetEnum()
+								->GetNameStringByValue(AxisValue);
+						}
+					}
+				}
 			}
 		}
 
@@ -403,6 +445,29 @@ FRewindPIEInputResult URewindPIEInputToolset::GetPlayerState()
 
 	Result.bSuccess = true;
 	Result.Message = TEXT("Read PIE player-zero state.");
+	AddObservedState(Result, PlayerController);
+	return Result;
+}
+
+FRewindPIEInputResult URewindPIEInputToolset::CapturePIEScreenshot()
+{
+	FRewindPIEInputResult Result;
+	APlayerController* PlayerController = GetPIEPlayerController(Result);
+	if (!PlayerController)
+	{
+		return Result;
+	}
+
+	Result.ScreenshotPath = FPaths::ConvertRelativePathToFull(FPaths::Combine(
+		FPaths::ProjectSavedDir(),
+		TEXT("Screenshots"),
+		TEXT("WindowsEditor"),
+		TEXT("RewindPIE.png")));
+	IFileManager::Get().MakeDirectory(*FPaths::GetPath(Result.ScreenshotPath), true);
+	FScreenshotRequest::RequestScreenshot(Result.ScreenshotPath, false, false);
+
+	Result.bSuccess = true;
+	Result.Message = TEXT("Requested a clean PIE game-viewport screenshot on the next rendered frame.");
 	AddObservedState(Result, PlayerController);
 	return Result;
 }

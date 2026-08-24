@@ -8,10 +8,11 @@ writes them.
 An Unreal Engine 5.8 C++ project exists at `Rewind/Rewind.uproject`. The loop
 clock, ordered world-state apply, session knowledge, one Anchor, clean save,
 authored camera, loop-clocked radio, contested fuse, lift, stairs and rebuilt
-Chapter 1 blockout are implemented. An editor-only module exposes project PIE
-input through the MCP toolset registry, and the engine automation-test toolset
-is enabled. The sections below distinguish the running proof from later art and
-product work.
+Chapter 1 blockout are implemented. The standalone owner-shaped stairwell also
+has a bounded first-pass presentation slice. An editor-only module exposes
+project PIE input and clean game-viewport capture through the MCP toolset
+registry, and the engine automation-test toolset is enabled. The sections below
+distinguish the running proof from later art and product work.
 
 ADR-0009 and the owning design documents now require event-driven loop
 termination. That rule is not implemented: the running C++ proof still ends at
@@ -28,6 +29,29 @@ visible steps. Floors 1-3 have static closed doors on the same side as the 4C
 and entrance openings. The map carries the WorldSettings tag
 `Rewind.SkipProofLayout`, which makes `URewindWorldStateSubsystem` leave its
 authored contents alone instead of spawning `ARewindProofLayout` over them.
+
+Three half-open authored camera volumes cover that map without a vertical gap:
+entrance Z `[-100, 180)`, stair travel Z `[180, 1180)`, and upper threshold Z
+`[1180, 1500)`. All three use Z as their sole travel axis. The stair and upper
+frames retain the owner camera's X = 1520 cm, yaw = 180 degrees and 37.5 degree
+horizontal FOV derived from its 35 mm lens; the entrance uses X = 1400 cm,
+pitch = -3 degrees and 42 degrees FOV. The runtime camera applies the region's
+travel-axis framing offset after clamping the player coordinate and blends
+explicit FOV with position and rotation.
+
+The map uses project-owned procedural master materials and instances for upper
+plaster, the separate green lower wall band, dark circulation surfaces,
+guardrails, doors and the player silhouette. Five local shadow-casting point
+lights, restrained cool fill and a manual-exposure post process form the
+first-pass visual grammar. This is a presentation proof, not final art, and it
+has no third-party environment asset dependency.
+
+PIE exposed one REW-0010 collision defect in reverse traversal: a 180 cm-deep
+intermediate landing overlapped the stair approach far enough for the capsule
+to meet its underside before reaching the top. Floors 1-4 now keep their outer
+edge but use a 130 cm landing depth, moving the inner edge outward by 50 cm.
+The visible flights, elevations, doors and outer landing boundaries are
+unchanged; the measured route now works in both directions.
 
 The runtime mannequin is offset by the capsule half-height so its feet meet the
 capsule bottom and is rotated -90 degrees relative to the character root so the
@@ -207,6 +231,14 @@ flights' alternating Y lanes without violating the one-region rule. The large
 courtyard composition holds the gate, generator, patrol yard and Transit route
 in the same spatial field, matching the settled ground-floor plan.
 
+The authored camera type supports X, Y or Z as the one legal travel axis and
+stores an explicit horizontal FOV per region. Region player volumes are
+half-open on their positive edge, so two adjacent regions cannot both own the
+same exact threshold. A named automation test asserts vertical travel,
+travel-axis framing offset, clamp/padding behavior, fixed non-travel axes,
+explicit FOV and exactly-one ownership immediately before, on and after a
+shared threshold.
+
 The runtime player uses the imported CC0 UAL1 pack mannequin. `Idle_Loop` and
 `Walk_Loop` switch from CharacterMovement velocity; 19 additional Tier 1
 in-place clips are imported but not bound. UAL1 and UAL2 remain separate
@@ -232,8 +264,11 @@ so the game's normal input mappings receive them without desktop focus or
 Windows input emulation. It tracks keys pressed through the toolset, exposes
 their state with the possessed pawn transform, releases them explicitly, and
 clears its bookkeeping when PIE ends. Exact game-time holds and queued input
-sequences keep measured routes independent of MCP response latency. Console
-execution is restricted to project-owned `Rewind.*` commands.
+sequences keep measured routes independent of MCP response latency. The state
+result includes the active region, X/Y/Z axis, view target, camera transform
+and FOV. `CapturePIEScreenshot` requests a clean PNG from the active game
+viewport on its next rendered frame, independent of editor-window overlays.
+Console execution is restricted to project-owned `Rewind.*` commands.
 
 `AutomationTestToolset` is enabled beside `EditorToolset`. The running MCP
 server therefore owns the complete agent loop: editor and log inspection,
