@@ -160,10 +160,8 @@ the status document disagree about reality, the status document is right.
 
 These are not decided, and no task may assume them:
 
-1. **Echo semantics.** Whether Echo replays recorded actions, is a visual
-   silhouette, or is narrative only.
-2. **The license, and whether this repository ever becomes public.** The
+1. **The license, and whether this repository ever becomes public.** The
    repository currently carries an all-rights-reserved notice, chosen as the
    safe default rather than as a decision.
-3. **Whether the Unity project is retired.** `C:\code\reWiND` still exists and is
+2. **Whether the Unity project is retired.** `C:\code\reWiND` still exists and is
    untouched. Nothing here depends on it.
