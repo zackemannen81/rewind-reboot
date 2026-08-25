@@ -4,11 +4,12 @@
 #include "RewindLog.h"
 #include "RewindCourtyardGate.h"
 #include "RewindLoopSubsystem.h"
+#include "RewindMessageIds.h"
+#include "RewindMessageSubsystem.h"
 #include "RewindSessionSubsystem.h"
 #include "Components/StaticMeshComponent.h"
 #include "EngineUtils.h"
 #include "Engine/GameInstance.h"
-#include "Engine/Engine.h"
 #include "Engine/World.h"
 #include "UObject/ConstructorHelpers.h"
 
@@ -72,10 +73,9 @@ bool ARewindAnchorBoard::TryInteract(APawn* InstigatorPawn)
 			}
 		}
 	}
-	if (GEngine)
+	if (URewindMessageSubsystem* Messages = URewindMessageSubsystem::Get(this))
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 4.f, bOk ? FColor::Green : FColor::Red,
-			bOk ? TEXT("Anchor: courtyard gate will hold") : TEXT("Anchor: gate was not opened by this loop"));
+		Messages->Show(bOk ? RewindMessageIds::AnchorAccepted : RewindMessageIds::AnchorRefused);
 	}
 	return bOk;
 }

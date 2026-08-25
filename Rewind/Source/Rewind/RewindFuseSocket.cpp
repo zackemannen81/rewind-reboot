@@ -1,9 +1,10 @@
 #include "RewindFuseSocket.h"
 
 #include "RewindLog.h"
+#include "RewindMessageIds.h"
+#include "RewindMessageSubsystem.h"
 #include "Components/StaticMeshComponent.h"
 #include "EngineUtils.h"
-#include "Engine/Engine.h"
 #include "Engine/World.h"
 #include "UObject/ConstructorHelpers.h"
 
@@ -80,10 +81,11 @@ bool ARewindFuseSocket::TryInteract(APawn* InstigatorPawn)
 	// Neither in hand nor here: say which, because "nothing happened" is the
 	// worst thing a socket can tell a player who is mid-puzzle.
 	const TCHAR* Where = Fuse->IsSeated() ? TEXT("in the other socket") : TEXT("still where it started");
-	if (GEngine)
+	if (URewindMessageSubsystem* Messages = URewindMessageSubsystem::Get(this))
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Yellow,
-			FString::Printf(TEXT("Socket: empty. The fuse is %s"), Where));
+		Messages->Show(Fuse->IsSeated()
+			? RewindMessageIds::SocketEmptyOther
+			: RewindMessageIds::SocketEmptyAtRest);
 	}
 	RewindLog::Event(this, FString::Printf(TEXT("Socket %s: refused, fuse is %s"),
 		Which == ERewindFuseSocket::Building ? TEXT("building") : TEXT("courtyard"), Where));

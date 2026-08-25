@@ -4,6 +4,38 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-25 — REW-0018 complete, player-facing text leaves the debug overlay
+
+- Date: 2026-08-25
+- Author: grok-message
+- Task: REW-0018
+- Branch: `grok/rew-0018-message-and-dialog`
+- Change: player-facing text in the authored slice is owned by
+  `URewindMessageSubsystem`. Actors speak by catalog id. Copy and duration
+  live in `FRewindMessageCatalog`. Presentation is a project Slate overlay at
+  the bottom of the viewport, light text on a dark backing, hit-test
+  invisible. `docs/design/player-messages.md` owns the channel and states that
+  the debug overlay is not UI. Migrated call sites: RewindCodeLock,
+  RewindRadio, RewindFuse, RewindFuseSocket, RewindGenerator, RewindLift,
+  RewindAnchorBoard, RewindCharacter. `RewindLoopSubsystem` was not edited;
+  its `t=` overlay remains.
+- Verification: `RewindEditor Win64 Development` built editor-closed. A first
+  pass failed on `RewindMessageTest.cpp` `TestEqual` int32 versus size_t;
+  after the cast, the same command succeeded in 16.61 seconds. Headless
+  `UnrealEditor-Cmd` `-ExecCmds='Automation RunTests Rewind;Quit'`
+  `-unattended -nopause -nosplash -NullRHI` found 13 `Rewind.*` tests and
+  completed all 13 with `Result={Success}`, `TEST COMPLETE. EXIT CODE: 0`,
+  including `Rewind.Message.Queue.Queueing`, `Rewind.Message.Queue.Ordering`,
+  `Rewind.Message.Queue.Expiry` and `Rewind.Message.Catalog.ResolvesSliceCopy`.
+  After the migration, `AddOnScreenDebugMessage` remains only in
+  `RewindLoopSubsystem.cpp`. Player-facing literals for the slice now live in
+  the catalog, not in the listed actors.
+- Not verified: no interactive editor and no PIE on this clone, so the overlay
+  was not judged against the authored camera composition in a running
+  viewport. No packaged build. Each migrated line was not triggered in play;
+  reachability is the actor call plus catalog resolution, not a playtest.
+  Whether rewind should clear the queue is not a rule and was not implemented.
+- Signature: grok-message
 ## 2026-08-25 — REW-0017 complete, event-driven rewind and the loop-break signature
 
 - Date: 2026-08-25

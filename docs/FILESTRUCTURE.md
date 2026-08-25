@@ -13,7 +13,7 @@ rewind-reboot/
 ├── .codex/config.toml              project-scoped Codex client for the same editor endpoint
 ├── Rewind/                         Unreal Engine 5.8 blank C++ project
 │   ├── Rewind.uproject             engine 5.8; runtime and editor modules; MCP/toolset plugins
-│   ├── Source/Rewind/              loop, session, Chapter 1, authored camera and named runtime tests
+│   ├── Source/Rewind/              loop, session, Chapter 1, authored camera, player messages and named runtime tests
 │   ├── Source/RewindEditor/        editor-only MCP PIE-input and clean screenshot toolset
 │   ├── Config/                     default engine, game, input, editor
 │   └── Content/
@@ -50,7 +50,8 @@ rewind-reboot/
 │   │   ├── save-and-session.md
 │   │   ├── chapter-1-authored.md
 │   │   ├── camera-and-movement.md
-│   │   └── stairwell-visual-direction.md
+│   │   ├── stairwell-visual-direction.md
+│   │   └── player-messages.md
 │   ├── acceptance/
 │   │   └── five-loops-test.md      first product proof, FL-01 to FL-16
 │   ├── playtests/                  indexed evidence, including the Chapter 1 three-loop record
