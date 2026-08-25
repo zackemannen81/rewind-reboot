@@ -18,12 +18,12 @@ wrong and must be corrected.
 | `docs/adr/ADR-0007_camera-and-perspective.md` | Accepted and implemented. Camera is authored, follows inside a composition, player does not aim it |
 | `docs/adr/ADR-0008_what-an-anchor-is-worth.md` | Accepted and implemented in the Chapter 1 chain. Holding `courtyard_gate_open` leaves the only fuse in the building socket, releasing both the six-second lift route and immediate access to the main route |
 | `docs/adr/ADR-0009_event-driven-loop-termination.md` | Accepted and implemented by REW-0017. Causal-contract failure, death and successful Anchor commit are the default loop-end classes; contract failure and commit run a one-to-three-second loop-clocked prelude |
-| `docs/adr/ADR-0011_asset-source-and-provenance.md` | Accepted. Art assets are project-owned or generated; third-party packs stay outside the tracked closure. The authored map is unbound from untracked content by REW-0022 |
+| `docs/adr/ADR-0011_asset-source-and-provenance.md` | Accepted, amended 2026-08-25. Art assets are project-owned or generated; third-party packs stay outside the tracked closure. The amendment corrects the clause that named `/Game/Art/Texture/`: those textures are the owner's own work, and their JPEG sources are tracked at `Rewind/ArtSource/Textures/`, 76 KB. REW-0022 unbound the map from them along with the Fab packs; REW-0025 re-binds them |
 | `docs/adr/ADR-0012_echo-semantics.md` | Accepted. Echo is narrative only: nothing samples the player's transform, nothing persists a path, nothing replays a ghost |
 | `docs/adr/ADR-0010_renderer-configuration.md` | Accepted. Lumen GI and Lumen reflections, virtual shadow maps, mesh distance fields and default bloom. Auto-exposure stays off. Hardware ray tracing stays off. Frame-time budget 16.67 ms at 1920×1080 on the named development machine |
 | `Rewind/Rewind.uproject` | Unreal Engine 5.8 C++ project. Loop clock, apply order, session save, CleanSave. Loops end on causal-contract failure, death or first-time Anchor commit. The 240-second timeout is no longer the default end condition. `DefaultEngine.ini` matches ADR-0010 |
 | `Rewind/Content/Maps/FiveLoops.umap` | Preserved procedural proof map, no longer the editor or game default. C++ builds 4C, common hallway, cage lift, proof stairs, courtyard/service route and Transit Hub under eleven camera regions |
-| `Rewind/Content/Maps/FiveLoops_Stairwell_Blockout.umap` | Editor and game default. The accepted stairwell leads to one common corridor whose three preserved openings are stairs, lift and 4C. REW-0013 corrected the building side. REW-0014 applied the owner's placed 35 mm `4c_camera` as the exact Apartment4C runtime start frame: `(750, 1330, 1330)`, rotation `(0, 180, 0)`, horizontal FOV `37.497356`. REW-0015 widened that region's player volume to cover the room it frames, leaving the frame itself unchanged |
+| `Rewind/Content/Maps/FiveLoops_Stairwell_Blockout.umap` | Editor and game default. The accepted stairwell leads to one common corridor whose three preserved openings are stairs, lift and 4C. REW-0013 corrected the building side. REW-0014 applied the owner's placed 35 mm `4c_camera` as the exact Apartment4C runtime start frame: `(750, 1330, 1330)`, rotation `(0, 180, 0)`, horizontal FOV `37.497356`. REW-0015 widened that region's player volume to cover the room it frames, leaving the frame itself unchanged. REW-0022 unbound the saved map from untracked `/Game/Fab/` and `/Game/Art/Texture/` content: six empty-mesh dressing actors were removed, and surfaces that had lost those materials now use the tracked project-owned instances under `Rewind/Content/Art/Materials/`. Apartment 4C is undressed blockout. Gameplay actors, seven camera regions and collision geometry were not moved |
 | `Rewind/Content/Maps/Reference/FiveLoops_Handmade2_Reference.umap` | Stable untouched Git LFS reference copy. Its 26-actor inventory and stair camera transform match the owner source at REW-0010 completion |
 | `Rewind/Content/FiveLoops_Handmade.umap` and `FiveLoops_Handmade2.umap` | Tracked owner-authored construction maps preserved through Git LFS. They are spatial source material, not runtime defaults or design-rule authority |
 | `docs/design/` | Nine accepted documents. Ownership in `docs/design/README.md`; `player-messages.md` owns the player-facing text channel and states that the debug overlay is not UI; `tutorial-and-first-run.md` owns first-run copy, the naming rule, and first-time gating |
@@ -34,7 +34,7 @@ wrong and must be corrected.
 | `docs/concepts_sandbox/legacy-rewind/` | Imported design, roadmaps and task files from the previous project, plus a verified code inventory and a conflict register. Non-authority |
 | `docs/baseline/acme-2026-08-19/` | Frozen provenance for the working model itself. Never edited, never authority |
 | `.gitignore` / `.gitattributes` | Ignore generated UE output. LFS tracks Unreal binaries, including the Tier 1 character assets |
-| `docs/CURRENT_TASK.md` | Restored task template. REW-0023 is complete and archived; no task is active on this branch |
+| `docs/CURRENT_TASK.md` | Restored task template. REW-0016 to REW-0019 and REW-0021 to REW-0024 are complete and archived; no task is active on this branch |
 | `docs/concept/` | Nine owner-produced target and construction-reference images: 4C, fuse box, stairwell, lift, three circulation/interaction sketches and the settled top- and ground-floor plans. Targets and blockout clarification, never game rules |
 | `docs/finished/REW-0004_...md` | Superseded by REW-0006 after its frozen scope conflicted with the lift-or-stairs branch decided by REW-0005 |
 | `Rewind/Source/Rewind/RewindCameraRig.cpp` | The authored camera of ADR-0007. Regions declare rotation, X/Y/Z travel axis, bounds, dead zone, player volume and explicit FOV. Half-open volumes give shared thresholds exactly one owner. The procedural proof has eleven regions; the authored building slice has seven |
@@ -80,10 +80,11 @@ wrong and must be corrected.
   is a renderer and look pass, not final art. Procedural plaster, basic
   fixtures and primitive geometry remain. Authored decals, final models,
   props, rain, neon treatment and wider-map dressing are not integrated.
-  Locally imported Fab/environment packs remain outside the tracked dependency
-  closure. The owner has asked that the corrected 4C use no primitive furniture
-  props; imported candidates require a selected provenance/license/size review
-  before any dependency is committed.
+  Locally imported Fab/environment packs and `Rewind/Content/Art/Texture/`
+  remain untracked and local under ADR-0011. REW-0022 removed the saved map's
+  references to them. A fresh clone of the default map therefore opens without
+  those packages. Apartment 4C is undressed until generated or authored props
+  exist; that is accepted by ADR-0011, not a defect to work around.
 - **A packaged game build.** Editor Win64 Development compiled and run in PIE;
   a cooked package has not been made, so nothing here is evidence about a
   shipped build.

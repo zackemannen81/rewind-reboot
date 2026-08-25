@@ -50,3 +50,5 @@ still the protocol extraction; that identity stays taken. New claims use `REW`.
 | REW-0021 | Record the asset-source and Echo decisions | Claude | 2026-08-25 | docs/CURRENT_TASK.md |
 | REW-0022 | Unbind the authored map from untracked content | unassigned | 2026-08-25 | docs/CURRENT_TASK.md |
 | REW-0023 | Tutorial copy on the message system | unassigned | 2026-08-25 | docs/CURRENT_TASK.md |
+| REW-0024 | Track the owner's texture sources and correct ADR-0011 | Claude | 2026-08-25 | docs/CURRENT_TASK.md |
+| REW-0025 | Re-import the 4c textures and re-bind the authored map | unassigned | 2026-08-25 | docs/CURRENT_TASK.md |

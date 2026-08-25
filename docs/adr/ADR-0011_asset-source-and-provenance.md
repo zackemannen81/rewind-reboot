@@ -39,8 +39,9 @@ Concretely:
 1. The tracked repository contains only assets this project authored,
    generated, or imported under a licence recorded at import time with the file
    itself.
-2. The existing `/Game/Fab/` and `/Game/Art/Texture/` content stays untracked
-   and local. The authored map is unbound from it, so a fresh clone opens
+2. The existing `/Game/Fab/` content stays untracked and local. *(Amended
+   2026-08-25: this clause originally named `/Game/Art/Texture/` too. See the
+   amendment below.)* The authored map is unbound from it, so a fresh clone opens
    cleanly. Removing those references is chartered as REW-0022.
 3. Generated meshes and textures are permitted and are the expected source for
    props and surfaces. The tool used and the date are recorded with the asset.
@@ -79,6 +80,28 @@ project has been carrying the ambiguity since REW-0014.
   the space stays blockout rather than borrowing a pack.
 - `docs/PROJECT_BRIEF.md`'s non-goal on asset pipelines still stands. This
   record decides where assets come from, not that a pipeline is now in scope.
+
+## Amendment, 2026-08-25
+
+**The owner's hand-authored textures are project-owned and belong in the
+tracked closure.** The original text listed `/Game/Art/Texture/` beside
+`/Game/Fab/` as content to be unbound. That was a factual error made while
+writing this record: both directories were untracked, and both were assumed to
+be third-party imports. Only `/Game/Fab/` was.
+
+The seven `4c_*` textures were hand-made by the owner and imported from JPEG.
+They satisfy this record's own rule on its first line, and nothing in the
+reasoning above applies to them: there is no unverified provenance, no licence
+to check, and no quota concern — the sources total 76 KB.
+
+Their sources are now tracked at `Rewind/ArtSource/Textures/`, outside
+`Content/` so the editor never scans them, which means the imported assets can
+always be rebuilt from something the repository holds. REW-0022 unbound the
+map from them along with the Fab packs; REW-0024 re-imports them and re-binds
+what should never have been unbound.
+
+The decision itself is unchanged. Third-party packs stay outside the tracked
+closure. This amendment corrects which content that sentence was ever about.
 
 ## Status of related records
 

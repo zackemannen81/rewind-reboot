@@ -15,6 +15,8 @@ rewind-reboot/
 │   ├── Rewind.uproject             engine 5.8; runtime and editor modules; MCP/toolset plugins
 │   ├── Source/Rewind/              loop, session, Chapter 1, authored camera, player messages and named runtime tests
 │   ├── Source/RewindEditor/        editor-only MCP PIE-input and clean screenshot toolset
+│   ├── ArtSource/Textures/         owner-authored JPEG sources for the 4c_* textures,
+│   │                               outside Content/ so the editor never scans them
 │   ├── Config/                     default engine, game, input, editor
 │   └── Content/
 │       ├── FiveLoops_Handmade.umap owner-authored original construction map
@@ -85,7 +87,11 @@ records that may not be edited.
 Generated Unreal output (`Binaries/`, `Intermediate/`, `Saved/`,
 `DerivedDataCache/`) is not in git. Tracked imported content is the measured
 12.61 MiB Tier 1 character subset under `Rewind/Content/Characters/Tier1/`.
-The stairwell material slice uses only project-authored Unreal assets. Locally
-imported Fab, OldWall and PaintedBrickWall working material remains outside the
-tracked dependency closure pending an explicit provenance and size decision
-under ADR-0005.
+The stairwell and building-slice material family uses only project-authored
+Unreal assets under `Rewind/Content/Art/Materials/`. The owner's hand-authored `4c_*` texture sources are tracked at
+`Rewind/ArtSource/Textures/`, 76 KB. Locally imported Fab, OldWall and
+PaintedBrickWall working material remains untracked and local: ADR-0011
+decided that third-party packs stay outside the tracked dependency closure,
+and REW-0022 unbound the default map from those packages. Its 2026-08-25
+amendment corrects `Art/Texture`, which is owner-authored and was never what
+that rule was about; REW-0024 re-imports and re-binds it.
