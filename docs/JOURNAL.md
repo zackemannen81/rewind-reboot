@@ -4,6 +4,59 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-25 — REW-0016 complete, Chapter 1 wave run through delegated agents
+
+- Date: 2026-08-25
+- Author: Claude
+- Task: REW-0016
+- Branch: `claude/rew-0016-operator`
+- Change: REW-0017, REW-0018 and REW-0019 were chartered, frozen, delegated to
+  three `grok` agents in three separate clones under the owner's
+  `rewind-multiagents` directory, then reviewed and merged. Identities were
+  claimed on `main` in advance so no agent had to edit `docs/TASK_IDS.md`.
+  Each agent transcribed an operator-frozen charter, branched, committed,
+  pushed and opened its own pull request; the operator merged.
+- Delegation mechanism: the owner's `powershell-agent-mcp` stdio server. A
+  stdio MCP server cannot be loaded into an already-running session, so it was
+  driven through a localhost HTTP bridge holding one long-lived server
+  process, which is what keeps its in-memory agent registry usable across
+  calls.
+- Review: claims were checked against the tree rather than accepted from the
+  journal entries. The four REW-0017 tests and four REW-0018 tests were
+  confirmed present in source; `bUseWholeSpaceDeadline` was confirmed `false`,
+  so the 240-second timeout is genuinely off by default;
+  `AddOnScreenDebugMessage` was confirmed absent from the eight migrated
+  actors and present only in `RewindLoopSubsystem.cpp`, which REW-0017 owned;
+  every charter archive and restored template was confirmed.
+- Verification: the merged tree built editor-closed in 23.12 seconds. All
+  seventeen discoverable `Rewind.*` tests ran together: 17 passed, 0 failed,
+  `TEST COMPLETE. EXIT CODE: 0`. Each agent had verified only its own four,
+  because on its branch the other four did not exist.
+- Operator defect, recorded rather than smoothed over: `RewindAnchorBoard.*`
+  was granted to both REW-0017 and REW-0018. The file-ownership split existed
+  to prevent exactly that and was written wrong. Both branches edited the
+  file; the conflict was resolved by hand keeping both changes, because the
+  merged log format string carries three placeholders and REW-0018's side
+  passed two. Taking either side alone would have shipped a broken call.
+- Second operator defect: two agents ran the REW-0018 brief in the same clone
+  for about seven minutes, after the operator launched one while the owner
+  launched another. The duplicate was stopped with the orchestrator's
+  `halt-agent`. The surviving branch's file set was checked for orphans before
+  merge and was coherent.
+- Stale-status catch: REW-0019 branched before REW-0017 merged, so its
+  `docs/CURRENT_STATUS.md` still described ADR-0009 as accepted but not
+  implemented, and the loop as ending at 240 seconds. Both were true when it
+  branched and false at merge. The `main` rows were kept for those.
+- Not verified: no PIE, no packaged build and no playtest of the merged
+  result. This task merged and verified other tasks' work; it did not play the
+  game. Each child's own unverified list stands, including that REW-0017's
+  causal checkpoint exists only on the procedural proof map, because the
+  authored default map has no courtyard.
+- Routed, not built: `docs/backlog/untracked-fab-dependency.md`,
+  `docs/backlog/echo-semantics.md` and
+  `docs/backlog/chapter-1-remaining-content.md`.
+- Signature: Claude
+
 ## 2026-08-25 — REW-0019 complete, renderer configuration and first look pass
 
 - Date: 2026-08-25

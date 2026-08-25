@@ -46,3 +46,6 @@ Desktop.ini
 # Local logs and crash dumps
 *.log
 *.dmp
+
+# Claude Code local settings
+.claude/settings.local.json
