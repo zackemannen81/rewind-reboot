@@ -3,13 +3,14 @@
 #include "RewindLog.h"
 #include "RewindIds.h"
 #include "RewindLoopSubsystem.h"
+#include "RewindMessageIds.h"
+#include "RewindMessageSubsystem.h"
 #include "RewindSessionSubsystem.h"
 #include "GameFramework/Pawn.h"
 #include "GameFramework/PlayerController.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
-#include "Engine/Engine.h"
 #include "UObject/ConstructorHelpers.h"
 
 namespace
@@ -24,6 +25,13 @@ namespace
 	constexpr double DigitPhases[] = { 4.0, 9.0, 14.0, 19.0 };
 	const TCHAR* DigitWords[] = { TEXT("seven"), TEXT("three"), TEXT("one"), TEXT("two") };
 	constexpr int32 DigitCount = UE_ARRAY_COUNT(DigitPhases);
+	const FName DigitMessageIds[] = {
+		RewindMessageIds::RadioDigitSeven,
+		RewindMessageIds::RadioDigitThree,
+		RewindMessageIds::RadioDigitOne,
+		RewindMessageIds::RadioDigitTwo,
+	};
+	static_assert(UE_ARRAY_COUNT(DigitMessageIds) == DigitCount, "Each spoken digit has catalog copy");
 
 	/** Not a rule. The document says there are channels and one carries the code. */
 	constexpr int32 RadioChannelCount = 4;
@@ -86,11 +94,11 @@ bool ARewindRadio::TryInteract(APawn* InstigatorPawn)
 	const bool bOnCode = Channel == RadioCodeChannel;
 	RewindLog::Event(this, FString::Printf(TEXT("Radio: channel %d (%s)"),
 		Channel, bOnCode ? TEXT("voice") : TEXT("static")));
-	if (GEngine)
+	if (URewindMessageSubsystem* Messages = URewindMessageSubsystem::Get(this))
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 3.f, bOnCode ? FColor::Cyan : FColor::Silver,
-			FString::Printf(TEXT("Radio: channel %d  %s"),
-				Channel, bOnCode ? TEXT("...a voice, under the static") : TEXT("static")));
+		Messages->Show(
+			bOnCode ? RewindMessageIds::RadioChannelVoice : RewindMessageIds::RadioChannelStatic,
+			FString::FromInt(Channel));
 	}
 	return true;
 }
@@ -119,10 +127,9 @@ void ARewindRadio::ReportFragment(double Phase)
 	// live in the player's memory, like the patrol's timing.
 	while (FragmentsReported < DigitCount && Phase >= DigitPhases[FragmentsReported])
 	{
-		if (GEngine)
+		if (URewindMessageSubsystem* Messages = URewindMessageSubsystem::Get(this))
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan,
-				FString::Printf(TEXT("Radio:  ...%s..."), DigitWords[FragmentsReported]));
+			Messages->Show(DigitMessageIds[FragmentsReported]);
 		}
 		RewindLog::Event(this, FString::Printf(TEXT("Radio: digit %d spoken (%s) at phase %.1f"),
 			FragmentsReported + 1, DigitWords[FragmentsReported], DigitPhases[FragmentsReported]));
@@ -213,9 +220,12 @@ void ARewindRadio::Tick(float DeltaSeconds)
 				TEXT("Radio: complete %.0fs sequence heard, 7312 %s"),
 				RadioSequence,
 				bAlreadyKnown ? TEXT("already known") : TEXT("obtained")));
-			if (GEngine && !bAlreadyKnown)
+			if (!bAlreadyKnown)
 			{
-				GEngine->AddOnScreenDebugMessage(-1, 6.f, FColor::Green, TEXT("Radio: 7312"));
+				if (URewindMessageSubsystem* Messages = URewindMessageSubsystem::Get(this))
+				{
+					Messages->Show(RewindMessageIds::RadioCodeObtained);
+				}
 			}
 		}
 		else if (ListeningSince >= 0.0)

@@ -16,4 +16,8 @@ public:
 	void ApplyLoopStart();
 	void PlacePlayerBody();
 	FTransform GetLoopStartPose() const;
+
+private:
+	void EnsureCausalCheckpoints();
+	void EnsureLoopBreakSignature();
 };

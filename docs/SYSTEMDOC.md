@@ -7,8 +7,9 @@ writes them.
 
 An Unreal Engine 5.8 C++ project exists at `Rewind/Rewind.uproject`. The loop
 clock, ordered world-state apply, session knowledge, one Anchor, clean save,
-authored camera, loop-clocked radio, contested fuse, lift, stairs and rebuilt
-Chapter 1 blockout are implemented. The owner-shaped stairwell, Apartment 4C,
+authored camera, loop-clocked radio, contested fuse, lift, stairs, player
+message channel and rebuilt Chapter 1 blockout are implemented. The
+owner-shaped stairwell, Apartment 4C,
 fourth-floor common hall and lift form the bounded authored presentation slice
 and the project's editor/game default. REW-0013 corrected REW-0012 against the
 owner's existing stairs/lift/4C openings and removed its opposite-side duplicate.
@@ -17,11 +18,12 @@ project PIE input and clean game-viewport capture through the MCP toolset
 registry, and the engine automation-test toolset is enabled. The sections below
 distinguish the running proof from later art and product work.
 
-ADR-0009 and the owning design documents now require event-driven loop
-termination. That rule is not implemented: the running C++ proof still ends at
-240 seconds or on death, has no causal-checkpoint actor or rewind prelude, and
-does not end after a successful Anchor commit. The mismatch is an explicit
-implementation gap, not a claim that the accepted rule already works.
+ADR-0009 and the owning design documents require event-driven loop
+termination. REW-0017 implements that rule in the running C++: a loop ends on
+causal-contract failure at a named checkpoint, on death, or on a successful
+first-time Anchor commit. Contract failure and commit latch a one-to-three-
+second rewind prelude measured on elapsed loop time. Elapsed time alone does
+not end a loop unless an authored whole-space deadline is explicitly enabled.
 
 `/Game/Maps/FiveLoops_Stairwell_Blockout` is the first standalone authored
 geometry map. It preserves the owner's switchback shape at human scale: five
@@ -185,12 +187,19 @@ knowledge, the one legal Anchor identifier, a USaveGame slot, and a
 reachable `Rewind.CleanSave` command. World clocks are required to read
 `URewindLoopSubsystem::GetElapsedLoopTime`, not engine time.
 
-`URewindLoopSubsystem` currently advances the loop clock until the developer
-setting reaches 240 seconds, ends with reason Timer, writes the session and
-immediately starts the next loop. Death is its only other reason. It has no
-representation for causal-contract failure, Anchor commit, a latched rewind or
-the one-to-three-second prelude required by ADR-0009. This paragraph describes
-the current implementation; it does not restate the accepted rule.
+`URewindLoopSubsystem` advances the loop clock without a default terminal
+duration. It exposes end reasons CausalContract, Death and AnchorCommit. Timer
+remains only for an authored whole-space deadline, which is off by default
+(`bUseWholeSpaceDeadline`). A failed crossing of `ARewindCausalCheckpoint`
+(`GroundFuseGate`: ground-floor fuse seated or `courtyard_gate_open` active)
+or a first-time successful Anchor commit latches a rewind that cannot be
+cancelled by stepping back. The latched prelude lasts the configured duration
+clamped to [1.0, 3.0] seconds of elapsed loop time, then loop-start apply
+runs. Death ends the loop immediately. `ARewindLoopBreakSignature` presents
+rising interference during the prelude as a function of elapsed loop time,
+not engine time or frame delta. A rejected or redundant Anchor commit does
+not latch. `GroundFuseGate` is spawned in C++ at the proof-layout hall-to-
+courtyard seam; maps tagged `Rewind.SkipProofLayout` do not receive it.
 
 `/Game/Maps/FiveLoops` is the preserved procedural proof map. It loads
 `ARewindProofLayout`, which spawns 4C on floor 4,
@@ -205,6 +214,18 @@ participants restore from baseline on loop start; the gate honors
 time. Interact is E. Digits type a code at the lock. The board commits the
 gate Anchor only if this loop opened the gate. Elapsed loop time is drawn on
 screen as `t=` for stated-time checks.
+
+Player-facing text is owned by `URewindMessageSubsystem`. Actors call `Show`,
+`ShowTimed`, `ShowSequence` or `Clear` by catalog id. Copy and default
+duration live in `FRewindMessageCatalog`, so rewriting a line does not require
+editing the actor that triggers it. One line is visible at a time. Further
+lines wait in enqueue order and expire into the next. Presentation is a
+project Slate overlay at the bottom of the game viewport: light text on a
+dark backing, hit-test invisible. It does not use
+`AddOnScreenDebugMessage`. The `t=` overlay remains instrumentation inside
+`URewindLoopSubsystem` and is not this channel. Messages tick on frame delta,
+are not world state, and are not saved. The subsystem does not clear them at
+loop start.
 
 The radio has four channels and exactly one speaks the code. Its 20-second
 sequence repeats every 50 seconds and speaks `7`, `3`, `1`, `2` at phases 4,

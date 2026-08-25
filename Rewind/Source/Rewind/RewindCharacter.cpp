@@ -3,6 +3,8 @@
 #include "RewindInteractable.h"
 #include "RewindCameraRegion.h"
 #include "RewindLog.h"
+#include "RewindMessageIds.h"
+#include "RewindMessageSubsystem.h"
 #include "Animation/AnimSequence.h"
 #include "GameFramework/PlayerController.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -144,10 +146,9 @@ void ARewindCharacter::Tick(float DeltaSeconds)
 void ARewindCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	if (GEngine)
+	if (URewindMessageSubsystem* Messages = URewindMessageSubsystem::Get(this))
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 8.f, FColor::White,
-			TEXT("RE:WIND 4C  |  WASD move  E interact  digits at lock"));
+		Messages->Show(RewindMessageIds::CharacterControls);
 	}
 }
 

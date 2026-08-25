@@ -41,6 +41,74 @@ at the time.
 - Not verified: packaged build, `stat unit` GPU split, stairwell PIE at the
   35 mm StairwayCamera, FL criteria, final art, Fab provenance.
 - Signature: grok-look
+## 2026-08-25 — REW-0018 complete, player-facing text leaves the debug overlay
+
+- Date: 2026-08-25
+- Author: grok-message
+- Task: REW-0018
+- Branch: `grok/rew-0018-message-and-dialog`
+- Change: player-facing text in the authored slice is owned by
+  `URewindMessageSubsystem`. Actors speak by catalog id. Copy and duration
+  live in `FRewindMessageCatalog`. Presentation is a project Slate overlay at
+  the bottom of the viewport, light text on a dark backing, hit-test
+  invisible. `docs/design/player-messages.md` owns the channel and states that
+  the debug overlay is not UI. Migrated call sites: RewindCodeLock,
+  RewindRadio, RewindFuse, RewindFuseSocket, RewindGenerator, RewindLift,
+  RewindAnchorBoard, RewindCharacter. `RewindLoopSubsystem` was not edited;
+  its `t=` overlay remains.
+- Verification: `RewindEditor Win64 Development` built editor-closed. A first
+  pass failed on `RewindMessageTest.cpp` `TestEqual` int32 versus size_t;
+  after the cast, the same command succeeded in 16.61 seconds. Headless
+  `UnrealEditor-Cmd` `-ExecCmds='Automation RunTests Rewind;Quit'`
+  `-unattended -nopause -nosplash -NullRHI` found 13 `Rewind.*` tests and
+  completed all 13 with `Result={Success}`, `TEST COMPLETE. EXIT CODE: 0`,
+  including `Rewind.Message.Queue.Queueing`, `Rewind.Message.Queue.Ordering`,
+  `Rewind.Message.Queue.Expiry` and `Rewind.Message.Catalog.ResolvesSliceCopy`.
+  After the migration, `AddOnScreenDebugMessage` remains only in
+  `RewindLoopSubsystem.cpp`. Player-facing literals for the slice now live in
+  the catalog, not in the listed actors.
+- Not verified: no interactive editor and no PIE on this clone, so the overlay
+  was not judged against the authored camera composition in a running
+  viewport. No packaged build. Each migrated line was not triggered in play;
+  reachability is the actor call plus catalog resolution, not a playtest.
+  Whether rewind should clear the queue is not a rule and was not implemented.
+- Signature: grok-message
+## 2026-08-25 — REW-0017 complete, event-driven rewind and the loop-break signature
+
+- Date: 2026-08-25
+- Author: grok-loop
+- Task: REW-0017
+- Branch: `grok/rew-0017-event-driven-rewind`
+- Change: `URewindLoopSubsystem` now ends a loop on causal-contract failure,
+  death or a successful first-time Anchor commit. The automatic 240-second
+  timeout is off by default; `bUseWholeSpaceDeadline` keeps an authored
+  whole-space deadline available. `ARewindCausalCheckpoint` evaluates the
+  named `GroundFuseGate` predicate on crossing, not continuously, and latches
+  a rewind that `NotifyExited` cannot cancel. Contract failure and first-time
+  commit run a prelude clamped to [1.0, 3.0] seconds of elapsed loop time
+  before loop-start apply. Death still ends immediately. The board latches
+  rewind only when `TryCommit` succeeds and a pending write remains; rejected
+  and redundant commits do not. `ARewindLoopBreakSignature` raises film-grain,
+  fringe and desaturation from elapsed loop time during the prelude. The
+  GroundFuseGate volume is spawned in C++ at the proof-layout hall-to-courtyard
+  seam (X = 4110); skip-layout maps do not receive it.
+- Verification: `RewindEditor Win64 Development` built editor-closed in 137.38 s
+  (full makefile) and again in 17.30 s after the commit-boundary test fix.
+  Headless `UnrealEditor-Cmd` `-ExecCmds='Automation RunTests Rewind;Quit'`
+  `-unattended -nopause -nosplash -NullRHI` found 13 `Rewind.*` tests and
+  completed `**** TEST COMPLETE. EXIT CODE: 0 ****`. Every result was Success,
+  including `Rewind.Loop.Prelude.Bounds`, `Rewind.Loop.Prelude.Latch`,
+  `Rewind.Loop.AnchorCommit.Boundary` and
+  `Rewind.Loop.BreakSignature.ReadsLoopTime`. Evidence is
+  `Rewind/Saved/Logs/Rewind.log` from the 2026-08-25 03:43 run.
+- Not verified: no packaged build; no live PIE crossing of GroundFuseGate or
+  first-time Anchor commit on the procedural proof map; no idle observation
+  past 240 seconds in PIE; no frame-rate variation; no FL-17 or FL-18 playtest.
+  The default authored map has no courtyard, so the checkpoint is absent there.
+  Final static, sound and lighting remain REW-0019. `URewindSessionSubsystem`
+  was not edited; the commit boundary is the board's accepted-and-pending
+  rule plus the loop subsystem latch.
+- Signature: grok-loop
 
 ## 2026-08-25 — REW-0015 complete, player control restored in 4C
 

@@ -2,10 +2,11 @@
 
 #include "RewindLog.h"
 #include "RewindIds.h"
+#include "RewindMessageIds.h"
+#include "RewindMessageSubsystem.h"
 #include "RewindSessionSubsystem.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/GameInstance.h"
-#include "Engine/Engine.h"
 #include "UObject/ConstructorHelpers.h"
 
 ARewindCodeLock::ARewindCodeLock()
@@ -48,9 +49,9 @@ bool ARewindCodeLock::TryInteract(APawn* InstigatorPawn)
 		Submit(TEXT("7312"));
 		return true;
 	}
-	if (GEngine)
+	if (URewindMessageSubsystem* Messages = URewindMessageSubsystem::Get(this))
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Yellow, TEXT("Lock: enter 4 digits, or learn 7312 from the radio"));
+		Messages->Show(RewindMessageIds::LockPrompt);
 	}
 	RewindLog::Event(this, TEXT("Lock: locked, no stored code"));
 	return false;
@@ -63,9 +64,12 @@ void ARewindCodeLock::ReceiveDigit(int32 Digit)
 		return;
 	}
 	Buffer.AppendChar(TCHAR('0' + Digit));
-	if (GEngine)
+	if (URewindMessageSubsystem* Messages = URewindMessageSubsystem::Get(this))
 	{
-		GEngine->AddOnScreenDebugMessage(1, 2.f, FColor::White, FString::Printf(TEXT("Code: %s"), *Buffer));
+		// The prompt is a different line. Clear it so the typed code is current
+		// instead of waiting behind the hint.
+		Messages->Clear();
+		Messages->Show(RewindMessageIds::LockCodeBuffer, Buffer);
 	}
 	if (Buffer.Len() >= 4)
 	{
@@ -93,18 +97,18 @@ void ARewindCodeLock::Submit(const FString& Code)
 	{
 		SetLocked(false);
 		RewindLog::Event(this, TEXT("Lock: 7312 accepted, doorway open"));
-		if (GEngine)
+		if (URewindMessageSubsystem* Messages = URewindMessageSubsystem::Get(this))
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Green, TEXT("Lock: 7312 accepted"));
+			Messages->Show(RewindMessageIds::LockAccepted);
 		}
 	}
 	else
 	{
 		SetLocked(true);
 		RewindLog::Event(this, FString::Printf(TEXT("Lock: %s rejected"), *Code));
-		if (GEngine)
+		if (URewindMessageSubsystem* Messages = URewindMessageSubsystem::Get(this))
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red, FString::Printf(TEXT("Lock: %s rejected"), *Code));
+			Messages->Show(RewindMessageIds::LockRejected, Code);
 		}
 	}
 }

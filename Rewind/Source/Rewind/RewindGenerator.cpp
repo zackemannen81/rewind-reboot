@@ -3,8 +3,9 @@
 #include "RewindLog.h"
 #include "RewindFuse.h"
 #include "RewindCourtyardGate.h"
+#include "RewindMessageIds.h"
+#include "RewindMessageSubsystem.h"
 #include "Components/StaticMeshComponent.h"
-#include "Engine/Engine.h"
 #include "UObject/ConstructorHelpers.h"
 
 ARewindGenerator::ARewindGenerator()
@@ -41,10 +42,9 @@ bool ARewindGenerator::TryInteract(APawn* InstigatorPawn)
 	const ARewindFuse* Fuse = ARewindFuse::Find(GetWorld());
 	if (!Fuse || !Fuse->IsSeatedIn(ERewindFuseSocket::Courtyard))
 	{
-		if (GEngine)
+		if (URewindMessageSubsystem* Messages = URewindMessageSubsystem::Get(this))
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Yellow,
-				TEXT("Generator: dead. The fuse is not in the courtyard socket"));
+			Messages->Show(RewindMessageIds::GeneratorDead);
 		}
 		RewindLog::Event(this, TEXT("Generator: refused, fuse not in the courtyard socket"));
 		return false;
@@ -54,9 +54,9 @@ bool ARewindGenerator::TryInteract(APawn* InstigatorPawn)
 	{
 		Gate->OpenFromThisLoopPlay();
 	}
-	if (GEngine)
+	if (URewindMessageSubsystem* Messages = URewindMessageSubsystem::Get(this))
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Green, TEXT("Generator: online, gate open"));
+		Messages->Show(RewindMessageIds::GeneratorOnline);
 	}
 	RewindLog::Event(this, TEXT("Generator: online, gate opened by this-loop play"));
 	return true;
