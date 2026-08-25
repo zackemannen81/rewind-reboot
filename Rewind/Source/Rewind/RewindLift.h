@@ -6,7 +6,7 @@
 #include "RewindLoopParticipant.h"
 #include "RewindLift.generated.h"
 
-/** A powered cage lift from 4C to the entrance floor. */
+/** A powered cage lift between 4C and the entrance floor. */
 UCLASS()
 class REWIND_API ARewindLift : public AActor, public IRewindInteractable, public IRewindLoopParticipant
 {
@@ -23,6 +23,10 @@ public:
 	void Configure(double InTopZ, double InBottomZ);
 	static constexpr double GetAuthoredTravelSeconds();
 
+	/** Local-space hall offset used when releasing the passenger at either landing. */
+	UPROPERTY(EditAnywhere, Category = "RE:WIND|Lift")
+	FVector HallExitOffset = FVector(240.f, 0.f, 0.f);
+
 private:
 	void SetCabinZ(double Z);
 	void ReleasePassenger();
@@ -35,6 +39,9 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UStaticMeshComponent> Platform;
+
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<UStaticMeshComponent> CabinFloorCollision;
 
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UStaticMeshComponent> CabinBack;
@@ -53,9 +60,11 @@ private:
 
 	double TopZ = 1200.0;
 	double BottomZ = 0.0;
-	double DescentStartedAt = 0.0;
+	double TravelStartedAt = 0.0;
+	double TravelStartZ = 1200.0;
+	double TravelTargetZ = 0.0;
 	FVector PassengerOffset = FVector::ZeroVector;
-	bool bDescending = false;
+	bool bMoving = false;
 	bool bAtEntranceFloor = false;
 	bool bPowerLogged = false;
 };

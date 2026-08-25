@@ -35,8 +35,22 @@ private:
 
 	IRewindInteractable* FindInteractable() const;
 
-	/** Screen axes for input, taken from the region the player is standing in. */
-	bool GetScreenAxes(FVector& OutRight, FVector& OutDepth) const;
+	/**
+	 * Screen axes for input, taken from the region the player is standing in,
+	 * or from the last region that did when the player is outside every volume.
+	 *
+	 * It never fails. It used to return false outside every region, and
+	 * `MoveForward` and `MoveRight` then dropped the input, so a player who
+	 * left the authored volumes kept the picture and lost the controller.
+	 */
+	bool GetScreenAxes(FVector& OutRight, FVector& OutDepth);
+
+	/** The last region that contained the player. The fallback frame for input. */
+	UPROPERTY()
+	TObjectPtr<class ARewindCameraRegion> LastKnownRegion;
+
+	/** Latched so the authoring gap is logged on entry and exit, not every frame. */
+	bool bOutsideEveryRegion = false;
 
 	/**
 	 * Placeholder body. The character has never had a mesh, which was invisible

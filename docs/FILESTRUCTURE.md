@@ -22,11 +22,13 @@ rewind-reboot/
 │       │                            owner-authored revised stair construction
 │       ├── Maps/FiveLoops.umap     empty level; Chapter 1 blockout spawned in C++
 │       ├── Maps/FiveLoops_Stairwell_Blockout.umap
-│       │                            authored five-level human-scale stairwell
+│       │                            default authored stairwell, 4C, halls and lift slice
 │       ├── Maps/Reference/FiveLoops_Handmade2_Reference.umap
 │       │                            untouched owner-layout reference
 │       ├── Art/Materials/Stairwell/
 │       │                            project-owned masters and instances for the presentation slice
+│       ├── Art/Materials/BuildingSlice/
+│       │                            project-owned 4C floor instance
 │       └── Characters/Tier1/       21 CC0 animations and two pack mannequins
 ├── docs/
 │   ├── CURRENT_TASK.md             active task when one is approved; otherwise the restored template

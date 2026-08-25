@@ -1,13 +1,14 @@
 # Owner Handmade level adoption
 
-Status: Proposed; stairwell presentation slice completed by REW-0011
+Status: Proposed; authored building slice completed through REW-0012
 Discovered: 2026-08-24, during REW-0009, from the owner-authored live Unreal
 blockout
 Owner: unassigned
 Activated: the complete adoption is not activated. REW-0010 completed the
 stable reference and isolated human-scale stairwell foundation; REW-0011 made
-that isolated stairwell camera-complete, bidirectionally traversable and
-visually presentable without adopting the surrounding Handmade spaces.
+the stairwell camera-complete and presentable. REW-0012 adopted Apartment 4C,
+the fourth-floor common hall, lift shaft/cage and entrance hall into that same
+saved authored slice. Courtyard, streets and Transit remain proposed.
 
 The owner has built the intended Chapter 1 plan directly in Unreal rather than
 asking a later task to infer it from concept art. REW-0009 inspected that level
@@ -52,6 +53,9 @@ ends a loop before geometry encoded the timer-driven chain again.
 - Met by REW-0011 for the isolated stairwell only: complete vertical camera
   coverage, a 35 mm starting composition, project-owned first-pass materials,
   practical lighting and a floor-4-to-entrance-and-back capsule route.
+- Met by REW-0012 for the bounded building slice: 4C, common/entrance halls,
+  cutaway bidirectional lift, radio, code lock, one fuse/two sockets, seven
+  authored regions and explicit editor/game default-map configuration.
 - ADR-0007 for authored camera behavior.
 - ADR-0009 and the event-driven implementation proposal before the adopted map
   is claimed playable.
@@ -70,7 +74,7 @@ ends a loop before geometry encoded the timer-driven chain again.
 
 ## Not proposed
 
-REW-0011 did not implement final environment art, authored decals, props, rain,
-neon dressing, final rewind effects, the accepted puzzle chain or any space
-outside the isolated stairwell. Those remain outside this proposal unless a
-later decision changes the project phase.
+REW-0012 did not implement final environment art, authored decals, rain, neon
+dressing, final rewind effects, event-driven loop termination, courtyard,
+streets or Transit. Those remain outside this proposal unless a later decision
+changes the project phase.

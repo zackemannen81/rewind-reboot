@@ -2,7 +2,9 @@
 
 #include "RewindInteractable.h"
 #include "RewindCameraRegion.h"
+#include "RewindLog.h"
 #include "Animation/AnimSequence.h"
+#include "GameFramework/PlayerController.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "UObject/ConstructorHelpers.h"
@@ -123,9 +125,14 @@ void ARewindCharacter::Tick(float DeltaSeconds)
 	// and where it is, that is authored rather than accidental. Clamping the
 	// body is a write to PlayerBody, which `world-state-model.md` discards at
 	// every loop start, so it is not world state.
-	if (const ARewindCameraRegion* Region =
+	if (ARewindCameraRegion* Region =
 			ARewindCameraRegion::FindContaining(GetWorld(), GetActorLocation()))
 	{
+		// Recorded here as well as in GetScreenAxes, so the fallback frame is
+		// current even when the player is standing still when the volume runs
+		// out.
+		LastKnownRegion = Region;
+
 		const FVector Clamped = Region->ClampToPlayerVolume(GetActorLocation());
 		if (!Clamped.Equals(GetActorLocation(), 0.01))
 		{
@@ -164,21 +171,70 @@ void ARewindCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	PlayerInputComponent->BindKey(EKeys::Nine, IE_Pressed, this, &ARewindCharacter::Digit9);
 }
 
-bool ARewindCharacter::GetScreenAxes(FVector& OutRight, FVector& OutDepth) const
+bool ARewindCharacter::GetScreenAxes(FVector& OutRight, FVector& OutDepth)
 {
 	// Input is expressed against the frame the player is looking at, not
 	// against world axes. Otherwise "right" stops meaning right on screen the
 	// moment a region is angled differently, and an authored camera would make
 	// the game harder to control rather than easier to read.
-	const ARewindCameraRegion* Region =
-		ARewindCameraRegion::FindContaining(GetWorld(), GetActorLocation());
-	if (!Region)
+	if (ARewindCameraRegion* Region =
+			ARewindCameraRegion::FindContaining(GetWorld(), GetActorLocation()))
 	{
-		return false;
+		if (bOutsideEveryRegion)
+		{
+			bOutsideEveryRegion = false;
+			RewindLog::Event(this, FString::Printf(
+				TEXT("Movement: region containment regained (%s)"),
+				*Region->GetRegionName().ToString()));
+		}
+		LastKnownRegion = Region;
+		OutRight = Region->GetScreenRight();
+		OutDepth = Region->GetScreenDepth();
+		return true;
 	}
-	OutRight = Region->GetScreenRight();
-	OutDepth = Region->GetScreenDepth();
-	return true;
+
+	// Outside every region, control is not dropped. `camera-and-movement.md`
+	// says a gap in the region set is an authoring defect, and ARewindCameraRig
+	// already holds the last good frame rather than dropping the player into an
+	// undefined camera. Movement did not do the same, so the player kept the
+	// picture and lost the controller: the frame still moved, `AddMovementInput`
+	// was never called, and the three interactions at the edges of 4C read as
+	// the cause because they are where the volume runs out.
+	//
+	// Hold the last region's axes for the same reason the camera holds its
+	// frame, and log the transition so the gap is visible instead of silent.
+	if (const ARewindCameraRegion* Last = LastKnownRegion.Get())
+	{
+		if (!bOutsideEveryRegion)
+		{
+			bOutsideEveryRegion = true;
+			RewindLog::Event(this, FString::Printf(
+				TEXT("Movement: outside every region at %s, holding %s axes"),
+				*GetActorLocation().ToCompactString(),
+				*Last->GetRegionName().ToString()));
+		}
+		OutRight = Last->GetScreenRight();
+		OutDepth = Last->GetScreenDepth();
+		return true;
+	}
+
+	// No region has ever contained the player, so there is no authored frame to
+	// hold. Take the axes from whatever is actually being viewed, so input
+	// still matches the screen rather than the world grid.
+	// Not named Controller: APawn already has a member by that name.
+	const UWorld* World = GetWorld();
+	const APlayerController* ViewingController =
+		World ? World->GetFirstPlayerController() : nullptr;
+	const AActor* ViewTarget = ViewingController ? ViewingController->GetViewTarget() : nullptr;
+	const FRotator ViewRotation = ViewTarget ? ViewTarget->GetActorRotation() : FRotator::ZeroRotator;
+
+	FVector Right = FRotationMatrix(ViewRotation).GetUnitAxis(EAxis::Y);
+	FVector Depth = FRotationMatrix(ViewRotation).GetUnitAxis(EAxis::X);
+	Right.Z = 0.0;
+	Depth.Z = 0.0;
+	OutRight = Right.GetSafeNormal();
+	OutDepth = Depth.GetSafeNormal();
+	return !OutRight.IsNearlyZero() && !OutDepth.IsNearlyZero();
 }
 
 void ARewindCharacter::MoveForward(float Value)

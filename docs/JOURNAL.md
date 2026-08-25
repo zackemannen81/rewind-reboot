@@ -4,6 +4,166 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-25 — REW-0015 complete, player control restored in 4C
+
+- Date: 2026-08-25
+- Author: Claude
+- Task: REW-0015
+- Branch: `claude/rew-0015-restore-player-control`
+- Reported defect: the controller became unresponsive after using the radio,
+  after taking the fuse, and when leaving Apartment 4C. None of those three
+  actors touches input; the only `DisableMovement` in the project belongs to
+  the lift and is re-enabled on exit.
+- Measured cause: `Apartment4C_Region` declared a player volume of
+  `X [-130, 370)` while the room's back wall traces at `X = -250`. The radio
+  sits at `X = -225`, the fuse at `X = -250` and the 4C doorway between them.
+  `TopHall_Region` reaches only `X < -245`, so a 115 cm band belonged to no
+  region. `ARewindCharacter::GetScreenAxes` returned false there and
+  `MoveForward` and `MoveRight` dropped the input entirely, while
+  `ARewindCameraRig` held its last good frame. The picture kept working and the
+  controller did not, which is why the interactions read as the cause.
+- Change: movement now holds the last contained region's screen axes instead of
+  dropping input, falls back to the view target's rotation if no region has ever
+  contained the player, and logs entry into and exit from the no-region state.
+  `ClampToPlayerVolume` insets 1 mm inside its half-open positive faces, so the
+  clamp can no longer place the player outside the region that clamped them.
+  `Apartment4C_Region` moved to centre `(62.5, 1368, 1340)` with extent
+  `(307.5, 515, 160)`, covering `X [-245, 370)`, and its `CameraOffset` moved to
+  `(687.5, -250, -10)` so the owner's adopted 35 mm frame is unchanged.
+- Verification: `RewindEditor Win64 Development` built editor-closed in 10.30 s.
+  All nine discoverable `Rewind.*` automation tests passed together, including
+  the new `Rewind.Camera.Region.PlayerVolumeClamp`, which asserts that a clamped
+  location is still contained by the region that clamped it. PIE walked from the
+  4C start to the back wall at `X = -207.7`, interacted, walked back out, and
+  crossed the doorway into `TopHall_Region`; every sample reported
+  `Apartment4C_Region` and camera `(750, 1330, 1330)` at FOV `37.497356`,
+  unchanged from REW-0014. Held keys were released before every stop. The owner
+  confirmed play works.
+- Not verified: no packaged build, no frame-rate variation, no fuse-seating or
+  lift route, and no criterion in `docs/acceptance/five-loops-test.md` was
+  re-run. This task changed movement and one region volume.
+- Discovered, not fixed: owner-placed props block the walking line to the radio.
+  The Fab armchair occupies `X [-215, -45]`, `Y [1358, 1582]`, leaving 15 cm to
+  the back wall, and a 20 by 20 cm column stands at `X [-170, -150]`,
+  `Y [1570, 1590]`. Both are dressing decisions, not control defects.
+- Open and unowned: the saved default map references untracked
+  `/Game/Fab/` and `/Game/Art/Texture/` packages. A fresh clone resolves neither.
+- Exception: the REW-0015 identity claim was not merged to `main` before the
+  charter froze. REW-0001 recorded the same exception.
+- Signature: Claude
+
+## 2026-08-24 — REW-0014 complete, owner-authored 4C start camera
+
+- Date: 2026-08-24
+- Author: Codex
+- Task: REW-0014
+- Branch: `codex/rew-0014-owner-4c-camera`
+- Change: the owner-placed `4c_camera` remains an editor reference at world
+  position `(750, 1330, 1330)`, rotation `(0, 180, 0)` and 35 mm on a 23.76
+  mm-wide 16:9 filmback. `Apartment4C_Region` now derives that exact initial
+  runtime frame through offset `(640, -250, -10)`, the same rotation and
+  horizontal FOV `37.497356`.
+- Saved and PIE evidence: a clean editor restart reopened
+  `/Game/Maps/FiveLoops_Stairwell_Blockout` with both reference and region
+  values intact. Standard PIE reported the sole view target
+  `RewindCameraRig_0`, active region `Apartment4C_Region`, camera position
+  `(750, 1330, 1330)`, rotation `(0, 180, 0)` and FOV `37.497356`. A clean
+  generated viewport capture showed the authored 4C composition.
+- Verification: held PIE keys were empty before stop.
+  `Rewind.Camera.Region.VerticalTravel` and
+  `Rewind.Project.DefaultAuthoredMap` passed together, 2/2 in 0.027780 seconds
+  with no errors or warnings. No C++ changed, so no build was required. The map
+  remains under Git LFS and documentation diff checks passed.
+- Preserved owner work: the pre-existing untracked
+  `Rewind/Content/Art/Texture/` tree was neither inspected, edited nor staged.
+  Additional owner content at `Rewind/Content/Art/Materials/4c_door.uasset` and
+  under `Rewind/Content/Fab/` appeared during verification and was likewise
+  left untouched and unstaged.
+- Not verified: no packaged build, full automation suite, wider route playtest
+  or other camera-region review; none was required by this bounded framing task.
+- Handoff: owner visually review the 4C opening composition. Adjust the
+  reference camera first if another frame is desired, then re-derive the region
+  offset from PlayerStart rather than adding a competing runtime camera.
+- Signature: Codex
+
+## 2026-08-24 — REW-0013 complete, owner-correct 4C and lift layout
+
+- Date: 2026-08-24
+- Author: Codex
+- Task: REW-0013
+- Branch: `codex/rew-0013-correct-building-side`
+- Change: `/Game/Maps/FiveLoops_Stairwell_Blockout` now uses the owner's three
+  existing openings on one corridor wall in the order stairs, lift and 4C.
+  The wrong-side REW-0012 duplicates and primitive furniture were removed.
+  Apartment 4C occupies its existing 400 by 1050 cm footprint at 300 cm room
+  height, while the shaft aligns to the middle opening at `(-40, 630)`.
+- Presentation: gameplay actors, localized lighting and the Apartment4C,
+  TopHall, LiftShaft and GroundHall camera regions were relocated to the
+  corrected spaces. Their Y/Y/Z/Y travel and 60/58/60/58 degree FOV preserve
+  the fixed-camera silhouette grammar. No Fab or Marketplace binary was
+  imported or selected; the corrected rooms intentionally remain undressed.
+- Saved-map and gameplay evidence: the clean saved reopen reported 51 actors
+  and no dirty package. Standard PIE spawned at `(0, 1580, 1298.15)`, rejected
+  `1111`, accepted `7312`, crossed from 4C through the common hall to the
+  unchanged stair region, and entered the cutaway cage without a camera gap or
+  duplicate view. Clean viewport frames cover 4C, all three openings and lift.
+- Lift evidence: an empty building socket refused travel. After seating the
+  one fuse, descent and ascent each measured exactly 6.00 seconds. The rotated
+  authored lift transformed its local hall offset and released at X `-280`
+  into GroundHall and TopHall respectively. Held PIE inputs were empty before
+  every stop; the procedural proof retains its default local handoff.
+- Verification: UE 5.8 `RewindEditor Win64 Development` built editor-closed in
+  44.27 seconds. All eight discoverable `Rewind.*` automation tests passed
+  together, 8/8 in 0.075142 seconds with no errors or warnings. The changed map
+  remains under the existing Git LFS rule; live documentation and diff checks
+  passed.
+- Not verified: no packaged build, final art, selected Fab prop set, final
+  audio, courtyard, streets, Transit, rain/neon dressing or ADR-0009
+  event-driven rewind implementation.
+- Handoff: owner visual review the corrected authored map. Import and dress
+  with specific Fab assets only through a separately bounded provenance,
+  license and repository-cost review.
+- Signature: Codex
+
+## 2026-08-24 — REW-0012 complete, authored 4C and lift slice
+
+- Date: 2026-08-24
+- Author: Codex
+- Task: REW-0012
+- Branch: `codex/rew-0012-authored-4c-lift`
+- Change: `/Game/Maps/FiveLoops_Stairwell_Blockout` is now the editor and game
+  default and extends the accepted stairwell with a 700 by 1200 by 300 cm 4C,
+  fourth-floor common hall, entrance hall and cutaway lift shaft/cage. The
+  saved map contains the deterministic radio, manual `7312` lock, one carried
+  fuse, building and ground sockets, and 52 actors after final reopen. The
+  procedural proof remains preserved separately and is not overlaid in PIE.
+- Camera and presentation: four new half-open Apartment4C, TopHall, LiftShaft
+  and GroundHall regions extend the three accepted stair regions. They use
+  Y/Y/Z/Y travel and explicit 55/65/60/65 degree FOV. Project-owned materials,
+  a moderately reflective 4C floor, localized warm practicals, cool shaft fill,
+  cast shadows and stable exposure continue the first-pass visual grammar; no
+  unapproved Fab or marketplace asset was added.
+- Gameplay: wrong `1111` was rejected and `7312` opened the hall. The placed
+  fuse powered the building socket. An empty-socket run logged lift refusal.
+  The powered cage measured exactly 6.00 seconds down and 6.00 seconds up and
+  handed the capsule cleanly to GroundHall and TopHall instead of wedging it on
+  a coplanar floor seam. The unchanged stair route is backed by REW-0011 plus
+  current upper/lower handoff evidence; the second socket is backed by the
+  shared exclusive fuse state plus the formal prior two-destination playtest.
+- Verification: UE 5.8 `RewindEditor Win64 Development` built editor-closed in
+  8.91 seconds after the final C++ change. All eight discoverable `Rewind.*`
+  tests passed together, 8/8 in 0.077351 seconds; the new
+  `Rewind.Project.DefaultAuthoredMap` locks both startup settings. Every PIE
+  evidence run released held inputs before stop. Saved binaries resolve through
+  Git LFS; live links, fences and the staged diff were checked.
+- Not verified: no packaged build, final art, final audio, authored decals,
+  rain/neon dressing, event-driven rewind, courtyard, streets or Transit. The
+  full inherited stair route and ground-socket seating were not replayed in
+  this task; their composite evidence is explicit in the playtest record.
+- Handoff: owner playtest the authored default map. Any courtyard extension or
+  ADR-0009 implementation requires a new bounded charter.
+- Signature: Codex
+
 ## 2026-08-24 — REW-0011 complete, authored stairwell presentation slice
 
 - Date: 2026-08-24
