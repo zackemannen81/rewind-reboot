@@ -84,7 +84,8 @@ records that may not be edited.
 Generated Unreal output (`Binaries/`, `Intermediate/`, `Saved/`,
 `DerivedDataCache/`) is not in git. Tracked imported content is the measured
 12.61 MiB Tier 1 character subset under `Rewind/Content/Characters/Tier1/`.
-The stairwell material slice uses only project-authored Unreal assets. Locally
-imported Fab, OldWall and PaintedBrickWall working material remains outside the
-tracked dependency closure pending an explicit provenance and size decision
-under ADR-0005.
+The stairwell and building-slice material family uses only project-authored
+Unreal assets under `Rewind/Content/Art/Materials/`. Locally imported Fab,
+OldWall, PaintedBrickWall and `Art/Texture` working material remains untracked
+and local: ADR-0011 decided that third-party packs stay outside the tracked
+dependency closure, and REW-0022 unbound the default map from those packages.
