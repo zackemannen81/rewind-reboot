@@ -4,6 +4,44 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-26 — REW-0028, grime decal instances from environment-kit atlases
+
+- Date: 2026-08-26
+- Author: codex-decals
+- Task: REW-0028
+- Branch: `codex/rew-0028-grime-decals`
+- Change: imported six LFS-tracked texture assets from the owner-supplied
+  Environment Texture Kit v1: `D_REW_PeelingPlaster_Atlas_Mask`,
+  `D_REW_LeaksRust_Atlas_Mask`, `D_REW_WallCracks_Atlas_Mask`,
+  `T_REW_Neon_4C_Emissive`, `T_REW_Neon_REWIND_Emissive` and
+  `T_REW_Neon_TRANSIT_Emissive`. Created sixteen instances on the existing
+  `/Game/Art/Materials/Decals/M_REW_GrimeDecal`:
+  `MI_REW_Decal_PeelingPlaster1` through `MI_REW_Decal_PeelingPlaster4`,
+  `MI_REW_Decal_LeaksRust1` through `MI_REW_Decal_LeaksRust6`, and
+  `MI_REW_Decal_WallCracks1` through `MI_REW_Decal_WallCracks6`.
+- Import contract: mask textures are non-sRGB, `TC_Masks`, Clamp; neon textures
+  are sRGB, Default compression with alpha retained, Clamp. The committed
+  `Rewind/ArtSource/Scripts/import_rew_grime_decals.py` makes the import
+  repeatable from the six tracked source PNGs. `EnvironmentKitV1/REW-0028-decal-provenance.md`
+  records known provenance and the source README's omitted generator/model/date
+  rather than inventing them.
+- Atlas finding: all three masks are 1254 × 1254. Direct visual inspection and
+  the kit README's stated mask counts established a 2 × 2 peeling-plaster grid
+  and 3 × 2 grids for leaks/rust and wall cracks. Instances are row-major from
+  the top-left. Their UVScale/UVOffset overrides, masked source and dark tint
+  were set by the script; leaks/rust alone receives the dark rusty-brown tint.
+- Verification: a headless importer run read back every instance's parent,
+  `Mask`, `UVScale` and `UVOffset` and logged `verified` for all 16 before
+  `DONE: imported 6 textures, configured 16 decal instances, and verified 16`.
+  Editor-closed `RewindEditor Win64 Development` succeeded (`Result:
+  Succeeded`, 57.82 s). Headless `Automation RunTests Rewind;Quit` recorded
+  22 `Rewind.*` successes, 0 failures and `TEST COMPLETE. EXIT CODE: 0`.
+- Not verified: no `.umap` was modified and no `DecalActor` was placed, by this
+  task's scope; consequently there is no in-level visual-placement evidence or
+  neon material-treatment evidence. Packaged builds and final art integration
+  were not run.
+- Signature: codex-decals
+
 ## 2026-08-25 — Register repair: REW-0020 was never claimed on main
 
 - Date: 2026-08-25

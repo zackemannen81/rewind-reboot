@@ -1,12 +1,12 @@
 # Current Task
 
-Task ID: REW-0028
+Task ID:
 Parent Task: None
-Status: Ready
-Owner: codex-decals
-Created: 2026-08-26
-Last updated: 2026-08-26
-Charter frozen at: 2026-08-26
+Status: Draft
+Owner:
+Created:
+Last updated:
+Charter frozen at:
 
 ## Read First
 
@@ -21,10 +21,10 @@ Charter frozen at: 2026-08-26
 - Relevant ADRs under `docs/adr/`
 
 ## Task Summary
+A task is never considered done until:
+JOURNAL.md, SYSTEMDOC.md, CURRENT_STATUS.md is a jour.
 
-The owner's concept frames read weathered — cracked plaster, rust streaks,
-peeling paint. A tiled wall texture alone reads flat. The difference is decals:
-grime projected on top of clean surfaces.
+Describe the task, why it is being done now and the intended outcome.
 
 ## Task Charter
 
@@ -33,77 +33,39 @@ The charter is editable while status is `Draft` and immutable once status is
 
 ### Goal
 
-The grime, crack and peeling-paint atlases are usable as drop-in decals
-without anyone opening a material editor.
+Define one primary outcome.
 
 ### Primary Deliverable
 
-The three atlas masks and three neon emissives imported as tracked textures, and one material instance per atlas cell on M_REW_GrimeDecal, each pre-set to its own cell.
+Name the concrete artifact or behavior that completes the task.
 
 ### In Scope
 
-- Import the three atlas masks: sRGB OFF, compression TC_Masks, address
-  Clamp. They are linear opacity data, not colour; a gamma curve applied
-  to them is wrong, not merely wasteful.
-- Import the three neon emissive textures: sRGB ON, address Clamp, alpha
-  preserved.
-- Determine each atlas's real cell grid by inspecting the images, rather
-  than assuming. The README states counts (4, 6, 6) but not layout.
-- One MaterialInstanceConstant per cell, named MI_REW_Decal_<Kind><N>,
-  with Mask, UVScale and UVOffset set so the instance shows exactly that
-  cell and nothing of its neighbours.
-- A Tint default that suits a near-black room: grime should darken and
-  stain, not paint a light patch.
-- A short markdown note under Rewind/ArtSource/Textures/ recording
-  provenance and the cell grid you found for each atlas.
+- List work required for the primary deliverable.
 
 ### Out of Scope
 
-- Any .umap. You must not open or modify the level, and you must not place
-  any DecalActor. The operator owns placement.
-- The eight tileable surfaces in JPG_Import. REW-0027 owns those.
-- Any C++ under Rewind/Source/. REW-0029 owns that.
-- Editing M_REW_GrimeDecal itself. Make instances of it.
-- docs/TASK_IDS.md. Already claimed.
+- List adjacent work that must not be absorbed.
 
 ### Definition of Done
 
-- Six textures imported and tracked through Git LFS, with the mask
-  textures confirmed non-sRGB.
-- Sixteen material instances exist, one per atlas cell across the three
-  atlases, each with Mask, UVScale and UVOffset set.
-- The cell grid used for each atlas is recorded, with how it was
-  determined.
-- RewindEditor Win64 Development builds with the editor closed and all
-  discoverable Rewind.* automation tests pass together.
+- Define objective, verifiable completion conditions.
 
 ### Minimum Verification Gates
 
-- [ ] Editor-closed build succeeds.
-- [ ] All discoverable Rewind.* tests pass together, run headless.
-- [ ] The journal entry lists every asset created and names what was verified
-  and what was not.
+- [ ] Define checks that may be strengthened but not removed after `Ready`.
 
 ## References
 
-- `docs/adr/ADR-0011_asset-source-and-provenance.md`
-- `docs/design/stairwell-visual-direction.md`
-- `docs/concept/README.md`
-- `C:\Users\zakri\Desktop\rewind-environment-texture-kit-v1\README.md`
-- `/Game/Art/Materials/Decals/M_REW_GrimeDecal`
+- Add relevant documents, code, decisions and external contracts.
 
 ## Checklist
 
-- [ ] Inspect the PNG atlas layouts and copy the six provenance sources.
-- [ ] Import and configure the six textures.
-- [ ] Create and configure the sixteen cell material instances.
-- [ ] Checkpoint the asset work and push it.
-- [ ] Update the owning status, structure, source-provenance and journal documents.
-- [ ] Run the editor-closed build and all discoverable headless `Rewind.*` tests.
-- [ ] Archive the charter and restore this template.
+- [ ] Break work into concrete, ordered steps.
+- [ ] Keep this checklist aligned with actual progress.
+- [ ] Add verification and documentation steps.
 
 ## Decisions and Notes
-
 - A checkpoint after each step or substep is required. Checklist is therefore updated along the work and `CURRENT_STATUS.md` is always updated when changes affect the behavior.
 - Record decisions and assumptions within the frozen charter.
 - Classify discoveries using `docs/TASK_WORKFLOW.md`.
@@ -116,10 +78,9 @@ Only non-semantic corrections are allowed after `Ready`.
 
 ## Verification
 
-- [ ] Editor-closed build.
-- [ ] Full `Rewind.*` automation run, headless.
-- [ ] Asset parameter inspection after import.
-- [ ] `git diff --check`.
+- [ ] Define task-appropriate technical checks.
+- [ ] Define manual or scenario validation when relevant.
+- [ ] Document skipped checks and reasons.
 
 ## Documentation Updates
 
@@ -131,12 +92,12 @@ Only non-semantic corrections are allowed after `Ready`.
 
 ## Handoff and Follow-ups
 
-- Current state: charter frozen; asset work not yet started.
-- Next recommended step: inspect source atlases and create the import script.
-- Blockers: none.
-- Child tasks: none.
-- Resume condition: not paused.
-- Open questions: none.
+- Current state:
+- Next recommended step:
+- Blockers:
+- Child tasks:
+- Resume condition:
+- Open questions:
 
 ## Finalize When Complete
 

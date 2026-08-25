@@ -15,8 +15,9 @@ rewind-reboot/
 │   ├── Rewind.uproject             engine 5.8; runtime and editor modules; MCP/toolset plugins
 │   ├── Source/Rewind/              loop, session, Chapter 1, authored camera, courtyard, player messages and named runtime tests
 │   ├── Source/RewindEditor/        editor-only MCP PIE-input and clean screenshot toolset
-│   ├── ArtSource/Textures/         owner-authored JPEG sources for the 4c_* textures,
-│   │                               outside Content/ so the editor never scans them
+│   ├── ArtSource/Textures/         owner-authored JPEG sources for the 4c_* textures and
+│   │   └── EnvironmentKitV1/       REW-0028 supplied decal/neon PNG sources and provenance
+│   ├── ArtSource/Scripts/          committed headless Unreal import/rebuild scripts
 │   ├── Config/                     default engine, game, input, editor
 │   └── Content/
 │       ├── FiveLoops_Handmade.umap owner-authored original construction map
@@ -31,6 +32,8 @@ rewind-reboot/
 │       │                            project-owned masters and instances for the presentation slice
 │       ├── Art/Materials/BuildingSlice/
 │       │                            project-owned 4C floor instance and 4C sign emissive
+│       ├── Art/Materials/Decals/   supplied deferred-decal master and REW-0028's 16 cell instances
+│       ├── Art/Textures/Decals/    REW-0028's three opacity-mask atlases and three neon textures
 │       └── Characters/Tier1/       21 CC0 animations and two pack mannequins
 ├── docs/
 │   ├── CURRENT_TASK.md             active task when one is approved; otherwise the restored template
@@ -89,7 +92,10 @@ Generated Unreal output (`Binaries/`, `Intermediate/`, `Saved/`,
 12.61 MiB Tier 1 character subset under `Rewind/Content/Characters/Tier1/`.
 The stairwell and building-slice material family uses only project-authored
 Unreal assets under `Rewind/Content/Art/Materials/`. The owner's hand-authored `4c_*` texture sources are tracked at
-`Rewind/ArtSource/Textures/`, 76 KB. Locally imported Fab, OldWall and
+`Rewind/ArtSource/Textures/`, 76 KB. REW-0028 also tracks six supplied
+EnvironmentKitV1 decal/neon PNG sources there, with their import settings and
+grid evidence recorded in `EnvironmentKitV1/REW-0028-decal-provenance.md`.
+Locally imported Fab, OldWall and
 PaintedBrickWall working material remains untracked and local: ADR-0011
 decided that third-party packs stay outside the tracked dependency closure,
 and REW-0022 unbound the default map from those packages. Its 2026-08-25
