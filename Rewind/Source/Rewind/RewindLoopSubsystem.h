@@ -60,6 +60,13 @@ private:
 	FRewindLoopClock Clock;
 	FRewindLatchedRewind Latch;
 	ERewindLoopEndReason LatchedReason = ERewindLoopEndReason::Death;
+	void HandleSetActiveAnchor(const TArray<FString>& Args);
+	void HandlePlacePlayerForVerification(const TArray<FString>& Args);
+	void HandleSeatFuseForVerification(const TArray<FString>& Args);
+
 	IConsoleCommand* CleanSaveCommand = nullptr;
 	IConsoleCommand* EndLoopDeathCommand = nullptr;
+	IConsoleCommand* SetActiveAnchorCommand = nullptr;
+	IConsoleCommand* PlacePlayerCommand = nullptr;
+	IConsoleCommand* SeatFuseCommand = nullptr;
 };

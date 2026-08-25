@@ -1,9 +1,12 @@
 #include "RewindWorldStateSubsystem.h"
 
 #include "RewindLog.h"
+#include "RewindAuthoredCourtyard.h"
 #include "RewindCameraRig.h"
 #include "RewindCausalCheckpoint.h"
 #include "RewindFourCBlockout.h"
+#include "RewindFuse.h"
+#include "RewindFuseSocket.h"
 #include "RewindIds.h"
 #include "RewindLoopBreakSignature.h"
 #include "RewindProofLayout.h"
@@ -44,6 +47,7 @@ void URewindWorldStateSubsystem::EnsureAuthoredSpace()
 	if (const AWorldSettings* WorldSettings = World->GetWorldSettings();
 		WorldSettings && WorldSettings->ActorHasTag(SkipProofLayoutTag))
 	{
+		EnsureAuthoredCourtyard();
 		return;
 	}
 
@@ -65,6 +69,33 @@ void URewindWorldStateSubsystem::EnsureAuthoredSpace()
 	}
 
 	EnsureCausalCheckpoints();
+}
+
+void URewindWorldStateSubsystem::EnsureAuthoredCourtyard()
+{
+	UWorld* World = GetWorld();
+	if (!World)
+	{
+		return;
+	}
+
+	ARewindAuthoredCourtyard* Courtyard = nullptr;
+	for (TActorIterator<ARewindAuthoredCourtyard> It(World); It; ++It)
+	{
+		Courtyard = *It;
+		break;
+	}
+	if (!Courtyard)
+	{
+		FActorSpawnParameters Params;
+		Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+		Courtyard = World->SpawnActor<ARewindAuthoredCourtyard>(
+			FVector::ZeroVector, FRotator::ZeroRotator, Params);
+	}
+	if (Courtyard)
+	{
+		Courtyard->EnsureContents();
+	}
 }
 
 void URewindWorldStateSubsystem::EnsureCausalCheckpoints()
@@ -207,6 +238,92 @@ void URewindWorldStateSubsystem::PlacePlayerBody()
 	{
 		It->SnapToPlayer();
 	}
+}
+
+bool URewindWorldStateSubsystem::PlacePlayerForVerification(FName Pose)
+{
+	UWorld* World = GetWorld();
+	if (!World)
+	{
+		return false;
+	}
+
+	APlayerController* Controller = World->GetFirstPlayerController();
+	APawn* Pawn = Controller ? Controller->GetPawn() : nullptr;
+	if (!Pawn)
+	{
+		RewindLog::Event(this, TEXT("PlacePlayerForVerification: no pawn"));
+		return false;
+	}
+
+	FVector Location = FVector::ZeroVector;
+	FRotator Rotation = FRotator::ZeroRotator;
+	if (Pose == FName(TEXT("threshold")))
+	{
+		ARewindCausalCheckpoint* Checkpoint = nullptr;
+		for (TActorIterator<ARewindCausalCheckpoint> It(World); It; ++It)
+		{
+			if (It->GetCheckpointId() == RewindIds::CheckpointGroundFuseGate)
+			{
+				Checkpoint = *It;
+				break;
+			}
+		}
+		if (!Checkpoint)
+		{
+			RewindLog::Event(this, TEXT("PlacePlayerForVerification: no GroundFuseGate"));
+			return false;
+		}
+		Location = Checkpoint->GetActorLocation();
+		Location.Y -= 160.0;
+		Location.Z = 96.0;
+		Rotation = FRotator(0.0, 90.0, 0.0);
+	}
+	else if (Pose == FName(TEXT("fuse")))
+	{
+		ARewindFuse* Fuse = ARewindFuse::Find(World);
+		if (!Fuse)
+		{
+			RewindLog::Event(this, TEXT("PlacePlayerForVerification: no fuse"));
+			return false;
+		}
+		Location = Fuse->GetActorLocation();
+		// Stand 155 cm toward +Y so the 160 cm interact sphere reaches the
+		// fuse and not the building socket 10 cm beside it.
+		Location.Y += 155.0;
+		Location.Z = 1296.0;
+		Rotation = FRotator(0.0, 180.0, 0.0);
+	}
+	else if (Pose == FName(TEXT("courtyard_socket")))
+	{
+		ARewindFuseSocket* Socket = ARewindFuseSocket::Find(World, ERewindFuseSocket::Courtyard);
+		if (!Socket)
+		{
+			RewindLog::Event(this, TEXT("PlacePlayerForVerification: no courtyard socket"));
+			return false;
+		}
+		Location = Socket->GetActorLocation();
+		Location.Z = 96.0;
+		Rotation = FRotator(0.0, 90.0, 0.0);
+	}
+	else
+	{
+		RewindLog::Event(this, TEXT("PlacePlayerForVerification: refused, use threshold, fuse or courtyard_socket"));
+		return false;
+	}
+
+	Pawn->SetActorLocationAndRotation(
+		Location, Rotation, false, nullptr, ETeleportType::ResetPhysics);
+
+	for (TActorIterator<ARewindCameraRig> It(World); It; ++It)
+	{
+		It->SnapToPlayer();
+	}
+
+	RewindLog::Event(this, FString::Printf(
+		TEXT("PlacePlayerForVerification %s: (%.0f, %.0f, %.0f)"),
+		*Pose.ToString(), Location.X, Location.Y, Location.Z));
+	return true;
 }
 
 FTransform URewindWorldStateSubsystem::GetLoopStartPose() const

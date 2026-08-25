@@ -17,6 +17,12 @@ public:
 
 	bool TryCommitCourtyardGateAnchor(bool bGateOpenFromThisLoopPlay);
 	FName GetActiveAnchor() const { return ActiveAnchor; }
+
+	/**
+	 * Developer verification only. Accepts `courtyard_gate_open` or none,
+	 * matching `LoadSession`. Not a player action and not a new Anchor rule.
+	 */
+	bool TrySetActiveAnchorForVerification(FName AnchorId);
 	int32 GetKnowledgeCount() const { return KnowledgeFacts.Num(); }
 	bool HasPendingAnchorCommit() const { return bPendingCourtyardGateCommit; }
 

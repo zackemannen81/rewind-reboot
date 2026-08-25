@@ -89,6 +89,25 @@ bool ARewindFuse::TryInteract(APawn* InstigatorPawn)
 	return true;
 }
 
+bool ARewindFuse::SeatForVerification(ERewindFuseSocket Which)
+{
+	if (State == EState::Seated && Seated == Which)
+	{
+		return true;
+	}
+	if (State == EState::Seated)
+	{
+		TakeFrom(Seated);
+	}
+	if (State == EState::AtRest)
+	{
+		State = EState::Carried;
+		SetCarryCollision(true);
+		RewindLog::Event(this, TEXT("Fuse: picked up"));
+	}
+	return SeatInto(Which);
+}
+
 bool ARewindFuse::SeatInto(ERewindFuseSocket Which)
 {
 	if (State != EState::Carried)

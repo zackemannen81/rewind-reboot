@@ -79,6 +79,22 @@ void URewindSessionSubsystem::LoadSession()
 	}
 }
 
+bool URewindSessionSubsystem::TrySetActiveAnchorForVerification(FName AnchorId)
+{
+	if (!AnchorId.IsNone() && AnchorId != RewindIds::AnchorCourtyardGateOpen)
+	{
+		return false;
+	}
+
+	ActiveAnchor = AnchorId;
+	bPendingCourtyardGateCommit = false;
+	if (GetGameInstance())
+	{
+		Persist();
+	}
+	return true;
+}
+
 void URewindSessionSubsystem::CleanSave()
 {
 	KnowledgeFacts.Reset();
