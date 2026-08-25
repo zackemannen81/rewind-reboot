@@ -18,6 +18,9 @@ rewind-reboot/
 │   ├── ArtSource/Textures/         owner-authored 4c_* JPEG sources and the generated
 │   │   └── EnvironmentTextureKit-v1/ retained REW-0027 JPEG import sources plus provenance,
 │   │                               outside Content/ so the editor never scans them
+│   ├── ArtSource/Characters/Returner/
+│   │                               owner-generated Returner source FBX and provenance
+│   ├── ArtSource/Scripts/          reproducible editor Python imports and Returner alignment inspection
 │   ├── Config/                     default engine, game, input, editor
 │   └── Content/
 │       ├── FiveLoops_Handmade.umap owner-authored original construction map
@@ -35,7 +38,8 @@ rewind-reboot/
 │       ├── Art/Materials/Surfaces/  M_REW_Surface and eight REW-0027 tileable-surface instances
 │       ├── Art/Textures/Surfaces/   twelve REW-0027 textures: eight tileable surfaces and
 │       │                            four backdrop/poster assets
-│       └── Characters/Tier1/       21 CC0 animations and two pack mannequins
+│       ├── Characters/Returner/    runtime Returner mesh, skeleton and four own-skeleton clips
+│       └── Characters/Tier1/       retained 21 CC0 animations and two pack mannequins
 ├── docs/
 │   ├── CURRENT_TASK.md             active task when one is approved; otherwise the restored template
 │   ├── template_CURRENT_TASK.md    the charter form

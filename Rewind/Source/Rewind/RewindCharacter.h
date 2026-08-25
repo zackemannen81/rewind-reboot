@@ -53,10 +53,7 @@ private:
 	bool bOutsideEveryRegion = false;
 
 	/**
-	 * Placeholder body. The character has never had a mesh, which was invisible
-	 * while the camera sat behind its head and is not now. This is scaffolding
-	 * until the mannequin in `docs/backlog/character-animation-source.md` is
-	 * imported, and it exists so the chain can be played before then.
+	 * Debug body visible only if the runtime skeletal mesh cannot load.
 	 */
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<class UStaticMeshComponent> BodyPlaceholder;
@@ -64,9 +61,9 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<class UStaticMeshComponent> FacingPlaceholder;
 
-	/** Tier 1 CC0 blockout mannequin imported for REW-0007. */
+	/** The Returner skeletal body bound by REW-0029. */
 	UPROPERTY(VisibleAnywhere)
-	TObjectPtr<class USkeletalMeshComponent> MannequinBody;
+	TObjectPtr<class USkeletalMeshComponent> ReturnerBody;
 
 	UPROPERTY()
 	TObjectPtr<class UAnimSequence> IdleAnimation;

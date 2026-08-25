@@ -57,3 +57,4 @@ still the protocol extraction; that identity stays taken. New claims use `REW`.
 | REW-0027 | Import the environment texture kit and build surface instances | codex-surfaces | 2026-08-26 | docs/CURRENT_TASK.md |
 | REW-0028 | Grime decal instances from the environment kit atlases | codex-decals | 2026-08-26 | docs/CURRENT_TASK.md |
 | REW-0029 | Bind The Returner as the player character | codex-character | 2026-08-26 | docs/CURRENT_TASK.md |
+| REW-0030 | Apartment 4C enlarged to the concept topology | Claude | 2026-08-26 | docs/CURRENT_TASK.md |

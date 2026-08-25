@@ -50,6 +50,37 @@ at the time.
   no in-game texel-density or final visual judgement. The kit README reserves
   that judgement for a later look pass. No packaged build was made.
 - Signature: codex-surfaces
+## 2026-08-26 — REW-0029, bind The Returner as the player character
+
+- Date: 2026-08-26
+- Author: codex-character
+- Task: REW-0029
+- Branch: `codex/rew-0029-bind-returner`
+- Change: `ARewindCharacter` now loads
+  `/Game/Characters/Returner/Returner`, `A_Returner_Alert` and
+  `A_Returner_Walk` on the Returner's own skeleton. Its existing
+  velocity-threshold locomotion remains unchanged: Alert starts as the looping
+  stationary animation and Walk starts when planar velocity exceeds 5 cm/s.
+  `MI_CharacterSilhouette` remains applied in a loop over every material slot.
+  Tier 1 assets remain untouched and unbound.
+- Alignment evidence: headless `inspect_returner_alignment.py` read mesh bounds
+  with origin `(0, 0.000002, 84.999999)` and extent
+  `(75.518257, 26.450047, 84.999985)`, making the imported mesh minimum Z
+  effectively zero: it is feet-origin. The same editor run read the 24-bone
+  skeleton reference pose; its composed `Head` to `headfront` vector was
+  `(-0.000000, 9.886821, 0.000048)`, i.e. +Y. The capsule remains 96 cm in
+  half-height, so the binding uses relative location `(0, 0, -96)` and yaw
+  `-90°`, which maps the Returner's +Y facing vector to the pawn +X movement
+  direction.
+- Verification: with no Unreal Editor process for this clone, `Build.bat
+  RewindEditor Win64 Development` succeeded in 29.30 s. Headless
+  `Automation RunTests Rewind` completed 22/22 success and logged
+  `TEST COMPLETE. EXIT CODE: 0`. `git diff --check` passed before commits.
+- Not verified: no PIE frame or live input run. The agent session had no
+  verified editor MCP endpoint and `RewindEditor.RewindPIEInputToolset`, so no
+  desktop-input substitute was used. No `.umap`, texture or material asset was
+  opened or modified; no packaged build was made.
+- Signature: codex-character
 
 ## 2026-08-25 — Register repair: REW-0020 was never claimed on main
 
