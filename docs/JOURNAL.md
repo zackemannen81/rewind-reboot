@@ -4,6 +4,35 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-25 — Register repair: REW-0020 was never claimed on main
+
+- Date: 2026-08-25
+- Author: Claude
+- Task: none. Operator repair.
+- Branch: `claude/register-rew-0020`
+- Defect: REW-0020 is complete, merged and archived, and its identity was
+  never in `docs/TASK_IDS.md` on `main`. The claim was made on
+  `claude/rew-0020-charter`, which was never merged; REW-0021's claim commit
+  then appended REW-0021 onward to `main` directly, so the register jumped
+  from REW-0019 to REW-0021 while `docs/finished/` held a REW-0020 archive.
+- Why it matters: the register's job is to make an identity taken before a
+  charter freezes. A number missing from it is a number a future task can
+  claim twice, and REW-0020 is cited by the archive, by the journal and by
+  three automation tests.
+- Repair: the row is appended at the end of the table rather than inserted
+  in numeric order. `docs/TASK_IDS.md` states the rule — never insert into
+  the middle, never sort — because the append point is what converts a
+  simultaneous claim into a merge conflict instead of a silent duplicate.
+  Ordering is not a property the register promises; uniqueness is.
+- Its Work column names the archive rather than `docs/CURRENT_TASK.md`,
+  because the task is finished and that is where its record actually lives.
+- Root cause worth remembering: chartering on a branch that is then never
+  merged loses the claim silently. The claim must reach `main` on its own,
+  which is what the workflow already says and what this missed.
+- Verification: `grep REW-0020 docs/TASK_IDS.md` now matches; the archive
+  and the register agree. Documentation only.
+- Signature: Claude
+
 ## 2026-08-25 — REW-0020, authored courtyard and the ground-fuse checkpoint
 
 - Date: 2026-08-25
