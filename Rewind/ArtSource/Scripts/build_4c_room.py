@@ -45,6 +45,15 @@ X0, X1 = -260.0, 240.0
 Y0, Y1 = 853.0, 2153.0
 Z0, Z1 = 1200.0, 1580.0
 T = 20.0                                    # wall / slab thickness
+
+# How far the floor and ceiling slabs run PAST the room toward the camera.
+# A 1300x380 room in a 16:9 frame is a horizontal band with void above and
+# below it; roughly a fifth of the shot was empty black at each edge. Running
+# the slabs out to here puts their near edges outside the frustum, so the
+# ceiling fills the top and the floor fills the bottom and the shot reads as a
+# cut-away rather than a diorama floating in nothing. They fall off to black on
+# their own -- the practicals only reach ~700 cm.
+APRON = 1150.0
 BAY = (Y1 - Y0) / 4.0                       # 325
 
 DOOR_Y0, DOOR_Y1 = 988.0, 1108.0            # keeps the authored door at 1048
@@ -55,7 +64,8 @@ BALC_TOP = 1480.0
 # (label, centre, size, material key)
 def shell():
     cx, sx = (X0 + X1) / 2.0, (X1 - X0)
-    wx, wsx = (X0 - T + X1) / 2.0, (X1 - X0 + T)   # slabs run under the walls
+    wx, wsx = (X0 - T + X1) / 2.0, (X1 - X0 + T)   # walls' own footprint
+    ax, asx = (X0 - T + APRON) / 2.0, (APRON - X0 + T)   # slabs, with apron
     cy, sy = (Y0 + Y1) / 2.0, (Y1 - Y0)
     sy_full = (Y1 - Y0) + 2 * T
     cz = (Z0 + Z1) / 2.0
@@ -63,8 +73,8 @@ def shell():
     bwx = X0 - T / 2.0                              # back wall centre X
 
     out = [
-        ("Floor",   (wx, cy, Z0 - T / 2.0), (wsx, sy_full, T), "floor"),
-        ("Ceiling", (wx, cy, Z1 + T / 2.0), (wsx, sy_full, T), "ceil"),
+        ("Floor",   (ax, cy, Z0 - T / 2.0), (asx, sy_full, T), "floor"),
+        ("Ceiling", (ax, cy, Z1 + T / 2.0), (asx, sy_full, T), "ceil"),
 
         # Back wall, broken around the door and the balcony opening.
         ("Wall_Back_A", (bwx, (Y0 + DOOR_Y0) / 2.0, cz),
