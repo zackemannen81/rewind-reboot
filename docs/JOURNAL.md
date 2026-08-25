@@ -4,6 +4,54 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-25 — REW-0015 complete, player control restored in 4C
+
+- Date: 2026-08-25
+- Author: Claude
+- Task: REW-0015
+- Branch: `claude/rew-0015-restore-player-control`
+- Reported defect: the controller became unresponsive after using the radio,
+  after taking the fuse, and when leaving Apartment 4C. None of those three
+  actors touches input; the only `DisableMovement` in the project belongs to
+  the lift and is re-enabled on exit.
+- Measured cause: `Apartment4C_Region` declared a player volume of
+  `X [-130, 370)` while the room's back wall traces at `X = -250`. The radio
+  sits at `X = -225`, the fuse at `X = -250` and the 4C doorway between them.
+  `TopHall_Region` reaches only `X < -245`, so a 115 cm band belonged to no
+  region. `ARewindCharacter::GetScreenAxes` returned false there and
+  `MoveForward` and `MoveRight` dropped the input entirely, while
+  `ARewindCameraRig` held its last good frame. The picture kept working and the
+  controller did not, which is why the interactions read as the cause.
+- Change: movement now holds the last contained region's screen axes instead of
+  dropping input, falls back to the view target's rotation if no region has ever
+  contained the player, and logs entry into and exit from the no-region state.
+  `ClampToPlayerVolume` insets 1 mm inside its half-open positive faces, so the
+  clamp can no longer place the player outside the region that clamped them.
+  `Apartment4C_Region` moved to centre `(62.5, 1368, 1340)` with extent
+  `(307.5, 515, 160)`, covering `X [-245, 370)`, and its `CameraOffset` moved to
+  `(687.5, -250, -10)` so the owner's adopted 35 mm frame is unchanged.
+- Verification: `RewindEditor Win64 Development` built editor-closed in 10.30 s.
+  All nine discoverable `Rewind.*` automation tests passed together, including
+  the new `Rewind.Camera.Region.PlayerVolumeClamp`, which asserts that a clamped
+  location is still contained by the region that clamped it. PIE walked from the
+  4C start to the back wall at `X = -207.7`, interacted, walked back out, and
+  crossed the doorway into `TopHall_Region`; every sample reported
+  `Apartment4C_Region` and camera `(750, 1330, 1330)` at FOV `37.497356`,
+  unchanged from REW-0014. Held keys were released before every stop. The owner
+  confirmed play works.
+- Not verified: no packaged build, no frame-rate variation, no fuse-seating or
+  lift route, and no criterion in `docs/acceptance/five-loops-test.md` was
+  re-run. This task changed movement and one region volume.
+- Discovered, not fixed: owner-placed props block the walking line to the radio.
+  The Fab armchair occupies `X [-215, -45]`, `Y [1358, 1582]`, leaving 15 cm to
+  the back wall, and a 20 by 20 cm column stands at `X [-170, -150]`,
+  `Y [1570, 1590]`. Both are dressing decisions, not control defects.
+- Open and unowned: the saved default map references untracked
+  `/Game/Fab/` and `/Game/Art/Texture/` packages. A fresh clone resolves neither.
+- Exception: the REW-0015 identity claim was not merged to `main` before the
+  charter froze. REW-0001 recorded the same exception.
+- Signature: Claude
+
 ## 2026-08-24 — REW-0014 complete, owner-authored 4C start camera
 
 - Date: 2026-08-24

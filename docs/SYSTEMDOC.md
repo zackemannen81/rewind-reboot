@@ -258,6 +258,18 @@ in the same spatial field, matching the settled ground-floor plan.
 
 The authored building slice separately uses seven regions: the three accepted
 stairwell regions plus Apartment4C, TopHall, LiftShaft and GroundHall.
+Apartment4C is centred at `(62.5, 1368, 1340)` with player-volume extent
+`(307.5, 515, 160)`, so it covers `X [-245, 370)` from the corridor wall to the
+cutaway edge and abuts `TopHall` without a gap. Its `CameraOffset` of
+`(687.5, -250, -10)` reproduces the owner's adopted frame at `(750, 1330, 1330)`.
+
+Movement input is expressed against the region containing the player. Where no
+region contains it, the character holds the last contained region's screen axes
+rather than discarding the input, matching what `ARewindCameraRig` already does
+with the frame, and writes one log line on entering and on leaving that state.
+`ClampToPlayerVolume` insets one millimetre inside its half-open positive faces
+so a clamped location is still contained by the region that clamped it. A named
+automation test asserts that invariant.
 
 The authored camera type supports X, Y or Z as the one legal travel axis and
 stores an explicit horizontal FOV per region. Region player volumes are

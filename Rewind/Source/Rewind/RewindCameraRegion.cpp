@@ -63,9 +63,24 @@ bool ARewindCameraRegion::Contains(const FVector& Location) const
 FVector ARewindCameraRegion::ClampToPlayerVolume(const FVector& Location) const
 {
 	const FVector Centre = GetActorLocation();
+
+	// The positive faces are half-open, because `Contains` gives a shared
+	// threshold exactly one owner. The clamp must therefore stop just inside
+	// them: clamping to the face itself put the player on a coordinate this
+	// region no longer contains, and if no adjacent region overlapped it, the
+	// player belonged to no region at all. That state used to cost the player
+	// their controller. It is now survivable, and it is still wrong to create.
+	//
+	// One millimetre, which is deliberately larger than the 0.01 tolerance
+	// `ARewindCharacter::Tick` compares against. At 0.01 the correction would
+	// be inside its own tolerance, so the player would be left standing on the
+	// face this inset exists to keep them off.
+	const double Inset = 0.1;
 	return FVector(
-		FMath::Clamp(Location.X, Centre.X - PlayerVolumeExtent.X, Centre.X + PlayerVolumeExtent.X),
-		FMath::Clamp(Location.Y, Centre.Y - PlayerVolumeExtent.Y, Centre.Y + PlayerVolumeExtent.Y),
+		FMath::Clamp(Location.X,
+			Centre.X - PlayerVolumeExtent.X, Centre.X + PlayerVolumeExtent.X - Inset),
+		FMath::Clamp(Location.Y,
+			Centre.Y - PlayerVolumeExtent.Y, Centre.Y + PlayerVolumeExtent.Y - Inset),
 		Location.Z);
 }
 

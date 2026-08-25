@@ -42,3 +42,4 @@ still the protocol extraction; that identity stays taken. New claims use `REW`.
 | REW-0012 | Authored 4C, fourth-floor hall and lift slice | Codex | 2026-08-24 | docs/CURRENT_TASK.md |
 | REW-0013 | Correct authored building-side layout | Codex | 2026-08-24 | docs/CURRENT_TASK.md |
 | REW-0014 | Adopt owner-authored 4C camera framing | Codex | 2026-08-24 | docs/CURRENT_TASK.md |
+| REW-0015 | Restore player control in the authored slice | Claude | 2026-08-24 | docs/CURRENT_TASK.md |
