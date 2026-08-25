@@ -95,8 +95,8 @@ as idle and A_Returner_Walk as walk, correctly aligned to the capsule.
 ## Checklist
 
 - [x] Record the frozen REW-0029 charter.
-- [ ] Inspect Returner mesh bounds and reference pose using the editor Python path.
-- [ ] Bind the Returner mesh, idle and walk assets with measured alignment.
+- [x] Inspect Returner mesh bounds and reference pose using the editor Python path.
+- [x] Bind the Returner mesh, idle and walk assets with measured alignment.
 - [ ] Build editor-closed and run all discoverable `Rewind.*` automation tests.
 - [ ] Update durable status and system documentation, then journal evidence.
 - [ ] Archive the completed charter and restore the active-task template.
