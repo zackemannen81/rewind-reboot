@@ -1,6 +1,7 @@
 #include "RewindFuseSocket.h"
 
 #include "RewindLog.h"
+#include "RewindFirstRun.h"
 #include "RewindMessageIds.h"
 #include "RewindMessageSubsystem.h"
 #include "Components/StaticMeshComponent.h"
@@ -81,11 +82,16 @@ bool ARewindFuseSocket::TryInteract(APawn* InstigatorPawn)
 	// Neither in hand nor here: say which, because "nothing happened" is the
 	// worst thing a socket can tell a player who is mid-puzzle.
 	const TCHAR* Where = Fuse->IsSeated() ? TEXT("in the other socket") : TEXT("still where it started");
-	if (URewindMessageSubsystem* Messages = URewindMessageSubsystem::Get(this))
+	if (Fuse->IsSeated())
 	{
-		Messages->Show(Fuse->IsSeated()
-			? RewindMessageIds::SocketEmptyOther
-			: RewindMessageIds::SocketEmptyAtRest);
+		if (URewindMessageSubsystem* Messages = URewindMessageSubsystem::Get(this))
+		{
+			Messages->Show(RewindMessageIds::SocketEmptyOther);
+		}
+	}
+	else
+	{
+		RewindFirstRun::ShowOnce(this, RewindMessageIds::SocketEmptyAtRest);
 	}
 	RewindLog::Event(this, FString::Printf(TEXT("Socket %s: refused, fuse is %s"),
 		Which == ERewindFuseSocket::Building ? TEXT("building") : TEXT("courtyard"), Where));

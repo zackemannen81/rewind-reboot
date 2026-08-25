@@ -3,9 +3,10 @@
 Status: Accepted
 Owns: when the game speaks to the player in text, how long a line stays, what
 may not become a message, and that the debug overlay is not UI
-Does not own: puzzle facts the lines refer to, voice, audio, localisation,
-interaction close-up framing, renderer look, world clocks, or the `t=`
-elapsed-time overlay
+Does not own: first-run copy or first-time gating
+([`tutorial-and-first-run.md`](tutorial-and-first-run.md)), puzzle facts the
+lines refer to, voice, audio, localisation, interaction close-up framing,
+renderer look, world clocks, or the `t=` elapsed-time overlay
 
 A rule that is not in this document is not a player-message rule.
 
@@ -31,6 +32,9 @@ In the current authored slice that is:
 - a radio fragment heard while standing in range on the code channel
 - the digits currently typed at the lock
 - the one-time control reminder at spawn
+- first-run observations owned by
+  [`tutorial-and-first-run.md`](tutorial-and-first-run.md), which still
+  travel on this channel
 
 The game does not speak a learnable world clock as a caption. Patrol phase,
 turnstile phase, radio phase and elapsed loop time are read from the world,

@@ -1,6 +1,8 @@
+#include "RewindFirstRun.h"
 #include "RewindMessageCatalog.h"
 #include "RewindMessageIds.h"
 #include "RewindMessageQueue.h"
+
 
 #if WITH_DEV_AUTOMATION_TESTS
 
@@ -94,7 +96,7 @@ bool FRewindMessageQueueQueueing::RunTest(const FString& Parameters)
 
 	TestTrue(TEXT("first Show becomes current"), Director.Show(RewindMessageIds::LockPrompt));
 	TestEqual(TEXT("catalog text is used"), Director.GetActiveText(),
-		TEXT("Lock: enter 4 digits, or learn 7312 from the radio"));
+		TEXT("A lock. Four digits."));
 	TestEqual(TEXT("nothing queued yet"), Director.GetQueuedCount(), 0);
 
 	TestTrue(TEXT("second Show queues"), Director.Show(RewindMessageIds::FuseCarried));
@@ -113,7 +115,7 @@ bool FRewindMessageQueueQueueing::RunTest(const FString& Parameters)
 	TestTrue(TEXT("ShowTimed after Clear is current"),
 		Director.ShowTimed(RewindMessageIds::RadioCodeObtained, 1.5f));
 	TestEqual(TEXT("ShowTimed uses catalog copy with the given duration"), Director.GetActiveText(),
-		TEXT("Radio: 7312"));
+		TEXT("The sequence is yours."));
 	TestTrue(TEXT("ShowTimed duration is the override, not the catalog default"),
 		FMath::IsNearlyEqual(Director.GetActiveRemaining(), 1.5f, 0.0001f));
 	return true;
@@ -129,6 +131,8 @@ bool FRewindMessageCatalogResolvesSliceCopy::RunTest(const FString& Parameters)
 	(void)Parameters;
 
 	const FName SliceIds[] = {
+		RewindMessageIds::ApartmentWaking,
+		RewindMessageIds::ApartmentReturned,
 		RewindMessageIds::CharacterControls,
 		RewindMessageIds::LockPrompt,
 		RewindMessageIds::LockCodeBuffer,
@@ -144,8 +148,11 @@ bool FRewindMessageCatalogResolvesSliceCopy::RunTest(const FString& Parameters)
 		RewindMessageIds::GeneratorDead,
 		RewindMessageIds::GeneratorOnline,
 		RewindMessageIds::LiftNoPower,
+		RewindMessageIds::StairsRemain,
+		RewindMessageIds::LoopBreak,
 		RewindMessageIds::AnchorAccepted,
 		RewindMessageIds::AnchorRefused,
+		RewindMessageIds::RadioPresent,
 		RewindMessageIds::RadioChannelStatic,
 		RewindMessageIds::RadioChannelVoice,
 		RewindMessageIds::RadioDigitSeven,
@@ -175,12 +182,126 @@ bool FRewindMessageCatalogResolvesSliceCopy::RunTest(const FString& Parameters)
 		TEXT("Code: 73"));
 	TestEqual(TEXT("rejected code is catalog data plus an argument"),
 		FRewindMessageCatalog::Format(RewindMessageIds::LockRejected, {TEXT("1111")}),
-		TEXT("Lock: 1111 rejected"));
+		TEXT("1111 does not open it."));
 	TestEqual(TEXT("radio channel is catalog data plus an argument"),
 		FRewindMessageCatalog::Format(RewindMessageIds::RadioChannelVoice, {TEXT("3")}),
-		TEXT("Radio: channel 3  ...a voice, under the static"));
+		TEXT("Radio: channel 3. A voice, under the static."));
 	TestNull(TEXT("unknown id is not catalog data"),
 		FRewindMessageCatalog::Find(FName(TEXT("Message.DoesNotExist"))));
+	return true;
+}
+
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(
+	FRewindMessageFirstRunGating,
+	"Rewind.Message.FirstRun.Gating",
+	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+
+bool FRewindMessageFirstRunGating::RunTest(const FString& Parameters)
+{
+	(void)Parameters;
+
+	// The same TSet<FName> URewindSessionSubsystem stores as knowledge.
+	// A GameInstanceSubsystem cannot be NewObject'd outside a GameInstance.
+	TSet<FName> Knowledge;
+	FRewindMessageDirector Director;
+
+	TestEqual(TEXT("seen-fact is knowledge, not a second store"),
+		RewindFirstRun::SeenFact(RewindMessageIds::ApartmentWaking),
+		FName(TEXT("seen.Apartment.Waking")));
+
+	TestTrue(TEXT("first ShowOnce becomes current"),
+		RewindFirstRun::ShowOnce(Knowledge, Director, RewindMessageIds::ApartmentWaking));
+	TestEqual(TEXT("first-run copy is catalog data"), Director.GetActiveText(),
+		TEXT("Apartment 4C. The room starts over. You do not."));
+	TestTrue(TEXT("shown line is recorded as session knowledge"),
+		Knowledge.Contains(RewindFirstRun::SeenFact(RewindMessageIds::ApartmentWaking)));
+	TestEqual(TEXT("nothing queued after the first ShowOnce"), Director.GetQueuedCount(), 0);
+
+	TestFalse(TEXT("the same line is not shown again in the same session"),
+		RewindFirstRun::ShowOnce(Knowledge, Director, RewindMessageIds::ApartmentWaking));
+	TestEqual(TEXT("repeat does not enqueue a second copy"), Director.GetQueuedCount(), 0);
+	TestEqual(TEXT("current line is unchanged by a repeat"), Director.GetActiveId(),
+		RewindMessageIds::ApartmentWaking);
+
+	TestTrue(TEXT("a different first-run line still shows"),
+		RewindFirstRun::ShowOnce(Knowledge, Director, RewindMessageIds::StairsRemain));
+	TestEqual(TEXT("the new line waits behind the current one"), Director.GetQueuedCount(), 1);
+
+	Director.Tick(FRewindMessageCatalog::DefaultDuration(RewindMessageIds::ApartmentWaking));
+	TestEqual(TEXT("the later first-run line becomes current in enqueue order"),
+		Director.GetActiveId(), RewindMessageIds::StairsRemain);
+
+	TestFalse(TEXT("the later line also does not repeat"),
+		RewindFirstRun::ShowOnce(Knowledge, Director, RewindMessageIds::StairsRemain));
+	TestEqual(TEXT("knowledge count is the two shown lines"), Knowledge.Num(), 2);
+
+	TestFalse(TEXT("unknown id is not shown and is not marked seen"),
+		RewindFirstRun::ShowOnce(Knowledge, Director, FName(TEXT("Message.DoesNotExist"))));
+	TestFalse(TEXT("unknown id left no knowledge fact"),
+		Knowledge.Contains(RewindFirstRun::SeenFact(FName(TEXT("Message.DoesNotExist")))));
+
+	TestTrue(TEXT("authored stair region is a stair region"),
+		RewindFirstRun::IsStairRegion(FName(TEXT("Stairwell_Stairs"))));
+	TestTrue(TEXT("proof-layout stair region is a stair region"),
+		RewindFirstRun::IsStairRegion(FName(TEXT("Stairs4To3"))));
+	TestFalse(TEXT("upper threshold is not a stair region"),
+		RewindFirstRun::IsStairRegion(FName(TEXT("Stairwell_Upper"))));
+	TestFalse(TEXT("entrance is not a stair region"),
+		RewindFirstRun::IsStairRegion(FName(TEXT("Stairwell_Entrance"))));
+	return true;
+}
+
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(
+	FRewindMessageFirstRunOmitsSolutions,
+	"Rewind.Message.FirstRun.OmitsSolutions",
+	EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+
+bool FRewindMessageFirstRunOmitsSolutions::RunTest(const FString& Parameters)
+{
+	(void)Parameters;
+
+	TestEqual(TEXT("waking names the loop and that knowledge persists"),
+		FRewindMessageCatalog::Format(RewindMessageIds::ApartmentWaking, {}),
+		TEXT("Apartment 4C. The room starts over. You do not."));
+	TestEqual(TEXT("return names the reset and that knowledge remains"),
+		FRewindMessageCatalog::Format(RewindMessageIds::ApartmentReturned, {}),
+		TEXT("The room is as it was. You remember."));
+	TestEqual(TEXT("radio first-run copy names the object"),
+		FRewindMessageCatalog::Format(RewindMessageIds::RadioPresent, {}),
+		TEXT("A radio."));
+	TestEqual(TEXT("radio voice copy names a voice and not the digits"),
+		FRewindMessageCatalog::Format(RewindMessageIds::RadioChannelVoice, {TEXT("3")}),
+		TEXT("Radio: channel 3. A voice, under the static."));
+	TestEqual(TEXT("lock first-run copy names the lock and not the code"),
+		FRewindMessageCatalog::Format(RewindMessageIds::LockPrompt, {}),
+		TEXT("A lock. Four digits."));
+	TestEqual(TEXT("fuse first-run copy names the fuse"),
+		FRewindMessageCatalog::Format(RewindMessageIds::FuseCarried, {}),
+		TEXT("A fuse."));
+	TestEqual(TEXT("empty socket first-run copy names the socket"),
+		FRewindMessageCatalog::Format(RewindMessageIds::SocketEmptyAtRest, {}),
+		TEXT("An empty socket."));
+	TestEqual(TEXT("lift refusal names the still cage and empty socket"),
+		FRewindMessageCatalog::Format(RewindMessageIds::LiftNoPower, {}),
+		TEXT("The cage is still. The socket is empty."));
+	TestEqual(TEXT("stairs first-run copy names the stairs"),
+		FRewindMessageCatalog::Format(RewindMessageIds::StairsRemain, {}),
+		TEXT("The stairs remain."));
+	TestEqual(TEXT("loop-break copy names the boundary"),
+		FRewindMessageCatalog::Format(RewindMessageIds::LoopBreak, {}),
+		TEXT("The world will not hold."));
+
+	for (const TPair<FName, FRewindMessageDef>& Pair : FRewindMessageCatalog::GetAll())
+	{
+		TestFalse(*FString::Printf(TEXT("%s does not print 7312"), *Pair.Key.ToString()),
+			Pair.Value.Text.Contains(TEXT("7312")));
+		TestFalse(*FString::Printf(TEXT("%s does not tell the player to seat the fuse"),
+			*Pair.Key.ToString()),
+			Pair.Value.Text.Contains(TEXT("Seat the fuse")));
+		const FString Lower = Pair.Value.Text.ToLower();
+		TestFalse(*FString::Printf(TEXT("%s does not describe a ghost"), *Pair.Key.ToString()),
+			Lower.Contains(TEXT("ghost")) || Lower.Contains(TEXT("echo")));
+	}
 	return true;
 }
 
