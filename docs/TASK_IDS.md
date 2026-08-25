@@ -53,3 +53,4 @@ still the protocol extraction; that identity stays taken. New claims use `REW`.
 | REW-0024 | Track the owner's texture sources and correct ADR-0011 | Claude | 2026-08-25 | docs/CURRENT_TASK.md |
 | REW-0025 | Re-import the 4c textures and re-bind the authored map | unassigned | 2026-08-25 | docs/CURRENT_TASK.md |
 | REW-0020 | Authored courtyard blockout and the ground-fuse checkpoint | grok-courtyard | 2026-08-25 | docs/finished/REW-0020_authored-courtyard-blockout-and-the-ground-fuse-checkpoint.md |
+| REW-0026 | The Returner: generated player character and silhouette | Claude | 2026-08-25 | docs/CURRENT_TASK.md |
