@@ -7,8 +7,9 @@ writes them.
 
 An Unreal Engine 5.8 C++ project exists at `Rewind/Rewind.uproject`. The loop
 clock, ordered world-state apply, session knowledge, one Anchor, clean save,
-authored camera, loop-clocked radio, contested fuse, lift, stairs and rebuilt
-Chapter 1 blockout are implemented. The owner-shaped stairwell, Apartment 4C,
+authored camera, loop-clocked radio, contested fuse, lift, stairs, player
+message channel and rebuilt Chapter 1 blockout are implemented. The
+owner-shaped stairwell, Apartment 4C,
 fourth-floor common hall and lift form the bounded authored presentation slice
 and the project's editor/game default. REW-0013 corrected REW-0012 against the
 owner's existing stairs/lift/4C openings and removed its opposite-side duplicate.
@@ -192,6 +193,18 @@ participants restore from baseline on loop start; the gate honors
 time. Interact is E. Digits type a code at the lock. The board commits the
 gate Anchor only if this loop opened the gate. Elapsed loop time is drawn on
 screen as `t=` for stated-time checks.
+
+Player-facing text is owned by `URewindMessageSubsystem`. Actors call `Show`,
+`ShowTimed`, `ShowSequence` or `Clear` by catalog id. Copy and default
+duration live in `FRewindMessageCatalog`, so rewriting a line does not require
+editing the actor that triggers it. One line is visible at a time. Further
+lines wait in enqueue order and expire into the next. Presentation is a
+project Slate overlay at the bottom of the game viewport: light text on a
+dark backing, hit-test invisible. It does not use
+`AddOnScreenDebugMessage`. The `t=` overlay remains instrumentation inside
+`URewindLoopSubsystem` and is not this channel. Messages tick on frame delta,
+are not world state, and are not saved. The subsystem does not clear them at
+loop start.
 
 The radio has four channels and exactly one speaks the code. Its 20-second
 sequence repeats every 50 seconds and speaks `7`, `3`, `1`, `2` at phases 4,

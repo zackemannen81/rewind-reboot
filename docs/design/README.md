@@ -23,3 +23,4 @@ is not a rule. It is a proposal.
 | [`chapter-1-authored.md`](chapter-1-authored.md) | Accepted | Authored space, timings and puzzle facts for the first proof |
 | [`camera-and-movement.md`](camera-and-movement.md) | Accepted | How the world is framed, and the volume the player moves in |
 | [`stairwell-visual-direction.md`](stairwell-visual-direction.md) | Accepted | First-pass visual grammar for the authored stairwell slice |
+| [`player-messages.md`](player-messages.md) | Accepted | When the game speaks in text, how long a line stays, and that the debug overlay is not UI |

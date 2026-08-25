@@ -1,9 +1,10 @@
 #include "RewindFuse.h"
 
 #include "RewindLog.h"
+#include "RewindMessageIds.h"
+#include "RewindMessageSubsystem.h"
 #include "Components/StaticMeshComponent.h"
 #include "EngineUtils.h"
-#include "Engine/Engine.h"
 #include "Engine/World.h"
 #include "GameFramework/Pawn.h"
 #include "GameFramework/PlayerController.h"
@@ -83,9 +84,9 @@ bool ARewindFuse::TryInteract(APawn* InstigatorPawn)
 	State = EState::Carried;
 	SetCarryCollision(true);
 	RewindLog::Event(this, TEXT("Fuse: picked up"));
-	if (GEngine)
+	if (URewindMessageSubsystem* Messages = URewindMessageSubsystem::Get(this))
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Yellow, TEXT("Fuse: carried"));
+		Messages->Show(RewindMessageIds::FuseCarried);
 	}
 	return true;
 }
@@ -100,10 +101,11 @@ bool ARewindFuse::SeatInto(ERewindFuseSocket Which)
 	Seated = Which;
 	SetCarryCollision(false);
 	RewindLog::Event(this, FString::Printf(TEXT("Fuse: seated in the %s socket"), SocketName(Which)));
-	if (GEngine)
+	if (URewindMessageSubsystem* Messages = URewindMessageSubsystem::Get(this))
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Green,
-			FString::Printf(TEXT("Fuse: in the %s socket"), SocketName(Which)));
+		Messages->Show(Which == ERewindFuseSocket::Building
+			? RewindMessageIds::FuseSeatedBuilding
+			: RewindMessageIds::FuseSeatedCourtyard);
 	}
 	return true;
 }
@@ -117,10 +119,11 @@ bool ARewindFuse::TakeFrom(ERewindFuseSocket Which)
 	State = EState::Carried;
 	SetCarryCollision(true);
 	RewindLog::Event(this, FString::Printf(TEXT("Fuse: taken from the %s socket"), SocketName(Which)));
-	if (GEngine)
+	if (URewindMessageSubsystem* Messages = URewindMessageSubsystem::Get(this))
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Yellow,
-			FString::Printf(TEXT("Fuse: taken from the %s socket, carried"), SocketName(Which)));
+		Messages->Show(Which == ERewindFuseSocket::Building
+			? RewindMessageIds::FuseTakenBuilding
+			: RewindMessageIds::FuseTakenCourtyard);
 	}
 	return true;
 }

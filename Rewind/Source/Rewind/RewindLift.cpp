@@ -4,9 +4,10 @@
 #include "RewindFuse.h"
 #include "RewindLog.h"
 #include "RewindLoopSubsystem.h"
+#include "RewindMessageIds.h"
+#include "RewindMessageSubsystem.h"
 #include "Components/SceneComponent.h"
 #include "Components/StaticMeshComponent.h"
-#include "Engine/Engine.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "UObject/ConstructorHelpers.h"
@@ -98,10 +99,9 @@ bool ARewindLift::TryInteract(APawn* InstigatorPawn)
 	if (!Fuse || !Fuse->IsSeatedIn(ERewindFuseSocket::Building))
 	{
 		RewindLog::Event(this, TEXT("Lift: refused, fuse not in the building socket"));
-		if (GEngine)
+		if (URewindMessageSubsystem* Messages = URewindMessageSubsystem::Get(this))
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Yellow,
-				TEXT("Lift: no power. Seat the fuse in the building socket"));
+			Messages->Show(RewindMessageIds::LiftNoPower);
 		}
 		return false;
 	}
