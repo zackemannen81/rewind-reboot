@@ -1,9 +1,9 @@
 # Event-driven rewind implementation
 
-Status: Proposed
+Status: Resolved by REW-0017
 Discovered: 2026-08-24, during REW-0009
-Owner: unassigned
-Activated: not activated. No REW identity is claimed for this.
+Owner: grok-loop
+Activated: REW-0017, 2026-08-25
 
 ADR-0009 and the owning design documents now require causal checkpoints,
 successful Anchor commit and death to end loops by default. The running build

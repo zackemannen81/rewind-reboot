@@ -1,12 +1,15 @@
 #include "RewindAnchorBoard.h"
 
+#include "RewindLatchedRewind.h"
 #include "RewindLog.h"
 #include "RewindCourtyardGate.h"
+#include "RewindLoopSubsystem.h"
 #include "RewindSessionSubsystem.h"
 #include "Components/StaticMeshComponent.h"
 #include "EngineUtils.h"
 #include "Engine/GameInstance.h"
 #include "Engine/Engine.h"
+#include "Engine/World.h"
 #include "UObject/ConstructorHelpers.h"
 
 ARewindAnchorBoard::ARewindAnchorBoard()
@@ -53,10 +56,22 @@ bool ARewindAnchorBoard::TryInteract(APawn* InstigatorPawn)
 	}
 
 	const bool bOk = Session->TryCommitCourtyardGateAnchor(bOpenFromPlay);
+	const bool bFirstTime = RewindAnchorCommit::EndsLoop(bOk, Session->HasPendingAnchorCommit());
 	RewindLog::Event(this, FString::Printf(
-		TEXT("Board: commit courtyard_gate_open %s (gate open from this-loop play=%s)"),
+		TEXT("Board: commit courtyard_gate_open %s (gate open from this-loop play=%s, first-time=%s)"),
 		bOk ? TEXT("ACCEPTED") : TEXT("REFUSED"),
-		bOpenFromPlay ? TEXT("yes") : TEXT("no")));
+		bOpenFromPlay ? TEXT("yes") : TEXT("no"),
+		bFirstTime ? TEXT("yes") : TEXT("no")));
+	if (bFirstTime)
+	{
+		if (UWorld* World = GetWorld())
+		{
+			if (URewindLoopSubsystem* Loop = World->GetSubsystem<URewindLoopSubsystem>())
+			{
+				Loop->NotifyAnchorCommitted();
+			}
+		}
+	}
 	if (GEngine)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 4.f, bOk ? FColor::Green : FColor::Red,

@@ -55,6 +55,7 @@ bool FRewindIdsMatchDesign::RunTest(const FString& Parameters)
 {
 	TestEqual(TEXT("radio knowledge id"), RewindIds::KnowledgeRadioCode7312, FName(TEXT("radio_code_7312")));
 	TestEqual(TEXT("gate anchor id"), RewindIds::AnchorCourtyardGateOpen, FName(TEXT("courtyard_gate_open")));
+	TestEqual(TEXT("ground fuse gate checkpoint id"), RewindIds::CheckpointGroundFuseGate, FName(TEXT("GroundFuseGate")));
 	return true;
 }
 
