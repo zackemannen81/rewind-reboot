@@ -28,7 +28,7 @@ rewind-reboot/
 │       ├── Art/Materials/Stairwell/
 │       │                            project-owned masters and instances for the presentation slice
 │       ├── Art/Materials/BuildingSlice/
-│       │                            project-owned 4C floor instance
+│       │                            project-owned 4C floor instance and 4C sign emissive
 │       └── Characters/Tier1/       21 CC0 animations and two pack mannequins
 ├── docs/
 │   ├── CURRENT_TASK.md             active task when one is approved; otherwise the restored template
