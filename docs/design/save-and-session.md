@@ -50,6 +50,10 @@ obeys determinism and always offers the code.
 The human tester will also remember. That does not replace this fact.
 The fact is what a clean save clears.
 
+Other owning documents may name additional knowledge facts. They use this
+store. They do not create a second one. First-run seen-lines are named by
+[`tutorial-and-first-run.md`](tutorial-and-first-run.md) as `seen.<MessageId>`.
+
 ## Testable statements
 
 1. After a clean save, `radio_code_7312` is false and no Anchor is

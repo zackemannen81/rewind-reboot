@@ -1,6 +1,7 @@
 #include "RewindCodeLock.h"
 
 #include "RewindLog.h"
+#include "RewindFirstRun.h"
 #include "RewindIds.h"
 #include "RewindMessageIds.h"
 #include "RewindMessageSubsystem.h"
@@ -49,10 +50,7 @@ bool ARewindCodeLock::TryInteract(APawn* InstigatorPawn)
 		Submit(TEXT("7312"));
 		return true;
 	}
-	if (URewindMessageSubsystem* Messages = URewindMessageSubsystem::Get(this))
-	{
-		Messages->Show(RewindMessageIds::LockPrompt);
-	}
+	RewindFirstRun::ShowOnce(this, RewindMessageIds::LockPrompt);
 	RewindLog::Event(this, TEXT("Lock: locked, no stored code"));
 	return false;
 }

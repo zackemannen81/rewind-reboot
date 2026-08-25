@@ -1,6 +1,7 @@
 #include "RewindFuse.h"
 
 #include "RewindLog.h"
+#include "RewindFirstRun.h"
 #include "RewindMessageIds.h"
 #include "RewindMessageSubsystem.h"
 #include "Components/StaticMeshComponent.h"
@@ -84,10 +85,7 @@ bool ARewindFuse::TryInteract(APawn* InstigatorPawn)
 	State = EState::Carried;
 	SetCarryCollision(true);
 	RewindLog::Event(this, TEXT("Fuse: picked up"));
-	if (URewindMessageSubsystem* Messages = URewindMessageSubsystem::Get(this))
-	{
-		Messages->Show(RewindMessageIds::FuseCarried);
-	}
+	RewindFirstRun::ShowOnce(this, RewindMessageIds::FuseCarried);
 	return true;
 }
 

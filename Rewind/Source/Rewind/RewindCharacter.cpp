@@ -2,9 +2,9 @@
 
 #include "RewindInteractable.h"
 #include "RewindCameraRegion.h"
+#include "RewindFirstRun.h"
 #include "RewindLog.h"
 #include "RewindMessageIds.h"
-#include "RewindMessageSubsystem.h"
 #include "Animation/AnimSequence.h"
 #include "GameFramework/PlayerController.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -134,6 +134,10 @@ void ARewindCharacter::Tick(float DeltaSeconds)
 		// current even when the player is standing still when the volume runs
 		// out.
 		LastKnownRegion = Region;
+		if (RewindFirstRun::IsStairRegion(Region->GetRegionName()))
+		{
+			RewindFirstRun::ShowOnce(this, RewindMessageIds::StairsRemain);
+		}
 
 		const FVector Clamped = Region->ClampToPlayerVolume(GetActorLocation());
 		if (!Clamped.Equals(GetActorLocation(), 0.01))
@@ -146,9 +150,9 @@ void ARewindCharacter::Tick(float DeltaSeconds)
 void ARewindCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	if (URewindMessageSubsystem* Messages = URewindMessageSubsystem::Get(this))
+	if (RewindFirstRun::ShowOnce(this, RewindMessageIds::ApartmentWaking))
 	{
-		Messages->Show(RewindMessageIds::CharacterControls);
+		RewindFirstRun::ShowOnce(this, RewindMessageIds::CharacterControls);
 	}
 }
 

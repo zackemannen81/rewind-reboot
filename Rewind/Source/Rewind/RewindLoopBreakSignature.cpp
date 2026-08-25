@@ -1,7 +1,9 @@
 #include "RewindLoopBreakSignature.h"
 
+#include "RewindFirstRun.h"
 #include "RewindLog.h"
 #include "RewindLoopSubsystem.h"
+#include "RewindMessageIds.h"
 #include "Components/PostProcessComponent.h"
 #include "Engine/Engine.h"
 #include "Engine/World.h"
@@ -66,6 +68,7 @@ void ARewindLoopBreakSignature::Tick(float DeltaSeconds)
 		}
 		if (!bLoggedVisible)
 		{
+			RewindFirstRun::ShowOnce(this, RewindMessageIds::LoopBreak);
 			RewindLog::Event(this, FString::Printf(
 				TEXT("LOOP BREAK  interference=%.2f (elapsed loop time)"),
 				DisplayedIntensity));
@@ -74,6 +77,10 @@ void ARewindLoopBreakSignature::Tick(float DeltaSeconds)
 	}
 	else
 	{
+		if (bLoggedVisible)
+		{
+			RewindFirstRun::ShowOnce(this, RewindMessageIds::ApartmentReturned);
+		}
 		bLoggedVisible = false;
 	}
 }

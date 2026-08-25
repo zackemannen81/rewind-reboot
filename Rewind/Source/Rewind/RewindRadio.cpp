@@ -1,6 +1,7 @@
 #include "RewindRadio.h"
 
 #include "RewindLog.h"
+#include "RewindFirstRun.h"
 #include "RewindIds.h"
 #include "RewindLoopSubsystem.h"
 #include "RewindMessageIds.h"
@@ -94,6 +95,7 @@ bool ARewindRadio::TryInteract(APawn* InstigatorPawn)
 	const bool bOnCode = Channel == RadioCodeChannel;
 	RewindLog::Event(this, FString::Printf(TEXT("Radio: channel %d (%s)"),
 		Channel, bOnCode ? TEXT("voice") : TEXT("static")));
+	RewindFirstRun::ShowOnce(this, RewindMessageIds::RadioPresent);
 	if (URewindMessageSubsystem* Messages = URewindMessageSubsystem::Get(this))
 	{
 		Messages->Show(

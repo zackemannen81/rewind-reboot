@@ -4,6 +4,92 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-25 — REW-0023, first-run copy on the message system
+
+- Date: 2026-08-25
+- Author: grok-copy
+- Task: REW-0023
+- Branch: `grok/rew-0023-tutorial-copy`
+- Change: a first-run copy set in `FRewindMessageCatalog`, driven by the
+  existing message subsystem, plus `docs/design/tutorial-and-first-run.md`
+  which owns first-run copy, the naming rule, and first-time gating. Gated
+  lines are recorded as knowledge facts `seen.<MessageId>` on
+  `URewindSessionSubsystem`. The message subsystem API is unchanged.
+- Why it was needed: a first-time player started in 4C with no statement
+  that the world loops or that knowledge persists, while several existing
+  catalog lines printed `7312` or told the player to seat the fuse.
+- The naming rule, restated rather than invented: the game names what a
+  thing is and never what to do with it. The radio may be described as
+  carrying a voice. The digits are never printed in first-run copy.
+- Discoveries routed as notes, not new rules: `BeginPlay` does not re-run
+  at loop start, so return copy is triggered from the rewind prelude
+  ending; death has no prelude, so `Apartment.Returned` is not shown then;
+  `ARewindStairwell` is proof-layout only, so stairs copy keys off a stair
+  camera region; a GameInstanceSubsystem cannot be `NewObject`'d in the
+  gating test, so the test uses the same `TSet<FName>` the session stores.
+
+Delivered first-run set, quoted from `RewindMessageCatalog.cpp`:
+
+```text
+Apartment.Waking        Apartment 4C. The room starts over. You do not.
+Character.Controls      WASD move. E interact.
+Radio.Present           A radio.
+Lock.Prompt             A lock. Four digits.
+Fuse.Carried            A fuse.
+Socket.EmptyAtRest      An empty socket.
+Lift.NoPower            The cage is still. The socket is empty.
+Stairs.Remain           The stairs remain.
+Loop.Break              The world will not hold.
+Apartment.Returned      The room is as it was. You remember.
+```
+
+`Lift.NoPower` is first-run copy in its words and a refused action in when
+it speaks, so it is not first-time gated.
+
+Operational catalog lines rewritten so they do not state a solution:
+
+```text
+Lock.CodeBuffer         Code: {0}
+Lock.Accepted           The lock opens.
+Lock.Rejected           {0} does not open it.
+Fuse.SeatedBuilding     The fuse is seated.
+Fuse.SeatedCourtyard    The fuse is seated.
+Fuse.TakenBuilding      The fuse is in hand.
+Fuse.TakenCourtyard     The fuse is in hand.
+Socket.EmptyOther       Empty. The fuse is elsewhere.
+Generator.Dead          The generator is dead.
+Generator.Online        The generator is running.
+Anchor.Accepted         This will hold.
+Anchor.Refused          Nothing to hold.
+Radio.ChannelStatic     Radio: channel {0}. Static.
+Radio.ChannelVoice      Radio: channel {0}. A voice, under the static.
+Radio.DigitSeven        Radio:  ...seven...
+Radio.DigitThree        Radio:  ...three...
+Radio.DigitOne          Radio:  ...one...
+Radio.DigitTwo          Radio:  ...two...
+Radio.CodeObtained      The sequence is yours.
+```
+
+Radio spoken digits remain the puzzle speaking. They are not first-run
+copy. First-run copy does not reprint them. No catalog template contains
+`7312`. No catalog line describes a ghost.
+
+- Verification: RewindEditor Win64 Development, editor closed, after the
+  gating-test fix and unused-helper removal: Result Succeeded, total
+  execution time 20.11 seconds.
+  Headless `UnrealEditor-Cmd` `-ExecCmds='Automation RunTests Rewind;Quit'`
+  `-unattended -nopause -nosplash -NullRHI`. Found 19 tests. All 19
+  `Result={Success}`, including `Rewind.Message.FirstRun.Gating` and
+  `Rewind.Message.FirstRun.OmitsSolutions`. `TEST COMPLETE. EXIT CODE: 0`.
+  An earlier run of the same command failed `Rewind.Message.FirstRun.Gating`
+  with ensure `Object None of class RewindSessionSubsystem ... created in
+  invalid Outer Package`; the test was changed to the knowledge `TSet` and
+  re-run. `git diff --check` not yet run at journal time; run at commit.
+- Not verified: no PIE on this clone, so the first-run path was not walked
+  in a running viewport. Overlay timing against the authored frame was not
+  judged. Death does not show `Apartment.Returned`. The courtyard is out of
+  scope. No packaged build. No localisation.
+- Signature: grok-copy
 ## 2026-08-25 — REW-0024, the owner's textures were never third-party
 
 - Date: 2026-08-25

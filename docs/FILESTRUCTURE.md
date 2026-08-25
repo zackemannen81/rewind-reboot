@@ -53,7 +53,8 @@ rewind-reboot/
 │   │   ├── chapter-1-authored.md
 │   │   ├── camera-and-movement.md
 │   │   ├── stairwell-visual-direction.md
-│   │   └── player-messages.md
+│   │   ├── player-messages.md
+│   │   └── tutorial-and-first-run.md
 │   ├── acceptance/
 │   │   └── five-loops-test.md      first product proof, FL-01 to FL-16
 │   ├── playtests/                  indexed evidence, including the Chapter 1 three-loop record

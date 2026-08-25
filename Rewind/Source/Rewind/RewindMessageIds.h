@@ -8,6 +8,8 @@
  */
 namespace RewindMessageIds
 {
+	const FName ApartmentWaking{TEXT("Apartment.Waking")};
+	const FName ApartmentReturned{TEXT("Apartment.Returned")};
 	const FName CharacterControls{TEXT("Character.Controls")};
 
 	const FName LockPrompt{TEXT("Lock.Prompt")};
@@ -28,10 +30,13 @@ namespace RewindMessageIds
 	const FName GeneratorOnline{TEXT("Generator.Online")};
 
 	const FName LiftNoPower{TEXT("Lift.NoPower")};
+	const FName StairsRemain{TEXT("Stairs.Remain")};
+	const FName LoopBreak{TEXT("Loop.Break")};
 
 	const FName AnchorAccepted{TEXT("Anchor.Accepted")};
 	const FName AnchorRefused{TEXT("Anchor.Refused")};
 
+	const FName RadioPresent{TEXT("Radio.Present")};
 	const FName RadioChannelStatic{TEXT("Radio.ChannelStatic")};
 	const FName RadioChannelVoice{TEXT("Radio.ChannelVoice")};
 	const FName RadioDigitSeven{TEXT("Radio.DigitSeven")};

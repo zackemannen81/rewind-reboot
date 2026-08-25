@@ -227,6 +227,14 @@ dark backing, hit-test invisible. It does not use
 are not world state, and are not saved. The subsystem does not clear them at
 loop start.
 
+First-run copy is owned by `docs/design/tutorial-and-first-run.md`. It names
+what a thing is and does not name what to do with it. Gated first-run lines
+are shown at most once per session. The seen-state is the knowledge fact
+`seen.<MessageId>` on `URewindSessionSubsystem`, not a second store. A
+first-time player is told that the room starts over and that they do not,
+before they leave 4C. Radio spoken digits remain the puzzle speaking;
+first-run copy does not print `7312`. No catalog line describes a ghost.
+
 The radio has four channels and exactly one speaks the code. Its 20-second
 sequence repeats every 50 seconds and speaks `7`, `3`, `1`, `2` at phases 4,
 9, 14 and 19. Hearing an individual digit changes no repository state; it is
