@@ -4,6 +4,53 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-25 — REW-0022, unbind the authored map from untracked content
+
+- Date: 2026-08-25
+- Author: grok-unbind
+- Task: REW-0022
+- Branch: `grok/rew-0022-unbind-untracked-content`
+- Change: `/Game/Maps/FiveLoops_Stairwell_Blockout` no longer depends on
+  untracked `/Game/Fab/` or `/Game/Art/Texture/` packages. Six StaticMeshActors
+  that existed only to hold third-party meshes were deleted: `scene` (armchair)
+  at `(-130, 1470, 1240)`, `fbx` (coffee table) at `(-220, 1340, 1200)`,
+  `ptish_radio` at `(-230, 1330, 1260)`, `desk_lamp` at `(-229, 1357, 1260)`,
+  `electrical_panel` at `(-250, 1170, 1350)`, and an unnamed `StaticMeshActor`
+  at `(-250, 1440, 1270)`. Surfaces whose untracked materials had already
+  collapsed to the engine cube default received project-owned instances from
+  `Rewind/Content/Art/Materials/`: `MI_StairFloor` on stair/hall landings,
+  `MI_4CFloor` on the 4C floor (`Floor_4_Landing2`), `MI_StairWall_Upper` /
+  `MI_StairWall_Lower` on the stairwell envelope, `MI_StairDoor` on closed
+  doors and the 4C code lock, and the same family on remaining 4C cube
+  dressing. Gameplay actors, seven camera regions, lights and collision were
+  not moved. Apartment 4C is undressed; that is the ADR-0011 outcome.
+- Why they were needed: the REW-0015 saved map referenced those untracked
+  packages. REW-0019's save in a clone that lacked the files had already
+  dropped the package paths and left empty-mesh actors plus WorldGrid
+  overrides. Editor Asset Registry on this clone, with `Rewind/Content/Fab/`
+  and `Rewind/Content/Art/Texture/` absent, listed no `/Game/Fab/` or
+  `/Game/Art/Texture/` dependency before the edit; the empty-mesh actors were
+  the remaining bind.
+- Verification: `RewindEditor Win64 Development` built editor-closed, result
+  Succeeded, target up to date after the map save (first closed build 57.06 s
+  with four actions; post-save closed build 1.94 s, 0 actions). All seventeen
+  discoverable `Rewind.*` tests passed together headless:
+  `TEST COMPLETE. EXIT CODE: 0`. Clean-open: this clone never had the
+  untracked directories, so they were not renamed; a fresh
+  `UnrealEditor-Cmd` load of the saved default map reported Asset Registry
+  `untracked=[]`, `missing_mesh=[]`, actor count 59, and no `LogLinker` /
+  `Can't find file` lines for `/Game/Fab/` or `/Game/Art/Texture/`. A strings
+  scan of the saved umap found zero `Fab`, `Art/Texture`, `desk_lamp` or
+  `ptish_radio` tokens. Gameplay and camera transforms matched the pre-edit
+  inspect, including `Apartment4C_Region` at `(62.5, 1368, 1340)` and
+  `4c_camera` at `(750, 1330, 1330)`.
+- Not verified: no packaged build, no live PIE walk of 4C-hall-stairs-lift,
+  no owner visual review of the undressed 4C, and no criterion in
+  `docs/acceptance/five-loops-test.md` was re-run. `docs/SYSTEMDOC.md` still
+  describes the saved map as referencing those untracked packages; it was
+  outside this task's file ownership.
+- Signature: grok-unbind
+
 ## 2026-08-25 — REW-0021, the asset-source and Echo decisions
 
 - Date: 2026-08-25
