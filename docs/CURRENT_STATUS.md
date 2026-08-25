@@ -32,7 +32,7 @@ wrong and must be corrected.
 | `docs/concepts_sandbox/legacy-rewind/` | Imported design, roadmaps and task files from the previous project, plus a verified code inventory and a conflict register. Non-authority |
 | `docs/baseline/acme-2026-08-19/` | Frozen provenance for the working model itself. Never edited, never authority |
 | `.gitignore` / `.gitattributes` | Ignore generated UE output. LFS tracks Unreal binaries, including the Tier 1 character assets |
-| `docs/CURRENT_TASK.md` | Restored task template. REW-0017, REW-0018 and REW-0019 are complete and archived; no task is active on this branch |
+| `docs/CURRENT_TASK.md` | Restored task template. REW-0016 to REW-0019 are complete and archived; no task is active on this branch |
 | `docs/concept/` | Nine owner-produced target and construction-reference images: 4C, fuse box, stairwell, lift, three circulation/interaction sketches and the settled top- and ground-floor plans. Targets and blockout clarification, never game rules |
 | `docs/finished/REW-0004_...md` | Superseded by REW-0006 after its frozen scope conflicted with the lift-or-stairs branch decided by REW-0005 |
 | `Rewind/Source/Rewind/RewindCameraRig.cpp` | The authored camera of ADR-0007. Regions declare rotation, X/Y/Z travel axis, bounds, dead zone, player volume and explicit FOV. Half-open volumes give shared thresholds exactly one owner. The procedural proof has eleven regions; the authored building slice has seven |
@@ -51,6 +51,7 @@ wrong and must be corrected.
 | `docs/finished/REW-0013_...md` | Complete. Corrected REW-0012 to the owner's three-opening corridor, removed primitive furniture and wrong-side duplicates, and verified 4C, hall, stairs and powered bidirectional lift handoffs |
 | `docs/finished/REW-0014_...md` | Complete. The Apartment4C runtime region now starts from the owner's preserved 35 mm `4c_camera` transform and FOV; clean PIE matched all values exactly |
 | `docs/finished/REW-0015_...md` | Complete. Movement no longer drops input outside a region, the player-volume clamp is consistent with region containment, and the Apartment4C volume covers its room |
+| `docs/finished/REW-0016_...md` | Complete. Operator task: chartered, delegated, reviewed and merged REW-0017 to REW-0019 through the owner's `powershell-agent-mcp`, one clone per agent |
 | `docs/finished/REW-0017_...md` | Complete. Event-driven rewind: causal-checkpoint latch, loop-clocked prelude, Anchor-commit end reason, interference signature; automatic 240-second timeout removed |
 | `docs/finished/REW-0018_...md` | Complete. Player-facing text in the authored slice comes from the catalog and message subsystem, not `AddOnScreenDebugMessage` |
 | `docs/finished/REW-0019_...md` | Complete. ADR-0010 renderer configuration applied; first look pass; before/after 4C frames and 1080p frame time |
