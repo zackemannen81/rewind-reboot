@@ -66,43 +66,44 @@ ARewindCharacter::ARewindCharacter()
 		FacingPlaceholder->SetStaticMesh(Cube.Object);
 	}
 
-	// REW-0007 Tier 1 import. The source is the CC0 Quaternius mannequin and
-	// in-place UAL1 animations; movement remains CharacterMovement-owned.
-	static ConstructorHelpers::FObjectFinder<USkeletalMesh> Mannequin(
-		TEXT("/Game/Characters/Tier1/UAL1/Tier1_UAL1/SkeletalMeshes/Tier1_UAL1.Tier1_UAL1"));
+	// REW-0029 Returner import. Its own in-place clips keep movement owned by
+	// CharacterMovement rather than animation root travel.
+	static ConstructorHelpers::FObjectFinder<USkeletalMesh> Returner(
+		TEXT("/Game/Characters/Returner/Returner.Returner"));
 	static ConstructorHelpers::FObjectFinder<UAnimSequence> Idle(
-		TEXT("/Game/Characters/Tier1/UAL1/Tier1_UAL1/SkeletalMeshes/Tier1_UAL1Idle_Loop.Tier1_UAL1Idle_Loop"));
+		TEXT("/Game/Characters/Returner/Animations/A_Returner_Alert.A_Returner_Alert"));
 	static ConstructorHelpers::FObjectFinder<UAnimSequence> Walk(
-		TEXT("/Game/Characters/Tier1/UAL1/Tier1_UAL1/SkeletalMeshes/Tier1_UAL1Walk_Loop.Tier1_UAL1Walk_Loop"));
+		TEXT("/Game/Characters/Returner/Animations/A_Returner_Walk.A_Returner_Walk"));
 	static ConstructorHelpers::FObjectFinder<UMaterialInterface> Silhouette(
 		TEXT("/Game/Art/Materials/Stairwell/MI_CharacterSilhouette.MI_CharacterSilhouette"));
 
-	MannequinBody = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("MannequinBody"));
-	MannequinBody->SetupAttachment(RootComponent);
-	MannequinBody->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-	// The imported mannequin is authored with its origin at the feet and faces
-	// across the character's +X axis. ACharacter's root is the centre of its
-	// capsule, so place the feet at the capsule bottom and align the mesh's
-	// animation-forward direction with CharacterMovement.
-	MannequinBody->SetRelativeLocation(FVector(
+	ReturnerBody = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("ReturnerBody"));
+	ReturnerBody->SetupAttachment(RootComponent);
+	ReturnerBody->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	// REW-0029 editor evidence: bounds are centred at Z=85 with Z extent=85,
+	// so the imported origin is at the feet. The reference pose's `headfront`
+	// point is +Y from the head; yaw -90 maps that facing vector to the
+	// character root's +X movement-forward direction. ACharacter's root is at
+	// capsule centre, so the 96 cm half-height places the feet at its bottom.
+	ReturnerBody->SetRelativeLocation(FVector(
 		0.f, 0.f, -GetCapsuleComponent()->GetUnscaledCapsuleHalfHeight()));
-	MannequinBody->SetRelativeRotation(FRotator(0.f, -90.f, 0.f));
-	if (Mannequin.Succeeded())
+	ReturnerBody->SetRelativeRotation(FRotator(0.f, -90.f, 0.f));
+	if (Returner.Succeeded())
 	{
-		MannequinBody->SetSkeletalMeshAsset(Mannequin.Object);
+		ReturnerBody->SetSkeletalMeshAsset(Returner.Object);
 		IdleAnimation = Idle.Succeeded() ? Idle.Object : nullptr;
 		WalkAnimation = Walk.Succeeded() ? Walk.Object : nullptr;
-		MannequinBody->SetAnimationMode(EAnimationMode::AnimationSingleNode);
+		ReturnerBody->SetAnimationMode(EAnimationMode::AnimationSingleNode);
 		if (Silhouette.Succeeded())
 		{
-			for (int32 MaterialIndex = 0; MaterialIndex < MannequinBody->GetNumMaterials(); ++MaterialIndex)
+			for (int32 MaterialIndex = 0; MaterialIndex < ReturnerBody->GetNumMaterials(); ++MaterialIndex)
 			{
-				MannequinBody->SetMaterial(MaterialIndex, Silhouette.Object);
+				ReturnerBody->SetMaterial(MaterialIndex, Silhouette.Object);
 			}
 		}
 		if (IdleAnimation)
 		{
-			MannequinBody->PlayAnimation(IdleAnimation, true);
+			ReturnerBody->PlayAnimation(IdleAnimation, true);
 		}
 		BodyPlaceholder->SetVisibility(false);
 		FacingPlaceholder->SetVisibility(false);
@@ -114,11 +115,11 @@ void ARewindCharacter::Tick(float DeltaSeconds)
 	Super::Tick(DeltaSeconds);
 
 	const bool bMoving = GetVelocity().SizeSquared2D() > FMath::Square(5.f);
-	if (MannequinBody && bMoving != bWasMoving)
+	if (ReturnerBody && bMoving != bWasMoving)
 	{
 		if (UAnimSequence* Next = bMoving ? WalkAnimation.Get() : IdleAnimation.Get())
 		{
-			MannequinBody->PlayAnimation(Next, true);
+			ReturnerBody->PlayAnimation(Next, true);
 		}
 		bWasMoving = bMoving;
 	}

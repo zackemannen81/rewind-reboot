@@ -96,10 +96,13 @@ edge but use a 130 cm landing depth, moving the inner edge outward by 50 cm.
 The visible flights, elevations, doors and outer landing boundaries are
 unchanged; the measured route now works in both directions.
 
-The runtime mannequin is offset by the capsule half-height so its feet meet the
-capsule bottom and is rotated -90 degrees relative to the character root so the
-imported animation-forward direction matches movement. This alignment is
-presentation only; the capsule remains authoritative for collision.
+The runtime player is The Returner. Its mesh bounds report an origin at Z 85 cm
+and a Z extent of 85 cm, placing the imported feet at Z 0. The 42 cm radius,
+96 cm half-height capsule therefore receives a Z −96 cm presentation offset.
+The Returner reference pose's `headfront` endpoint is +Y from the head; yaw
+−90 degrees maps that forward vector to the character root's +X movement
+direction. This alignment is presentation only; the capsule remains
+authoritative for collision.
 
 ## The working model in one page
 
@@ -329,10 +332,12 @@ travel-axis framing offset, clamp/padding behavior, fixed non-travel axes,
 explicit FOV and exactly-one ownership immediately before, on and after a
 shared threshold.
 
-The runtime player uses the imported CC0 UAL1 pack mannequin. `Idle_Loop` and
-`Walk_Loop` switch from CharacterMovement velocity; 19 additional Tier 1
-in-place clips are imported but not bound. UAL1 and UAL2 remain separate
-imported skeletons. The 31 Tier 1 assets measure 12.61 MiB under Git LFS.
+The runtime player uses `/Game/Characters/Returner/Returner` on its own
+24-bone skeleton. `A_Returner_Alert` and `A_Returner_Walk` switch from
+CharacterMovement velocity in `ARewindCharacter`; movement remains
+CharacterMovement-owned. `MI_CharacterSilhouette` is assigned across every
+Returner material slot. The run and second walk assets are unbound. The 31
+CC0 Tier 1 assets remain under Git LFS but are no longer the runtime binding.
 
 The previous Unity project, inventoried in
 `docs/concepts_sandbox/legacy-rewind/code-inventory.md`, contained manager

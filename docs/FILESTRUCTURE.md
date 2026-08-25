@@ -15,9 +15,14 @@ rewind-reboot/
 │   ├── Rewind.uproject             engine 5.8; runtime and editor modules; MCP/toolset plugins
 │   ├── Source/Rewind/              loop, session, Chapter 1, authored camera, courtyard, player messages and named runtime tests
 │   ├── Source/RewindEditor/        editor-only MCP PIE-input and clean screenshot toolset
-│   ├── ArtSource/Textures/         owner-authored JPEG sources for the 4c_* textures and
-│   │   └── EnvironmentKitV1/       REW-0028 supplied decal/neon PNG sources and provenance
-│   ├── ArtSource/Scripts/          committed headless Unreal import/rebuild scripts
+│   ├── ArtSource/Textures/         owner-authored 4c_* JPEG sources, plus the generated kit:
+│   │   ├── EnvironmentTextureKit-v1/ REW-0027 JPEG surface/backdrop import sources
+│   │   └── EnvironmentKitV1/       REW-0028 decal atlas and neon PNG sources
+│   │                               both outside Content/ so the editor never scans them
+│   ├── ArtSource/Characters/Returner/
+│   │                               owner-generated Returner source FBX and provenance
+│   ├── ArtSource/Scripts/          reproducible editor Python imports, rebuilds and the
+│   │                               Returner alignment inspection
 │   ├── Config/                     default engine, game, input, editor
 │   └── Content/
 │       ├── FiveLoops_Handmade.umap owner-authored original construction map
@@ -32,9 +37,13 @@ rewind-reboot/
 │       │                            project-owned masters and instances for the presentation slice
 │       ├── Art/Materials/BuildingSlice/
 │       │                            project-owned 4C floor instance and 4C sign emissive
-│       ├── Art/Materials/Decals/   supplied deferred-decal master and REW-0028's 16 cell instances
+│       ├── Art/Materials/Decals/   deferred-decal master and REW-0028's 16 cell instances
+│       ├── Art/Materials/Surfaces/  M_REW_Surface and eight REW-0027 tileable-surface instances
 │       ├── Art/Textures/Decals/    REW-0028's three opacity-mask atlases and three neon textures
-│       └── Characters/Tier1/       21 CC0 animations and two pack mannequins
+│       ├── Art/Textures/Surfaces/   twelve REW-0027 textures: eight tileable surfaces and
+│       │                            four backdrop/poster assets
+│       ├── Characters/Returner/    runtime Returner mesh, skeleton and four own-skeleton clips
+│       └── Characters/Tier1/       retained 21 CC0 animations and two pack mannequins
 ├── docs/
 │   ├── CURRENT_TASK.md             active task when one is approved; otherwise the restored template
 │   ├── template_CURRENT_TASK.md    the charter form
