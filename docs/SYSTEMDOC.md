@@ -17,11 +17,12 @@ project PIE input and clean game-viewport capture through the MCP toolset
 registry, and the engine automation-test toolset is enabled. The sections below
 distinguish the running proof from later art and product work.
 
-ADR-0009 and the owning design documents now require event-driven loop
-termination. That rule is not implemented: the running C++ proof still ends at
-240 seconds or on death, has no causal-checkpoint actor or rewind prelude, and
-does not end after a successful Anchor commit. The mismatch is an explicit
-implementation gap, not a claim that the accepted rule already works.
+ADR-0009 and the owning design documents require event-driven loop
+termination. REW-0017 implements that rule in the running C++: a loop ends on
+causal-contract failure at a named checkpoint, on death, or on a successful
+first-time Anchor commit. Contract failure and commit latch a one-to-three-
+second rewind prelude measured on elapsed loop time. Elapsed time alone does
+not end a loop unless an authored whole-space deadline is explicitly enabled.
 
 `/Game/Maps/FiveLoops_Stairwell_Blockout` is the first standalone authored
 geometry map. It preserves the owner's switchback shape at human scale: five
@@ -172,12 +173,19 @@ knowledge, the one legal Anchor identifier, a USaveGame slot, and a
 reachable `Rewind.CleanSave` command. World clocks are required to read
 `URewindLoopSubsystem::GetElapsedLoopTime`, not engine time.
 
-`URewindLoopSubsystem` currently advances the loop clock until the developer
-setting reaches 240 seconds, ends with reason Timer, writes the session and
-immediately starts the next loop. Death is its only other reason. It has no
-representation for causal-contract failure, Anchor commit, a latched rewind or
-the one-to-three-second prelude required by ADR-0009. This paragraph describes
-the current implementation; it does not restate the accepted rule.
+`URewindLoopSubsystem` advances the loop clock without a default terminal
+duration. It exposes end reasons CausalContract, Death and AnchorCommit. Timer
+remains only for an authored whole-space deadline, which is off by default
+(`bUseWholeSpaceDeadline`). A failed crossing of `ARewindCausalCheckpoint`
+(`GroundFuseGate`: ground-floor fuse seated or `courtyard_gate_open` active)
+or a first-time successful Anchor commit latches a rewind that cannot be
+cancelled by stepping back. The latched prelude lasts the configured duration
+clamped to [1.0, 3.0] seconds of elapsed loop time, then loop-start apply
+runs. Death ends the loop immediately. `ARewindLoopBreakSignature` presents
+rising interference during the prelude as a function of elapsed loop time,
+not engine time or frame delta. A rejected or redundant Anchor commit does
+not latch. `GroundFuseGate` is spawned in C++ at the proof-layout hall-to-
+courtyard seam; maps tagged `Rewind.SkipProofLayout` do not receive it.
 
 `/Game/Maps/FiveLoops` is the preserved procedural proof map. It loads
 `ARewindProofLayout`, which spawns 4C on floor 4,

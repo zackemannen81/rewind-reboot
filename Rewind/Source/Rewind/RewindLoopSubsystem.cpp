@@ -35,6 +35,28 @@ void URewindLoopSubsystem::OnWorldBeginPlay(UWorld& InWorld)
 
 void URewindLoopSubsystem::Tick(float DeltaTime)
 {
+	if (Latch.IsLatched())
+	{
+		if (Clock.IsRunning())
+		{
+			Clock.Advance(static_cast<double>(DeltaTime));
+		}
+		if (GEngine)
+		{
+			GEngine->AddOnScreenDebugMessage(
+				9001,
+				0.2f,
+				FColor::Green,
+				FString::Printf(TEXT("t=%.1fs  REWIND %s"),
+					Clock.GetElapsedSeconds(), ReasonName(LatchedReason)));
+		}
+		if (Latch.ShouldApply(Clock.GetElapsedSeconds()))
+		{
+			EndLoop(LatchedReason);
+		}
+		return;
+	}
+
 	if (!Clock.IsRunning())
 	{
 		return;
@@ -43,13 +65,27 @@ void URewindLoopSubsystem::Tick(float DeltaTime)
 	Clock.Advance(static_cast<double>(DeltaTime));
 	if (GEngine)
 	{
-		GEngine->AddOnScreenDebugMessage(
-			9001,
-			0.2f,
-			FColor::Green,
-			FString::Printf(TEXT("t=%.1fs / %.0fs"), Clock.GetElapsedSeconds(), GetLoopDurationSeconds()));
+		if (UsesWholeSpaceDeadline())
+		{
+			GEngine->AddOnScreenDebugMessage(
+				9001,
+				0.2f,
+				FColor::Green,
+				FString::Printf(TEXT("t=%.1fs / %.0fs"),
+					Clock.GetElapsedSeconds(), GetLoopDurationSeconds()));
+		}
+		else
+		{
+			GEngine->AddOnScreenDebugMessage(
+				9001,
+				0.2f,
+				FColor::Green,
+				FString::Printf(TEXT("t=%.1fs"), Clock.GetElapsedSeconds()));
+		}
 	}
-	if (Clock.GetElapsedSeconds() >= static_cast<double>(GetLoopDurationSeconds()))
+
+	if (UsesWholeSpaceDeadline()
+		&& Clock.GetElapsedSeconds() >= static_cast<double>(GetLoopDurationSeconds()))
 	{
 		EndLoop(ERewindLoopEndReason::Timer);
 	}
@@ -62,9 +98,15 @@ TStatId URewindLoopSubsystem::GetStatId() const
 
 void URewindLoopSubsystem::StartLoop()
 {
-	if (URewindWorldStateSubsystem* WorldState = GetWorld()->GetSubsystem<URewindWorldStateSubsystem>())
+	Latch.Reset();
+	LatchedReason = ERewindLoopEndReason::Death;
+
+	if (UWorld* World = GetWorld())
 	{
-		WorldState->ApplyLoopStart();
+		if (URewindWorldStateSubsystem* WorldState = World->GetSubsystem<URewindWorldStateSubsystem>())
+		{
+			WorldState->ApplyLoopStart();
+		}
 	}
 
 	Clock.Start();
@@ -73,38 +115,50 @@ void URewindLoopSubsystem::StartLoop()
 	// apply order so the participants have already reported their baseline.
 	FString Anchor = TEXT("None");
 	int32 Knowledge = 0;
-	if (UGameInstance* GameInstance = GetWorld()->GetGameInstance())
+	if (UWorld* World = GetWorld())
 	{
-		if (const URewindSessionSubsystem* Session = GameInstance->GetSubsystem<URewindSessionSubsystem>())
+		if (UGameInstance* GameInstance = World->GetGameInstance())
 		{
-			Anchor = Session->GetActiveAnchor().ToString();
-			Knowledge = Session->GetKnowledgeCount();
+			if (const URewindSessionSubsystem* Session = GameInstance->GetSubsystem<URewindSessionSubsystem>())
+			{
+				Anchor = Session->GetActiveAnchor().ToString();
+				Knowledge = Session->GetKnowledgeCount();
+			}
 		}
 	}
-	RewindLog::Event(this, FString::Printf(
-		TEXT("LOOP START  duration=%.0fs  knowledge=%d  anchor=%s"),
-		GetLoopDurationSeconds(), Knowledge, *Anchor));
+
+	if (UsesWholeSpaceDeadline())
+	{
+		RewindLog::Event(this, FString::Printf(
+			TEXT("LOOP START  duration=%.0fs  knowledge=%d  anchor=%s"),
+			GetLoopDurationSeconds(), Knowledge, *Anchor));
+	}
+	else
+	{
+		RewindLog::Event(this, FString::Printf(
+			TEXT("LOOP START  knowledge=%d  anchor=%s"), Knowledge, *Anchor));
+	}
 }
 
 void URewindLoopSubsystem::EndLoop(ERewindLoopEndReason Reason)
 {
+	Latch.Reset();
 	Clock.Stop();
 
-	// FL-02 asks that a loop end only by timer or by death. Logged before the
-	// session write and before the next loop starts, so the reason and the
-	// elapsed time it ended at are one line.
-	RewindLog::Event(this, FString::Printf(TEXT("LOOP END  reason=%s"),
-		Reason == ERewindLoopEndReason::Timer ? TEXT("Timer") : TEXT("Death")));
+	RewindLog::Event(this, FString::Printf(TEXT("LOOP END  reason=%s"), ReasonName(Reason)));
 
-	if (UGameInstance* GameInstance = GetWorld()->GetGameInstance())
+	if (UWorld* World = GetWorld())
 	{
-		if (URewindSessionSubsystem* Session = GameInstance->GetSubsystem<URewindSessionSubsystem>())
+		if (UGameInstance* GameInstance = World->GetGameInstance())
 		{
-			Session->WriteOnLoopEnd();
+			if (URewindSessionSubsystem* Session = GameInstance->GetSubsystem<URewindSessionSubsystem>())
+			{
+				Session->WriteOnLoopEnd();
 
-			RewindLog::Event(this, FString::Printf(
-				TEXT("SESSION WRITE  knowledge=%d  anchor=%s"),
-				Session->GetKnowledgeCount(), *Session->GetActiveAnchor().ToString()));
+				RewindLog::Event(this, FString::Printf(
+					TEXT("SESSION WRITE  knowledge=%d  anchor=%s"),
+					Session->GetKnowledgeCount(), *Session->GetActiveAnchor().ToString()));
+			}
 		}
 	}
 
@@ -113,34 +167,67 @@ void URewindLoopSubsystem::EndLoop(ERewindLoopEndReason Reason)
 
 void URewindLoopSubsystem::NotifyPlayerDied()
 {
-	if (Clock.IsRunning())
+	if (Clock.IsRunning() || Latch.IsLatched())
 	{
 		EndLoop(ERewindLoopEndReason::Death);
 	}
 }
 
+void URewindLoopSubsystem::NotifyCausalContractFailed(FName Checkpoint)
+{
+	TryLatchRewind(ERewindLoopEndReason::CausalContract, Checkpoint);
+}
+
+void URewindLoopSubsystem::NotifyAnchorCommitted()
+{
+	TryLatchRewind(ERewindLoopEndReason::AnchorCommit, NAME_None);
+}
+
+void URewindLoopSubsystem::TryLatchRewind(ERewindLoopEndReason Reason, FName Checkpoint)
+{
+	if (!Clock.IsRunning() && !Latch.IsLatched())
+	{
+		Clock.Start();
+	}
+
+	if (!Latch.TryLatch(Checkpoint, Clock.GetElapsedSeconds(), GetConfiguredPreludeSeconds()))
+	{
+		return;
+	}
+
+	LatchedReason = Reason;
+	RewindLog::Event(this, FString::Printf(
+		TEXT("REWIND LATCH  reason=%s  checkpoint=%s  prelude=%.2fs  t=%.2f"),
+		ReasonName(Reason),
+		Checkpoint.IsNone() ? TEXT("None") : *Checkpoint.ToString(),
+		Latch.PreludeDurationSeconds,
+		Latch.RequestElapsedSeconds));
+}
+
 void URewindLoopSubsystem::CleanSaveAndRestart()
 {
-	if (UGameInstance* GameInstance = GetWorld()->GetGameInstance())
+	Latch.Reset();
+
+	if (UWorld* World = GetWorld())
 	{
-		if (URewindSessionSubsystem* Session = GameInstance->GetSubsystem<URewindSessionSubsystem>())
+		if (UGameInstance* GameInstance = World->GetGameInstance())
 		{
-			Session->CleanSave();
-
-			// FL-15 asks that a clean save be reachable. Without a report the
-			// only proof is indirect, so state the resulting session on screen
-			// and let the run record the observation rather than infer it.
-			const FString Report = FString::Printf(
-				TEXT("CLEAN SAVE  knowledge=%d  anchor=%s  -> %s"),
-				Session->GetKnowledgeCount(),
-				*Session->GetActiveAnchor().ToString(),
-				Session->IsClean() ? TEXT("CLEAN") : TEXT("NOT CLEAN"));
-
-			RewindLog::Event(this, Report);
-			if (GEngine)
+			if (URewindSessionSubsystem* Session = GameInstance->GetSubsystem<URewindSessionSubsystem>())
 			{
-				GEngine->AddOnScreenDebugMessage(-1, 6.f,
-					Session->IsClean() ? FColor::Green : FColor::Red, Report);
+				Session->CleanSave();
+
+				const FString Report = FString::Printf(
+					TEXT("CLEAN SAVE  knowledge=%d  anchor=%s  -> %s"),
+					Session->GetKnowledgeCount(),
+					*Session->GetActiveAnchor().ToString(),
+					Session->IsClean() ? TEXT("CLEAN") : TEXT("NOT CLEAN"));
+
+				RewindLog::Event(this, Report);
+				if (GEngine)
+				{
+					GEngine->AddOnScreenDebugMessage(-1, 6.f,
+						Session->IsClean() ? FColor::Green : FColor::Red, Report);
+				}
 			}
 		}
 	}
@@ -150,11 +237,47 @@ void URewindLoopSubsystem::CleanSaveAndRestart()
 
 float URewindLoopSubsystem::GetLoopDurationSeconds() const
 {
-	// GetDefault never returns null, so the settings object is the only place
-	// this number lives in code. It had a second copy here as a fallback, and a
-	// number in two places drifts: the design said 240 while this said 420.
-	// `chapter-1-authored.md` owns the value.
 	return GetDefault<URewindDeveloperSettings>()->LoopDurationSeconds;
+}
+
+bool URewindLoopSubsystem::UsesWholeSpaceDeadline() const
+{
+	const URewindDeveloperSettings* Settings = GetDefault<URewindDeveloperSettings>();
+	return Settings && Settings->bUseWholeSpaceDeadline && Settings->LoopDurationSeconds > 0.f;
+}
+
+double URewindLoopSubsystem::GetLoopBreakIntensity() const
+{
+	if (!Latch.IsLatched())
+	{
+		return 0.0;
+	}
+	return FRewindLoopBreakMath::Intensity(
+		Clock.GetElapsedSeconds(),
+		Latch.RequestElapsedSeconds,
+		Latch.PreludeDurationSeconds);
+}
+
+float URewindLoopSubsystem::GetConfiguredPreludeSeconds() const
+{
+	return GetDefault<URewindDeveloperSettings>()->RewindPreludeSeconds;
+}
+
+const TCHAR* URewindLoopSubsystem::ReasonName(ERewindLoopEndReason Reason)
+{
+	switch (Reason)
+	{
+	case ERewindLoopEndReason::CausalContract:
+		return TEXT("CausalContract");
+	case ERewindLoopEndReason::Death:
+		return TEXT("Death");
+	case ERewindLoopEndReason::AnchorCommit:
+		return TEXT("AnchorCommit");
+	case ERewindLoopEndReason::Timer:
+		return TEXT("Timer");
+	default:
+		return TEXT("Unknown");
+	}
 }
 
 void URewindLoopSubsystem::RegisterConsoleCommands()
