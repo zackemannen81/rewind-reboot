@@ -54,3 +54,6 @@ still the protocol extraction; that identity stays taken. New claims use `REW`.
 | REW-0025 | Re-import the 4c textures and re-bind the authored map | unassigned | 2026-08-25 | docs/CURRENT_TASK.md |
 | REW-0020 | Authored courtyard blockout and the ground-fuse checkpoint | grok-courtyard | 2026-08-25 | docs/finished/REW-0020_authored-courtyard-blockout-and-the-ground-fuse-checkpoint.md |
 | REW-0026 | The Returner: generated player character and silhouette | Claude | 2026-08-25 | docs/CURRENT_TASK.md |
+| REW-0027 | Import the environment texture kit and build surface instances | codex-surfaces | 2026-08-26 | docs/CURRENT_TASK.md |
+| REW-0028 | Grime decal instances from the environment kit atlases | codex-decals | 2026-08-26 | docs/CURRENT_TASK.md |
+| REW-0029 | Bind The Returner as the player character | codex-character | 2026-08-26 | docs/CURRENT_TASK.md |
