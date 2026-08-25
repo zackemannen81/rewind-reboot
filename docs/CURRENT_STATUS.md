@@ -40,6 +40,7 @@ wrong and must be corrected.
 | `Rewind/Source/Rewind/RewindCameraRig.cpp` | The authored camera of ADR-0007. Regions declare rotation, X/Y/Z travel axis, bounds, dead zone, player volume and explicit FOV. Half-open volumes give shared thresholds exactly one owner. The procedural proof has eleven regions; the authored building slice plus courtyard has nine |
 | `Rewind/Content/Art/Materials/Stairwell/` | Two project-owned procedural masters and six material instances: upper and lower walls, floor, metal, door and near-black player silhouette. They are a first-pass presentation grammar and introduce no third-party dependency |
 | `Rewind/Content/Art/Materials/BuildingSlice/` | Project-owned 4C floor instance with restrained reflection, plus `M_4CSignEmissive` for the 4C sign panel. Both depend only on project-owned material work; no third-party environment pack |
+| `Rewind/Content/Art/Textures/Decals/` and `Rewind/Content/Art/Materials/Decals/Instances/` | REW-0028 imports three project-supplied linear mask atlases and three neon emissive textures, then supplies sixteen `M_REW_GrimeDecal` instances: four peeling-plaster, six leaks/rust and six wall-crack cells. The mask assets are non-sRGB, `TC_Masks` and Clamp; all six textures are LFS-tracked. The committed headless importer and source record live under `Rewind/ArtSource/` |
 | `Rewind/ArtSource/Textures/EnvironmentTextureKit-v1/` | Twelve project-generated quality-94 JPEG import sources from RE:WIND Environment Texture Kit v1, with a dated provenance record. They are retained outside `Content/` so `/Game/Art/Textures/Surfaces` can be rebuilt without the owner's desktop staging directory |
 | `Rewind/Content/Art/Textures/Surfaces/` | Twelve project-generated base-colour textures: eight tileable surfaces and four clamp-addressed backdrop/poster textures. REW-0027 read back sRGB enabled and `MaxTextureSize=1024` for every asset; tileable surfaces use Wrap and the backdrop/poster assets use Clamp |
 | `Rewind/Content/Art/Materials/Surfaces/` | `M_REW_Surface` plus eight REW-0027 instances: plaster grey/green, dark brick, courtyard paving, interior floor tile, ivory ceramic tile, painted black metal and worn dark wood. Each instance has its base texture and world TileSize set; no map uses them yet |
@@ -83,8 +84,10 @@ wrong and must be corrected.
   GI, Lumen reflections, virtual shadow maps, mesh distance fields and bloom,
   with a first light-shaping pass so the accepted grammar can be judged. That
   is a renderer and look pass, not final art. Procedural plaster, basic
-  fixtures and primitive geometry remain. Authored decals, final models,
-  props, rain, neon treatment and wider-map dressing are not integrated.
+  fixtures and primitive geometry remain. REW-0028's decal and neon texture
+  assets are unplaced drop-in content only: no DecalActor, map integration,
+  visual placement evidence or neon material treatment exists yet. Final
+  models, props, rain and wider-map dressing are not integrated.
   Locally imported Fab/environment packs and `Rewind/Content/Art/Texture/`
   remain untracked and local under ADR-0011. REW-0022 removed the saved map's
   references to them. A fresh clone of the default map therefore opens without

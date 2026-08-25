@@ -15,12 +15,14 @@ rewind-reboot/
 │   ├── Rewind.uproject             engine 5.8; runtime and editor modules; MCP/toolset plugins
 │   ├── Source/Rewind/              loop, session, Chapter 1, authored camera, courtyard, player messages and named runtime tests
 │   ├── Source/RewindEditor/        editor-only MCP PIE-input and clean screenshot toolset
-│   ├── ArtSource/Textures/         owner-authored 4c_* JPEG sources and the generated
-│   │   └── EnvironmentTextureKit-v1/ retained REW-0027 JPEG import sources plus provenance,
-│   │                               outside Content/ so the editor never scans them
+│   ├── ArtSource/Textures/         owner-authored 4c_* JPEG sources, plus the generated kit:
+│   │   ├── EnvironmentTextureKit-v1/ REW-0027 JPEG surface/backdrop import sources
+│   │   └── EnvironmentKitV1/       REW-0028 decal atlas and neon PNG sources
+│   │                               both outside Content/ so the editor never scans them
 │   ├── ArtSource/Characters/Returner/
 │   │                               owner-generated Returner source FBX and provenance
-│   ├── ArtSource/Scripts/          reproducible editor Python imports and Returner alignment inspection
+│   ├── ArtSource/Scripts/          reproducible editor Python imports, rebuilds and the
+│   │                               Returner alignment inspection
 │   ├── Config/                     default engine, game, input, editor
 │   └── Content/
 │       ├── FiveLoops_Handmade.umap owner-authored original construction map
@@ -35,7 +37,9 @@ rewind-reboot/
 │       │                            project-owned masters and instances for the presentation slice
 │       ├── Art/Materials/BuildingSlice/
 │       │                            project-owned 4C floor instance and 4C sign emissive
+│       ├── Art/Materials/Decals/   deferred-decal master and REW-0028's 16 cell instances
 │       ├── Art/Materials/Surfaces/  M_REW_Surface and eight REW-0027 tileable-surface instances
+│       ├── Art/Textures/Decals/    REW-0028's three opacity-mask atlases and three neon textures
 │       ├── Art/Textures/Surfaces/   twelve REW-0027 textures: eight tileable surfaces and
 │       │                            four backdrop/poster assets
 │       ├── Characters/Returner/    runtime Returner mesh, skeleton and four own-skeleton clips
@@ -97,7 +101,10 @@ Generated Unreal output (`Binaries/`, `Intermediate/`, `Saved/`,
 12.61 MiB Tier 1 character subset under `Rewind/Content/Characters/Tier1/`.
 The stairwell and building-slice material family uses only project-authored
 Unreal assets under `Rewind/Content/Art/Materials/`. The owner's hand-authored `4c_*` texture sources are tracked at
-`Rewind/ArtSource/Textures/`, 76 KB. Locally imported Fab, OldWall and
+`Rewind/ArtSource/Textures/`, 76 KB. REW-0028 also tracks six supplied
+EnvironmentKitV1 decal/neon PNG sources there, with their import settings and
+grid evidence recorded in `EnvironmentKitV1/REW-0028-decal-provenance.md`.
+Locally imported Fab, OldWall and
 PaintedBrickWall working material remains untracked and local: ADR-0011
 decided that third-party packs stay outside the tracked dependency closure,
 and REW-0022 unbound the default map from those packages. Its 2026-08-25
