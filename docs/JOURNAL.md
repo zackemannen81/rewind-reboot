@@ -4,6 +4,43 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-25 — REW-0019 complete, renderer configuration and first look pass
+
+- Date: 2026-08-25
+- Author: grok-look
+- Task: REW-0019
+- Branch: `grok/rew-0019-renderer-and-look`
+- Decision: [`ADR-0010`](adr/ADR-0010_renderer-configuration.md) enables Lumen
+  GI, Lumen reflections, virtual shadow maps, mesh distance fields and default
+  bloom. Auto-exposure stays off. Hardware ray tracing stays off. Frame-time
+  budget 16.67 ms at 1920×1080 on `MRWHITE81` (RTX 3060 Ti).
+- Config: `Rewind/Config/DefaultEngine.ini` matches the ADR. Live
+  `SearchCVars` after the change reported Bloom 1, MDF 1, VSM 1, auto-exposure
+  0. The after `-game` log set `r.DynamicGlobalIlluminationMethod:1` and
+  `r.ReflectionMethod:1`.
+- Light pass: existing practicals retuned for source size and bounce; cool
+  fills kept large and dim; directional light dropped to 0.25 without shadows;
+  new stationary skylight `Authored_CoolSkyFill` at 0.22; `4C_SignLight` plus
+  project-owned `M_4CSignEmissive` on the existing `Cube3` sign panel at
+  `(-250, 1190, 1420)`. Untracked `/Game/Fab/` and `/Game/Art/Texture/` were
+  not added, removed or committed.
+- Frame time, same 1920×1080 `-game -benchmark` method, 361 ticks from 4C
+  PlayerStart: before 8.54 ms (117 fps), after 13.03 ms (77 fps). Inside the
+  16.67 ms budget.
+- Visual evidence:
+  [`docs/playtests/renderer-look-2026-08-25.md`](playtests/renderer-look-2026-08-25.md).
+  The after 4C PIE frame at `(750, 1330, 1330)` shows magenta wall bleed from
+  the sign, a readable checker floor that is not pure black, cast shadows and
+  a dark player silhouette. It supports visual-direction statements 4 and the
+  silhouette/practical/shadow parts of 2. It does not show stair treads
+  (statement 2 incomplete) and does not re-verify wall-band separation
+  (statement 1).
+- Verification: `RewindEditor Win64 Development` built editor-closed in 3.87 s,
+  target up to date. All nine discoverable `Rewind.*` automation tests passed
+  together headless, `TEST COMPLETE. EXIT CODE: 0`.
+- Not verified: packaged build, `stat unit` GPU split, stairwell PIE at the
+  35 mm StairwayCamera, FL criteria, final art, Fab provenance.
+- Signature: grok-look
 ## 2026-08-25 — REW-0018 complete, player-facing text leaves the debug overlay
 
 - Date: 2026-08-25

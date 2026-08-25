@@ -32,6 +32,7 @@ or moved.
 | [`ADR-0007_camera-and-perspective.md`](ADR-0007_camera-and-perspective.md) | Accepted | The camera is authored, not player-controlled |
 | [`ADR-0008_what-an-anchor-is-worth.md`](ADR-0008_what-an-anchor-is-worth.md) | Accepted | Why an Anchor exists, the test a candidate must pass, and why they stay scarce |
 | [`ADR-0009_event-driven-loop-termination.md`](ADR-0009_event-driven-loop-termination.md) | Accepted | Why loops end, how causal checkpoints work, and when time may end a loop |
+| [`ADR-0010_renderer-configuration.md`](ADR-0010_renderer-configuration.md) | Accepted | Lumen GI and reflections, virtual shadow maps, mesh distance fields and bloom for the authored look; authored exposure stays off; hardware RT stays off |
 
 ## Decisions that are open
 

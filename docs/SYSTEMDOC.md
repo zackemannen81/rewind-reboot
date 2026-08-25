@@ -67,10 +67,23 @@ walking resumes.
 
 The map uses project-owned procedural master materials and instances for upper
 plaster, the separate green lower wall band, dark circulation surfaces,
-guardrails, doors and the player silhouette. Localized shadow-casting point
-lights, restrained cool fill and a manual-exposure post process form the
-first-pass visual grammar. This is a presentation proof, not final art, and it
-has no third-party environment asset dependency.
+guardrails, doors and the player silhouette, plus a project-owned unlit
+emissive 4C sign material. Localized shadow-casting point lights with authored
+source size, restrained cool fill, a dim stationary skylight and a
+manual-exposure post process form the first-pass visual grammar. The 4C sign
+panel has a real magenta light so it can bleed onto the wall behind it.
+
+ADR-0010 sets the project renderer: Lumen global illumination
+(`r.DynamicGlobalIlluminationMethod=1`), Lumen reflections
+(`r.ReflectionMethod=1`), virtual shadow maps (`r.Shadow.Virtual.Enable=1`),
+mesh distance fields (`r.GenerateMeshDistanceFields=True`) and default bloom
+(`r.DefaultFeature.Bloom=True`). Auto-exposure stays off. Hardware ray tracing
+stays off; Lumen uses software tracing through mesh distance fields. The
+frame-time budget is 16.67 ms at 1920×1080 on the named development machine.
+This is a presentation proof, not final art, and the added sign material
+introduces no third-party environment asset dependency. Untracked `/Game/Fab/`
+and `/Game/Art/Texture/` packages remain referenced by the saved map and remain
+outside the tracked closure.
 
 PIE exposed one REW-0010 collision defect in reverse traversal: a 180 cm-deep
 intermediate landing overlapped the stair approach far enough for the capsule
