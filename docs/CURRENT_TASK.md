@@ -1,29 +1,30 @@
 # Current Task
 
-Task ID: REW-0029
+Task ID:
 Parent Task: None
-Status: Ready
-Owner: codex-character
-Created: 2026-08-26
-Last updated: 2026-08-26
-Charter frozen at: 2026-08-26
+Status: Draft
+Owner:
+Created:
+Last updated:
+Charter frozen at:
 
 ## Read First
 
 - `AGENTS.md`
 - `docs/TASK_WORKFLOW.md`
-- `Rewind/Source/Rewind/RewindCharacter.cpp`
-- `Rewind/Source/Rewind/RewindCharacter.h`
-- `docs/design/camera-and-movement.md`
-- `docs/design/stairwell-visual-direction.md`
-- `docs/concept/README.md`
-- `Rewind/ArtSource/Characters/Returner/PROVENANCE.md`
-- `docs/EDITOR_AUTOMATION.md`
+- `docs/PROJECT_BRIEF.md`
+- `docs/CONTRIBUTING.md`
+- `docs/CURRENT_STATUS.md`
+- `docs/SYSTEMDOC.md`
+- `docs/JOURNAL.md`
+- `docs/FILESTRUCTURE.md`
+- Relevant ADRs under `docs/adr/`
 
 ## Task Summary
+A task is never considered done until:
+JOURNAL.md, SYSTEMDOC.md, CURRENT_STATUS.md is a jour.
 
-Bind the already imported Returner assets to the runtime player while retaining
-the accepted silhouette material and existing velocity-driven locomotion.
+Describe the task, why it is being done now and the intended outcome.
 
 ## Task Charter
 
@@ -32,93 +33,53 @@ The charter is editable while status is `Draft` and immutable once status is
 
 ### Goal
 
-The player pawn is The Returner, idling and walking correctly.
+Define one primary outcome.
 
 ### Primary Deliverable
 
-ARewindCharacter driving the Returner skeletal mesh with A_Returner_Alert
-as idle and A_Returner_Walk as walk, correctly aligned to the capsule.
+Name the concrete artifact or behavior that completes the task.
 
 ### In Scope
 
-- Replace the Tier1_UAL1 mesh and animation references in
-  ARewindCharacter's constructor with the Returner equivalents.
-- Keep the existing locomotion logic: idle and walk switch on a velocity
-  threshold in Tick. Do not restructure it.
-- Alignment: the mesh's feet must meet the capsule bottom, and its
-  animation-forward direction must match CharacterMovement's movement
-  direction. The existing Tier1 code offsets by capsule half-height and
-  rotates -90 degrees on yaw; the Returner's rig may need different
-  values. Determine them rather than copying.
-- Keep MI_CharacterSilhouette applied to every material slot. The
-  near-black silhouette is accepted visual direction and is not yours to
-  change.
-- Leave the Tier1 assets in place. They are not being deleted in this task.
+- List work required for the primary deliverable.
 
 ### Out of Scope
 
-- Any .umap. You must not open or modify the level. The operator owns it.
-- Any texture or material asset. REW-0027 and REW-0028 own those.
-- Animation breadth beyond idle and walk. The run and second walk clip
-  stay unbound.
-- Retargeting. The Quaternius skeleton has 65 bones and the Returner 24;
-  they are structurally different rigs and the Meshy clips are authored on
-  the Returner's own skeleton.
-- Changing the accepted walk speed or any rule in docs/design/.
-- docs/TASK_IDS.md. Already claimed.
+- List adjacent work that must not be absorbed.
 
 ### Definition of Done
 
-- The player pawn uses /Game/Characters/Returner/Returner.
-- Idle plays when stationary and walk plays when moving.
-- The feet meet the capsule bottom and the figure faces its direction of
-  travel, with the values used stated in the journal entry.
-- MI_CharacterSilhouette is applied to all material slots.
-- RewindEditor Win64 Development builds with the editor closed and all
-  discoverable Rewind.* automation tests pass together.
+- Define objective, verifiable completion conditions.
 
 ### Minimum Verification Gates
 
-- [ ] Editor-closed build succeeds.
-- [ ] All discoverable Rewind.* tests pass together, run headless.
-- [ ] Evidence that the alignment is right, not merely that it compiles.
-- [ ] The journal entry names what was verified and what was not.
+- [ ] Define checks that may be strengthened but not removed after `Ready`.
 
 ## References
 
-- `Rewind/Source/Rewind/RewindCharacter.cpp`
-- `Rewind/Source/Rewind/RewindCharacter.h`
-- `Rewind/ArtSource/Scripts/inspect_skeletons.py`
-- `Rewind/ArtSource/Scripts/import_returner_anims.py`
-- `docs/EDITOR_AUTOMATION.md`
+- Add relevant documents, code, decisions and external contracts.
 
 ## Checklist
 
-- [x] Record the frozen REW-0029 charter.
-- [x] Inspect Returner mesh bounds and reference pose using the editor Python path.
-- [x] Bind the Returner mesh, idle and walk assets with measured alignment.
-- [ ] Build editor-closed and run all discoverable `Rewind.*` automation tests.
-- [ ] Update durable status and system documentation, then journal evidence.
-- [ ] Archive the completed charter and restore the active-task template.
+- [ ] Break work into concrete, ordered steps.
+- [ ] Keep this checklist aligned with actual progress.
+- [ ] Add verification and documentation steps.
 
 ## Decisions and Notes
-
-- A checkpoint after each step or substep is required.
-- The frozen scope requires values derived from imported-asset evidence; no
-  design rule is introduced by this task.
+- A checkpoint after each step or substep is required. Checklist is therefore updated along the work and `CURRENT_STATUS.md` is always updated when changes affect the behavior.
+- Record decisions and assumptions within the frozen charter.
 - Classify discoveries using `docs/TASK_WORKFLOW.md`.
 
 ## Charter Amendment Log
 
 Only non-semantic corrections are allowed after `Ready`.
 
-- none
+-none
 
 ## Verification
 
-- [ ] Editor-closed build.
-- [ ] Full `Rewind.*` automation run, headless.
-- [ ] Imported mesh bounds and reference-pose evidence for capsule alignment.
+- [ ] Define task-appropriate technical checks.
+- [ ] Define manual or scenario validation when relevant.
 - [ ] Document skipped checks and reasons.
 
 ## Documentation Updates
@@ -131,12 +92,12 @@ Only non-semantic corrections are allowed after `Ready`.
 
 ## Handoff and Follow-ups
 
-- Current state: charter recorded; implementation has not begun.
-- Next recommended step: inspect the Returner mesh and reference pose in the editor.
-- Blockers: none.
-- Child tasks: none.
-- Resume condition: not paused.
-- Open questions: measured origin and forward-axis alignment values.
+- Current state:
+- Next recommended step:
+- Blockers:
+- Child tasks:
+- Resume condition:
+- Open questions:
 
 ## Finalize When Complete
 

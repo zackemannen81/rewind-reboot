@@ -17,6 +17,9 @@ rewind-reboot/
 │   ├── Source/RewindEditor/        editor-only MCP PIE-input and clean screenshot toolset
 │   ├── ArtSource/Textures/         owner-authored JPEG sources for the 4c_* textures,
 │   │                               outside Content/ so the editor never scans them
+│   ├── ArtSource/Characters/Returner/
+│   │                               owner-generated Returner source FBX and provenance
+│   ├── ArtSource/Scripts/          reproducible editor Python imports and Returner alignment inspection
 │   ├── Config/                     default engine, game, input, editor
 │   └── Content/
 │       ├── FiveLoops_Handmade.umap owner-authored original construction map
@@ -31,7 +34,8 @@ rewind-reboot/
 │       │                            project-owned masters and instances for the presentation slice
 │       ├── Art/Materials/BuildingSlice/
 │       │                            project-owned 4C floor instance and 4C sign emissive
-│       └── Characters/Tier1/       21 CC0 animations and two pack mannequins
+│       ├── Characters/Returner/    runtime Returner mesh, skeleton and four own-skeleton clips
+│       └── Characters/Tier1/       retained 21 CC0 animations and two pack mannequins
 ├── docs/
 │   ├── CURRENT_TASK.md             active task when one is approved; otherwise the restored template
 │   ├── template_CURRENT_TASK.md    the charter form

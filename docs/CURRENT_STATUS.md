@@ -1,6 +1,6 @@
 # Current Status
 
-Reality as of 2026-08-25. This document describes what exists, not what is
+Reality as of 2026-08-26. This document describes what exists, not what is
 planned. If it disagrees with the repository or the build, this document is
 wrong and must be corrected.
 
@@ -43,9 +43,10 @@ wrong and must be corrected.
 | `Rewind/Source/Rewind/RewindRadio.cpp` | Four channels on the loop clock. The accepted channel speaks `7312` across 20 seconds at phases 4, 9, 14 and 19 of a 50-second cycle. A full sequence grants the stored fact; individual digits remain player memory |
 | `Rewind/Source/Rewind/RewindFuse.cpp` and `RewindFuseSocket.cpp` | One carried LoopWorld fuse with two exclusive sockets. The courtyard socket enables the generator; the building socket powers the lift. The lift refuses an empty building socket |
 | `Rewind/Source/Rewind/RewindLift.cpp` and `RewindStairwell.cpp` | A physical bidirectional six-second cage journey between floor 4 and entrance, plus the always-available stair routes. The cage has a blocking floor, centres its passenger and applies a configurable local-space hall exit offset, so the rotated authored instance hands the capsule to X `-280` on both landings while the procedural proof retains its default hand. Final REW-0013 PIE measured 6.00 s down and 6.00 s up |
-| `Rewind/Content/Characters/Tier1/` | CC0 Quaternius Tier 1: 21 in-place animations and both pack mannequins, 31 assets and 12.61 MiB. UAL1 idle/walk drive the visible blockout player |
+| `Rewind/Content/Characters/Returner/` | The owner-generated 24-bone Returner mesh, skeleton and four animations. REW-0029 binds `/Game/Characters/Returner/Returner` to the runtime player, with `A_Returner_Alert` as idle and `A_Returner_Walk` as walk. Editor bounds and reference-pose data establish the Z −96 cm, yaw −90° presentation transform; no PIE visual frame was captured on this agent session |
+| `Rewind/Content/Characters/Tier1/` | CC0 Quaternius Tier 1: 21 in-place animations and both pack mannequins, 31 assets and 12.61 MiB. The assets remain available but are no longer the runtime player binding |
 | `Rewind/Source/RewindEditor/` | Editor-only PIE bridge: input state, tap, held keys, exact game-time holds, queued measured sequences, active camera region/axis/transform/FOV, clean game-viewport PNG capture, restricted `Rewind.*` console calls and release-all through simulated Unreal input |
-| `AutomationTestToolset` | Enabled. Twenty-two `Rewind.*` tests exist after REW-0020: the nineteen inherited, plus `Rewind.AuthoredCourtyard.SpatialConstants`, `Rewind.AuthoredCourtyard.RegionAbutment` and `Rewind.AuthoredCourtyard.SkipProofLayoutSpawnsCheckpoint`. Run together headless on this branch on 2026-08-25: 22 passed, 0 failed, `TEST COMPLETE. EXIT CODE: 0` |
+| `AutomationTestToolset` | Enabled. Twenty-two `Rewind.*` tests exist after REW-0020: the nineteen inherited, plus `Rewind.AuthoredCourtyard.SpatialConstants`, `Rewind.AuthoredCourtyard.RegionAbutment` and `Rewind.AuthoredCourtyard.SkipProofLayoutSpawnsCheckpoint`. Run together headless on the REW-0029 branch on 2026-08-26: 22 passed, 0 failed, `TEST COMPLETE. EXIT CODE: 0` |
 | `docs/finished/REW-0007_...md` | Complete. The rebuilt Chapter 1 chain, timing construction, eleven cameras, Tier 1 import and three-loop evidence are archived |
 | `docs/finished/REW-0008_...md` | Complete. Canonical editor/MCP context, project-scoped Codex config, PIE-input toolset and named automation-test execution |
 | `docs/finished/REW-0009_...md` | Complete. Event-driven loop termination accepted; product, design and FL authority amended; implementation and owner-level adoption routed separately |
