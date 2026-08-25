@@ -15,7 +15,8 @@ rewind-reboot/
 │   ├── Rewind.uproject             engine 5.8; runtime and editor modules; MCP/toolset plugins
 │   ├── Source/Rewind/              loop, session, Chapter 1, authored camera, courtyard, player messages and named runtime tests
 │   ├── Source/RewindEditor/        editor-only MCP PIE-input and clean screenshot toolset
-│   ├── ArtSource/Textures/         owner-authored JPEG sources for the 4c_* textures,
+│   ├── ArtSource/Textures/         owner-authored 4c_* JPEG sources and the generated
+│   │   └── EnvironmentTextureKit-v1/ retained REW-0027 JPEG import sources plus provenance,
 │   │                               outside Content/ so the editor never scans them
 │   ├── ArtSource/Characters/Returner/
 │   │                               owner-generated Returner source FBX and provenance
@@ -34,6 +35,9 @@ rewind-reboot/
 │       │                            project-owned masters and instances for the presentation slice
 │       ├── Art/Materials/BuildingSlice/
 │       │                            project-owned 4C floor instance and 4C sign emissive
+│       ├── Art/Materials/Surfaces/  M_REW_Surface and eight REW-0027 tileable-surface instances
+│       ├── Art/Textures/Surfaces/   twelve REW-0027 textures: eight tileable surfaces and
+│       │                            four backdrop/poster assets
 │       ├── Characters/Returner/    runtime Returner mesh, skeleton and four own-skeleton clips
 │       └── Characters/Tier1/       retained 21 CC0 animations and two pack mannequins
 ├── docs/
