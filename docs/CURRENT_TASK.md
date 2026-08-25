@@ -1,43 +1,31 @@
 # Current Task
 
-Task ID: REW-0026
+Task ID: REW-0027
 Parent Task: None
 Status: Ready
-Owner: Claude
-Created: 2026-08-25
-Last updated: 2026-08-25
-Charter frozen at: 2026-08-25
+Owner: codex-surfaces
+Created: 2026-08-26
+Last updated: 2026-08-26
+Charter frozen at: 2026-08-26
 
 ## Read First
 
 - `AGENTS.md`
 - `docs/TASK_WORKFLOW.md`
 - `docs/PROJECT_BRIEF.md`
+- `docs/CONTRIBUTING.md`
 - `docs/CURRENT_STATUS.md`
 - `docs/SYSTEMDOC.md`
+- `docs/JOURNAL.md`
+- `docs/FILESTRUCTURE.md`
 - `docs/adr/ADR-0011_asset-source-and-provenance.md`
-- `docs/adr/ADR-0005_asset-storage.md`
 - `docs/design/stairwell-visual-direction.md`
 - `docs/concept/README.md`
 
 ## Task Summary
 
-The player is currently the CC0 Quaternius `Tier1_UAL1` mannequin rendered
-through `MI_CharacterSilhouette`. It is a placeholder, and it is in every frame
-of the game.
-
-The owner has produced a character design, The Returner: a figure in a long
-tattered coat, hooded in one reference and messy-haired in another, over dark
-trousers and heavy boots. Every scene target under `docs/concept/` shows that
-figure as a flat black silhouette against a lit field. Nothing but the outline
-is ever visible.
-
-ADR-0011 permits generated assets and requires provenance. The owner holds a
-Meshy Pro subscription, so generation is available, and the input that matters
-is a clean T-pose reference rather than a stylised scene render.
-
-This task replaces the placeholder with a generated character whose silhouette
-matches those targets.
+Import the project-generated environment texture kit as reproducible Unreal
+surface assets, without changing any level or master material.
 
 ## Task Charter
 
@@ -46,114 +34,75 @@ The charter is editable while status is `Draft` and immutable once status is
 
 ### Goal
 
-The player reads as The Returner in silhouette, in the frames the game
-actually shows.
+Every surface in the environment texture kit is a tracked Unreal texture
+with a ready-to-use material instance.
 
 ### Primary Deliverable
 
-A generated, rigged character imported as a tracked skeletal mesh, driving the
-player pawn with working idle and walk locomotion, with captures from the
-authored 4C and stairwell frames as the evidence that the outline reads.
+Imported textures under /Game/Art/Textures/Surfaces and one material
+instance per surface under /Game/Art/Materials/Surfaces, each built on
+M_REW_Surface with a TileSize chosen for that surface.
 
 ### In Scope
 
-- Generation from the owner's T-pose reference through the Meshy API, with
-  texturing disabled: the figure renders near-black, so albedo, roughness and
-  metallic maps are never visible and are not worth paying for or tracking.
-- Meshy's auto-rig pass and an FBX export carrying skeleton, bind pose and
-  skin weights.
-- Import as a `USkeletalMesh` with its own `USkeleton`, under
-  `Rewind/Content/Characters/Returner/`, alongside the existing `Tier1/`.
-- Locomotion: an idle and an in-place walk bound the way `ARewindCharacter`
-  already expects, whether those come from Meshy's own clips or from
-  retargeting the Quaternius set.
-- Provenance recorded per ADR-0011: generator, model, source image, date.
-- The source reference images and the exported FBX tracked under
-  `Rewind/ArtSource/Characters/`, so the imported assets can be rebuilt.
-- Captures from the authored Apartment4C and stairwell frames, committed as
-  evidence under `docs/playtests/`.
+- Import the eight tileable surfaces and four backdrop/poster textures
+  from the kit's JPG_Import folder.
+- Import settings per the kit README: sRGB on for base colour, Wrap
+  address mode for tileable surfaces, Clamp for signs, posters and
+  backdrops.
+- Cap every imported texture with MaxTextureSize 1024. This game renders
+  dark and letterboxed; 4K maps are not visible and are not free.
+- One MaterialInstanceConstant per surface, named MI_REW_<Surface>, with
+  BaseColorTex set and TileSize chosen for the real-world scale of that
+  material: brick and paving repeat at a larger world size than ceramic
+  tile.
+- A short markdown note under Rewind/ArtSource/Textures/ recording
+  provenance: generated for this project, the kit version, the date.
 
 ### Out of Scope
 
-- Animation breadth beyond idle and walk. The 21 Quaternius clips and any
-  Meshy extras beyond locomotion are a separate task.
-- Facial detail, cloth simulation, and any lit-material treatment. The
-  silhouette material is accepted and unchanged.
-- The Apartment 4C camera lens, which the operator handles separately.
-- The courtyard, the textures re-bind (REW-0025), and anything in the map.
-- Retiring `Tier1/`. It stays until the replacement is judged good.
-- Changing `MI_CharacterSilhouette` or the accepted visual direction.
+- Any .umap. You must not open or modify the level. The operator owns it.
+- The decal atlases and neon emissives in Decals_Emissive. REW-0028 owns
+  those.
+- Any C++ under Rewind/Source/. REW-0029 owns that.
+- Editing M_REW_Surface itself. Make instances of it.
+- docs/TASK_IDS.md. Already claimed.
 
 ### Definition of Done
 
-- The player pawn uses the generated character, not `Tier1_UAL1`.
-- Idle and walk both play, and walk is in place: `ARewindCharacter` drives
-  locomotion from `CharacterMovement` velocity and a root-motion clip would
-  fight it.
-- The figure's feet meet the capsule bottom and its forward axis matches
-  movement, as the existing mannequin alignment already establishes.
-- Captures from the authored 4C and stairwell frames show a silhouette whose
-  outline reads as a coated figure: coat break below the knee, a distinct head
-  mass, legs separating below the hem.
-- Provenance is recorded where a reader will find it.
-- `RewindEditor Win64 Development` builds with the editor closed and all
-  discoverable `Rewind.*` automation tests pass together.
+- Twelve textures imported and tracked through Git LFS.
+- Eight material instances exist, each with BaseColorTex and TileSize set.
+- No imported texture exceeds 1024 in its built resolution.
+- RewindEditor Win64 Development builds with the editor closed and all
+  discoverable Rewind.* automation tests pass together.
 
 ### Minimum Verification Gates
 
 - [ ] Editor-closed build succeeds.
-- [ ] All discoverable `Rewind.*` tests pass together, run headless.
-- [ ] Captures from at least two authored frames, committed.
-- [ ] Tracked binary cost measured and stated.
-- [ ] The journal entry names what was verified and what was not.
+- [ ] All discoverable Rewind.* tests pass together, run headless.
+- [ ] The journal entry lists every asset created and names what was verified
+  and what was not.
 
 ## References
 
-- `Rewind/Source/Rewind/RewindCharacter.cpp`, the mannequin binding and
-  alignment
-- `Rewind/Content/Characters/Tier1/`, the placeholder being replaced
-- `docs/concept/apartment-4c-walkable-and-interactions.png` and the other
-  scene targets, which show the silhouette in context
-- `docs/backlog/character-animation-source.md`
+- `C:\\Users\\zakri\\Desktop\\rewind-environment-texture-kit-v1\\README.md`
+- `docs/adr/ADR-0011_asset-source-and-provenance.md`
+- `Rewind/Content/Art/Materials/Surfaces/M_REW_Surface.uasset`
 
 ## Checklist
 
-- [x] Claim REW-0026 and charter the task.
-- [x] Submit the T-pose reference to Meshy with texturing disabled.
-- [ ] Run the rigging pass and export FBX.
-- [ ] Track the sources under `Rewind/ArtSource/Characters/`.
-- [ ] Import the skeletal mesh and its animations.
-- [ ] Bind idle and walk in `ARewindCharacter`; fix alignment.
-- [ ] Build and run the full test suite.
-- [ ] Capture the authored 4C and stairwell frames.
-- [ ] Measure the tracked binary cost.
-- [ ] Update `CURRENT_STATUS.md`, `SYSTEMDOC.md`, `JOURNAL.md`.
+- [ ] Track the source JPEGs and provenance record.
+- [ ] Import and configure the twelve textures through a committed editor script.
+- [ ] Create and verify the eight surface material instances.
+- [ ] Build with the editor closed and run the headless automation suite.
+- [ ] Update status, file map and journal.
+- [ ] Archive the completed charter and restore this template.
 
 ## Decisions and Notes
 
 - A checkpoint after each step or substep is required.
-- **Why a whole character rather than a coat on the existing mannequin.** The
-  owner asked which is best. Meshy's auto-rig works on a whole figure and will
-  not skin a loose garment to an existing skeleton, so a separately generated
-  coat arrives static and would need manual skin weighting in Blender. The
-  approach that sounds simpler is the only one needing a tool this project does
-  not use.
-- **Why imperfect deformation is acceptable here.** The figure renders
-  near-black. Clipping that would be glaring on a lit character is invisible
-  when the coat and the leg are the same flat black. The bar is a correct
-  outline, not a correct simulation.
-- **Why the T-pose reference and not the coated render.** `coatman.png` has the
-  hair silhouette the scene targets show, but its arms rest against the body,
-  and auto-riggers fuse limbs into the torso when they touch. The T-pose keeps
-  the arms clear. That is the likeliest reason the owner's earlier attempts
-  produced poor meshes.
-- **Open risk, stated before the work.** The T-pose is hooded and the scene
-  targets show messy hair. In silhouette a hood is a smooth dome and hair is a
-  jagged mass, which are different outlines. If the capture reads wrong, the
-  remedy is another generation, not a rework.
-- Texturing is disabled deliberately. The earlier attempts spent credits on
-  albedo, roughness and metallic maps totalling 10 MB that the silhouette
-  material makes invisible.
+- The kit README is authoritative for each texture's intended use and import settings.
+- TileSize values are initial real-world-scale choices, not a new visual-direction rule.
 - Classify discoveries using `docs/TASK_WORKFLOW.md`.
 
 ## Charter Amendment Log
@@ -164,30 +113,25 @@ Only non-semantic corrections are allowed after `Ready`.
 
 ## Verification
 
+- [ ] Read back all texture and instance settings from the saved Unreal assets.
 - [ ] Editor-closed build.
 - [ ] Full `Rewind.*` automation run, headless.
-- [ ] Captures from the authored 4C and stairwell frames.
-- [ ] Measured tracked size of everything added.
-- [ ] Document skipped checks and reasons.
+- [ ] `git diff --check`.
 
 ## Documentation Updates
 
 - [ ] `docs/CURRENT_STATUS.md`
-- [ ] `docs/SYSTEMDOC.md`
 - [ ] `docs/JOURNAL.md`
-- [ ] `docs/FILESTRUCTURE.md` when structure changes
-- [ ] ADRs when long-lived decisions change
+- [ ] `docs/FILESTRUCTURE.md`
 
 ## Handoff and Follow-ups
 
-- Current state: chartered; generation submitted to Meshy with texturing off.
-- Next recommended step: rig, export FBX, import, bind, capture.
+- Current state: charter frozen; implementation has not yet started.
+- Next recommended step: track sources and run the import script.
 - Blockers: none.
 - Child tasks: none.
 - Resume condition: not paused.
-- Open questions: whether the hooded outline satisfies the owner against scene
-  targets that show hair; and whether Meshy's own clips or retargeted
-  Quaternius clips give the better walk.
+- Open questions: final in-game texel-density judgement remains a later look-pass concern in the kit README.
 
 ## Finalize When Complete
 
