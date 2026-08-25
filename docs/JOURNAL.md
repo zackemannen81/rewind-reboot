@@ -4,6 +4,40 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-25 — REW-0024, the owner's textures were never third-party
+
+- Date: 2026-08-25
+- Author: Claude
+- Task: REW-0024
+- Branch: `claude/rew-0024-owner-textures`
+- Change: the seven `4c_*` JPEG texture sources are tracked at
+  `Rewind/ArtSource/Textures/`, outside `Content/` so the editor never scans
+  them. ADR-0011 carries a dated amendment correcting the clause that named
+  `/Game/Art/Texture/` beside `/Game/Fab/`.
+- The error being corrected: ADR-0011 was written on the assumption that both
+  untracked content directories were third-party imports. Only `/Game/Fab/`
+  was. The owner stated on 2026-08-25 that the `4c_*` textures are hand-made
+  by them and imported from JPEG, which makes them project-owned and squarely
+  inside the record's own first rule. Nothing in ADR-0011's reasoning ever
+  applied to them: no unverified provenance, no licence to check, and the
+  sources total 76 KB against the 342 MB the record was actually about.
+- Consequence: REW-0022 unbound the authored map from those textures along
+  with the Fab packs. That part of REW-0022 was correct against the record as
+  it then read and wrong against the facts. REW-0025 re-imports the textures
+  and re-binds what should not have been unbound. It is sequenced after
+  REW-0020 because both edit the same `.umap`, which cannot be merged.
+- Why the sources are tracked rather than the imported assets: a `.uasset`
+  can be rebuilt from a JPEG, and the JPEG is the thing the owner actually
+  authored. Tracking the source means the imported form is never the only
+  copy, which is what went wrong when `Rewind/Content/Art/Texture/` left the
+  disk between sessions and took the only build of those textures with it.
+- Verification: documentation and 76 KB of source art. `git diff --check`
+  clean; the amendment is dated and does not rewrite the original text, per
+  the ADR convention that superseded reasoning stays visible.
+- Not verified: no build, no test, no editor. Nothing executable changed, and
+  the textures are not imported yet; that is REW-0025.
+- Signature: Claude
+
 ## 2026-08-25 — REW-0022, unbind the authored map from untracked content
 
 - Date: 2026-08-25
