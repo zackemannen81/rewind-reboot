@@ -1,6 +1,7 @@
 # The default map depends on untracked content
 
-Status: Proposed
+Status: Resolved by ADR-0011. Option 2 chosen: assets are project-owned or
+generated, and the map is unbound from untracked content by REW-0022
 Discovered: 2026-08-25, during REW-0015, from a strings scan of the saved map
 Owner: unassigned
 Activated: not activated. No `REW` identity is claimed for this.

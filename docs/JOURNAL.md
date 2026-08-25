@@ -4,6 +4,39 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-25 — REW-0021, the asset-source and Echo decisions
+
+- Date: 2026-08-25
+- Author: Claude
+- Task: REW-0021
+- Branch: `claude/rew-0021-decisions`
+- Change: two decisions the owner made on 2026-08-25 are recorded as
+  `ADR-0011_asset-source-and-provenance.md` and `ADR-0012_echo-semantics.md`,
+  both Accepted. Art assets are project-owned or generated, and third-party
+  packs do not enter the tracked dependency closure. Echo is narrative only:
+  nothing samples the player's transform, nothing persists a path, nothing
+  replays a ghost.
+- Why they were needed: the tracked default map referenced 342 MB of
+  untracked `/Game/Fab/` and `/Game/Art/Texture/` packages, so the repository
+  claimed a map it could not reproduce, which three agent clones proved
+  concrete during REW-0016. Echo had been the first open decision in
+  `docs/PROJECT_BRIEF.md` since the reboot began and was blocking task
+  decomposition.
+- Consequence recorded rather than glossed: Apartment 4C returns to undressed
+  blockout when REW-0022 unbinds the map. That is a visible regression in the
+  owner's editor and is accepted deliberately.
+- Documents corrected in the same change: the ADR index and its open-decision
+  paragraph, `PROJECT_BRIEF.md`'s open-decision list, both backlog proposals
+  and their index rows, and the `CURRENT_STATUS.md` rows that described Echo
+  as unwritten rather than decided against.
+- Verification: documentation only. Links and fenced blocks reviewed by hand;
+  `git diff --check` clean. No build, no test, no editor: nothing executable
+  changed.
+- Not verified: nothing that requires a build. The decisions themselves are
+  not evidence about the game, and ADR-0011's consequences are not yet
+  implemented; REW-0022 does that.
+- Signature: Claude
+
 ## 2026-08-25 — REW-0016 complete, Chapter 1 wave run through delegated agents
 
 - Date: 2026-08-25

@@ -47,3 +47,6 @@ still the protocol extraction; that identity stays taken. New claims use `REW`.
 | REW-0017 | Event-driven rewind and the loop-break signature | grok-loop | 2026-08-25 | docs/CURRENT_TASK.md |
 | REW-0018 | Player message and dialog system | grok-message | 2026-08-25 | docs/CURRENT_TASK.md |
 | REW-0019 | Renderer configuration and the first look pass | grok-look | 2026-08-25 | docs/CURRENT_TASK.md |
+| REW-0021 | Record the asset-source and Echo decisions | Claude | 2026-08-25 | docs/CURRENT_TASK.md |
+| REW-0022 | Unbind the authored map from untracked content | unassigned | 2026-08-25 | docs/CURRENT_TASK.md |
+| REW-0023 | Tutorial copy on the message system | unassigned | 2026-08-25 | docs/CURRENT_TASK.md |

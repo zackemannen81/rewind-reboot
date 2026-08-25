@@ -1,6 +1,6 @@
 # Echo semantics
 
-Status: Proposed
+Status: Resolved by ADR-0012. Echo is narrative only
 Discovered: 2026-08-25, from an owner request during REW-0016
 Owner: unassigned
 Activated: not activated. No `REW` identity is claimed for this.

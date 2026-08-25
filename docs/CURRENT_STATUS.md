@@ -18,6 +18,8 @@ wrong and must be corrected.
 | `docs/adr/ADR-0007_camera-and-perspective.md` | Accepted and implemented. Camera is authored, follows inside a composition, player does not aim it |
 | `docs/adr/ADR-0008_what-an-anchor-is-worth.md` | Accepted and implemented in the Chapter 1 chain. Holding `courtyard_gate_open` leaves the only fuse in the building socket, releasing both the six-second lift route and immediate access to the main route |
 | `docs/adr/ADR-0009_event-driven-loop-termination.md` | Accepted and implemented by REW-0017. Causal-contract failure, death and successful Anchor commit are the default loop-end classes; contract failure and commit run a one-to-three-second loop-clocked prelude |
+| `docs/adr/ADR-0011_asset-source-and-provenance.md` | Accepted. Art assets are project-owned or generated; third-party packs stay outside the tracked closure. The authored map is unbound from untracked content by REW-0022 |
+| `docs/adr/ADR-0012_echo-semantics.md` | Accepted. Echo is narrative only: nothing samples the player's transform, nothing persists a path, nothing replays a ghost |
 | `docs/adr/ADR-0010_renderer-configuration.md` | Accepted. Lumen GI and Lumen reflections, virtual shadow maps, mesh distance fields and default bloom. Auto-exposure stays off. Hardware ray tracing stays off. Frame-time budget 16.67 ms at 1920×1080 on the named development machine |
 | `Rewind/Rewind.uproject` | Unreal Engine 5.8 C++ project. Loop clock, apply order, session save, CleanSave. Loops end on causal-contract failure, death or first-time Anchor commit. The 240-second timeout is no longer the default end condition. `DefaultEngine.ini` matches ADR-0010 |
 | `Rewind/Content/Maps/FiveLoops.umap` | Preserved procedural proof map, no longer the editor or game default. C++ builds 4C, common hallway, cage lift, proof stairs, courtyard/service route and Transit Hub under eleven camera regions |
@@ -94,8 +96,10 @@ wrong and must be corrected.
   makes a player faster. See
   [`five-loops-2026-08-22.md`](playtests/five-loops-2026-08-22.md) and
   [`loop-pressure-and-interaction.md`](backlog/loop-pressure-and-interaction.md).
-- **Echo, Insight as a later system, and Chapters 2 to 5.** Not written, and
-  not required by the first product proof.
+- **Echo as a replayed ghost.** ADR-0012 decided Echo is narrative only, so
+  this will not be built. Nothing samples the player's transform and nothing
+  persists a path. Insight as a later system and Chapters 2 to 5 remain
+  unwritten and are not required by the first product proof.
 - **A license decision.** A `LICENSE` file with Apache-2.0 text remains from
   the docs-first extraction. That is not a decision that RE:WIND is open
   source. The intended safe default for the game is all rights reserved, and
