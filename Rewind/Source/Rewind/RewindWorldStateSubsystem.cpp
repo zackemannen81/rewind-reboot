@@ -2,7 +2,10 @@
 
 #include "RewindLog.h"
 #include "RewindCameraRig.h"
+#include "RewindCausalCheckpoint.h"
 #include "RewindFourCBlockout.h"
+#include "RewindIds.h"
+#include "RewindLoopBreakSignature.h"
 #include "RewindProofLayout.h"
 #include "RewindLoopParticipant.h"
 #include "RewindSessionSubsystem.h"
@@ -33,6 +36,8 @@ void URewindWorldStateSubsystem::EnsureAuthoredSpace()
 		return;
 	}
 
+	EnsureLoopBreakSignature();
+
 	// Standalone authored-space and geometry blockouts own their contents. The
 	// proof layout is still the default, but an explicit map tag prevents it
 	// from being generated on top of those authored actors during PIE.
@@ -58,6 +63,69 @@ void URewindWorldStateSubsystem::EnsureAuthoredSpace()
 	{
 		Layout->EnsureContents();
 	}
+
+	EnsureCausalCheckpoints();
+}
+
+void URewindWorldStateSubsystem::EnsureCausalCheckpoints()
+{
+	UWorld* World = GetWorld();
+	if (!World)
+	{
+		return;
+	}
+
+	ARewindCausalCheckpoint* Checkpoint = nullptr;
+	for (TActorIterator<ARewindCausalCheckpoint> It(World); It; ++It)
+	{
+		if (It->GetCheckpointId() == RewindIds::CheckpointGroundFuseGate)
+		{
+			Checkpoint = *It;
+			break;
+		}
+	}
+
+	FActorSpawnParameters Params;
+	Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	if (!Checkpoint)
+	{
+		// Hall floor ends and courtyard floor begins at X = 4110. Crossing that
+		// seam is the GroundFuseGate no-return threshold.
+		Checkpoint = World->SpawnActor<ARewindCausalCheckpoint>(
+			FVector(4110.f, -300.f, 150.f), FRotator::ZeroRotator, Params);
+		if (Checkpoint)
+		{
+			RewindLog::Baseline(TEXT("Checkpoint: GroundFuseGate at hall-to-courtyard seam"));
+		}
+	}
+	if (Checkpoint)
+	{
+		Checkpoint->Configure(
+			RewindIds::CheckpointGroundFuseGate,
+			ERewindCheckpointPredicate::GroundFuseGate,
+			FVector(80.f, 300.f, 180.f));
+		Checkpoint->SetActorLocationAndRotation(
+			FVector(4110.f, -300.f, 150.f), FRotator::ZeroRotator, false, nullptr,
+			ETeleportType::TeleportPhysics);
+	}
+}
+
+void URewindWorldStateSubsystem::EnsureLoopBreakSignature()
+{
+	UWorld* World = GetWorld();
+	if (!World)
+	{
+		return;
+	}
+
+	for (TActorIterator<ARewindLoopBreakSignature> It(World); It; ++It)
+	{
+		return;
+	}
+
+	FActorSpawnParameters Params;
+	Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	World->SpawnActor<ARewindLoopBreakSignature>(FVector::ZeroVector, FRotator::ZeroRotator, Params);
 }
 
 void URewindWorldStateSubsystem::ApplyLoopStart()
