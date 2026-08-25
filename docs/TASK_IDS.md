@@ -43,3 +43,7 @@ still the protocol extraction; that identity stays taken. New claims use `REW`.
 | REW-0013 | Correct authored building-side layout | Codex | 2026-08-24 | docs/CURRENT_TASK.md |
 | REW-0014 | Adopt owner-authored 4C camera framing | Codex | 2026-08-24 | docs/CURRENT_TASK.md |
 | REW-0015 | Restore player control in the authored slice | Claude | 2026-08-24 | docs/CURRENT_TASK.md |
+| REW-0016 | Operator: finish Chapter 1 through delegated agents | Claude | 2026-08-25 | docs/CURRENT_TASK.md |
+| REW-0017 | Event-driven rewind and the loop-break signature | grok-loop | 2026-08-25 | docs/CURRENT_TASK.md |
+| REW-0018 | Player message and dialog system | grok-message | 2026-08-25 | docs/CURRENT_TASK.md |
+| REW-0019 | Renderer configuration and the first look pass | grok-look | 2026-08-25 | docs/CURRENT_TASK.md |
