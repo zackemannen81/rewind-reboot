@@ -10,8 +10,8 @@ clock, ordered world-state apply, session knowledge, one Anchor, clean save,
 authored camera, loop-clocked radio, contested fuse, lift, stairs, player
 message channel and rebuilt Chapter 1 blockout are implemented. The
 owner-shaped stairwell, Apartment 4C,
-fourth-floor common hall and lift form the bounded authored presentation slice
-and the project's editor/game default. REW-0013 corrected REW-0012 against the
+fourth-floor common hall, lift and courtyard form the bounded authored
+presentation slice and the project's editor/game default. REW-0013 corrected REW-0012 against the
 owner's existing stairs/lift/4C openings and removed its opposite-side duplicate.
 An editor-only module exposes
 project PIE input and clean game-viewport capture through the MCP toolset
@@ -47,7 +47,11 @@ explicit FOV with position and rotation.
 Four additional half-open regions extend the same map through Apartment 4C,
 the common hall, the lift shaft and the entrance hall. The apartment and hall
 regions follow Y, while the cutaway shaft follows Z. Their fixed lenses are
-37.497356, 58, 60 and 58 degrees respectively. The Apartment4C region derives
+37.497356, 58, 60 and 58 degrees respectively. REW-0020 attaches two more
+Y-travel regions at `GroundHall_Region`'s positive-Y face:
+`CourtyardApproach_Region` copies that hall's lens, and `Courtyard_Region`
+cuts to a first-pass side-on 42 degree frame. The nine volumes abut without
+a gap. The Apartment4C region derives
 its initial frame from the preserved editor reference `4c_camera`: world
 position `(750, 1330, 1330)`, rotation `(0, 180, 0)` and a 35 mm lens on its
 23.76 mm-wide filmback. Standard PIE starts from the 4C
@@ -199,7 +203,10 @@ runs. Death ends the loop immediately. `ARewindLoopBreakSignature` presents
 rising interference during the prelude as a function of elapsed loop time,
 not engine time or frame delta. A rejected or redundant Anchor commit does
 not latch. `GroundFuseGate` is spawned in C++ at the proof-layout hall-to-
-courtyard seam; maps tagged `Rewind.SkipProofLayout` do not receive it.
+courtyard seam (X = 4110) on maps that do not carry `Rewind.SkipProofLayout`.
+On SkipProofLayout maps `ARewindAuthoredCourtyard` places the same named
+checkpoint at its own hall-to-courtyard seam. PIE on the authored default
+measured that seam at `(-430, 2700, 150)`.
 
 `/Game/Maps/FiveLoops` is the preserved procedural proof map. It loads
 `ARewindProofLayout`, which spawns 4C on floor 4,
@@ -298,8 +305,9 @@ flights' alternating Y lanes without violating the one-region rule. The large
 courtyard composition holds the gate, generator, patrol yard and Transit route
 in the same spatial field, matching the settled ground-floor plan.
 
-The authored building slice separately uses seven regions: the three accepted
-stairwell regions plus Apartment4C, TopHall, LiftShaft and GroundHall.
+The authored building slice separately uses nine regions: the three accepted
+stairwell regions plus Apartment4C, TopHall, LiftShaft, GroundHall,
+CourtyardApproach and Courtyard.
 Apartment4C is centred at `(62.5, 1368, 1340)` with player-volume extent
 `(307.5, 515, 160)`, so it covers `X [-245, 370)` from the corridor wall to the
 cutaway edge and abuts `TopHall` without a gap. Its `CameraOffset` of

@@ -33,6 +33,9 @@ public:
 	/** The region containing this location, or null when the location is outside every region. */
 	static ARewindCameraRegion* FindContaining(const UWorld* World, const FVector& Location);
 
+	/** The placed or spawned region with this name, or null. */
+	static ARewindCameraRegion* FindByName(const UWorld* World, FName Name);
+
 	/** Set every field a spawned region needs. Placed regions author them instead. */
 	void Configure(
 		FName InName,
@@ -66,7 +69,14 @@ public:
 	FName GetRegionName() const { return RegionName; }
 	ERewindTravelAxis GetTravelAxis() const { return TravelAxis; }
 	FVector GetPlayerVolumeExtent() const { return PlayerVolumeExtent; }
+	FVector GetCameraOffset() const { return CameraOffset; }
 	double GetTravelPadding() const { return TravelPadding; }
+
+	/** Inclusive minimum of the half-open player volume. */
+	FVector GetVolumeMin() const { return GetActorLocation() - PlayerVolumeExtent; }
+
+	/** Exclusive maximum of the half-open player volume. */
+	FVector GetVolumeMax() const { return GetActorLocation() + PlayerVolumeExtent; }
 
 	/** Screen-right in world space, derived from the camera rotation so that input matches the frame. */
 	FVector GetScreenRight() const;

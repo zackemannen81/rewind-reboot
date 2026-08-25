@@ -50,6 +50,9 @@ public:
 	/** Called by a socket. Returns false when the fuse is not in hand. */
 	bool SeatInto(ERewindFuseSocket Which);
 
+	/** Developer verification: pick up if needed and seat. Not a player action. */
+	bool SeatForVerification(ERewindFuseSocket Which);
+
 	/** Called by a socket. Returns false when the fuse is not seated there. */
 	bool TakeFrom(ERewindFuseSocket Which);
 

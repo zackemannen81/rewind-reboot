@@ -2,6 +2,8 @@
 
 #include "RewindLog.h"
 #include "RewindDeveloperSettings.h"
+#include "RewindFuse.h"
+#include "RewindIds.h"
 #include "RewindSessionSubsystem.h"
 #include "RewindWorldStateSubsystem.h"
 #include "Engine/Engine.h"
@@ -296,6 +298,24 @@ void URewindLoopSubsystem::RegisterConsoleCommands()
 			NotifyPlayerDied();
 		}),
 		ECVF_Default);
+
+	SetActiveAnchorCommand = IConsoleManager::Get().RegisterConsoleCommand(
+		TEXT("Rewind.SetActiveAnchor"),
+		TEXT("Developer verification: set courtyard_gate_open or none, then restart the loop."),
+		FConsoleCommandWithArgsDelegate::CreateUObject(this, &URewindLoopSubsystem::HandleSetActiveAnchor),
+		ECVF_Default);
+
+	PlacePlayerCommand = IConsoleManager::Get().RegisterConsoleCommand(
+		TEXT("Rewind.PlacePlayerForVerification"),
+		TEXT("Developer verification: threshold, fuse or courtyard_socket."),
+		FConsoleCommandWithArgsDelegate::CreateUObject(this, &URewindLoopSubsystem::HandlePlacePlayerForVerification),
+		ECVF_Default);
+
+	SeatFuseCommand = IConsoleManager::Get().RegisterConsoleCommand(
+		TEXT("Rewind.SeatFuseForVerification"),
+		TEXT("Developer verification: seat the one fuse in courtyard or building."),
+		FConsoleCommandWithArgsDelegate::CreateUObject(this, &URewindLoopSubsystem::HandleSeatFuseForVerification),
+		ECVF_Default);
 }
 
 void URewindLoopSubsystem::UnregisterConsoleCommands()
@@ -310,4 +330,112 @@ void URewindLoopSubsystem::UnregisterConsoleCommands()
 		IConsoleManager::Get().UnregisterConsoleObject(EndLoopDeathCommand);
 		EndLoopDeathCommand = nullptr;
 	}
+	if (SetActiveAnchorCommand)
+	{
+		IConsoleManager::Get().UnregisterConsoleObject(SetActiveAnchorCommand);
+		SetActiveAnchorCommand = nullptr;
+	}
+	if (PlacePlayerCommand)
+	{
+		IConsoleManager::Get().UnregisterConsoleObject(PlacePlayerCommand);
+		PlacePlayerCommand = nullptr;
+	}
+	if (SeatFuseCommand)
+	{
+		IConsoleManager::Get().UnregisterConsoleObject(SeatFuseCommand);
+		SeatFuseCommand = nullptr;
+	}
+}
+
+void URewindLoopSubsystem::HandleSetActiveAnchor(const TArray<FString>& Args)
+{
+	FName Wanted = NAME_None;
+	if (Args.Num() >= 1)
+	{
+		const FString& Value = Args[0];
+		if (Value.Equals(TEXT("none"), ESearchCase::IgnoreCase))
+		{
+			Wanted = NAME_None;
+		}
+		else if (Value.Equals(RewindIds::AnchorCourtyardGateOpen.ToString(), ESearchCase::IgnoreCase))
+		{
+			Wanted = RewindIds::AnchorCourtyardGateOpen;
+		}
+		else
+		{
+			RewindLog::Event(this, TEXT("SetActiveAnchor: refused, only courtyard_gate_open or none"));
+			return;
+		}
+	}
+
+	UWorld* World = GetWorld();
+	if (!World)
+	{
+		return;
+	}
+	UGameInstance* GameInstance = World->GetGameInstance();
+	URewindSessionSubsystem* Session = GameInstance
+		? GameInstance->GetSubsystem<URewindSessionSubsystem>()
+		: nullptr;
+	if (!Session)
+	{
+		RewindLog::Event(this, TEXT("SetActiveAnchor: no session"));
+		return;
+	}
+
+	if (!Session->TrySetActiveAnchorForVerification(Wanted))
+	{
+		RewindLog::Event(this, TEXT("SetActiveAnchor: refused, only courtyard_gate_open or none"));
+		return;
+	}
+
+	RewindLog::Event(this, FString::Printf(
+		TEXT("SetActiveAnchor: %s"),
+		Wanted.IsNone() ? TEXT("none") : *Wanted.ToString()));
+	StartLoop();
+}
+
+void URewindLoopSubsystem::HandlePlacePlayerForVerification(const TArray<FString>& Args)
+{
+	if (Args.Num() < 1)
+	{
+		RewindLog::Event(this, TEXT("PlacePlayerForVerification: refused, use threshold, fuse or courtyard_socket"));
+		return;
+	}
+
+	UWorld* World = GetWorld();
+	if (!World)
+	{
+		return;
+	}
+	URewindWorldStateSubsystem* WorldState = World->GetSubsystem<URewindWorldStateSubsystem>();
+	if (!WorldState || !WorldState->PlacePlayerForVerification(FName(*Args[0])))
+	{
+		RewindLog::Event(this, TEXT("PlacePlayerForVerification: failed"));
+	}
+}
+
+void URewindLoopSubsystem::HandleSeatFuseForVerification(const TArray<FString>& Args)
+{
+	ERewindFuseSocket Which = ERewindFuseSocket::Courtyard;
+	if (Args.Num() >= 1 && Args[0].Equals(TEXT("building"), ESearchCase::IgnoreCase))
+	{
+		Which = ERewindFuseSocket::Building;
+	}
+	else if (Args.Num() >= 1 && !Args[0].Equals(TEXT("courtyard"), ESearchCase::IgnoreCase))
+	{
+		RewindLog::Event(this, TEXT("SeatFuseForVerification: refused, use courtyard or building"));
+		return;
+	}
+
+	UWorld* World = GetWorld();
+	ARewindFuse* Fuse = ARewindFuse::Find(World);
+	if (!Fuse || !Fuse->SeatForVerification(Which))
+	{
+		RewindLog::Event(this, TEXT("SeatFuseForVerification: failed"));
+		return;
+	}
+	RewindLog::Event(this, Which == ERewindFuseSocket::Courtyard
+		? TEXT("SeatFuseForVerification: courtyard")
+		: TEXT("SeatFuseForVerification: building"));
 }

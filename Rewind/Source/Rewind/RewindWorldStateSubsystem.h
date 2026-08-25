@@ -17,7 +17,15 @@ public:
 	void PlacePlayerBody();
 	FTransform GetLoopStartPose() const;
 
+	/**
+	 * Developer verification poses. `threshold` stands just before
+	 * GroundFuseGate; `fuse` stands at the 4C fuse; `courtyard_socket` stands
+	 * at the ground-floor socket. Not a player action.
+	 */
+	bool PlacePlayerForVerification(FName Pose);
+
 private:
 	void EnsureCausalCheckpoints();
+	void EnsureAuthoredCourtyard();
 	void EnsureLoopBreakSignature();
 };

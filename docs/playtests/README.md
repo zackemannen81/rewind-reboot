@@ -35,3 +35,4 @@ Image types are already tracked by Git LFS in `.gitattributes` under
 | [`chapter-1-three-loops-2026-08-23.md`](chapter-1-three-loops-2026-08-23.md) | Complete | Rebuilt Chapter 1 chain: formal information, commit and held-state loops; touched FL criteria re-verified |
 | [`authored-building-slice-2026-08-24.md`](authored-building-slice-2026-08-24.md) | Complete | Authored 4C, common halls and bidirectional powered lift; saved-map, camera, interaction and visual evidence |
 | [`renderer-look-2026-08-25.md`](renderer-look-2026-08-25.md) | Complete | ADR-0010 Lumen/VSM/MDF/bloom; before/after 4C frames and 1080p frame time on MRWHITE81 |
+| [`authored-courtyard-fl17-2026-08-25.md`](authored-courtyard-fl17-2026-08-25.md) | Complete | Authored courtyard GroundFuseGate: three FL-17 PIE outcomes and an interference capture |

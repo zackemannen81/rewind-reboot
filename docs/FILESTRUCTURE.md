@@ -13,7 +13,7 @@ rewind-reboot/
 ├── .codex/config.toml              project-scoped Codex client for the same editor endpoint
 ├── Rewind/                         Unreal Engine 5.8 blank C++ project
 │   ├── Rewind.uproject             engine 5.8; runtime and editor modules; MCP/toolset plugins
-│   ├── Source/Rewind/              loop, session, Chapter 1, authored camera, player messages and named runtime tests
+│   ├── Source/Rewind/              loop, session, Chapter 1, authored camera, courtyard, player messages and named runtime tests
 │   ├── Source/RewindEditor/        editor-only MCP PIE-input and clean screenshot toolset
 │   ├── ArtSource/Textures/         owner-authored JPEG sources for the 4c_* textures,
 │   │                               outside Content/ so the editor never scans them
@@ -24,7 +24,7 @@ rewind-reboot/
 │       │                            owner-authored revised stair construction
 │       ├── Maps/FiveLoops.umap     empty level; Chapter 1 blockout spawned in C++
 │       ├── Maps/FiveLoops_Stairwell_Blockout.umap
-│       │                            default authored stairwell, 4C, halls and lift slice
+│       │                            default authored stairwell, 4C, halls, lift and courtyard slice
 │       ├── Maps/Reference/FiveLoops_Handmade2_Reference.umap
 │       │                            untouched owner-layout reference
 │       ├── Art/Materials/Stairwell/

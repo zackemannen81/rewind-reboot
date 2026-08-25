@@ -4,6 +4,52 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-25 — REW-0020, authored courtyard and the ground-fuse checkpoint
+
+- Date: 2026-08-25
+- Author: grok-courtyard
+- Task: REW-0020
+- Branch: `grok/rew-0020-authored-courtyard`
+- Change: `ARewindAuthoredCourtyard` builds the courtyard on
+  `Rewind.SkipProofLayout` maps only: approach hall, plaza, generator,
+  courtyard gate, Transit exit, chain-link occluder, two camera regions, and
+  `GroundFuseGate` at the hall-to-courtyard seam. The procedural proof keeps
+  its checkpoint at X = 4110. The existing courtyard fuse socket is moved to
+  that seam and the generator is wired to the gate. Developer commands
+  `Rewind.SetActiveAnchor`, `Rewind.PlacePlayerForVerification` and
+  `Rewind.SeatFuseForVerification` exist only for verification.
+- Why it was needed: REW-0017's rewind could not be seen on the authored
+  default map, which has no courtyard, so `GroundFuseGate` never existed in
+  play. Putting the checkpoint anywhere else would invent a causal contract
+  no design document states.
+- Attach: PIE logged `GroundHall` +Y seam Y `1500`, threshold
+  `(-430, 2700, 150)`, nine camera regions. Named tests
+  `Rewind.AuthoredCourtyard.SpatialConstants`,
+  `Rewind.AuthoredCourtyard.RegionAbutment` and
+  `Rewind.AuthoredCourtyard.SkipProofLayoutSpawnsCheckpoint` assert the
+  constants, the abutment, and that SkipProofLayout does not force X = 4110.
+- Verification: editor-closed `RewindEditor Win64 Development` succeeded
+  (final confirm 1.78 s, target up to date). Headless `Rewind.*`: 22/22
+  Success, `TEST COMPLETE. EXIT CODE: 0`. Three PIE runs, keys released
+  before stop, recorded in
+  `docs/playtests/authored-courtyard-fl17-2026-08-25.md`. Fail: `t=142.76`
+  `Checkpoint GroundFuseGate: FAIL`, prelude 2.00 s, `LOOP BREAK
+  interference=0.17`, next loop in 4C. Anchor: `SetActiveAnchor
+  courtyard_gate_open`, `t=33.00` pass. Power: `Fuse: seated in the
+  courtyard socket` then `t=48.33` pass. Interference capture during a
+  prelude:
+  `docs/playtests/authored-courtyard-fl17-2026-08-25/interference-prelude.png`.
+- FL-17: the three checkpoint outcomes were observed in PIE. The power
+  seating used `Rewind.SeatFuseForVerification` because the 4C fuse at
+  `(-250, 1180, 1350)` sits 5 cm outside `Apartment4C_Region` beside the
+  building socket, so this-loop pickup did not land. That is the predicate
+  FL-17 names, not a played Loop B from 4C.
+- Not verified: FL-18; packaged build; frame-rate variation; carrying the
+  fuse by walking from 4C; street and Transit interiors; a judged first-pass
+  look. The moon key blows the plaza floor under the authored interior
+  exposure.
+- Signature: grok-courtyard
+
 ## 2026-08-25 — REW-0023, first-run copy on the message system
 
 - Date: 2026-08-25

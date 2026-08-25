@@ -26,6 +26,27 @@ ARewindCameraRegion* ARewindCameraRegion::FindContaining(const UWorld* World, co
 	return nullptr;
 }
 
+ARewindCameraRegion* ARewindCameraRegion::FindByName(const UWorld* World, FName Name)
+{
+	if (!World || Name.IsNone())
+	{
+		return nullptr;
+	}
+
+	for (TActorIterator<ARewindCameraRegion> It(const_cast<UWorld*>(World)); It; ++It)
+	{
+		if (It->GetRegionName() == Name)
+		{
+			return *It;
+		}
+		if (It->GetActorNameOrLabel() == Name.ToString())
+		{
+			return *It;
+		}
+	}
+	return nullptr;
+}
+
 void ARewindCameraRegion::Configure(
 	FName InName,
 	const FVector& InPlayerVolumeExtent,

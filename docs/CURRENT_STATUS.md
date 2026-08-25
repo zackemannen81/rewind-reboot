@@ -23,21 +23,21 @@ wrong and must be corrected.
 | `docs/adr/ADR-0010_renderer-configuration.md` | Accepted. Lumen GI and Lumen reflections, virtual shadow maps, mesh distance fields and default bloom. Auto-exposure stays off. Hardware ray tracing stays off. Frame-time budget 16.67 ms at 1920×1080 on the named development machine |
 | `Rewind/Rewind.uproject` | Unreal Engine 5.8 C++ project. Loop clock, apply order, session save, CleanSave. Loops end on causal-contract failure, death or first-time Anchor commit. The 240-second timeout is no longer the default end condition. `DefaultEngine.ini` matches ADR-0010 |
 | `Rewind/Content/Maps/FiveLoops.umap` | Preserved procedural proof map, no longer the editor or game default. C++ builds 4C, common hallway, cage lift, proof stairs, courtyard/service route and Transit Hub under eleven camera regions |
-| `Rewind/Content/Maps/FiveLoops_Stairwell_Blockout.umap` | Editor and game default. The accepted stairwell leads to one common corridor whose three preserved openings are stairs, lift and 4C. REW-0013 corrected the building side. REW-0014 applied the owner's placed 35 mm `4c_camera` as the exact Apartment4C runtime start frame: `(750, 1330, 1330)`, rotation `(0, 180, 0)`, horizontal FOV `37.497356`. REW-0015 widened that region's player volume to cover the room it frames, leaving the frame itself unchanged. REW-0022 unbound the saved map from untracked `/Game/Fab/` and `/Game/Art/Texture/` content: six empty-mesh dressing actors were removed, and surfaces that had lost those materials now use the tracked project-owned instances under `Rewind/Content/Art/Materials/`. Apartment 4C is undressed blockout. Gameplay actors, seven camera regions and collision geometry were not moved |
+| `Rewind/Content/Maps/FiveLoops_Stairwell_Blockout.umap` | Editor and game default. The accepted stairwell leads to one common corridor whose three preserved openings are stairs, lift and 4C. REW-0013 corrected the building side. REW-0014 applied the owner's placed 35 mm `4c_camera` as the exact Apartment4C runtime start frame: `(750, 1330, 1330)`, rotation `(0, 180, 0)`, horizontal FOV `37.497356`. REW-0015 widened that region's player volume to cover the room it frames, leaving the frame itself unchanged. REW-0022 unbound the saved map from untracked `/Game/Fab/` and `/Game/Art/Texture/` content: six empty-mesh dressing actors were removed, and surfaces that had lost those materials now use the tracked project-owned instances under `Rewind/Content/Art/Materials/`. Apartment 4C is undressed blockout. REW-0020 spawns `ARewindAuthoredCourtyard` on this SkipProofLayout map: approach hall, plaza, generator, gate, Transit exit and `GroundFuseGate` at the hall-to-courtyard seam `(-430, 2700, 150)`, with nine camera regions. Gameplay actors of the building slice were not moved |
 | `Rewind/Content/Maps/Reference/FiveLoops_Handmade2_Reference.umap` | Stable untouched Git LFS reference copy. Its 26-actor inventory and stair camera transform match the owner source at REW-0010 completion |
 | `Rewind/Content/FiveLoops_Handmade.umap` and `FiveLoops_Handmade2.umap` | Tracked owner-authored construction maps preserved through Git LFS. They are spatial source material, not runtime defaults or design-rule authority |
 | `docs/design/` | Nine accepted documents. Ownership in `docs/design/README.md`; `player-messages.md` owns the player-facing text channel and states that the debug overlay is not UI; `tutorial-and-first-run.md` owns first-run copy, the naming rule, and first-time gating |
-| `docs/acceptance/five-loops-test.md` | Accepted. Criteria FL-01 to FL-18. Existing playtests remain evidence for their timer-driven builds and pre-2026-08-24 wording; no build evidence exists for amended FL-01, FL-02, FL-03 or FL-07, or for new FL-17 and FL-18 |
-| `docs/playtests/` | Evidence from named runs of named builds. The earlier complete Five Loops record remains; REW-0007 adds a Chapter 1 three-loop record; REW-0019 adds before/after 4C renderer frames and 1080p frame time |
+| `docs/acceptance/five-loops-test.md` | Accepted. Criteria FL-01 to FL-18. Existing playtests remain evidence for their timer-driven builds and pre-2026-08-24 wording; no build evidence exists for amended FL-01, FL-02, FL-03 or FL-07, or for FL-18. REW-0020 recorded PIE evidence for the three FL-17 checkpoint outcomes on the authored map |
+| `docs/playtests/` | Evidence from named runs of named builds. The earlier complete Five Loops record remains; REW-0007 adds a Chapter 1 three-loop record; REW-0019 adds before/after 4C renderer frames and 1080p frame time; REW-0020 adds the authored-courtyard FL-17 record |
 | `.codex/config.toml` and `.mcp.json` | Project-scoped clients for the running editor's MCP endpoint on localhost. They resolve only while this project's editor is open |
 | `docs/EDITOR_AUTOMATION.md` | Canonical engine, editor, MCP, plugin, toolset, build and agent-playtest procedure |
 | `docs/concepts_sandbox/legacy-rewind/` | Imported design, roadmaps and task files from the previous project, plus a verified code inventory and a conflict register. Non-authority |
 | `docs/baseline/acme-2026-08-19/` | Frozen provenance for the working model itself. Never edited, never authority |
 | `.gitignore` / `.gitattributes` | Ignore generated UE output. LFS tracks Unreal binaries, including the Tier 1 character assets |
-| `docs/CURRENT_TASK.md` | Restored task template. REW-0016 to REW-0019 and REW-0021 to REW-0024 are complete and archived; no task is active on this branch |
+| `docs/CURRENT_TASK.md` | Restored task template. REW-0016 to REW-0024 are complete and archived; no task is active on this branch |
 | `docs/concept/` | Nine owner-produced target and construction-reference images: 4C, fuse box, stairwell, lift, three circulation/interaction sketches and the settled top- and ground-floor plans. Targets and blockout clarification, never game rules |
 | `docs/finished/REW-0004_...md` | Superseded by REW-0006 after its frozen scope conflicted with the lift-or-stairs branch decided by REW-0005 |
-| `Rewind/Source/Rewind/RewindCameraRig.cpp` | The authored camera of ADR-0007. Regions declare rotation, X/Y/Z travel axis, bounds, dead zone, player volume and explicit FOV. Half-open volumes give shared thresholds exactly one owner. The procedural proof has eleven regions; the authored building slice has seven |
+| `Rewind/Source/Rewind/RewindCameraRig.cpp` | The authored camera of ADR-0007. Regions declare rotation, X/Y/Z travel axis, bounds, dead zone, player volume and explicit FOV. Half-open volumes give shared thresholds exactly one owner. The procedural proof has eleven regions; the authored building slice plus courtyard has nine |
 | `Rewind/Content/Art/Materials/Stairwell/` | Two project-owned procedural masters and six material instances: upper and lower walls, floor, metal, door and near-black player silhouette. They are a first-pass presentation grammar and introduce no third-party dependency |
 | `Rewind/Content/Art/Materials/BuildingSlice/` | Project-owned 4C floor instance with restrained reflection, plus `M_4CSignEmissive` for the 4C sign panel. Both depend only on project-owned material work; no third-party environment pack |
 | `Rewind/Source/Rewind/RewindRadio.cpp` | Four channels on the loop clock. The accepted channel speaks `7312` across 20 seconds at phases 4, 9, 14 and 19 of a 50-second cycle. A full sequence grants the stored fact; individual digits remain player memory |
@@ -45,7 +45,7 @@ wrong and must be corrected.
 | `Rewind/Source/Rewind/RewindLift.cpp` and `RewindStairwell.cpp` | A physical bidirectional six-second cage journey between floor 4 and entrance, plus the always-available stair routes. The cage has a blocking floor, centres its passenger and applies a configurable local-space hall exit offset, so the rotated authored instance hands the capsule to X `-280` on both landings while the procedural proof retains its default hand. Final REW-0013 PIE measured 6.00 s down and 6.00 s up |
 | `Rewind/Content/Characters/Tier1/` | CC0 Quaternius Tier 1: 21 in-place animations and both pack mannequins, 31 assets and 12.61 MiB. UAL1 idle/walk drive the visible blockout player |
 | `Rewind/Source/RewindEditor/` | Editor-only PIE bridge: input state, tap, held keys, exact game-time holds, queued measured sequences, active camera region/axis/transform/FOV, clean game-viewport PNG capture, restricted `Rewind.*` console calls and release-all through simulated Unreal input |
-| `AutomationTestToolset` | Enabled. Nineteen `Rewind.*` tests exist after REW-0023: the seventeen inherited, plus `Rewind.Message.FirstRun.Gating` and `Rewind.Message.FirstRun.OmitsSolutions`. Run together headless on this branch on 2026-08-25: Found 19 tests, 19 passed, 0 failed, `TEST COMPLETE. EXIT CODE: 0` |
+| `AutomationTestToolset` | Enabled. Twenty-two `Rewind.*` tests exist after REW-0020: the nineteen inherited, plus `Rewind.AuthoredCourtyard.SpatialConstants`, `Rewind.AuthoredCourtyard.RegionAbutment` and `Rewind.AuthoredCourtyard.SkipProofLayoutSpawnsCheckpoint`. Run together headless on this branch on 2026-08-25: 22 passed, 0 failed, `TEST COMPLETE. EXIT CODE: 0` |
 | `docs/finished/REW-0007_...md` | Complete. The rebuilt Chapter 1 chain, timing construction, eleven cameras, Tier 1 import and three-loop evidence are archived |
 | `docs/finished/REW-0008_...md` | Complete. Canonical editor/MCP context, project-scoped Codex config, PIE-input toolset and named automation-test execution |
 | `docs/finished/REW-0009_...md` | Complete. Event-driven loop termination accepted; product, design and FL authority amended; implementation and owner-level adoption routed separately |
@@ -58,6 +58,7 @@ wrong and must be corrected.
 | `docs/finished/REW-0018_...md` | Complete. Player-facing text in the authored slice comes from the catalog and message subsystem, not `AddOnScreenDebugMessage` |
 | `docs/finished/REW-0019_...md` | Complete. ADR-0010 renderer configuration applied; first look pass; before/after 4C frames and 1080p frame time |
 | `docs/finished/REW-0023_...md` | Complete. First-run copy on the message system; naming rule and first-time gating owned by `tutorial-and-first-run.md` |
+| `docs/finished/REW-0020_...md` | Complete. Authored courtyard blockout, GroundFuseGate at the hall-to-courtyard seam, three FL-17 PIE outcomes |
 | `Rewind/Source/Rewind/RewindMessageSubsystem.cpp` | Player-facing text. Actors speak by catalog id; copy lives in `FRewindMessageCatalog`; one Slate line sits at the bottom of the viewport. First-run copy and first-time gating sit on that channel: a gated line is recorded as the knowledge fact `seen.<MessageId>` on `URewindSessionSubsystem` and is not shown again in the same session. The engine debug overlay is not this channel. `RewindLoopSubsystem` still draws `t=` |
 | `docs/finished/REW-0010_...md` | Complete on its task branch. Human-scale four-floor stairwell, stable owner reference, traversal evidence and procedural-layout opt-out |
 | `docs/finished/REW-0011_...md` | Complete. Isolated stairwell camera coverage, bidirectional route, first-pass material/light grammar and clean PIE visual evidence |
@@ -67,12 +68,12 @@ wrong and must be corrected.
 
 ## What does not exist
 
-- **PIE evidence for the amended Five Loops criteria.** REW-0017 implements
-  event-driven rewind in C++ and named automation tests. It did not run a
-  live PIE crossing of `GroundFuseGate` or a first-time commit on the
-  procedural proof map. Existing playtests remain evidence for their
-  timer-driven builds. No build evidence exists yet for amended FL-01, FL-02,
-  FL-03 or FL-07, or for new FL-17 and FL-18.
+- **PIE evidence for the remaining amended Five Loops criteria.** REW-0020
+  recorded PIE evidence for the three FL-17 checkpoint outcomes on the
+  authored map. REW-0017 implements event-driven rewind in C++ and named
+  automation tests; it did not run a first-time commit. Existing playtests
+  remain evidence for their timer-driven builds. No build evidence exists
+  yet for amended FL-01, FL-02, FL-03 or FL-07, or for FL-18.
 - **Finished environment art.** The complete Chapter 1 gameplay chain remains
   measured C++ blockout geometry. The authored slice now renders under Lumen
   GI, Lumen reflections, virtual shadow maps, mesh distance fields and bloom,
@@ -195,13 +196,13 @@ specific thing `AGENTS.md` "Evidence Discipline" exists to prevent.
 
 ## Known gaps and risks
 
-- **Event-driven rewind is implemented; live FL evidence is not.** REW-0017
-  removed the automatic 240-second reset and added causal-checkpoint, prelude,
-  latch and Anchor-commit paths, asserted by named `Rewind.*` tests. The
-  ground-floor socket is still named Courtyard in C++ (`RewindFuseSocket` is
-  not owned by REW-0017). Existing playtests are historical evidence, not
-  evidence for FL-17 or FL-18. The default authored map has no courtyard, so
-  `GroundFuseGate` is spawned only on the procedural proof layout.
+- **FL-18 still has no PIE evidence.** REW-0017 implements Anchor-commit as a
+  loop-end reason in C++ and named tests. REW-0020 made `GroundFuseGate`
+  reachable on the authored map and recorded FL-17. A first-time
+  `courtyard_gate_open` commit was not played. The ground-floor socket is
+  still named Courtyard in C++. The 4C fuse at X `-250` still sits 5 cm
+  outside `Apartment4C_Region`, which blocked this-loop pickup in the
+  REW-0020 power PIE.
 - **The rebuilt chain answers the timing defect, not enjoyment.** The formal
   REW-0007 run measured the naive Loop B at the 240-second timeout without hub
   entry and the held-Anchor Loop C at hub entry by 90.67 seconds, at least
