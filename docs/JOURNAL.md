@@ -4,6 +4,53 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-26 — REW-0027, environment texture kit surface instances
+
+- Date: 2026-08-26
+- Author: codex-surfaces
+- Task: REW-0027
+- Branch: `codex/rew-0027-surface-instances`
+- Change: retained the twelve quality-94 JPG sources and provenance record at
+  `Rewind/ArtSource/Textures/EnvironmentTextureKit-v1/`, and added the
+  reproducible headless import at
+  `Rewind/ArtSource/Scripts/import_environment_texture_kit.py`. The script
+  imports no decal atlas or neon source, creates no map asset, and does not
+  edit `M_REW_Surface`.
+- Assets created: textures
+  `T_REW_Surface_PlasterGray_Aged_BC`, `T_REW_Surface_PlasterGreen_Aged_BC`,
+  `T_REW_Surface_BrickDark_Aged_BC`,
+  `T_REW_Surface_PavingStone_Courtyard_BC`,
+  `T_REW_Surface_FloorTile_Interior_BC`,
+  `T_REW_Surface_CeramicTile_Ivory_Aged_BC`,
+  `T_REW_Surface_MetalBlack_Painted_Aged_BC`,
+  `T_REW_Surface_WoodDark_Worn_BC`, `T_REW_Backdrop_CityRain_Night_BC`,
+  `T_REW_Poster_TransitMap_BC`, `T_REW_Signs_FloorCourtyard_Atlas_BC` and
+  `T_REW_Label_FuseBoxInstructions_BC` under
+  `/Game/Art/Textures/Surfaces`; instances `MI_REW_PlasterGray_Aged`,
+  `MI_REW_PlasterGreen_Aged`, `MI_REW_BrickDark_Aged`,
+  `MI_REW_PavingStone_Courtyard`, `MI_REW_FloorTile_Interior`,
+  `MI_REW_CeramicTile_Ivory_Aged`, `MI_REW_MetalBlack_Painted_Aged` and
+  `MI_REW_WoodDark_Worn` under `/Game/Art/Materials/Surfaces`.
+- Settings: all twelve use sRGB and `MaxTextureSize=1024`; the eight surface
+  textures use Wrap and World texture group, CityRain uses Clamp and World,
+  and the three close-readable poster/sign assets use Clamp and UI. The eight
+  instances inherit `M_REW_Surface`, set `BaseColorTex`, white `Tint`, the kit
+  dry roughness start value, and TileSize in centimetres. Brick (120 cm) and
+  paving (200 cm) repeat larger than ceramic tile (40 cm).
+- Verification: headless import log recorded `VERIFY PASS: 12 textures and 8
+  material instances read back from saved assets`; this read back each asset's
+  existence, sRGB, address mode, texture group, `MaxTextureSize`, instance
+  parent, `BaseColorTex` and `TileSize`. The editor-closed
+  `RewindEditor Win64 Development` build succeeded in 30.33 s. Headless
+  `Automation RunTests Rewind` discovered 22 tests; all 22 returned
+  `Result={Success}` and the run ended `TEST COMPLETE. EXIT CODE: 0`.
+- Cost: the retained JPEGs total 5.53 MiB, imported texture packages 5.66 MiB
+  and material instances 40.6 KiB: 11.23 MiB added through Git LFS.
+- Not verified: no level was modified or assigned these instances, so there is
+  no in-game texel-density or final visual judgement. The kit README reserves
+  that judgement for a later look pass. No packaged build was made.
+- Signature: codex-surfaces
+
 ## 2026-08-25 — Register repair: REW-0020 was never claimed on main
 
 - Date: 2026-08-25

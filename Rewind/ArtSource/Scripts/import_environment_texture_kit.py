@@ -10,11 +10,16 @@ external kit README. This script deliberately creates no map assets and never
 edits the M_REW_Surface master.
 """
 
+import os
+
 import unreal
 
 
 TASK = "[REW-0027]"
-SOURCE_DIR = "C:/code/rewind-multiagents/rewind-reboot/Rewind/ArtSource/Textures/EnvironmentTextureKit-v1"
+SOURCE_DIR = os.path.join(
+    unreal.Paths.convert_relative_path_to_full(unreal.Paths.project_dir()),
+    "ArtSource", "Textures", "EnvironmentTextureKit-v1",
+).replace(chr(92), "/")
 TEXTURE_DEST = "/Game/Art/Textures/Surfaces"
 MATERIAL_DEST = "/Game/Art/Materials/Surfaces"
 MASTER_PATH = MATERIAL_DEST + "/M_REW_Surface"

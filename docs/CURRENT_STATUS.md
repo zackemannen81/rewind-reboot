@@ -1,6 +1,6 @@
 # Current Status
 
-Reality as of 2026-08-25. This document describes what exists, not what is
+Reality as of 2026-08-26. This document describes what exists, not what is
 planned. If it disagrees with the repository or the build, this document is
 wrong and must be corrected.
 
@@ -40,6 +40,9 @@ wrong and must be corrected.
 | `Rewind/Source/Rewind/RewindCameraRig.cpp` | The authored camera of ADR-0007. Regions declare rotation, X/Y/Z travel axis, bounds, dead zone, player volume and explicit FOV. Half-open volumes give shared thresholds exactly one owner. The procedural proof has eleven regions; the authored building slice plus courtyard has nine |
 | `Rewind/Content/Art/Materials/Stairwell/` | Two project-owned procedural masters and six material instances: upper and lower walls, floor, metal, door and near-black player silhouette. They are a first-pass presentation grammar and introduce no third-party dependency |
 | `Rewind/Content/Art/Materials/BuildingSlice/` | Project-owned 4C floor instance with restrained reflection, plus `M_4CSignEmissive` for the 4C sign panel. Both depend only on project-owned material work; no third-party environment pack |
+| `Rewind/ArtSource/Textures/EnvironmentTextureKit-v1/` | Twelve project-generated quality-94 JPEG import sources from RE:WIND Environment Texture Kit v1, with a dated provenance record. They are retained outside `Content/` so `/Game/Art/Textures/Surfaces` can be rebuilt without the owner's desktop staging directory |
+| `Rewind/Content/Art/Textures/Surfaces/` | Twelve project-generated base-colour textures: eight tileable surfaces and four clamp-addressed backdrop/poster textures. REW-0027 read back sRGB enabled and `MaxTextureSize=1024` for every asset; tileable surfaces use Wrap and the backdrop/poster assets use Clamp |
+| `Rewind/Content/Art/Materials/Surfaces/` | `M_REW_Surface` plus eight REW-0027 instances: plaster grey/green, dark brick, courtyard paving, interior floor tile, ivory ceramic tile, painted black metal and worn dark wood. Each instance has its base texture and world TileSize set; no map uses them yet |
 | `Rewind/Source/Rewind/RewindRadio.cpp` | Four channels on the loop clock. The accepted channel speaks `7312` across 20 seconds at phases 4, 9, 14 and 19 of a 50-second cycle. A full sequence grants the stored fact; individual digits remain player memory |
 | `Rewind/Source/Rewind/RewindFuse.cpp` and `RewindFuseSocket.cpp` | One carried LoopWorld fuse with two exclusive sockets. The courtyard socket enables the generator; the building socket powers the lift. The lift refuses an empty building socket |
 | `Rewind/Source/Rewind/RewindLift.cpp` and `RewindStairwell.cpp` | A physical bidirectional six-second cage journey between floor 4 and entrance, plus the always-available stair routes. The cage has a blocking floor, centres its passenger and applies a configurable local-space hall exit offset, so the rotated authored instance hands the capsule to X `-280` on both landings while the procedural proof retains its default hand. Final REW-0013 PIE measured 6.00 s down and 6.00 s up |
