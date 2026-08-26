@@ -4,7 +4,24 @@
 #include "Camera/CameraActor.h"
 #include "RewindCameraRig.generated.h"
 
+class APawn;
 class ARewindCameraRegion;
+class USceneComponent;
+
+/**
+ * Inspectable audio-listener request. Position attaches to the possessed
+ * player's root; orientation is the authored camera's world rotation.
+ */
+struct FRewindAudioListenerContract
+{
+	TWeakObjectPtr<const USceneComponent> PositionAttachment;
+	TWeakObjectPtr<const APawn> TrackedPawn;
+	FVector RequestedWorldLocation = FVector::ZeroVector;
+	FRotator RequestedWorldRotation = FRotator::ZeroRotator;
+	uint32 PossessionGeneration = 0;
+	uint32 SnapGeneration = 0;
+	bool bOverrideApplied = false;
+};
 
 /**
  * The one camera. It reads the player's position, asks which region contains
@@ -34,8 +51,12 @@ public:
 	/** The region the player is currently in, or null. Used by movement to align input to the frame. */
 	ARewindCameraRegion* GetActiveRegion() const { return ActiveRegion; }
 
+	/** Last applied listener request. Tests and runtime inspection use this. */
+	const FRewindAudioListenerContract& GetAudioListenerContract() const { return AudioListenerContract; }
+
 protected:
 	virtual void BeginPlay() override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 	/** Fraction of the remaining distance covered per 16.67 ms. */
 	UPROPERTY(EditAnywhere, Category = "Rig")
@@ -52,8 +73,13 @@ private:
 		float& OutFieldOfView,
 		double& OutTravel);
 
+	/** Keep Unreal's listener on the possessed player with this camera's rotation. */
+	void UpdateAudioListener();
+
 	UPROPERTY()
 	TObjectPtr<ARewindCameraRegion> ActiveRegion;
+
+	FRewindAudioListenerContract AudioListenerContract;
 
 	/** Camera coordinate along the active region's travel axis. */
 	double CurrentTravel = 0.0;

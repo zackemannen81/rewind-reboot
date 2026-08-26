@@ -3,6 +3,7 @@
 #include "RewindCameraRegion.h"
 #include "RewindLog.h"
 #include "Camera/CameraComponent.h"
+#include "Components/SceneComponent.h"
 #include "Engine/World.h"
 #include "GameFramework/Pawn.h"
 #include "GameFramework/PlayerController.h"
@@ -21,6 +22,19 @@ void ARewindCameraRig::BeginPlay()
 		Controller->SetViewTarget(this);
 	}
 	SnapToPlayer();
+}
+
+void ARewindCameraRig::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	if (APlayerController* Controller = GetWorld() ? GetWorld()->GetFirstPlayerController() : nullptr)
+	{
+		Controller->ClearAudioListenerOverride();
+	}
+	AudioListenerContract.PositionAttachment = nullptr;
+	AudioListenerContract.TrackedPawn = nullptr;
+	AudioListenerContract.bOverrideApplied = false;
+
+	Super::EndPlay(EndPlayReason);
 }
 
 const APawn* ARewindCameraRig::GetPlayer() const
@@ -109,16 +123,20 @@ void ARewindCameraRig::SnapToPlayer()
 	FRotator TargetRotation;
 	float TargetFieldOfView = 50.f;
 	double TargetTravel = 0.0;
-	if (!ResolveTarget(TargetRotation, TargetFieldOfView, TargetTravel))
+	if (ResolveTarget(TargetRotation, TargetFieldOfView, TargetTravel))
 	{
-		return;
+		CurrentTravel = ActiveRegion->ClampTravel(ActiveRegion->GetTravelCoord(GetPlayer()->GetActorLocation()));
+		bHasTravel = true;
+		SetActorLocation(ActiveRegion->GetCameraLocation(CurrentTravel));
+		SetActorRotation(TargetRotation);
+		GetCameraComponent()->SetFieldOfView(TargetFieldOfView);
 	}
 
-	CurrentTravel = ActiveRegion->ClampTravel(ActiveRegion->GetTravelCoord(GetPlayer()->GetActorLocation()));
-	bHasTravel = true;
-	SetActorLocation(ActiveRegion->GetCameraLocation(CurrentTravel));
-	SetActorRotation(TargetRotation);
-	GetCameraComponent()->SetFieldOfView(TargetFieldOfView);
+	UpdateAudioListener();
+	if (AudioListenerContract.bOverrideApplied)
+	{
+		++AudioListenerContract.SnapGeneration;
+	}
 }
 
 void ARewindCameraRig::Tick(float DeltaSeconds)
@@ -128,31 +146,74 @@ void ARewindCameraRig::Tick(float DeltaSeconds)
 	FRotator TargetRotation;
 	float TargetFieldOfView = 50.f;
 	double TargetTravel = 0.0;
-	if (!ResolveTarget(TargetRotation, TargetFieldOfView, TargetTravel))
+	if (ResolveTarget(TargetRotation, TargetFieldOfView, TargetTravel))
 	{
+		// Frame-rate independent smoothing, in the same form as the reference
+		// implementation this borrows from: a fraction of the remaining distance
+		// per 16.67 ms, scaled by the actual frame time.
+		const double Scale = static_cast<double>(DeltaSeconds) * 1000.0 / 16.67;
+		const double Alpha = FMath::Min(1.0, FollowSpeed * Scale);
+		const double RotationAlpha = FMath::Min(1.0, RotationBlendSpeed * Scale);
+
+		CurrentTravel += (TargetTravel - CurrentTravel) * Alpha;
+		if (FMath::Abs(TargetTravel - CurrentTravel) < 0.05)
+		{
+			CurrentTravel = TargetTravel;
+		}
+
+		SetActorLocation(ActiveRegion->GetCameraLocation(CurrentTravel));
+
+		// Slerp rather than a rotator lerp, so a blend between two regions never
+		// takes the long way round.
+		SetActorRotation(FQuat::Slerp(GetActorQuat(), TargetRotation.Quaternion(),
+			static_cast<float>(RotationAlpha)));
+		GetCameraComponent()->SetFieldOfView(FMath::Lerp(
+			GetCameraComponent()->FieldOfView, TargetFieldOfView,
+			static_cast<float>(RotationAlpha)));
+	}
+
+	UpdateAudioListener();
+}
+
+void ARewindCameraRig::UpdateAudioListener()
+{
+	APlayerController* Controller = GetWorld() ? GetWorld()->GetFirstPlayerController() : nullptr;
+	APawn* Pawn = Controller ? Controller->GetPawn() : nullptr;
+	USceneComponent* Attachment = Pawn ? Pawn->GetRootComponent() : nullptr;
+	if (!Controller || !Attachment)
+	{
+		if (Controller && AudioListenerContract.bOverrideApplied)
+		{
+			Controller->ClearAudioListenerOverride();
+		}
+		AudioListenerContract.PositionAttachment = nullptr;
+		AudioListenerContract.TrackedPawn = nullptr;
+		AudioListenerContract.bOverrideApplied = false;
 		return;
 	}
 
-	// Frame-rate independent smoothing, in the same form as the reference
-	// implementation this borrows from: a fraction of the remaining distance
-	// per 16.67 ms, scaled by the actual frame time.
-	const double Scale = static_cast<double>(DeltaSeconds) * 1000.0 / 16.67;
-	const double Alpha = FMath::Min(1.0, FollowSpeed * Scale);
-	const double RotationAlpha = FMath::Min(1.0, RotationBlendSpeed * Scale);
-
-	CurrentTravel += (TargetTravel - CurrentTravel) * Alpha;
-	if (FMath::Abs(TargetTravel - CurrentTravel) < 0.05)
+	if (AudioListenerContract.TrackedPawn.Get() != Pawn
+		|| AudioListenerContract.PositionAttachment.Get() != Attachment)
 	{
-		CurrentTravel = TargetTravel;
+		++AudioListenerContract.PossessionGeneration;
+		AudioListenerContract.TrackedPawn = Pawn;
 	}
 
-	SetActorLocation(ActiveRegion->GetCameraLocation(CurrentTravel));
+	// UE 5.8 APlayerController::GetAudioListenerPosition computes an attached
+	// override as:
+	//
+	//   Rotation = AttachmentRotation + RotationOffset
+	//   Location = AttachmentLocation + Rotation.RotateVector(LocationOffset)
+	//
+	// FRotator addition/subtraction is component-wise, so subtracting the root
+	// rotation and using a zero location offset reconstructs the camera's exact
+	// orientation while keeping the listener exactly on the root component.
+	const FRotator CameraWorldRotation = GetCameraComponent()->GetComponentRotation();
+	const FRotator RotationOffset = CameraWorldRotation - Attachment->GetComponentRotation();
+	Controller->SetAudioListenerOverride(Attachment, FVector::ZeroVector, RotationOffset);
 
-	// Slerp rather than a rotator lerp, so a blend between two regions never
-	// takes the long way round.
-	SetActorRotation(FQuat::Slerp(GetActorQuat(), TargetRotation.Quaternion(),
-		static_cast<float>(RotationAlpha)));
-	GetCameraComponent()->SetFieldOfView(FMath::Lerp(
-		GetCameraComponent()->FieldOfView, TargetFieldOfView,
-		static_cast<float>(RotationAlpha)));
+	AudioListenerContract.PositionAttachment = Attachment;
+	AudioListenerContract.RequestedWorldLocation = Attachment->GetComponentLocation();
+	AudioListenerContract.RequestedWorldRotation = CameraWorldRotation;
+	AudioListenerContract.bOverrideApplied = true;
 }

@@ -4,6 +4,52 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-26 — REW-0037, player-relative audio under the authored camera
+
+- Date: 2026-08-26
+- Author: codex-audio-runtime
+- Task: REW-0037
+- Branch: `codex/rew-0037-audio-listener-runtime`
+- Pull request: #39 against `main`; not merged by this actor
+- Change: `ARewindCameraRig` remains player zero's visual view target and now
+  applies Unreal's supported audio-listener override every tick and immediately
+  from `SnapToPlayer`. The override attaches to the possessed pawn's root with
+  a zero positional offset. Its rotation offset is the current camera-component
+  world rotation minus root-component world rotation, so UE 5.8 reconstructs
+  the authored camera orientation while attenuation is measured from the
+  player's root. Possession changes replace the attachment on the next tick;
+  loop/player placement refreshes it through the existing snap path; rig end
+  clears it.
+- Engine semantics: UE 5.8
+  `APlayerController::GetAudioListenerPosition` adds the attached component's
+  rotation to the supplied rotation offset and adds the rotated location offset
+  to the component location. `FRotator` addition/subtraction is component-wise.
+  The chosen zero location offset and rotation difference therefore produce the
+  required world transform rather than only an attenuation-only override.
+- Radio preservation: no radio runtime rule or asset changed. The existing
+  `RadioBed` component, digit attenuation asset, channel-3 station bed, phases
+  4/9/14/19 and Baseline static reset remain. Focused observability now reads
+  back the bed component and confirms its attenuation asset is the digit asset
+  created by REW-0035.
+- Verification: with no `UnrealEditor.exe` process, `RewindEditor Win64
+  Development` succeeded in 49.50 seconds; the final fixture-only rebuild
+  succeeded in 9.10 seconds. Headless `Rewind.Audio.Listener` passed 1/1 and
+  calls UE's public listener-position API to compare resulting position,
+  front and right vectors through initial possession, possession replacement
+  and reset snap. `Rewind.Radio.Audio` passed 2/2. The complete `Rewind.*`
+  suite passed 25/25, 0 failed, `TEST COMPLETE. EXIT CODE: 0`.
+- Corrected test setup: the first focused listener run failed because the
+  isolated `UWorld::CreateWorld` fixture had not added its controller to the
+  player-controller list. The fixture now establishes the player-zero
+  relationship explicitly; production code was unchanged and both focused and
+  full reruns passed.
+- Diff verification: only the frozen ownership paths changed. No map, asset,
+  audio source, radio rule, camera composition or player-character source
+  changed. `git diff --check` was clean and the full diff was reviewed.
+- Not run: interactive PIE and heard-output. The operator owns both and should
+  judge actual playback before merge. No packaged build was made.
+- Signature: codex-audio-runtime
+
 ## 2026-08-26 — REW-0036 activated, Chapter 1 audio recovery supervisor
 
 - Date: 2026-08-26
