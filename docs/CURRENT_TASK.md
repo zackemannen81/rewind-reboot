@@ -143,9 +143,9 @@ player footsteps through the intended runtime events.
 - [x] Freeze the supervisor charter and wave ownership plan.
 - [x] Register and smoke-test the Docs-First PowerShell Agent MCP process plane.
 - [x] Synchronize the isolated worker clone and write the verbatim REW-0037 brief.
-- [ ] Launch and monitor REW-0037; make all scope and implementation decisions.
-- [ ] Review the worker branch and send back named defects until sufficient.
-- [ ] Merge REW-0037 and run the canonical combined gates.
+- [x] Launch and monitor REW-0037; make all scope and implementation decisions.
+- [x] Review the worker branch and send back named defects until sufficient.
+- [x] Merge REW-0037 and run the canonical combined gates.
 - [ ] Run the standard-PIE channel-3/audio scenario and obtain the owner-heard check.
 - [ ] Correct durable documentation, archive the task and restore the template.
 
@@ -205,7 +205,12 @@ Only non-semantic corrections are allowed after `Ready`.
       `rew-0037-audio-runtime` process ended on provider HTTP 402; replacement
       process `rew-0037-codex-takeover-2` was launched through the same MCP
       server against the preserved isolated worktree.
-- [ ] Worker, merged build, automation, final PIE and heard-output gates pending.
+- [x] Codex completed REW-0037 in the isolated clone. Full diff review was
+      clean; PR #39 merged as `7b71cc5`, and the child is archived.
+- [x] Canonical editor-closed build succeeded in 74.03 seconds. The integrated
+      headless `Rewind.*` suite passed 25/25 with
+      `TEST COMPLETE. EXIT CODE: 0`.
+- [ ] Final standard PIE and owner-heard output gates pending.
 
 ## Documentation Updates
 
@@ -218,11 +223,10 @@ Only non-semantic corrections are allowed after `Ready`.
 
 ## Handoff and Follow-ups
 
-- Current state: supervisor wave active; claims are on `main`; the process
-  plane passed smoke; REW-0037 is running in the isolated clone through Codex
-  takeover process `rew-0037-codex-takeover-2`.
-- Next recommended step: monitor the takeover, then review only durable branch
-  and named verification evidence.
+- Current state: supervisor wave active; REW-0037 is reviewed, merged and
+  archived. Canonical build and integrated 25/25 automation are green.
+- Next recommended step: launch the canonical editor, run the standard-PIE
+  audio scenario, obtain the owner-heard check, then archive REW-0036.
 - Blockers: none. Grok usage exhaustion was routed by replacing the worker
   process without changing the task.
 - Child tasks: REW-0037, frozen in the wave plan and active.
