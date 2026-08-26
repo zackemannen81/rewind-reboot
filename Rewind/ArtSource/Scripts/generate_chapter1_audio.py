@@ -36,6 +36,13 @@ def dbfs(value: float) -> float:
 
 def normalise_with_headroom(samples: np.ndarray, peak: float = PEAK_TARGET) -> np.ndarray:
     samples = np.asarray(samples, dtype=np.float64)
+    # Remove DC before scaling. Sparse crackle impulses and the asymmetric
+    # soft clip both bias the waveform off centre, and peak normalisation
+    # preserves that bias rather than correcting it: the static bed came out
+    # at -0.09 DC, which steals headroom and thumps audibly when a loop starts
+    # or stops. Centring first also buys back the level the offset was using.
+    if samples.size:
+        samples = samples - float(np.mean(samples))
     maximum = float(np.max(np.abs(samples)))
     if maximum > 0.0:
         samples = samples * (peak / maximum)

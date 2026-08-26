@@ -5,7 +5,7 @@
     "A_REW_Radio_Digit_7.wav": {
       "duration_seconds": 1.8143764172335601,
       "peak_dbfs": -3.000097173025577,
-      "rms_dbfs": -22.840235130294197,
+      "rms_dbfs": -22.84029706560878,
       "sample_rate": 44100,
       "channels": 1,
       "pcm_bits": 16
@@ -13,7 +13,7 @@
     "A_REW_Radio_Digit_3.wav": {
       "duration_seconds": 1.5693877551020408,
       "peak_dbfs": -3.000097173025577,
-      "rms_dbfs": -20.639575908338152,
+      "rms_dbfs": -20.639425646032898,
       "sample_rate": 44100,
       "channels": 1,
       "pcm_bits": 16
@@ -21,7 +21,7 @@
     "A_REW_Radio_Digit_1.wav": {
       "duration_seconds": 1.6093877551020408,
       "peak_dbfs": -3.000097173025577,
-      "rms_dbfs": -21.670888581259188,
+      "rms_dbfs": -21.67121089333665,
       "sample_rate": 44100,
       "channels": 1,
       "pcm_bits": 16
@@ -29,7 +29,7 @@
     "A_REW_Radio_Digit_2.wav": {
       "duration_seconds": 1.4043990929705215,
       "peak_dbfs": -3.000097173025577,
-      "rms_dbfs": -21.042317407645015,
+      "rms_dbfs": -21.042269088977342,
       "sample_rate": 44100,
       "channels": 1,
       "pcm_bits": 16
@@ -37,7 +37,7 @@
     "A_REW_Radio_Station_Loop.wav": {
       "duration_seconds": 10.0,
       "peak_dbfs": -3.000097173025577,
-      "rms_dbfs": -13.84162027134088,
+      "rms_dbfs": -14.066112328914198,
       "sample_rate": 44100,
       "channels": 1,
       "pcm_bits": 16,
@@ -46,7 +46,7 @@
     "A_REW_Radio_Static_Loop.wav": {
       "duration_seconds": 10.0,
       "peak_dbfs": -3.000097173025577,
-      "rms_dbfs": -15.873683596285638,
+      "rms_dbfs": -16.400844062310185,
       "sample_rate": 44100,
       "channels": 1,
       "pcm_bits": 16,
@@ -55,7 +55,7 @@
     "A_REW_Radio_Click_On.wav": {
       "duration_seconds": 0.11,
       "peak_dbfs": -3.000097173025577,
-      "rms_dbfs": -19.250042626363303,
+      "rms_dbfs": -19.213690220337813,
       "sample_rate": 44100,
       "channels": 1,
       "pcm_bits": 16
@@ -63,7 +63,7 @@
     "A_REW_Radio_Click_Off.wav": {
       "duration_seconds": 0.11,
       "peak_dbfs": -3.000097173025577,
-      "rms_dbfs": -19.42921279261213,
+      "rms_dbfs": -19.391464689962092,
       "sample_rate": 44100,
       "channels": 1,
       "pcm_bits": 16
@@ -71,7 +71,7 @@
     "A_REW_Radio_Tune.wav": {
       "duration_seconds": 0.11,
       "peak_dbfs": -3.000097173025577,
-      "rms_dbfs": -19.078619014561653,
+      "rms_dbfs": -19.05906820236577,
       "sample_rate": 44100,
       "channels": 1,
       "pcm_bits": 16
@@ -79,7 +79,7 @@
     "A_REW_Step_Interior_01.wav": {
       "duration_seconds": 0.2519954648526077,
       "peak_dbfs": -3.000097173025577,
-      "rms_dbfs": -17.285841760044857,
+      "rms_dbfs": -17.230640667647968,
       "sample_rate": 44100,
       "channels": 1,
       "pcm_bits": 16
@@ -87,7 +87,7 @@
     "A_REW_Step_Interior_02.wav": {
       "duration_seconds": 0.2639909297052154,
       "peak_dbfs": -3.000097173025577,
-      "rms_dbfs": -18.647536101189157,
+      "rms_dbfs": -18.604068830483644,
       "sample_rate": 44100,
       "channels": 1,
       "pcm_bits": 16
@@ -95,7 +95,7 @@
     "A_REW_Step_Interior_03.wav": {
       "duration_seconds": 0.27598639455782314,
       "peak_dbfs": -3.000097173025577,
-      "rms_dbfs": -18.298256026012428,
+      "rms_dbfs": -18.255582946071495,
       "sample_rate": 44100,
       "channels": 1,
       "pcm_bits": 16
@@ -103,7 +103,7 @@
     "A_REW_Step_Interior_04.wav": {
       "duration_seconds": 0.28798185941043086,
       "peak_dbfs": -3.000097173025577,
-      "rms_dbfs": -18.83790978795791,
+      "rms_dbfs": -18.80057252135817,
       "sample_rate": 44100,
       "channels": 1,
       "pcm_bits": 16
@@ -111,7 +111,7 @@
     "A_REW_Step_Interior_05.wav": {
       "duration_seconds": 0.3,
       "peak_dbfs": -3.000097173025577,
-      "rms_dbfs": -21.03486006369254,
+      "rms_dbfs": -21.008167409800357,
       "sample_rate": 44100,
       "channels": 1,
       "pcm_bits": 16
@@ -119,7 +119,7 @@
     "A_REW_Step_Interior_06.wav": {
       "duration_seconds": 0.3119954648526077,
       "peak_dbfs": -3.000097173025577,
-      "rms_dbfs": -18.929920289003437,
+      "rms_dbfs": -18.96900949520785,
       "sample_rate": 44100,
       "channels": 1,
       "pcm_bits": 16
