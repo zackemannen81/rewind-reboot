@@ -100,6 +100,13 @@ floor response and puzzle-object legibility can be judged along one connected
 player route. This approval does not authorize final environment art, a
 reusable kit, broad third-party asset ingestion or an asset pipeline.
 
+The owner activated REW-0034 on 2026-08-26 as a documentation-only exception
+for Chapter 2 design authority and acceptance criteria. That task may define
+"Conduit" in `docs/design/` and state what a later build must demonstrate. It
+does not authorize Chapter 2 code, maps, assets, production or implementation
+planning. Moving any of those into the current phase remains an explicit owner
+decision and a new bounded task.
+
 ## Engine
 
 Unreal Engine 5.8. Decided in
@@ -114,9 +121,11 @@ reference, not a starting point, and is inventoried in
 None of the following may be started, planned into a schedule, or used to
 justify scope in the current phase:
 
-- Chapters 2 to 5, and any temporal mechanic beyond a plain deterministic loop:
-  backwards time, parallel loops, timeline editing, paradoxes, local time
-  bubbles.
+- Implementation of Chapters 2 to 5, and any temporal mechanic beyond a plain
+  deterministic loop: backwards time, parallel loops, timeline editing,
+  paradoxes, local time bubbles. REW-0034's Chapter 2 design-authority and
+  acceptance documents are the documentation-only exception stated above;
+  they are not implementation authorization.
 - A general-purpose time engine. The loop needs to reset one small authored
   space correctly, not model time.
 - Environment polish beyond the explicitly bounded stairwell plus 4C/common
