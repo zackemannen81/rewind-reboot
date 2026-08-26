@@ -23,10 +23,14 @@ wrong and must be corrected.
 | `docs/adr/ADR-0010_renderer-configuration.md` | Accepted. Lumen GI and Lumen reflections, virtual shadow maps, mesh distance fields and default bloom. Auto-exposure stays off. Hardware ray tracing stays off. Frame-time budget 16.67 ms at 1920×1080 on the named development machine |
 | `Rewind/Rewind.uproject` | Unreal Engine 5.8 C++ project. Loop clock, apply order, session save, CleanSave. Loops end on causal-contract failure, death or first-time Anchor commit. The 240-second timeout is no longer the default end condition. `DefaultEngine.ini` matches ADR-0010 |
 | `Rewind/Content/Maps/FiveLoops.umap` | Preserved procedural proof map, no longer the editor or game default. C++ builds 4C, common hallway, cage lift, proof stairs, courtyard/service route and Transit Hub under eleven camera regions |
-| `Rewind/Content/Maps/FiveLoops_Stairwell_Blockout.umap` | Editor and game default. The accepted stairwell leads to one common corridor whose three preserved openings are stairs, lift and 4C. REW-0013 corrected the building side. REW-0014 applied the owner's placed 35 mm `4c_camera` as the exact Apartment4C runtime start frame: `(750, 1330, 1330)`, rotation `(0, 180, 0)`, horizontal FOV `37.497356`. REW-0015 widened that region's player volume to cover the room it frames, leaving the frame itself unchanged. REW-0022 unbound the saved map from untracked `/Game/Fab/` and `/Game/Art/Texture/` content: six empty-mesh dressing actors were removed, and surfaces that had lost those materials now use the tracked project-owned instances under `Rewind/Content/Art/Materials/`. Apartment 4C is undressed blockout. REW-0020 spawns `ARewindAuthoredCourtyard` on this SkipProofLayout map: approach hall, plaza, generator, gate, Transit exit and `GroundFuseGate` at the hall-to-courtyard seam `(-430, 2700, 150)`, with nine camera regions. Gameplay actors of the building slice were not moved |
+| `Rewind/Content/Maps/FiveLoops_Stairwell_Blockout.umap` | Editor and game default. The accepted stairwell leads to one common corridor whose three preserved openings are stairs, lift and 4C. REW-0013 corrected the building side. REW-0014 applied the owner's placed 35 mm `4c_camera` as the exact Apartment4C runtime start frame: `(750, 1330, 1330)`, rotation `(0, 180, 0)`, horizontal FOV `37.497356`. REW-0015 widened that region's player volume to cover the room it frames, leaving the frame itself unchanged. REW-0022 unbound the saved map from untracked `/Game/Fab/` and `/Game/Art/Texture/` content: six empty-mesh dressing actors were removed, and surfaces that had lost those materials now use the tracked project-owned instances under `Rewind/Content/Art/Materials/`. REW-0030 built Apartment 4C's shell, which did not previously exist: inspect_4c_shell found no floor, wall or ceiling anywhere near the room, only the 3291x3895x5000 building envelope every space sits inside. The room is now 500 deep by 1300 wide by 380 tall, four bays of 325 with columns on the interior boundaries, the door held at Y 1048 and the balcony opening in bay 4. Twelve owner-placed props were restored at their original package paths, floor-snapped and dressed from instances of the shared surface master. Twenty grime decals are placed. The camera moved from 687 to 1972 on the same 37.5 degree lens, following the framing rule the stairwell regions already used. Lighting was repitched in candelas: the two pendant practicals were authored at 1.4 and 2.3 cd against neighbours at 110 and 160, which is why the room rendered black under the level's manual -0.7 EV exposure. REW-0020 spawns `ARewindAuthoredCourtyard` on this SkipProofLayout map: approach hall, plaza, generator, gate, Transit exit and `GroundFuseGate` at the hall-to-courtyard seam `(-430, 2700, 150)`, with nine camera regions. Gameplay actors of the building slice were not moved |
 | `Rewind/Content/Maps/Reference/FiveLoops_Handmade2_Reference.umap` | Stable untouched Git LFS reference copy. Its 26-actor inventory and stair camera transform match the owner source at REW-0010 completion |
 | `Rewind/Content/FiveLoops_Handmade.umap` and `FiveLoops_Handmade2.umap` | Tracked owner-authored construction maps preserved through Git LFS. They are spatial source material, not runtime defaults or design-rule authority |
 | `docs/design/` | Nine accepted documents. Ownership in `docs/design/README.md`; `player-messages.md` owns the player-facing text channel and states that the debug overlay is not UI; `tutorial-and-first-run.md` owns first-run copy, the naming rule, and first-time gating |
+| `Rewind/Content/Audio/Chapter1/` | Fifteen generated SoundWaves from REW-0033: four radio digit one-shots, a station carrier and a static bed, three interaction clicks, six footstep variations. Synthesised on this machine, Windows SAPI for the voice and numpy/scipy for the old-radio chain, so nothing is downloaded and nothing carries a third-party licence. Measured independently at -3 dBFS, digits at 0.0% energy above 4 kHz, both loop seams at 0.0000 sample delta. **Nothing plays them yet** |
+| `Rewind/Content/Art/Textures/Surfaces/` | Eight base colours plus eight normal and eight roughness maps. REW-0031 generated the detail maps and was reverted because its rebuilt master killed every decal in 4C and blew out the brick column; REW-0032 restored them by extending the existing WorldAlignedTexture graph rather than replacing it, and keeping the normal tangent-space. A world-aligned normal output is what regresses decals |
+| `docs/design/chapter-2-authored.md` | Accepted design authority for Chapter 2, "Conduit": five spaces, nine puzzles, eight loops, with published route arithmetic consistent with the game's 200 cm/s walk speed. The legacy seed's "reactive AI that learns" was resolved inside ADR-0002 rather than superseding it, so no ADR-0013 was proposed. Design authority only; implementation is not authorised |
+| `docs/acceptance/chapter-2-conduit-test.md` | Accepted. Checkable acceptance criteria for Chapter 2. No build evidence exists for any of them |
 | `docs/acceptance/five-loops-test.md` | Accepted. Criteria FL-01 to FL-18. Existing playtests remain evidence for their timer-driven builds and pre-2026-08-24 wording; no build evidence exists for amended FL-01, FL-02, FL-03 or FL-07, or for FL-18. REW-0020 recorded PIE evidence for the three FL-17 checkpoint outcomes on the authored map |
 | `docs/playtests/` | Evidence from named runs of named builds. The earlier complete Five Loops record remains; REW-0007 adds a Chapter 1 three-loop record; REW-0019 adds before/after 4C renderer frames and 1080p frame time; REW-0020 adds the authored-courtyard FL-17 record |
 | `.codex/config.toml` and `.mcp.json` | Project-scoped clients for the running editor's MCP endpoint on localhost. They resolve only while this project's editor is open |
@@ -84,15 +88,31 @@ wrong and must be corrected.
   GI, Lumen reflections, virtual shadow maps, mesh distance fields and bloom,
   with a first light-shaping pass so the accepted grammar can be judged. That
   is a renderer and look pass, not final art. Procedural plaster, basic
-  fixtures and primitive geometry remain. REW-0028's decal and neon texture
-  assets are unplaced drop-in content only: no DecalActor, map integration,
-  visual placement evidence or neon material treatment exists yet. Final
+  fixtures and primitive geometry remain. REW-0028's neon texture assets remain
+  unplaced drop-in content. Its decal instances are no longer unplaced:
+  REW-0030 placed twenty DecalActors in 4C with rendered evidence. Final
   models, props, rain and wider-map dressing are not integrated.
   Locally imported Fab/environment packs and `Rewind/Content/Art/Texture/`
   remain untracked and local under ADR-0011. REW-0022 removed the saved map's
   references to them. A fresh clone of the default map therefore opens without
-  those packages. Apartment 4C is undressed until generated or authored props
-  exist; that is accepted by ADR-0011, not a defect to work around.
+  those packages. Apartment 4C is no longer undressed: twelve generated props are placed and
+  dressed, at 3.1 MB total.
+- **Any audio in play.** Fifteen SoundWaves exist and nothing references a
+  `USoundBase` anywhere in `Rewind/Source/`. The radio's digit schedule is
+  implemented and correct -- cycle 50, sequence 20, phases 4, 9, 14 and 19,
+  derived from the loop clock -- but each digit is shown as on-screen text
+  only. Wiring is charted as REW-0035 and not yet landed.
+- **PIE evidence for the rebuilt Apartment 4C.** Every judgement about the
+  room this session came from headless `SceneCapture` renders through the
+  region's own camera, not from play. The automation suite passes 22/22
+  including `Rewind.Project.DefaultAuthoredMap`, which is evidence the map
+  contract holds, not that the room plays well.
+- **Trustworthy captures without a warmup.** A `SceneCapture` taken before
+  async shader compilation finishes renders fallback materials, so the same
+  scene can produce different images run to run. This invalidated an entire
+  material-swap bisect during REW-0031 before REW-0032 identified it.
+  `capture_region.py` now defaults to a 45-second warmup; captures taken with
+  `REW_WARMUP_SECONDS=0` are not evidence.
 - **A packaged game build.** Editor Win64 Development compiled and run in PIE;
   a cooked package has not been made, so nothing here is evidence about a
   shipped build.
@@ -108,8 +128,11 @@ wrong and must be corrected.
   [`loop-pressure-and-interaction.md`](backlog/loop-pressure-and-interaction.md).
 - **Echo as a replayed ghost.** ADR-0012 decided Echo is narrative only, so
   this will not be built. Nothing samples the player's transform and nothing
-  persists a path. Insight as a later system and Chapters 2 to 5 remain
-  unwritten and are not required by the first product proof.
+  persists a path. Insight as a later system remains unwritten. Chapter 2 now has accepted
+  design authority and acceptance criteria from REW-0034, and nothing more:
+  no code, map or asset, and PROJECT_BRIEF records that documentation-only
+  exception explicitly. Chapters 3 to 5 remain unwritten. None of this is
+  required by the first product proof.
 - **A license decision.** A `LICENSE` file with Apache-2.0 text remains from
   the docs-first extraction. That is not a decision that RE:WIND is open
   source. The intended safe default for the game is all rights reserved, and
