@@ -34,7 +34,7 @@ rewind-reboot/
 │       ├── FiveLoops_Handmade.umap owner-authored original construction map
 │       ├── FiveLoops_Handmade2.umap
 │       │                            owner-authored revised stair construction
-│       ├── Audio/Chapter1/         fifteen generated SoundWaves; nothing plays them yet
+│       ├── Audio/Chapter1/         fifteen generated SoundWaves, wired by REW-0035
 │       ├── Maps/FiveLoops.umap     empty level; Chapter 1 blockout spawned in C++
 │       ├── Maps/FiveLoops_Stairwell_Blockout.umap
 │       │                            default authored stairwell, 4C, halls, lift and courtyard slice

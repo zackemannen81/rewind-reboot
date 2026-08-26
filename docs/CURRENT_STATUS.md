@@ -27,7 +27,7 @@ wrong and must be corrected.
 | `Rewind/Content/Maps/Reference/FiveLoops_Handmade2_Reference.umap` | Stable untouched Git LFS reference copy. Its 26-actor inventory and stair camera transform match the owner source at REW-0010 completion |
 | `Rewind/Content/FiveLoops_Handmade.umap` and `FiveLoops_Handmade2.umap` | Tracked owner-authored construction maps preserved through Git LFS. They are spatial source material, not runtime defaults or design-rule authority |
 | `docs/design/` | Nine accepted documents. Ownership in `docs/design/README.md`; `player-messages.md` owns the player-facing text channel and states that the debug overlay is not UI; `tutorial-and-first-run.md` owns first-run copy, the naming rule, and first-time gating |
-| `Rewind/Content/Audio/Chapter1/` | Fifteen generated SoundWaves from REW-0033: four radio digit one-shots, a station carrier and a static bed, three interaction clicks, six footstep variations. Synthesised on this machine, Windows SAPI for the voice and numpy/scipy for the old-radio chain, so nothing is downloaded and nothing carries a third-party licence. Measured independently at -3 dBFS, digits at 0.0% energy above 4 kHz, both loop seams at 0.0000 sample delta. **Nothing plays them yet** |
+| `Rewind/Content/Audio/Chapter1/` | Fifteen generated SoundWaves from REW-0033: four radio digit one-shots, a station carrier and a static bed, three interaction clicks, six footstep variations. Synthesised on this machine, Windows SAPI for the voice and numpy/scipy for the old-radio chain, so nothing is downloaded and nothing carries a third-party licence. Measured independently at -3 dBFS, digits at 0.0% energy above 4 kHz, both loop seams at 0.0000 sample delta. REW-0035 plays all of them: digits, beds, clicks and footsteps |
 | `Rewind/Content/Art/Textures/Surfaces/` | Eight base colours plus eight normal and eight roughness maps. REW-0031 generated the detail maps and was reverted because its rebuilt master killed every decal in 4C and blew out the brick column; REW-0032 restored them by extending the existing WorldAlignedTexture graph rather than replacing it, and keeping the normal tangent-space. A world-aligned normal output is what regresses decals |
 | `docs/design/chapter-2-authored.md` | Accepted design authority for Chapter 2, "Conduit": five spaces, nine puzzles, eight loops, with published route arithmetic consistent with the game's 200 cm/s walk speed. The legacy seed's "reactive AI that learns" was resolved inside ADR-0002 rather than superseding it, so no ADR-0013 was proposed. Design authority only; implementation is not authorised |
 | `docs/acceptance/chapter-2-conduit-test.md` | Accepted. Checkable acceptance criteria for Chapter 2. No build evidence exists for any of them |
@@ -97,11 +97,12 @@ wrong and must be corrected.
   references to them. A fresh clone of the default map therefore opens without
   those packages. Apartment 4C is no longer undressed: twelve generated props are placed and
   dressed, at 3.1 MB total.
-- **Any audio in play.** Fifteen SoundWaves exist and nothing references a
-  `USoundBase` anywhere in `Rewind/Source/`. The radio's digit schedule is
-  implemented and correct -- cycle 50, sequence 20, phases 4, 9, 14 and 19,
-  derived from the loop clock -- but each digit is shown as on-screen text
-  only. Wiring is charted as REW-0035 and not yet landed.
+- **Heard evidence for the audio.** REW-0035 wired all fifteen sounds into
+  gameplay and the suite passes 24/24, including a digit-selection test and a
+  rewind-cleanliness test. The radio's digit attenuation was read back at a
+  320 cm falloff against `RadioRange = 320.0`, so audibility and hearing credit
+  cannot disagree. None of that is evidence that the room sounds right: nobody
+  has heard it in play.
 - **PIE evidence for the rebuilt Apartment 4C.** Every judgement about the
   room this session came from headless `SceneCapture` renders through the
   region's own camera, not from play. The automation suite passes 22/22
