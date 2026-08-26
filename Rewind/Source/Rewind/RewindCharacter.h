@@ -21,6 +21,8 @@ private:
 	void MoveForward(float Value);
 	void MoveRight(float Value);
 	void Interact();
+	void UpdateFootsteps();
+	void PlayFootstep();
 	void EnterDigit(int32 Digit);
 	void Digit0() { EnterDigit(0); }
 	void Digit1() { EnterDigit(1); }
@@ -72,6 +74,14 @@ private:
 	TObjectPtr<class UAnimSequence> WalkAnimation;
 
 	bool bWasMoving = false;
+
+	UPROPERTY()
+	TObjectPtr<class USoundBase> FootstepSounds[6];
+
+	FVector LastFootstepLocation = FVector::ZeroVector;
+	float FootstepDistance = 0.0f;
+	int32 PreviousFootstepIndex = INDEX_NONE;
+	bool bHasFootstepLocation = false;
 
 	// A held axis keeps the world direction it acquired when pressed. Without
 	// this latch, an opposing authored camera cut reverses the same held key at

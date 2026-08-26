@@ -7,11 +7,15 @@
 #include "RewindMessageIds.h"
 #include "RewindMessageSubsystem.h"
 #include "RewindSessionSubsystem.h"
+#include "Components/AudioComponent.h"
 #include "GameFramework/Pawn.h"
 #include "GameFramework/PlayerController.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
+#include "Kismet/GameplayStatics.h"
+#include "Sound/SoundAttenuation.h"
+#include "Sound/SoundBase.h"
 #include "UObject/ConstructorHelpers.h"
 
 namespace
@@ -37,12 +41,24 @@ namespace
 	/** Not a rule. The document says there are channels and one carries the code. */
 	constexpr int32 RadioChannelCount = 4;
 	constexpr int32 RadioCodeChannel = 3;
+	constexpr int32 RadioOffChannel = 0;
+	constexpr int32 StationBedSoundIndex = 0;
+	constexpr int32 StaticBedSoundIndex = 1;
 
 	/** How close the player must stand to hear it. */
 	constexpr double RadioRange = 320.0;
 
 	/** One tick's grace, so the grant does not turn on floating point. */
 	constexpr double HeardTolerance = 0.25;
+
+	int32 GetBedSoundIndexForChannel(int32 Channel)
+	{
+		if (Channel == RadioOffChannel)
+		{
+			return INDEX_NONE;
+		}
+		return Channel == RadioCodeChannel ? StationBedSoundIndex : StaticBedSoundIndex;
+	}
 }
 
 ARewindRadio::ARewindRadio()
@@ -60,6 +76,53 @@ ARewindRadio::ARewindRadio()
 		Mesh->SetStaticMesh(Cube.Object);
 	}
 	Mesh->SetRelativeScale3D(FVector(0.4f, 0.6f, 0.3f));
+
+	RadioBed = CreateDefaultSubobject<UAudioComponent>(TEXT("RadioBed"));
+	RadioBed->SetupAttachment(Root);
+	RadioBed->bAutoActivate = false;
+
+	static ConstructorHelpers::FObjectFinder<USoundBase> Digit7(
+		TEXT("/Game/Audio/Chapter1/A_REW_Radio_Digit_7.A_REW_Radio_Digit_7"));
+	static ConstructorHelpers::FObjectFinder<USoundBase> Digit3(
+		TEXT("/Game/Audio/Chapter1/A_REW_Radio_Digit_3.A_REW_Radio_Digit_3"));
+	static ConstructorHelpers::FObjectFinder<USoundBase> Digit1(
+		TEXT("/Game/Audio/Chapter1/A_REW_Radio_Digit_1.A_REW_Radio_Digit_1"));
+	static ConstructorHelpers::FObjectFinder<USoundBase> Digit2(
+		TEXT("/Game/Audio/Chapter1/A_REW_Radio_Digit_2.A_REW_Radio_Digit_2"));
+	static ConstructorHelpers::FObjectFinder<USoundBase> Station(
+		TEXT("/Game/Audio/Chapter1/A_REW_Radio_Station_Loop.A_REW_Radio_Station_Loop"));
+	static ConstructorHelpers::FObjectFinder<USoundBase> Static(
+		TEXT("/Game/Audio/Chapter1/A_REW_Radio_Static_Loop.A_REW_Radio_Static_Loop"));
+	static ConstructorHelpers::FObjectFinder<USoundBase> ClickOn(
+		TEXT("/Game/Audio/Chapter1/A_REW_Radio_Click_On.A_REW_Radio_Click_On"));
+	static ConstructorHelpers::FObjectFinder<USoundBase> ClickOff(
+		TEXT("/Game/Audio/Chapter1/A_REW_Radio_Click_Off.A_REW_Radio_Click_Off"));
+	static ConstructorHelpers::FObjectFinder<USoundBase> Tune(
+		TEXT("/Game/Audio/Chapter1/A_REW_Radio_Tune.A_REW_Radio_Tune"));
+	static ConstructorHelpers::FObjectFinder<USoundAttenuation> Attenuation(
+		TEXT("/Game/Audio/Chapter1/A_REW_Radio_Attenuation.A_REW_Radio_Attenuation"));
+
+	DigitSounds[0] = Digit7.Succeeded() ? Digit7.Object : nullptr;
+	DigitSounds[1] = Digit3.Succeeded() ? Digit3.Object : nullptr;
+	DigitSounds[2] = Digit1.Succeeded() ? Digit1.Object : nullptr;
+	DigitSounds[3] = Digit2.Succeeded() ? Digit2.Object : nullptr;
+	StationLoop = Station.Succeeded() ? Station.Object : nullptr;
+	StaticLoop = Static.Succeeded() ? Static.Object : nullptr;
+	ClickOnSound = ClickOn.Succeeded() ? ClickOn.Object : nullptr;
+	ClickOffSound = ClickOff.Succeeded() ? ClickOff.Object : nullptr;
+	TuneSound = Tune.Succeeded() ? Tune.Object : nullptr;
+	DigitAttenuation = Attenuation.Succeeded() ? Attenuation.Object : nullptr;
+	if (DigitAttenuation)
+	{
+		// Beds and digits use the same 320 cm spatial boundary as hearing credit.
+		RadioBed->SetAttenuationSettings(DigitAttenuation);
+	}
+}
+
+void ARewindRadio::BeginPlay()
+{
+	Super::BeginPlay();
+	UpdateBedAudio();
 }
 
 void ARewindRadio::RestoreFromBaseline()
@@ -68,6 +131,7 @@ void ARewindRadio::RestoreFromBaseline()
 	ListeningSince = -1.0;
 	bWasInSequence = false;
 	FragmentsReported = 0;
+	UpdateBedAudio();
 	RewindLog::Baseline(TEXT("Radio: channel 1, static"));
 }
 
@@ -80,7 +144,19 @@ bool ARewindRadio::TryInteract(APawn* InstigatorPawn)
 {
 	(void)InstigatorPawn;
 
-	Channel = Channel % RadioChannelCount + 1;
+	const int32 PreviousChannel = Channel;
+	if (Channel == RadioOffChannel)
+	{
+		Channel = 1;
+	}
+	else if (Channel == RadioChannelCount)
+	{
+		Channel = RadioOffChannel;
+	}
+	else
+	{
+		++Channel;
+	}
 
 	// Changing channel breaks the listen. A sequence heard in two halves is
 	// not a sequence heard.
@@ -91,6 +167,19 @@ bool ARewindRadio::TryInteract(APawn* InstigatorPawn)
 	// of whoever is listening. Resetting it let a late arrival replay digits
 	// spoken before they tuned in: the first played test showed digit 1, at
 	// phase 4.0, being announced at t=5.95 on the tick the channel changed.
+	UpdateBedAudio();
+	if (PreviousChannel == RadioOffChannel)
+	{
+		PlayInteractionSound(ClickOnSound);
+	}
+	else if (Channel == RadioOffChannel)
+	{
+		PlayInteractionSound(ClickOffSound);
+	}
+	else
+	{
+		PlayInteractionSound(TuneSound);
+	}
 
 	const bool bOnCode = Channel == RadioCodeChannel;
 	RewindLog::Event(this, FString::Printf(TEXT("Radio: channel %d (%s)"),
@@ -103,6 +192,77 @@ bool ARewindRadio::TryInteract(APawn* InstigatorPawn)
 			FString::FromInt(Channel));
 	}
 	return true;
+}
+
+int32 ARewindRadio::GetDigitSoundIndexForPhase(double Phase)
+{
+	for (int32 Index = 0; Index < DigitCount; ++Index)
+	{
+		if (FMath::IsNearlyEqual(Phase, DigitPhases[Index]))
+		{
+			return Index;
+		}
+	}
+	return INDEX_NONE;
+}
+
+int32 ARewindRadio::GetCurrentBedSoundIndex() const
+{
+	return GetBedSoundIndexForChannel(Channel);
+}
+
+int32 ARewindRadio::GetAppliedBedSoundIndex() const
+{
+	if (!RadioBed || !RadioBed->GetSound())
+	{
+		return INDEX_NONE;
+	}
+	if (RadioBed->GetSound() == StationLoop)
+	{
+		return StationBedSoundIndex;
+	}
+	return RadioBed->GetSound() == StaticLoop ? StaticBedSoundIndex : INDEX_NONE;
+}
+
+void ARewindRadio::UpdateBedAudio()
+{
+	if (!RadioBed)
+	{
+		return;
+	}
+
+	USoundBase* DesiredSound = nullptr;
+	switch (GetCurrentBedSoundIndex())
+	{
+	case StationBedSoundIndex:
+		DesiredSound = StationLoop;
+		break;
+	case StaticBedSoundIndex:
+		DesiredSound = StaticLoop;
+		break;
+	default:
+		RadioBed->Stop();
+		RadioBed->SetSound(nullptr);
+		return;
+	}
+
+	if (RadioBed->GetSound() != DesiredSound)
+	{
+		RadioBed->Stop();
+		RadioBed->SetSound(DesiredSound);
+	}
+	if (DesiredSound && !RadioBed->IsPlaying())
+	{
+		RadioBed->Play();
+	}
+}
+
+void ARewindRadio::PlayInteractionSound(USoundBase* Sound) const
+{
+	if (Sound)
+	{
+		UGameplayStatics::PlaySound2D(this, Sound);
+	}
 }
 
 bool ARewindRadio::IsBeingHeard() const
@@ -132,6 +292,12 @@ void ARewindRadio::ReportFragment(double Phase)
 		if (URewindMessageSubsystem* Messages = URewindMessageSubsystem::Get(this))
 		{
 			Messages->Show(DigitMessageIds[FragmentsReported]);
+		}
+		const int32 SoundIndex = GetDigitSoundIndexForPhase(DigitPhases[FragmentsReported]);
+		if (SoundIndex != INDEX_NONE && DigitSounds[SoundIndex])
+		{
+			UGameplayStatics::PlaySoundAtLocation(
+				this, DigitSounds[SoundIndex], GetActorLocation(), 1.0f, 1.0f, 0.0f, DigitAttenuation);
 		}
 		RewindLog::Event(this, FString::Printf(TEXT("Radio: digit %d spoken (%s) at phase %.1f"),
 			FragmentsReported + 1, DigitWords[FragmentsReported], DigitPhases[FragmentsReported]));
