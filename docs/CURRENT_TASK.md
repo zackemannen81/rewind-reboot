@@ -169,6 +169,12 @@ player footsteps through the intended runtime events.
   six package tests. A recorded long-lived raw MCP stdio transport then listed
   the same five tools and is the process plane for this wave; Git checkpoints
   remain recovery authority if that ephemeral process is lost.
+- The first REW-0037 worker froze and committed the charter, then its Grok
+  provider returned HTTP 402 because the Build usage balance was exhausted.
+  The operator pushed that durable checkpoint, preserved the three-file
+  partial diff as untrusted handoff state, and replaced only the process with
+  Codex CLI under a new MCP agent ID. Scope, clone, branch, ownership and
+  charter did not change.
 - The Unreal editor is operator-owned. It must be closed for canonical builds
   and reopened from the repository root for PIE evidence.
 
@@ -195,6 +201,10 @@ Only non-semantic corrections are allowed after `Ready`.
 - [x] Worker clone `rewind-reboot3` was clean, fast-forwarded to claimed base
       `c4c18af`, given branch `codex/rew-0037-audio-listener-runtime`, and the
       frozen brief was written under the operator-owned brief directory.
+- [x] REW-0037 charter commit `b24a5fe` was inspected and pushed. The original
+      `rew-0037-audio-runtime` process ended on provider HTTP 402; replacement
+      process `rew-0037-codex-takeover-2` was launched through the same MCP
+      server against the preserved isolated worktree.
 - [ ] Worker, merged build, automation, final PIE and heard-output gates pending.
 
 ## Documentation Updates
@@ -209,11 +219,13 @@ Only non-semantic corrections are allowed after `Ready`.
 ## Handoff and Follow-ups
 
 - Current state: supervisor wave active; claims are on `main`; the process
-  plane passed smoke; isolated clone and frozen REW-0037 brief are ready.
-- Next recommended step: launch and monitor `rew-0037-audio-runtime` through
-  the live MCP process, then review only durable branch evidence.
-- Blockers: none before worker launch.
-- Child tasks: REW-0037, frozen in the wave plan and not launched.
+  plane passed smoke; REW-0037 is running in the isolated clone through Codex
+  takeover process `rew-0037-codex-takeover-2`.
+- Next recommended step: monitor the takeover, then review only durable branch
+  and named verification evidence.
+- Blockers: none. Grok usage exhaustion was routed by replacing the worker
+  process without changing the task.
+- Child tasks: REW-0037, frozen in the wave plan and active.
 - Resume condition: not paused. After a process loss, restart the stdio server,
   inspect the REW-0037 branch and resume from its last pushed checkpoint.
 - Open questions: none about product or implementation direction. The final

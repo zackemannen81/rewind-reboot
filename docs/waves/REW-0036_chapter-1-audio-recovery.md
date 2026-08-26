@@ -23,6 +23,15 @@ does not absorb implementation if the child fails.
 | --- | --- | --- | --- | --- | --- |
 | REW-0037 | Make Chapter 1 audio render from the player's hearing frame under the authored camera | `C:\code\rewind-multiagents\rewind-reboot3` | `codex/rew-0037-audio-listener-runtime` | `rew-0037-audio-runtime` | `C:\Users\zakri\.grok\bin\grok.exe` |
 
+Execution record: `rew-0037-audio-runtime` committed the frozen charter as
+`b24a5fe` but its provider then stopped with HTTP 402 because Grok Build usage
+was exhausted. The operator pushed the checkpoint and retained the partial
+working-tree diff as untrusted handoff state. Per the owner's direction to use
+Codex workers, `rew-0037-codex-takeover-2` now owns the same clone, branch and
+frozen boundary through
+`C:\Users\zakri\AppData\Roaming\npm\codex.cmd`. This is a process substitution,
+not a charter or ownership amendment.
+
 ## Frozen REW-0037 charter
 
 ### Goal
