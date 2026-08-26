@@ -141,8 +141,8 @@ player footsteps through the intended runtime events.
 - [x] Reproduce and classify the missing-audio report in standard PIE.
 - [x] Claim REW-0036 and REW-0037 on `main` and push the claims.
 - [x] Freeze the supervisor charter and wave ownership plan.
-- [ ] Register and smoke-test the Docs-First PowerShell Agent MCP process plane.
-- [ ] Synchronize the isolated worker clone and write the verbatim REW-0037 brief.
+- [x] Register and smoke-test the Docs-First PowerShell Agent MCP process plane.
+- [x] Synchronize the isolated worker clone and write the verbatim REW-0037 brief.
 - [ ] Launch and monitor REW-0037; make all scope and implementation decisions.
 - [ ] Review the worker branch and send back named defects until sufficient.
 - [ ] Merge REW-0037 and run the canonical combined gates.
@@ -161,10 +161,14 @@ player footsteps through the intended runtime events.
 - The operator decision is player-position audio with authored-camera
   orientation. Moving the camera, widening `RadioRange`, making spatial sounds
   globally 2D or changing the puzzle's hearing rule are rejected.
-- The current Codex session did not expose the five process tools. The project
-  config is therefore updated to register the already-built stdio server; a
-  fresh session must discover it before worker launch. No bridge or unrecorded
-  substitute is treated as the steady-state process plane.
+- The original Codex session did not expose the five process tools. The project
+  config therefore registers the stdio server for future repository-root
+  sessions. No unrecorded substitute is treated as the process plane.
+- The reconnected desktop session still did not surface the stdio tools. The
+  add-on's own installer restored its missing npm dependencies and passed all
+  six package tests. A recorded long-lived raw MCP stdio transport then listed
+  the same five tools and is the process plane for this wave; Git checkpoints
+  remain recovery authority if that ephemeral process is lost.
 - The Unreal editor is operator-owned. It must be closed for canonical builds
   and reopened from the repository root for PIE evidence.
 
@@ -185,6 +189,12 @@ Only non-semantic corrections are allowed after `Ready`.
       01:05 local, before REW-0035 source at 05:07 local.
 - [x] Unreal log named `LG TV (NVIDIA High Definition Audio)` as the active
       WASAPI render device for the diagnostic run.
+- [x] Add-on install/test: 6 passed, 0 failed, including the real MCP stdio
+      handshake. Harmless MCP smoke task exited 0 and emitted
+      `agent-mcp-smoke-ok` through `run-agent-task`/`about-agent`.
+- [x] Worker clone `rewind-reboot3` was clean, fast-forwarded to claimed base
+      `c4c18af`, given branch `codex/rew-0037-audio-listener-runtime`, and the
+      frozen brief was written under the operator-owned brief directory.
 - [ ] Worker, merged build, automation, final PIE and heard-output gates pending.
 
 ## Documentation Updates
@@ -198,15 +208,14 @@ Only non-semantic corrections are allowed after `Ready`.
 
 ## Handoff and Follow-ups
 
-- Current state: supervisor wave activated; claims are on `main`; the process
-  server is built and project registration is committed on this branch.
-- Next recommended step: restart the Codex session from this repository root,
-  verify all five `docs_first_agents` tools and run the harmless smoke task.
-- Blockers: the current session cannot hot-load the newly registered stdio MCP
-  server; worker launch waits for a fresh session exposing its five tools.
+- Current state: supervisor wave active; claims are on `main`; the process
+  plane passed smoke; isolated clone and frozen REW-0037 brief are ready.
+- Next recommended step: launch and monitor `rew-0037-audio-runtime` through
+  the live MCP process, then review only durable branch evidence.
+- Blockers: none before worker launch.
 - Child tasks: REW-0037, frozen in the wave plan and not launched.
-- Resume condition: a session from the repository root exposes `run-agent`,
-  `run-agent-task`, `about-agent`, `interrupt-agent` and `halt-agent`.
+- Resume condition: not paused. After a process loss, restart the stdio server,
+  inspect the REW-0037 branch and resume from its last pushed checkpoint.
 - Open questions: none about product or implementation direction. The final
   heard-output gate requires the owner to confirm what reaches the named device.
 
