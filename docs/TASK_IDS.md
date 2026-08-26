@@ -59,3 +59,4 @@ still the protocol extraction; that identity stays taken. New claims use `REW`.
 | REW-0029 | Bind The Returner as the player character | codex-character | 2026-08-26 | docs/CURRENT_TASK.md |
 | REW-0030 | Apartment 4C enlarged to the concept topology | Claude | 2026-08-26 | docs/CURRENT_TASK.md |
 | REW-0031 | Surface normal and roughness maps for the environment kit | codex-normals | 2026-08-26 | docs/CURRENT_TASK.md |
+| REW-0032 | Surface detail maps that do not break decal rendering | codex-surfaces2 | 2026-08-26 | docs/CURRENT_TASK.md |
