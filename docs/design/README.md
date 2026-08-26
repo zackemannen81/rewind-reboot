@@ -25,3 +25,4 @@ is not a rule. It is a proposal.
 | [`stairwell-visual-direction.md`](stairwell-visual-direction.md) | Accepted | First-pass visual grammar for the authored stairwell slice |
 | [`player-messages.md`](player-messages.md) | Accepted | When the game speaks in text, how long a line stays, and that the debug overlay is not UI |
 | [`tutorial-and-first-run.md`](tutorial-and-first-run.md) | Accepted | First-run copy, what it may say, and first-time gating |
+| [`chapter-2-authored.md`](chapter-2-authored.md) | Accepted | Chapter 2 fiction, spaces, clocks, puzzles, antagonist, false information, entry and exit |

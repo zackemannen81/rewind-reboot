@@ -15,3 +15,4 @@ rule is written in `docs/design/` first, or the criterion waits.
 | Document | Status | Owns |
 | --- | --- | --- |
 | [`five-loops-test.md`](five-loops-test.md) | Accepted | First product proof. Criteria FL-01 to FL-16 |
+| [`chapter-2-conduit-test.md`](chapter-2-conduit-test.md) | Accepted | Chapter 2 Conduit. Criteria C2-01 to C2-25 |

@@ -2,7 +2,7 @@
 
 Task ID: REW-0034
 Parent Task: None
-Status: Ready
+Status: In Progress
 Owner: codex-gdd
 Created: 2026-08-26
 Last updated: 2026-08-26
@@ -121,9 +121,9 @@ Chapter 2 acceptance document under `docs/acceptance/`.
 - [x] Read the governing workflow, live status and system documents in full.
 - [x] Read the named design, acceptance, ADR and legacy-seed sources in full.
 - [x] Confirm REW-0034 is claimed and the requested branch is active.
-- [ ] Draft and arithmetically audit the Chapter 2 authored design.
-- [ ] Draft and trace the numbered Chapter 2 acceptance criteria.
-- [ ] Update collection indexes and clarify the project brief boundary.
+- [x] Draft and arithmetically audit the Chapter 2 authored design.
+- [x] Draft and trace the numbered Chapter 2 acceptance criteria.
+- [x] Update collection indexes and clarify the project brief boundary.
 - [ ] Run all documentation verification gates.
 - [ ] Complete and archive the charter; restore the template.
 - [ ] Add the signed newest-first journal entry.
@@ -158,11 +158,11 @@ Chapter 2 acceptance document under `docs/acceptance/`.
 
 ## Documentation Updates
 
-- [ ] `docs/design/chapter-2-authored.md`
-- [ ] Chapter 2 acceptance document
-- [ ] `docs/design/README.md`
-- [ ] `docs/acceptance/README.md`
-- [ ] `docs/PROJECT_BRIEF.md`
+- [x] `docs/design/chapter-2-authored.md`
+- [x] `docs/acceptance/chapter-2-conduit-test.md`
+- [x] `docs/design/README.md`
+- [x] `docs/acceptance/README.md`
+- [x] `docs/PROJECT_BRIEF.md`
 - [ ] `docs/JOURNAL.md`
 - [ ] `docs/CURRENT_STATUS.md` not edited: no implementation changed
 - [ ] `docs/SYSTEMDOC.md` not edited: no implementation changed
