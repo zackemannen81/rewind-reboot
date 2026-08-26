@@ -4,6 +4,32 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-26 — REW-0036 complete, Chapter 1 audio recovered and heard
+
+- Date: 2026-08-26
+- Author: Codex (process supervisor)
+- Task: REW-0036
+- Branch: `codex/rew-0036-audio-recovery-supervisor`
+- Integration: reviewed REW-0037's complete frozen-scope diff and merged PR #39
+  to `main` as `7b71cc5`; reconciled its durable status with the active parent
+  without touching the owner's untracked prop sources or `dev/` directory.
+- Canonical gates: with Unreal Editor closed, `RewindEditor Win64 Development`
+  succeeded in 74.03 seconds. Headless `Automation RunTests Rewind` completed
+  all 25 tests successfully with `TEST COMPLETE. EXIT CODE: 0`, including the
+  engine-result audio-listener contract and both radio-audio tests.
+- Standard PIE: the loaded `RewindRadio_0` exposed `Root`, `Mesh` and
+  `RadioBed`; player zero remained under `RewindCameraRig_0` in
+  `Apartment4C_Region`. Project-owned input moved the player from hearing range
+  into interaction range, selected channel 2 then channel 3, and held position
+  through a complete cycle. `LogRewind` recorded seven, three, one and two at
+  phases 4, 9, 14 and 19, followed by `complete 20s sequence heard`.
+- Heard evidence: Unreal selected `LG TV (NVIDIA High Definition Audio)`. The
+  owner confirmed during that exact standard-PIE run: "yes, radion funkar
+  perfekt nu." This is heard evidence, not an inference from active sources.
+- Cleanup: `ReleaseAllKeys` reported zero remaining held keys and PIE stopped
+  through `EditorAppToolset.StopPIE`.
+- Signature: Codex (process supervisor)
+
 ## 2026-08-26 — REW-0037, player-relative audio under the authored camera
 
 - Date: 2026-08-26
