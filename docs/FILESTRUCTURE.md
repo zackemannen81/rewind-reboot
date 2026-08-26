@@ -19,15 +19,22 @@ rewind-reboot/
 │   │   ├── EnvironmentTextureKit-v1/ REW-0027 JPEG surface/backdrop import sources
 │   │       └── Decals_Emissive/  REW-0028 decal atlas and neon PNG sources
 │   │                               both outside Content/ so the editor never scans them
+│   ├── ArtSource/Audio/           REW-0033 generated WAV sources: radio digits,
+│   │                               station and static beds, clicks, footsteps
 │   ├── ArtSource/Characters/Returner/
 │   │                               owner-generated Returner source FBX and provenance
-│   ├── ArtSource/Scripts/          reproducible editor Python imports, rebuilds and the
-│   │                               Returner alignment inspection
+│   ├── ArtSource/Screenshots/      rendered evidence kept with the task that produced it
+│   ├── ArtSource/Scripts/          reproducible editor Python imports, rebuilds and
+│   │                               inspections. capture_region.py renders a camera
+│   │                               region's authored shot headlessly; verify_audio.py
+│   │                               and verify_surface_bindings.py read results back
+│   │                               rather than trusting a generator's own report
 │   ├── Config/                     default engine, game, input, editor
 │   └── Content/
 │       ├── FiveLoops_Handmade.umap owner-authored original construction map
 │       ├── FiveLoops_Handmade2.umap
 │       │                            owner-authored revised stair construction
+│       ├── Audio/Chapter1/         fifteen generated SoundWaves; nothing plays them yet
 │       ├── Maps/FiveLoops.umap     empty level; Chapter 1 blockout spawned in C++
 │       ├── Maps/FiveLoops_Stairwell_Blockout.umap
 │       │                            default authored stairwell, 4C, halls, lift and courtyard slice
@@ -63,12 +70,15 @@ rewind-reboot/
 │   │   ├── world-state-model.md
 │   │   ├── save-and-session.md
 │   │   ├── chapter-1-authored.md
+│   │   ├── chapter-2-authored.md   REW-0034 design authority only; not implementable yet
 │   │   ├── camera-and-movement.md
 │   │   ├── stairwell-visual-direction.md
 │   │   ├── player-messages.md
 │   │   └── tutorial-and-first-run.md
 │   ├── acceptance/
-│   │   └── five-loops-test.md      first product proof, FL-01 to FL-16
+│   │   ├── five-loops-test.md      first product proof, FL-01 to FL-16
+│   │   └── chapter-2-conduit-test.md
+│   │                               Chapter 2 criteria; no build evidence for any of them
 │   ├── playtests/                  indexed evidence, including the Chapter 1 three-loop record
 │   ├── concept/                    nine owner targets and construction references; never rules
 │   ├── backlog/                    non-activated proposals
