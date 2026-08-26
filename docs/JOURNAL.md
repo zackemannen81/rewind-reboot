@@ -4,6 +4,30 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-26 — REW-0038 activated, Apartment 4C concept-target supervisor
+
+- Date: 2026-08-26
+- Author: Codex (process supervisor)
+- Task: REW-0038
+- Branch: `codex/rew-0038-4c-concept-supervisor`
+- Trigger: the owner supplied a light-enhanced Apartment 4C concept, pointed to
+  the environment texture kit and existing Meshy generation library, made more
+  than 600 Meshy credits available for verified gaps, and asked that 4C be
+  brought as close to the image as practical.
+- Baseline: canonical standard PIE at the accepted camera `(1969.78,1300,1390)`,
+  rotation `(0,180,0)`, FOV `37.5` shows the current room with broad empty black
+  above it, mirror-dominant floor and ceiling, no city in the window, sparse
+  middle/right prop zones and an unreadable kitchen. Existing tracked assets
+  already cover most primary silhouettes.
+- Decision: one Codex implementation child, REW-0039, owns the coupled binary
+  map/material/prop/light pass. Existing props and materials come first; Meshy
+  generation requires an operator-approved named gap and uses task-specific
+  source paths. Gameplay and camera contracts do not move.
+- Target: the supplied brighter image is preserved and indexed at
+  `docs/concept/apartment-4c-interior-light-enhanced.png`; it is visual target
+  data, not design authority.
+- Signature: Codex (process supervisor)
+
 ## 2026-08-26 — REW-0036 complete, Chapter 1 audio recovered and heard
 
 - Date: 2026-08-26
