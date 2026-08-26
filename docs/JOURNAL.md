@@ -4,6 +4,40 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-26 — REW-0035, Wire Chapter 1 audio into gameplay
+
+- Date: 2026-08-26
+- Author: codex-audiowire
+- Task: REW-0035
+- Branch: `codex/rew-0035-audio-wiring`
+- Change: wired all fifteen REW-0033 SoundWaves. Existing radio digit events
+  retain their screen messages and now play their matched `7`, `3`, `1`, `2`
+  one-shots at the radio. An attached `UAudioComponent` switches between
+  station/static beds; `Channel` is the only radio state, with `0` off and
+  baseline restoring channel `1` static. On/off/tune are dry 2D clicks.
+  `ARewindCharacter` plays the six interior footsteps every 80 cm travelled,
+  selecting uniformly from the five indices other than the immediately prior
+  one.
+- Attenuation: created `/Game/Audio/Chapter1/A_REW_Radio_Attenuation` by
+  commandlet. It is spherical, linear, has zero inner extent and a 320.0 cm
+  falloff. `RadioRange = 320.0`, so station/static beds and digit playback end
+  at the same distance as the credit boundary; audibility cannot extend beyond
+  credit. No map was opened or changed.
+- Determinism: radio phase and digit selection remain clock-derived from the
+  existing elapsed-loop schedule. No loop count, timer accumulator or
+  persisted radio audio state was added. `RestoreFromBaseline()` resets channel,
+  listening, fragment, sequence, and bed selection. Footstep randomness is
+  cosmetic only.
+- Verification: with Unreal Editor closed, `Build.bat RewindEditor Win64
+  Development` succeeded. The requested `UnrealEditor-Cmd` full-suite command
+  completed with `TEST COMPLETE. EXIT CODE: 0`; 24 tests completed successfully,
+  including new `Rewind.Radio.Audio.DigitSelection` and
+  `Rewind.Radio.Audio.ResetAtRewind`. The attenuation commandlet exited `0`
+  and read back `320.0` cm. `git diff --check` was clean.
+- Not run: interactive PIE/audio playback. The code compiles and its schedule
+  and reset behavior are unit-tested; this actor did not hear it in play.
+- Signature: codex-audiowire
+
 ## 2026-08-26 — REW-0034, Chapter 2 Conduit design authority
 
 - Date: 2026-08-26

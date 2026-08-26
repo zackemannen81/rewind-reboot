@@ -250,7 +250,13 @@ sequence repeats every 50 seconds and speaks `7`, `3`, `1`, `2` at phases 4,
 9, 14 and 19. Hearing an individual digit changes no repository state; it is
 player knowledge. Staying in range for a complete sequence grants the stored
 `radio_code_7312` fact used by the lock's convenience path. Channel and
-broadcast phase reset from Baseline and never read loop count.
+broadcast phase reset from Baseline and never read loop count. REW-0035 makes
+the existing digit events play their matching SoundWaves while retaining the
+message copy. The radio's LoopWorld channel drives an attached spatial station
+or static loop; channel `0` is off. Its digit and bed attenuation ends at 320
+cm, the same as the code-credit `RadioRange`, while on/off/tune clicks are dry
+2D sounds. Player footsteps select among six interior sounds by travelled
+distance and never choose the immediately preceding variation.
 
 The fuse is one LoopWorld actor whose state is at rest, carried, seated in the
 building socket or seated in the courtyard socket. It owns that state, so two

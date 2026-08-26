@@ -13,7 +13,9 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Engine/World.h"
+#include "Kismet/GameplayStatics.h"
 #include "Materials/MaterialInterface.h"
+#include "Sound/SoundBase.h"
 #include "WorldCollision.h"
 #include "Engine/OverlapResult.h"
 
@@ -76,6 +78,24 @@ ARewindCharacter::ARewindCharacter()
 		TEXT("/Game/Characters/Returner/Animations/A_Returner_Walk.A_Returner_Walk"));
 	static ConstructorHelpers::FObjectFinder<UMaterialInterface> Silhouette(
 		TEXT("/Game/Art/Materials/Stairwell/MI_CharacterSilhouette.MI_CharacterSilhouette"));
+	static ConstructorHelpers::FObjectFinder<USoundBase> Step01(
+		TEXT("/Game/Audio/Chapter1/A_REW_Step_Interior_01.A_REW_Step_Interior_01"));
+	static ConstructorHelpers::FObjectFinder<USoundBase> Step02(
+		TEXT("/Game/Audio/Chapter1/A_REW_Step_Interior_02.A_REW_Step_Interior_02"));
+	static ConstructorHelpers::FObjectFinder<USoundBase> Step03(
+		TEXT("/Game/Audio/Chapter1/A_REW_Step_Interior_03.A_REW_Step_Interior_03"));
+	static ConstructorHelpers::FObjectFinder<USoundBase> Step04(
+		TEXT("/Game/Audio/Chapter1/A_REW_Step_Interior_04.A_REW_Step_Interior_04"));
+	static ConstructorHelpers::FObjectFinder<USoundBase> Step05(
+		TEXT("/Game/Audio/Chapter1/A_REW_Step_Interior_05.A_REW_Step_Interior_05"));
+	static ConstructorHelpers::FObjectFinder<USoundBase> Step06(
+		TEXT("/Game/Audio/Chapter1/A_REW_Step_Interior_06.A_REW_Step_Interior_06"));
+	FootstepSounds[0] = Step01.Succeeded() ? Step01.Object : nullptr;
+	FootstepSounds[1] = Step02.Succeeded() ? Step02.Object : nullptr;
+	FootstepSounds[2] = Step03.Succeeded() ? Step03.Object : nullptr;
+	FootstepSounds[3] = Step04.Succeeded() ? Step04.Object : nullptr;
+	FootstepSounds[4] = Step05.Succeeded() ? Step05.Object : nullptr;
+	FootstepSounds[5] = Step06.Succeeded() ? Step06.Object : nullptr;
 
 	ReturnerBody = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("ReturnerBody"));
 	ReturnerBody->SetupAttachment(RootComponent);
@@ -123,6 +143,7 @@ void ARewindCharacter::Tick(float DeltaSeconds)
 		}
 		bWasMoving = bMoving;
 	}
+	UpdateFootsteps();
 
 	// The player volume may be narrower than the region's collision geometry,
 	// and where it is, that is authored rather than accidental. Clamping the
@@ -151,9 +172,56 @@ void ARewindCharacter::Tick(float DeltaSeconds)
 void ARewindCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	LastFootstepLocation = GetActorLocation();
+	bHasFootstepLocation = true;
 	if (RewindFirstRun::ShowOnce(this, RewindMessageIds::ApartmentWaking))
 	{
 		RewindFirstRun::ShowOnce(this, RewindMessageIds::CharacterControls);
+	}
+}
+
+void ARewindCharacter::UpdateFootsteps()
+{
+	constexpr float StepDistanceCm = 80.0f;
+	constexpr float TeleportDistanceCm = 1000.0f;
+	const FVector CurrentLocation = GetActorLocation();
+	if (!bHasFootstepLocation)
+	{
+		LastFootstepLocation = CurrentLocation;
+		bHasFootstepLocation = true;
+		return;
+	}
+
+	const float Travelled = FVector::Dist2D(CurrentLocation, LastFootstepLocation);
+	LastFootstepLocation = CurrentLocation;
+	if (Travelled > TeleportDistanceCm)
+	{
+		// A rewind or scripted placement is not a footfall.
+		FootstepDistance = 0.0f;
+		return;
+	}
+
+	FootstepDistance += Travelled;
+	while (FootstepDistance >= StepDistanceCm)
+	{
+		FootstepDistance -= StepDistanceCm;
+		PlayFootstep();
+	}
+}
+
+void ARewindCharacter::PlayFootstep()
+{
+	constexpr int32 FootstepCount = UE_ARRAY_COUNT(FootstepSounds);
+	int32 Index = FMath::RandRange(0, FootstepCount - 1);
+	if (PreviousFootstepIndex != INDEX_NONE && Index >= PreviousFootstepIndex)
+	{
+		// Pick uniformly from the other five indices, never the prior sound.
+		Index = (Index + 1) % FootstepCount;
+	}
+	PreviousFootstepIndex = Index;
+	if (USoundBase* Sound = FootstepSounds[Index])
+	{
+		UGameplayStatics::PlaySoundAtLocation(this, Sound, GetActorLocation());
 	}
 }
 
