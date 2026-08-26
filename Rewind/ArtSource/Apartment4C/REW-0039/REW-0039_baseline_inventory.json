@@ -1,0 +1,6154 @@
+{
+  "assets": [
+    {
+      "class": "Material",
+      "path": "/Game/Art/Materials/BuildingSlice/M_4CSignEmissive.M_4CSignEmissive"
+    },
+    {
+      "BaseColorTex": null,
+      "NormalTex": null,
+      "Roughness": 0.42,
+      "RoughnessTex": null,
+      "TileSize": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "Tint": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Stairwell/MI_StairFloor.MI_StairFloor",
+      "path": "/Game/Art/Materials/BuildingSlice/MI_4CFloor.MI_4CFloor"
+    },
+    {
+      "BaseColorTex": null,
+      "NormalTex": null,
+      "Roughness": 0.88,
+      "RoughnessTex": null,
+      "TileSize": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "Tint": [
+        0.15,
+        0.055,
+        0.018,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Decals/M_REW_GrimeDecal.M_REW_GrimeDecal",
+      "path": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_LeaksRust1.MI_REW_Decal_LeaksRust1"
+    },
+    {
+      "BaseColorTex": null,
+      "NormalTex": null,
+      "Roughness": 0.88,
+      "RoughnessTex": null,
+      "TileSize": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "Tint": [
+        0.15,
+        0.055,
+        0.018,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Decals/M_REW_GrimeDecal.M_REW_GrimeDecal",
+      "path": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_LeaksRust2.MI_REW_Decal_LeaksRust2"
+    },
+    {
+      "BaseColorTex": null,
+      "NormalTex": null,
+      "Roughness": 0.88,
+      "RoughnessTex": null,
+      "TileSize": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "Tint": [
+        0.15,
+        0.055,
+        0.018,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Decals/M_REW_GrimeDecal.M_REW_GrimeDecal",
+      "path": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_LeaksRust3.MI_REW_Decal_LeaksRust3"
+    },
+    {
+      "BaseColorTex": null,
+      "NormalTex": null,
+      "Roughness": 0.88,
+      "RoughnessTex": null,
+      "TileSize": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "Tint": [
+        0.15,
+        0.055,
+        0.018,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Decals/M_REW_GrimeDecal.M_REW_GrimeDecal",
+      "path": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_LeaksRust4.MI_REW_Decal_LeaksRust4"
+    },
+    {
+      "BaseColorTex": null,
+      "NormalTex": null,
+      "Roughness": 0.88,
+      "RoughnessTex": null,
+      "TileSize": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "Tint": [
+        0.15,
+        0.055,
+        0.018,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Decals/M_REW_GrimeDecal.M_REW_GrimeDecal",
+      "path": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_LeaksRust5.MI_REW_Decal_LeaksRust5"
+    },
+    {
+      "BaseColorTex": null,
+      "NormalTex": null,
+      "Roughness": 0.88,
+      "RoughnessTex": null,
+      "TileSize": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "Tint": [
+        0.15,
+        0.055,
+        0.018,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Decals/M_REW_GrimeDecal.M_REW_GrimeDecal",
+      "path": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_LeaksRust6.MI_REW_Decal_LeaksRust6"
+    },
+    {
+      "BaseColorTex": null,
+      "NormalTex": null,
+      "Roughness": 0.88,
+      "RoughnessTex": null,
+      "TileSize": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "Tint": [
+        0.075,
+        0.06,
+        0.04,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Decals/M_REW_GrimeDecal.M_REW_GrimeDecal",
+      "path": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_PeelingPlaster1.MI_REW_Decal_PeelingPlaster1"
+    },
+    {
+      "BaseColorTex": null,
+      "NormalTex": null,
+      "Roughness": 0.88,
+      "RoughnessTex": null,
+      "TileSize": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "Tint": [
+        0.075,
+        0.06,
+        0.04,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Decals/M_REW_GrimeDecal.M_REW_GrimeDecal",
+      "path": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_PeelingPlaster2.MI_REW_Decal_PeelingPlaster2"
+    },
+    {
+      "BaseColorTex": null,
+      "NormalTex": null,
+      "Roughness": 0.88,
+      "RoughnessTex": null,
+      "TileSize": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "Tint": [
+        0.075,
+        0.06,
+        0.04,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Decals/M_REW_GrimeDecal.M_REW_GrimeDecal",
+      "path": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_PeelingPlaster3.MI_REW_Decal_PeelingPlaster3"
+    },
+    {
+      "BaseColorTex": null,
+      "NormalTex": null,
+      "Roughness": 0.88,
+      "RoughnessTex": null,
+      "TileSize": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "Tint": [
+        0.075,
+        0.06,
+        0.04,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Decals/M_REW_GrimeDecal.M_REW_GrimeDecal",
+      "path": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_PeelingPlaster4.MI_REW_Decal_PeelingPlaster4"
+    },
+    {
+      "BaseColorTex": null,
+      "NormalTex": null,
+      "Roughness": 0.88,
+      "RoughnessTex": null,
+      "TileSize": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "Tint": [
+        0.018,
+        0.016,
+        0.014,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Decals/M_REW_GrimeDecal.M_REW_GrimeDecal",
+      "path": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_WallCracks1.MI_REW_Decal_WallCracks1"
+    },
+    {
+      "BaseColorTex": null,
+      "NormalTex": null,
+      "Roughness": 0.88,
+      "RoughnessTex": null,
+      "TileSize": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "Tint": [
+        0.018,
+        0.016,
+        0.014,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Decals/M_REW_GrimeDecal.M_REW_GrimeDecal",
+      "path": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_WallCracks2.MI_REW_Decal_WallCracks2"
+    },
+    {
+      "BaseColorTex": null,
+      "NormalTex": null,
+      "Roughness": 0.88,
+      "RoughnessTex": null,
+      "TileSize": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "Tint": [
+        0.018,
+        0.016,
+        0.014,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Decals/M_REW_GrimeDecal.M_REW_GrimeDecal",
+      "path": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_WallCracks3.MI_REW_Decal_WallCracks3"
+    },
+    {
+      "BaseColorTex": null,
+      "NormalTex": null,
+      "Roughness": 0.88,
+      "RoughnessTex": null,
+      "TileSize": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "Tint": [
+        0.018,
+        0.016,
+        0.014,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Decals/M_REW_GrimeDecal.M_REW_GrimeDecal",
+      "path": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_WallCracks4.MI_REW_Decal_WallCracks4"
+    },
+    {
+      "BaseColorTex": null,
+      "NormalTex": null,
+      "Roughness": 0.88,
+      "RoughnessTex": null,
+      "TileSize": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "Tint": [
+        0.018,
+        0.016,
+        0.014,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Decals/M_REW_GrimeDecal.M_REW_GrimeDecal",
+      "path": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_WallCracks5.MI_REW_Decal_WallCracks5"
+    },
+    {
+      "BaseColorTex": null,
+      "NormalTex": null,
+      "Roughness": 0.88,
+      "RoughnessTex": null,
+      "TileSize": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "Tint": [
+        0.018,
+        0.016,
+        0.014,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Decals/M_REW_GrimeDecal.M_REW_GrimeDecal",
+      "path": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_WallCracks6.MI_REW_Decal_WallCracks6"
+    },
+    {
+      "class": "Material",
+      "path": "/Game/Art/Materials/Surfaces/M_REW_Surface.M_REW_Surface"
+    },
+    {
+      "BaseColorTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_BrickDark_Aged_BC.T_REW_Surface_BrickDark_Aged_BC",
+      "NormalTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_BrickDark_Aged_N.T_REW_Surface_BrickDark_Aged_N",
+      "Roughness": 0.82,
+      "RoughnessTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_BrickDark_Aged_R.T_REW_Surface_BrickDark_Aged_R",
+      "TileSize": [
+        200.0,
+        200.0,
+        200.0,
+        0.0
+      ],
+      "Tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Surfaces/M_REW_Surface.M_REW_Surface",
+      "path": "/Game/Art/Materials/Surfaces/MI_REW_BrickDark_Aged.MI_REW_BrickDark_Aged"
+    },
+    {
+      "BaseColorTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_CeramicTile_Ivory_Aged_BC.T_REW_Surface_CeramicTile_Ivory_Aged_BC",
+      "NormalTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_CeramicTile_Ivory_Aged_N.T_REW_Surface_CeramicTile_Ivory_Aged_N",
+      "Roughness": 0.48,
+      "RoughnessTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_CeramicTile_Ivory_Aged_R.T_REW_Surface_CeramicTile_Ivory_Aged_R",
+      "TileSize": [
+        200.0,
+        200.0,
+        200.0,
+        0.0
+      ],
+      "Tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Surfaces/M_REW_Surface.M_REW_Surface",
+      "path": "/Game/Art/Materials/Surfaces/MI_REW_CeramicTile_Ivory_Aged.MI_REW_CeramicTile_Ivory_Aged"
+    },
+    {
+      "BaseColorTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_FloorTile_Interior_BC.T_REW_Surface_FloorTile_Interior_BC",
+      "NormalTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_FloorTile_Interior_N.T_REW_Surface_FloorTile_Interior_N",
+      "Roughness": 0.68,
+      "RoughnessTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_FloorTile_Interior_R.T_REW_Surface_FloorTile_Interior_R",
+      "TileSize": [
+        200.0,
+        200.0,
+        200.0,
+        0.0
+      ],
+      "Tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Surfaces/M_REW_Surface.M_REW_Surface",
+      "path": "/Game/Art/Materials/Surfaces/MI_REW_FloorTile_Interior.MI_REW_FloorTile_Interior"
+    },
+    {
+      "BaseColorTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_MetalBlack_Painted_Aged_BC.T_REW_Surface_MetalBlack_Painted_Aged_BC",
+      "NormalTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_MetalBlack_Painted_Aged_N.T_REW_Surface_MetalBlack_Painted_Aged_N",
+      "Roughness": 0.64,
+      "RoughnessTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_MetalBlack_Painted_Aged_R.T_REW_Surface_MetalBlack_Painted_Aged_R",
+      "TileSize": [
+        200.0,
+        200.0,
+        200.0,
+        0.0
+      ],
+      "Tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Surfaces/M_REW_Surface.M_REW_Surface",
+      "path": "/Game/Art/Materials/Surfaces/MI_REW_MetalBlack_Painted_Aged.MI_REW_MetalBlack_Painted_Aged"
+    },
+    {
+      "BaseColorTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_PavingStone_Courtyard_BC.T_REW_Surface_PavingStone_Courtyard_BC",
+      "NormalTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_PavingStone_Courtyard_N.T_REW_Surface_PavingStone_Courtyard_N",
+      "Roughness": 0.76,
+      "RoughnessTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_PavingStone_Courtyard_R.T_REW_Surface_PavingStone_Courtyard_R",
+      "TileSize": [
+        200.0,
+        200.0,
+        200.0,
+        0.0
+      ],
+      "Tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Surfaces/M_REW_Surface.M_REW_Surface",
+      "path": "/Game/Art/Materials/Surfaces/MI_REW_PavingStone_Courtyard.MI_REW_PavingStone_Courtyard"
+    },
+    {
+      "BaseColorTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_PlasterGray_Aged_BC.T_REW_Surface_PlasterGray_Aged_BC",
+      "NormalTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_PlasterGray_Aged_N.T_REW_Surface_PlasterGray_Aged_N",
+      "Roughness": 0.78,
+      "RoughnessTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_PlasterGray_Aged_R.T_REW_Surface_PlasterGray_Aged_R",
+      "TileSize": [
+        200.0,
+        200.0,
+        200.0,
+        0.0
+      ],
+      "Tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Surfaces/M_REW_Surface.M_REW_Surface",
+      "path": "/Game/Art/Materials/Surfaces/MI_REW_PlasterGray_Aged.MI_REW_PlasterGray_Aged"
+    },
+    {
+      "BaseColorTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_PlasterGreen_Aged_BC.T_REW_Surface_PlasterGreen_Aged_BC",
+      "NormalTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_PlasterGreen_Aged_N.T_REW_Surface_PlasterGreen_Aged_N",
+      "Roughness": 0.7,
+      "RoughnessTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_PlasterGreen_Aged_R.T_REW_Surface_PlasterGreen_Aged_R",
+      "TileSize": [
+        200.0,
+        200.0,
+        200.0,
+        0.0
+      ],
+      "Tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Surfaces/M_REW_Surface.M_REW_Surface",
+      "path": "/Game/Art/Materials/Surfaces/MI_REW_PlasterGreen_Aged.MI_REW_PlasterGreen_Aged"
+    },
+    {
+      "BaseColorTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_WoodDark_Worn_BC.T_REW_Surface_WoodDark_Worn_BC",
+      "NormalTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_WoodDark_Worn_N.T_REW_Surface_WoodDark_Worn_N",
+      "Roughness": 0.62,
+      "RoughnessTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_WoodDark_Worn_R.T_REW_Surface_WoodDark_Worn_R",
+      "TileSize": [
+        200.0,
+        200.0,
+        200.0,
+        0.0
+      ],
+      "Tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Surfaces/M_REW_Surface.M_REW_Surface",
+      "path": "/Game/Art/Materials/Surfaces/MI_REW_WoodDark_Worn.MI_REW_WoodDark_Worn"
+    },
+    {
+      "class": "Texture2D",
+      "path": "/Game/Art/Textures/Surfaces/T_REW_Backdrop_CityRain_Night_BC.T_REW_Backdrop_CityRain_Night_BC"
+    },
+    {
+      "class": "Texture2D",
+      "path": "/Game/Art/Textures/Surfaces/T_REW_Label_FuseBoxInstructions_BC.T_REW_Label_FuseBoxInstructions_BC"
+    },
+    {
+      "class": "Texture2D",
+      "path": "/Game/Art/Textures/Surfaces/T_REW_Poster_TransitMap_BC.T_REW_Poster_TransitMap_BC"
+    },
+    {
+      "class": "Texture2D",
+      "path": "/Game/Art/Textures/Surfaces/T_REW_Signs_FloorCourtyard_Atlas_BC.T_REW_Signs_FloorCourtyard_Atlas_BC"
+    },
+    {
+      "class": "Texture2D",
+      "path": "/Game/Art/Textures/Surfaces/T_REW_Surface_BrickDark_Aged_BC.T_REW_Surface_BrickDark_Aged_BC"
+    },
+    {
+      "class": "Texture2D",
+      "path": "/Game/Art/Textures/Surfaces/T_REW_Surface_BrickDark_Aged_N.T_REW_Surface_BrickDark_Aged_N"
+    },
+    {
+      "class": "Texture2D",
+      "path": "/Game/Art/Textures/Surfaces/T_REW_Surface_BrickDark_Aged_R.T_REW_Surface_BrickDark_Aged_R"
+    },
+    {
+      "class": "Texture2D",
+      "path": "/Game/Art/Textures/Surfaces/T_REW_Surface_CeramicTile_Ivory_Aged_BC.T_REW_Surface_CeramicTile_Ivory_Aged_BC"
+    },
+    {
+      "class": "Texture2D",
+      "path": "/Game/Art/Textures/Surfaces/T_REW_Surface_CeramicTile_Ivory_Aged_N.T_REW_Surface_CeramicTile_Ivory_Aged_N"
+    },
+    {
+      "class": "Texture2D",
+      "path": "/Game/Art/Textures/Surfaces/T_REW_Surface_CeramicTile_Ivory_Aged_R.T_REW_Surface_CeramicTile_Ivory_Aged_R"
+    },
+    {
+      "class": "Texture2D",
+      "path": "/Game/Art/Textures/Surfaces/T_REW_Surface_FloorTile_Interior_BC.T_REW_Surface_FloorTile_Interior_BC"
+    },
+    {
+      "class": "Texture2D",
+      "path": "/Game/Art/Textures/Surfaces/T_REW_Surface_FloorTile_Interior_N.T_REW_Surface_FloorTile_Interior_N"
+    },
+    {
+      "class": "Texture2D",
+      "path": "/Game/Art/Textures/Surfaces/T_REW_Surface_FloorTile_Interior_R.T_REW_Surface_FloorTile_Interior_R"
+    },
+    {
+      "class": "Texture2D",
+      "path": "/Game/Art/Textures/Surfaces/T_REW_Surface_MetalBlack_Painted_Aged_BC.T_REW_Surface_MetalBlack_Painted_Aged_BC"
+    },
+    {
+      "class": "Texture2D",
+      "path": "/Game/Art/Textures/Surfaces/T_REW_Surface_MetalBlack_Painted_Aged_N.T_REW_Surface_MetalBlack_Painted_Aged_N"
+    },
+    {
+      "class": "Texture2D",
+      "path": "/Game/Art/Textures/Surfaces/T_REW_Surface_MetalBlack_Painted_Aged_R.T_REW_Surface_MetalBlack_Painted_Aged_R"
+    },
+    {
+      "class": "Texture2D",
+      "path": "/Game/Art/Textures/Surfaces/T_REW_Surface_PavingStone_Courtyard_BC.T_REW_Surface_PavingStone_Courtyard_BC"
+    },
+    {
+      "class": "Texture2D",
+      "path": "/Game/Art/Textures/Surfaces/T_REW_Surface_PavingStone_Courtyard_N.T_REW_Surface_PavingStone_Courtyard_N"
+    },
+    {
+      "class": "Texture2D",
+      "path": "/Game/Art/Textures/Surfaces/T_REW_Surface_PavingStone_Courtyard_R.T_REW_Surface_PavingStone_Courtyard_R"
+    },
+    {
+      "class": "Texture2D",
+      "path": "/Game/Art/Textures/Surfaces/T_REW_Surface_PlasterGray_Aged_BC.T_REW_Surface_PlasterGray_Aged_BC"
+    },
+    {
+      "class": "Texture2D",
+      "path": "/Game/Art/Textures/Surfaces/T_REW_Surface_PlasterGray_Aged_N.T_REW_Surface_PlasterGray_Aged_N"
+    },
+    {
+      "class": "Texture2D",
+      "path": "/Game/Art/Textures/Surfaces/T_REW_Surface_PlasterGray_Aged_R.T_REW_Surface_PlasterGray_Aged_R"
+    },
+    {
+      "class": "Texture2D",
+      "path": "/Game/Art/Textures/Surfaces/T_REW_Surface_PlasterGreen_Aged_BC.T_REW_Surface_PlasterGreen_Aged_BC"
+    },
+    {
+      "class": "Texture2D",
+      "path": "/Game/Art/Textures/Surfaces/T_REW_Surface_PlasterGreen_Aged_N.T_REW_Surface_PlasterGreen_Aged_N"
+    },
+    {
+      "class": "Texture2D",
+      "path": "/Game/Art/Textures/Surfaces/T_REW_Surface_PlasterGreen_Aged_R.T_REW_Surface_PlasterGreen_Aged_R"
+    },
+    {
+      "class": "Texture2D",
+      "path": "/Game/Art/Textures/Surfaces/T_REW_Surface_WoodDark_Worn_BC.T_REW_Surface_WoodDark_Worn_BC"
+    },
+    {
+      "class": "Texture2D",
+      "path": "/Game/Art/Textures/Surfaces/T_REW_Surface_WoodDark_Worn_N.T_REW_Surface_WoodDark_Worn_N"
+    },
+    {
+      "class": "Texture2D",
+      "path": "/Game/Art/Textures/Surfaces/T_REW_Surface_WoodDark_Worn_R.T_REW_Surface_WoodDark_Worn_R"
+    },
+    {
+      "class": "StaticMesh",
+      "material_slots": [
+        "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+      ],
+      "mesh_bounds_extent": [
+        42.082,
+        44.97,
+        95.148
+      ],
+      "mesh_bounds_origin": [
+        0.04,
+        -0.021,
+        95.148
+      ],
+      "path": "/Game/Props/Chapter1/chair/SM_REW_Chair.SM_REW_Chair"
+    },
+    {
+      "class": "StaticMesh",
+      "material_slots": [
+        "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+      ],
+      "mesh_bounds_extent": [
+        30.895,
+        9.393,
+        94.974
+      ],
+      "mesh_bounds_origin": [
+        -0.006,
+        -0.049,
+        94.974
+      ],
+      "path": "/Game/Props/Chapter1/coathanger/Meshy_AI_coat_3d_0825162710_image-to-3d-texture.Meshy_AI_coat_3d_0825162710_image-to-3d-texture"
+    },
+    {
+      "class": "StaticMesh",
+      "material_slots": [
+        "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+      ],
+      "mesh_bounds_extent": [
+        38.41,
+        6.337,
+        95.089
+      ],
+      "mesh_bounds_origin": [
+        0.1,
+        -0.101,
+        95.089
+      ],
+      "path": "/Game/Props/Chapter1/door/Meshy_AI_door_3d_0825162626_image-to-3d-texture.Meshy_AI_door_3d_0825162626_image-to-3d-texture"
+    },
+    {
+      "class": "StaticMesh",
+      "material_slots": [
+        "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+      ],
+      "mesh_bounds_extent": [
+        51.202,
+        5.692,
+        95.145
+      ],
+      "mesh_bounds_origin": [
+        -0.785,
+        0.585,
+        95.145
+      ],
+      "path": "/Game/Props/Chapter1/drapes/SM_REW_Drapes.SM_REW_Drapes"
+    },
+    {
+      "class": "StaticMesh",
+      "material_slots": [
+        "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+      ],
+      "mesh_bounds_extent": [
+        95.137,
+        49.308,
+        82.783
+      ],
+      "mesh_bounds_origin": [
+        -0.036,
+        0.013,
+        82.783
+      ],
+      "path": "/Game/Props/Chapter1/kitchentable/Meshy_AI_kitchen_table_3d_0825162406_image-to-3d-texture.Meshy_AI_kitchen_table_3d_0825162406_image-to-3d-texture"
+    },
+    {
+      "class": "StaticMesh",
+      "material_slots": [
+        "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+      ],
+      "mesh_bounds_extent": [
+        41.522,
+        41.502,
+        95.149
+      ],
+      "mesh_bounds_origin": [
+        -0.07,
+        -0.031,
+        95.149
+      ],
+      "path": "/Game/Props/Chapter1/Lamp/Meshy_AI_pendant_lamp_3d_0825174536_image-to-3d-texture.Meshy_AI_pendant_lamp_3d_0825174536_image-to-3d-texture"
+    },
+    {
+      "BaseColorTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_WoodDark_Worn_BC.T_REW_Surface_WoodDark_Worn_BC",
+      "NormalTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_WoodDark_Worn_N.T_REW_Surface_WoodDark_Worn_N",
+      "Roughness": 0.66,
+      "RoughnessTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_WoodDark_Worn_R.T_REW_Surface_WoodDark_Worn_R",
+      "TileSize": [
+        120.0,
+        120.0,
+        120.0,
+        1.0
+      ],
+      "Tint": [
+        0.36,
+        0.26,
+        0.17,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Surfaces/M_REW_Surface.M_REW_Surface",
+      "path": "/Game/Props/Chapter1/Materials/MI_REW_Prop_chair.MI_REW_Prop_chair"
+    },
+    {
+      "BaseColorTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_MetalBlack_Painted_Aged_BC.T_REW_Surface_MetalBlack_Painted_Aged_BC",
+      "NormalTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_MetalBlack_Painted_Aged_N.T_REW_Surface_MetalBlack_Painted_Aged_N",
+      "Roughness": 0.7,
+      "RoughnessTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_MetalBlack_Painted_Aged_R.T_REW_Surface_MetalBlack_Painted_Aged_R",
+      "TileSize": [
+        90.0,
+        90.0,
+        90.0,
+        1.0
+      ],
+      "Tint": [
+        0.26,
+        0.24,
+        0.26,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Surfaces/M_REW_Surface.M_REW_Surface",
+      "path": "/Game/Props/Chapter1/Materials/MI_REW_Prop_coathanger.MI_REW_Prop_coathanger"
+    },
+    {
+      "BaseColorTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_WoodDark_Worn_BC.T_REW_Surface_WoodDark_Worn_BC",
+      "NormalTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_WoodDark_Worn_N.T_REW_Surface_WoodDark_Worn_N",
+      "Roughness": 0.55,
+      "RoughnessTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_WoodDark_Worn_R.T_REW_Surface_WoodDark_Worn_R",
+      "TileSize": [
+        200.0,
+        200.0,
+        200.0,
+        1.0
+      ],
+      "Tint": [
+        0.3,
+        0.34,
+        0.28,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Surfaces/M_REW_Surface.M_REW_Surface",
+      "path": "/Game/Props/Chapter1/Materials/MI_REW_Prop_door.MI_REW_Prop_door"
+    },
+    {
+      "BaseColorTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_PlasterGray_Aged_BC.T_REW_Surface_PlasterGray_Aged_BC",
+      "NormalTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_PlasterGray_Aged_N.T_REW_Surface_PlasterGray_Aged_N",
+      "Roughness": 0.92,
+      "RoughnessTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_PlasterGray_Aged_R.T_REW_Surface_PlasterGray_Aged_R",
+      "TileSize": [
+        220.0,
+        220.0,
+        220.0,
+        1.0
+      ],
+      "Tint": [
+        0.34,
+        0.33,
+        0.31,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Surfaces/M_REW_Surface.M_REW_Surface",
+      "path": "/Game/Props/Chapter1/Materials/MI_REW_Prop_drapes.MI_REW_Prop_drapes"
+    },
+    {
+      "BaseColorTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_WoodDark_Worn_BC.T_REW_Surface_WoodDark_Worn_BC",
+      "NormalTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_WoodDark_Worn_N.T_REW_Surface_WoodDark_Worn_N",
+      "Roughness": 0.62,
+      "RoughnessTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_WoodDark_Worn_R.T_REW_Surface_WoodDark_Worn_R",
+      "TileSize": [
+        160.0,
+        160.0,
+        160.0,
+        1.0
+      ],
+      "Tint": [
+        0.42,
+        0.29,
+        0.19,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Surfaces/M_REW_Surface.M_REW_Surface",
+      "path": "/Game/Props/Chapter1/Materials/MI_REW_Prop_kitchentable.MI_REW_Prop_kitchentable"
+    },
+    {
+      "BaseColorTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_MetalBlack_Painted_Aged_BC.T_REW_Surface_MetalBlack_Painted_Aged_BC",
+      "NormalTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_MetalBlack_Painted_Aged_N.T_REW_Surface_MetalBlack_Painted_Aged_N",
+      "Roughness": 0.5,
+      "RoughnessTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_MetalBlack_Painted_Aged_R.T_REW_Surface_MetalBlack_Painted_Aged_R",
+      "TileSize": [
+        60.0,
+        60.0,
+        60.0,
+        1.0
+      ],
+      "Tint": [
+        0.24,
+        0.23,
+        0.21,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Surfaces/M_REW_Surface.M_REW_Surface",
+      "path": "/Game/Props/Chapter1/Materials/MI_REW_Prop_Lamp.MI_REW_Prop_Lamp"
+    },
+    {
+      "BaseColorTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_MetalBlack_Painted_Aged_BC.T_REW_Surface_MetalBlack_Painted_Aged_BC",
+      "NormalTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_MetalBlack_Painted_Aged_N.T_REW_Surface_MetalBlack_Painted_Aged_N",
+      "Roughness": 0.45,
+      "RoughnessTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_MetalBlack_Painted_Aged_R.T_REW_Surface_MetalBlack_Painted_Aged_R",
+      "TileSize": [
+        40.0,
+        40.0,
+        40.0,
+        1.0
+      ],
+      "Tint": [
+        0.38,
+        0.3,
+        0.22,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Surfaces/M_REW_Surface.M_REW_Surface",
+      "path": "/Game/Props/Chapter1/Materials/MI_REW_Prop_Radio.MI_REW_Prop_Radio"
+    },
+    {
+      "BaseColorTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_WoodDark_Worn_BC.T_REW_Surface_WoodDark_Worn_BC",
+      "NormalTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_WoodDark_Worn_N.T_REW_Surface_WoodDark_Worn_N",
+      "Roughness": 0.68,
+      "RoughnessTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_WoodDark_Worn_R.T_REW_Surface_WoodDark_Worn_R",
+      "TileSize": [
+        140.0,
+        140.0,
+        140.0,
+        1.0
+      ],
+      "Tint": [
+        0.34,
+        0.24,
+        0.16,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Surfaces/M_REW_Surface.M_REW_Surface",
+      "path": "/Game/Props/Chapter1/Materials/MI_REW_Prop_shelf.MI_REW_Prop_shelf"
+    },
+    {
+      "BaseColorTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_PlasterGreen_Aged_BC.T_REW_Surface_PlasterGreen_Aged_BC",
+      "NormalTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_PlasterGreen_Aged_N.T_REW_Surface_PlasterGreen_Aged_N",
+      "Roughness": 0.88,
+      "RoughnessTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_PlasterGreen_Aged_R.T_REW_Surface_PlasterGreen_Aged_R",
+      "TileSize": [
+        180.0,
+        180.0,
+        180.0,
+        1.0
+      ],
+      "Tint": [
+        0.3,
+        0.33,
+        0.26,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Surfaces/M_REW_Surface.M_REW_Surface",
+      "path": "/Game/Props/Chapter1/Materials/MI_REW_Prop_sofa.MI_REW_Prop_sofa"
+    },
+    {
+      "BaseColorTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_WoodDark_Worn_BC.T_REW_Surface_WoodDark_Worn_BC",
+      "NormalTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_WoodDark_Worn_N.T_REW_Surface_WoodDark_Worn_N",
+      "Roughness": 0.65,
+      "RoughnessTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_WoodDark_Worn_R.T_REW_Surface_WoodDark_Worn_R",
+      "TileSize": [
+        110.0,
+        110.0,
+        110.0,
+        1.0
+      ],
+      "Tint": [
+        0.38,
+        0.27,
+        0.18,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Surfaces/M_REW_Surface.M_REW_Surface",
+      "path": "/Game/Props/Chapter1/Materials/MI_REW_Prop_sofatable.MI_REW_Prop_sofatable"
+    },
+    {
+      "BaseColorTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_MetalBlack_Painted_Aged_BC.T_REW_Surface_MetalBlack_Painted_Aged_BC",
+      "NormalTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_MetalBlack_Painted_Aged_N.T_REW_Surface_MetalBlack_Painted_Aged_N",
+      "Roughness": 0.72,
+      "RoughnessTex": "/Game/Art/Textures/Surfaces/T_REW_Surface_MetalBlack_Painted_Aged_R.T_REW_Surface_MetalBlack_Painted_Aged_R",
+      "TileSize": [
+        80.0,
+        80.0,
+        80.0,
+        1.0
+      ],
+      "Tint": [
+        0.22,
+        0.23,
+        0.22,
+        1.0
+      ],
+      "class": "MaterialInstanceConstant",
+      "parent": "/Game/Art/Materials/Surfaces/M_REW_Surface.M_REW_Surface",
+      "path": "/Game/Props/Chapter1/Materials/MI_REW_Prop_windowrail.MI_REW_Prop_windowrail"
+    },
+    {
+      "class": "StaticMesh",
+      "material_slots": [
+        "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+      ],
+      "mesh_bounds_extent": [
+        94.911,
+        37.218,
+        58.065
+      ],
+      "mesh_bounds_origin": [
+        0.15,
+        -0.133,
+        58.065
+      ],
+      "path": "/Game/Props/Chapter1/Radio/Meshy_AI_radio_3d_0825162448_image-to-3d-texture.Meshy_AI_radio_3d_0825162448_image-to-3d-texture"
+    },
+    {
+      "class": "StaticMesh",
+      "material_slots": [
+        "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+      ],
+      "mesh_bounds_extent": [
+        94.839,
+        29.683,
+        44.812
+      ],
+      "mesh_bounds_origin": [
+        0.107,
+        0.82,
+        44.812
+      ],
+      "path": "/Game/Props/Chapter1/shelf/Meshy_AI_shelf_3d_0825175810_image-to-3d-texture.Meshy_AI_shelf_3d_0825175810_image-to-3d-texture"
+    },
+    {
+      "class": "StaticMesh",
+      "material_slots": [
+        "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+      ],
+      "mesh_bounds_extent": [
+        95.08,
+        15.027,
+        75.52
+      ],
+      "mesh_bounds_origin": [
+        -0.12,
+        -0.056,
+        75.52
+      ],
+      "path": "/Game/Props/Chapter1/signs/Meshy_AI_neon_sign_3d_0825162358_image-to-3d-texture.Meshy_AI_neon_sign_3d_0825162358_image-to-3d-texture"
+    },
+    {
+      "class": "StaticMesh",
+      "material_slots": [
+        "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+      ],
+      "mesh_bounds_extent": [
+        95.062,
+        52.977,
+        45.656
+      ],
+      "mesh_bounds_origin": [
+        -0.008,
+        -0.205,
+        45.656
+      ],
+      "path": "/Game/Props/Chapter1/sofa/Meshy_AI_sofa_3d_0825162856_image-to-3d-texture.Meshy_AI_sofa_3d_0825162856_image-to-3d-texture"
+    },
+    {
+      "class": "StaticMesh",
+      "material_slots": [
+        "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+      ],
+      "mesh_bounds_extent": [
+        90.389,
+        95.038,
+        24.684
+      ],
+      "mesh_bounds_origin": [
+        -0.089,
+        -0.029,
+        24.684
+      ],
+      "path": "/Game/Props/Chapter1/sofatable/Meshy_AI_footstool_3d_0825175833_image-to-3d-texture.Meshy_AI_footstool_3d_0825175833_image-to-3d-texture"
+    },
+    {
+      "class": "StaticMesh",
+      "material_slots": [
+        "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+      ],
+      "mesh_bounds_extent": [
+        95.175,
+        23.792,
+        40.413
+      ],
+      "mesh_bounds_origin": [
+        -0.169,
+        0.892,
+        40.413
+      ],
+      "path": "/Game/Props/Chapter1/windowrail/Meshy_AI_railing_plant_3d_0825162751_image-to-3d-texture.Meshy_AI_railing_plant_3d_0825162751_image-to-3d-texture"
+    }
+  ],
+  "camera": {
+    "player_start": {
+      "location": [
+        50.0,
+        1300.0,
+        1296.0
+      ],
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ]
+    },
+    "region": {
+      "camera_offset": [
+        1972.283,
+        0.0,
+        0.0
+      ],
+      "field_of_view": 37.5,
+      "location": [
+        -2.5,
+        1503.0,
+        1390.0
+      ],
+      "player_volume_extent": [
+        242.5,
+        650.0,
+        210.0
+      ],
+      "travel_axis": "Y"
+    },
+    "required_comparison": {
+      "horizontal_fov": 37.5,
+      "location": [
+        1969.78,
+        1300.0,
+        1390.0
+      ],
+      "rotation": [
+        0.0,
+        180.0,
+        0.0
+      ]
+    }
+  },
+  "map": "/Game/Maps/FiveLoops_Stairwell_Blockout",
+  "map_actor_count": 103,
+  "read_only": true,
+  "room_actors": [
+    {
+      "bounds_extent": [
+        400.375,
+        951.5,
+        750.0
+      ],
+      "bounds_max": [
+        570.0,
+        1903.0,
+        1500.0
+      ],
+      "bounds_min": [
+        -230.75,
+        0.0,
+        0.0
+      ],
+      "bounds_origin": [
+        169.625,
+        951.5,
+        750.0
+      ],
+      "class": "Actor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "Ceiling_4C",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "Wall_SideA_Lower",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "Wall_SideB_Lower",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "Wall_SideB_Upper",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        }
+      ],
+      "label": "Building_4C_Corrected_Geometry",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "Actor_9",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "bounds_extent": [
+        205.0,
+        385.0,
+        760.0
+      ],
+      "bounds_max": [
+        170.0,
+        770.0,
+        1520.0
+      ],
+      "bounds_min": [
+        -240.0,
+        0.0,
+        0.0
+      ],
+      "bounds_origin": [
+        -35.0,
+        385.0,
+        760.0
+      ],
+      "class": "Actor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Game/Art/Materials/Stairwell/MI_StairWall_Upper.MI_StairWall_Upper"
+          ],
+          "mobility": "STATIC",
+          "name": "Shaft_Back",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Game/Art/Materials/Stairwell/MI_StairWall_Upper.MI_StairWall_Upper"
+          ],
+          "mobility": "STATIC",
+          "name": "Shaft_Ceiling",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Game/Art/Materials/Stairwell/MI_StairWall_Upper.MI_StairWall_Upper"
+          ],
+          "mobility": "STATIC",
+          "name": "Shaft_SideA",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Game/Art/Materials/Stairwell/MI_StairWall_Upper.MI_StairWall_Upper"
+          ],
+          "mobility": "STATIC",
+          "name": "Shaft_SideB",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        }
+      ],
+      "label": "Building_LiftShaft_Corrected_Geometry",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "Actor_10",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "bounds_extent": [
+        267.0,
+        1168.0,
+        750.5
+      ],
+      "bounds_max": [
+        250.0,
+        1898.0,
+        1481.0
+      ],
+      "bounds_min": [
+        -284.0,
+        -438.0,
+        -20.0
+      ],
+      "bounds_origin": [
+        -17.0,
+        730.0,
+        730.5
+      ],
+      "class": "Actor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "Floor_0_ClosedEnd",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "Floor_0_ClosedFormerAccess",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "Floor_1_ClosedEnd",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "Floor_1_ClosedFormerAccess",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "Floor_1_StaticClosedDoor",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "Floor_2_ClosedEnd",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "Floor_2_ClosedFormerAccess",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "Floor_2_StaticClosedDoor",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "Floor_3_ClosedEnd",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "Floor_3_ClosedFormerAccess",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "Floor_3_StaticClosedDoor",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "Floor_4_ClosedEnd",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "Floor_4_ClosedFormerAccess",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "Floor_4_ClosedFormerAccess1",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "Floor_4_ClosedFormerAccess2",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAllDynamic",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "MOVABLE",
+          "name": "LowerBand_EndNorth_Floor_0",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAllDynamic",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "MOVABLE",
+          "name": "LowerBand_EndNorth_Floor_1",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAllDynamic",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "MOVABLE",
+          "name": "LowerBand_EndNorth_Floor_2",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAllDynamic",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "MOVABLE",
+          "name": "LowerBand_EndNorth_Floor_3",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAllDynamic",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "MOVABLE",
+          "name": "LowerBand_EndNorth_Floor_4",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAllDynamic",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "MOVABLE",
+          "name": "LowerBand_EndSouth_Floor_0",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAllDynamic",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "MOVABLE",
+          "name": "LowerBand_EndSouth_Floor_1",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAllDynamic",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "MOVABLE",
+          "name": "LowerBand_EndSouth_Floor_2",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAllDynamic",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "MOVABLE",
+          "name": "LowerBand_EndSouth_Floor_3",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAllDynamic",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "MOVABLE",
+          "name": "LowerBand_EndSouth_Floor_4",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAllDynamic",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "MOVABLE",
+          "name": "LowerBand_Rear_Floor_0",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAllDynamic",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "MOVABLE",
+          "name": "LowerBand_RearLong_Floor_1",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAllDynamic",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "MOVABLE",
+          "name": "LowerBand_RearLong_Floor_2",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAllDynamic",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "MOVABLE",
+          "name": "LowerBand_RearLong_Floor_3",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAllDynamic",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "MOVABLE",
+          "name": "LowerBand_RearLong_Floor_4",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAllDynamic",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "MOVABLE",
+          "name": "LowerBand_RearShort_Floor_0",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAllDynamic",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "MOVABLE",
+          "name": "LowerBand_RearShort_Floor_1",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAllDynamic",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "MOVABLE",
+          "name": "LowerBand_RearShort_Floor_2",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAllDynamic",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "MOVABLE",
+          "name": "LowerBand_RearShort_Floor_3",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAllDynamic",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "MOVABLE",
+          "name": "LowerBand_RearShort_Floor_4",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "RearWall_Band_AboveFloor_0",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "RearWall_Band_AboveFloor_1",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "RearWall_Band_AboveFloor_2",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "RearWall_Band_AboveFloor_3",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "RearWall_Band_AboveFloor_4",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "RearWall_Band_AboveFloor_5",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "RearWall_Band_AboveFloor_6",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "RearWall_Band_AboveFloor_7",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "RearWall_Band_AboveFloor_8",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "RearWall_BelowGroundDoor",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "RearWall_DoorSide_Long",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "RearWall_DoorSide_Long1",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "RearWall_DoorSide_Long2",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "RearWall_DoorSide_Long3",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "RearWall_DoorSide_Long4",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "RearWall_DoorSide_Short",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        }
+      ],
+      "label": "Stairwell_Envelope",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "Actor_2",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "bounds_extent": [
+        425.0,
+        1167.5,
+        635.0
+      ],
+      "bounds_max": [
+        250.0,
+        1898.0,
+        1200.0
+      ],
+      "bounds_min": [
+        -600.0,
+        -437.0,
+        -70.0
+      ],
+      "bounds_origin": [
+        -175.0,
+        730.5,
+        565.0
+      ],
+      "class": "Actor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "Floor_0_Landing",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "Floor_1_Landing",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "Floor_2_Landing",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "Floor_3_Landing",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "Floor_4_Landing",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "Floor_4_Landing1",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "Floor_4_Landing2",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "Floor_4_Landing3",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "Floor_4_Landing4",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        }
+      ],
+      "label": "Stairwell_FloorLandings",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "name": "Actor_0",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "bounds_extent": [
+        1010.0,
+        1010.0,
+        1010.0
+      ],
+      "bounds_max": [
+        1594.0,
+        1010.0,
+        2253.0
+      ],
+      "bounds_min": [
+        -426.0,
+        -1010.0,
+        233.0
+      ],
+      "bounds_origin": [
+        584.0,
+        0.0,
+        1243.0
+      ],
+      "class": "RewindCameraRig",
+      "components": [
+        {
+          "cast_shadow": false,
+          "class": "CameraProxyMeshComponent",
+          "collision_enabled": "NO_COLLISION",
+          "collision_profile": "NoCollision",
+          "materials": [
+            "/Engine/EditorMaterials/MatineeCam_mat.MatineeCam_mat"
+          ],
+          "mobility": "MOVABLE",
+          "name": "CameraProxyMeshComponent_0",
+          "static_mesh": "/Engine/EditorMeshes/MatineeCam_SM.MatineeCam_SM",
+          "visible": true
+        }
+      ],
+      "label": "Stairwell_CameraRig",
+      "location": [
+        584.0,
+        0.0,
+        1243.0
+      ],
+      "name": "RewindCameraRig_0",
+      "rotation": [
+        -14.0,
+        174.0,
+        -0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "bounds_extent": [
+        1010.0,
+        1010.0,
+        1010.0
+      ],
+      "bounds_max": [
+        2530.0,
+        1010.0,
+        2160.0
+      ],
+      "bounds_min": [
+        510.0,
+        -1010.0,
+        140.0
+      ],
+      "bounds_origin": [
+        1520.0,
+        0.0,
+        1150.0
+      ],
+      "class": "CineCameraActor",
+      "components": [
+        {
+          "cast_shadow": false,
+          "class": "CameraProxyMeshComponent",
+          "collision_enabled": "NO_COLLISION",
+          "collision_profile": "NoCollision",
+          "materials": [
+            "/Engine/EditorMaterials/Camera/MI_CineMat_CameraBody.MI_CineMat_CameraBody",
+            "/Engine/EditorMaterials/Camera/MI_CineMat_CamViewFinder.MI_CineMat_CamViewFinder"
+          ],
+          "mobility": "MOVABLE",
+          "name": "CameraProxyMeshComponent_0",
+          "static_mesh": "/Engine/EditorMeshes/Camera/SM_CineCam.SM_CineCam",
+          "visible": true
+        }
+      ],
+      "label": "StairwayCamera",
+      "location": [
+        1520.0,
+        0.0,
+        1150.0
+      ],
+      "name": "CineCameraActor_2",
+      "rotation": [
+        0.0,
+        180.0,
+        -0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "bounds_extent": [
+        200.0,
+        125.5,
+        605.0
+      ],
+      "bounds_max": [
+        160.0,
+        750.0,
+        1200.0
+      ],
+      "bounds_min": [
+        -240.0,
+        499.0,
+        -10.0
+      ],
+      "bounds_origin": [
+        -40.0,
+        624.5,
+        595.0
+      ],
+      "class": "RewindLift",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_ONLY",
+          "collision_profile": "Custom",
+          "materials": [
+            "/Game/Art/Materials/BuildingSlice/MI_4CFloor.MI_4CFloor"
+          ],
+          "mobility": "MOVABLE",
+          "name": "Platform",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "Custom",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "MOVABLE",
+          "name": "CabinFloorCollision",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": false
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "NO_COLLISION",
+          "collision_profile": "Custom",
+          "materials": [
+            "/Game/Art/Materials/Stairwell/MI_StairMetal.MI_StairMetal"
+          ],
+          "mobility": "MOVABLE",
+          "name": "CabinBack",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "NO_COLLISION",
+          "collision_profile": "Custom",
+          "materials": [
+            "/Game/Art/Materials/Stairwell/MI_StairMetal.MI_StairMetal"
+          ],
+          "mobility": "MOVABLE",
+          "name": "CabinRoof",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "NO_COLLISION",
+          "collision_profile": "Custom",
+          "materials": [
+            "/Game/Art/Materials/Stairwell/MI_StairMetal.MI_StairMetal"
+          ],
+          "mobility": "MOVABLE",
+          "name": "ShaftLeft",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "NO_COLLISION",
+          "collision_profile": "Custom",
+          "materials": [
+            "/Game/Art/Materials/Stairwell/MI_StairMetal.MI_StairMetal"
+          ],
+          "mobility": "MOVABLE",
+          "name": "ShaftRight",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        }
+      ],
+      "label": "Building_Lift",
+      "location": [
+        -40.0,
+        630.0,
+        0.0
+      ],
+      "name": "RewindLift_0",
+      "rotation": [
+        0.0,
+        180.0,
+        -0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "bounds_extent": [
+        260.0,
+        10.0,
+        190.0
+      ],
+      "bounds_max": [
+        240.0,
+        853.0,
+        1580.0
+      ],
+      "bounds_min": [
+        -280.0,
+        833.0,
+        1200.0
+      ],
+      "bounds_origin": [
+        -20.0,
+        843.0,
+        1390.0
+      ],
+      "class": "StaticMeshActor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Game/Art/Materials/Surfaces/MI_REW_PlasterGreen_Aged.MI_REW_PlasterGreen_Aged"
+          ],
+          "mobility": "STATIC",
+          "name": "StaticMeshComponent0",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        }
+      ],
+      "label": "4C_Shell_Wall_End_Near",
+      "location": [
+        -20.0,
+        843.0,
+        1390.0
+      ],
+      "name": "StaticMeshActor_11",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.2,
+        0.2,
+        3.8
+      ]
+    },
+    {
+      "bounds_extent": [
+        120.0,
+        80.0,
+        80.0
+      ],
+      "bounds_max": [
+        -15.0,
+        942.0,
+        1530.0
+      ],
+      "bounds_min": [
+        -255.0,
+        782.0,
+        1370.0
+      ],
+      "bounds_origin": [
+        -135.0,
+        862.0,
+        1450.0
+      ],
+      "class": "DecalActor",
+      "components": [
+        {
+          "class": "DecalComponent",
+          "decal_material": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_LeaksRust6.MI_REW_Decal_LeaksRust6",
+          "decal_size": [
+            128.0,
+            256.0,
+            256.0
+          ],
+          "name": "NewDecalComponent",
+          "visible": true
+        }
+      ],
+      "label": "4C_Decal_04_LeaksRust6",
+      "location": [
+        -255.0,
+        862.0,
+        1450.0
+      ],
+      "name": "DecalActor_4",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.312,
+        0.176,
+        0.469
+      ]
+    },
+    {
+      "bounds_extent": [
+        120.0,
+        80.0,
+        80.0
+      ],
+      "bounds_max": [
+        -15.0,
+        980.0,
+        1380.0
+      ],
+      "bounds_min": [
+        -255.0,
+        820.0,
+        1220.0
+      ],
+      "bounds_origin": [
+        -135.0,
+        900.0,
+        1300.0
+      ],
+      "class": "DecalActor",
+      "components": [
+        {
+          "class": "DecalComponent",
+          "decal_material": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_LeaksRust2.MI_REW_Decal_LeaksRust2",
+          "decal_size": [
+            128.0,
+            256.0,
+            256.0
+          ],
+          "name": "NewDecalComponent",
+          "visible": true
+        }
+      ],
+      "label": "4C_Decal_03_LeaksRust2",
+      "location": [
+        -255.0,
+        900.0,
+        1300.0
+      ],
+      "name": "DecalActor_3",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.312,
+        0.273,
+        0.43
+      ]
+    },
+    {
+      "bounds_extent": [
+        25.744,
+        25.731,
+        58.992
+      ],
+      "bounds_max": [
+        -44.3,
+        935.743,
+        1580.0
+      ],
+      "bounds_min": [
+        -95.787,
+        884.281,
+        1462.016
+      ],
+      "bounds_origin": [
+        -70.043,
+        910.012,
+        1521.008
+      ],
+      "class": "StaticMeshActor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "StaticMeshComponent0",
+          "static_mesh": "/Game/Props/Chapter1/Lamp/Meshy_AI_pendant_lamp_3d_0825174536_image-to-3d-texture.Meshy_AI_pendant_lamp_3d_0825174536_image-to-3d-texture",
+          "visible": true
+        }
+      ],
+      "label": "Meshy_AI_pendant_lamp_3d_0825174536_image-to-3d-texture",
+      "location": [
+        -70.0,
+        910.031,
+        1462.016
+      ],
+      "name": "StaticMeshActor_31",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.62,
+        0.62,
+        0.62
+      ]
+    },
+    {
+      "bounds_extent": [
+        2.5,
+        50.0,
+        50.0
+      ],
+      "bounds_max": [
+        -247.5,
+        963.0,
+        1380.0
+      ],
+      "bounds_min": [
+        -252.5,
+        863.0,
+        1280.0
+      ],
+      "bounds_origin": [
+        -250.0,
+        913.0,
+        1330.0
+      ],
+      "class": "StaticMeshActor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "StaticMeshComponent0",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        }
+      ],
+      "label": "Cube4",
+      "location": [
+        -250.0,
+        913.0,
+        1330.0
+      ],
+      "name": "StaticMeshActor_5",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.05,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "bounds_extent": [
+        30.0,
+        50.0,
+        45.0
+      ],
+      "bounds_max": [
+        -195.0,
+        963.0,
+        1290.0
+      ],
+      "bounds_min": [
+        -255.0,
+        863.0,
+        1200.0
+      ],
+      "bounds_origin": [
+        -225.0,
+        913.0,
+        1245.0
+      ],
+      "class": "StaticMeshActor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "StaticMeshComponent0",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        }
+      ],
+      "label": "Cube",
+      "location": [
+        -225.0,
+        913.0,
+        1245.0
+      ],
+      "name": "StaticMeshActor_12",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.6,
+        1.0,
+        0.9
+      ]
+    },
+    {
+      "bounds_extent": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_max": [
+        -60.0,
+        920.0,
+        1320.0
+      ],
+      "bounds_min": [
+        -60.0,
+        920.0,
+        1320.0
+      ],
+      "bounds_origin": [
+        -60.0,
+        920.0,
+        1320.0
+      ],
+      "class": "PointLight",
+      "components": [
+        {
+          "attenuation_radius": 760.0,
+          "cast_shadows": true,
+          "class": "PointLightComponent",
+          "color": [
+            255,
+            232,
+            203
+          ],
+          "intensity": 130.0,
+          "name": "LightComponent0",
+          "visible": true
+        }
+      ],
+      "label": "PointLight4",
+      "location": [
+        -60.0,
+        920.0,
+        1320.0
+      ],
+      "name": "PointLight_20",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "bounds_extent": [
+        10.0,
+        67.5,
+        190.0
+      ],
+      "bounds_max": [
+        -260.0,
+        988.0,
+        1580.0
+      ],
+      "bounds_min": [
+        -280.0,
+        853.0,
+        1200.0
+      ],
+      "bounds_origin": [
+        -270.0,
+        920.5,
+        1390.0
+      ],
+      "class": "StaticMeshActor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Game/Art/Materials/Surfaces/MI_REW_PlasterGreen_Aged.MI_REW_PlasterGreen_Aged"
+          ],
+          "mobility": "STATIC",
+          "name": "StaticMeshComponent0",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        }
+      ],
+      "label": "4C_Shell_Wall_Back_A",
+      "location": [
+        -270.0,
+        920.5,
+        1390.0
+      ],
+      "name": "StaticMeshActor_4",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.2,
+        1.35,
+        3.8
+      ]
+    },
+    {
+      "bounds_extent": [
+        36.819,
+        67.76,
+        57.948
+      ],
+      "bounds_max": [
+        -25.173,
+        995.76,
+        1315.897
+      ],
+      "bounds_min": [
+        -98.811,
+        860.24,
+        1200.0
+      ],
+      "bounds_origin": [
+        -61.992,
+        928.0,
+        1257.948
+      ],
+      "class": "StaticMeshActor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "StaticMeshComponent0",
+          "static_mesh": "/Game/Props/Chapter1/kitchentable/Meshy_AI_kitchen_table_3d_0825162406_image-to-3d-texture.Meshy_AI_kitchen_table_3d_0825162406_image-to-3d-texture",
+          "visible": true
+        }
+      ],
+      "label": "Meshy_AI_kitchen_table_3d_0825162406_image-to-3d-texture",
+      "location": [
+        -62.0,
+        927.974,
+        1200.0
+      ],
+      "name": "StaticMeshActor_19",
+      "rotation": [
+        0.0,
+        -88.0,
+        0.0
+      ],
+      "scale": [
+        0.7,
+        0.7,
+        0.7
+      ]
+    },
+    {
+      "bounds_extent": [
+        29.683,
+        94.839,
+        44.812
+      ],
+      "bounds_max": [
+        -189.497,
+        1049.839,
+        1519.625
+      ],
+      "bounds_min": [
+        -248.863,
+        860.161,
+        1430.0
+      ],
+      "bounds_origin": [
+        -219.18,
+        955.0,
+        1474.812
+      ],
+      "class": "StaticMeshActor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "StaticMeshComponent0",
+          "static_mesh": "/Game/Props/Chapter1/shelf/Meshy_AI_shelf_3d_0825175810_image-to-3d-texture.Meshy_AI_shelf_3d_0825175810_image-to-3d-texture",
+          "visible": true
+        }
+      ],
+      "label": "Meshy_AI_shelf_3d_0825175810_image-to-3d-texture",
+      "location": [
+        -220.0,
+        955.107,
+        1430.0
+      ],
+      "name": "StaticMeshActor_36",
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "bounds_extent": [
+        2.5,
+        5.0,
+        10.0
+      ],
+      "bounds_max": [
+        -257.5,
+        995.0,
+        1340.0
+      ],
+      "bounds_min": [
+        -262.5,
+        985.0,
+        1320.0
+      ],
+      "bounds_origin": [
+        -260.0,
+        990.0,
+        1330.0
+      ],
+      "class": "StaticMeshActor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Game/Art/Materials/Stairwell/MI_StairDoor.MI_StairDoor"
+          ],
+          "mobility": "STATIC",
+          "name": "StaticMeshComponent0",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        }
+      ],
+      "label": "Cube2",
+      "location": [
+        -260.0,
+        990.0,
+        1330.0
+      ],
+      "name": "StaticMeshActor_1",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.05,
+        0.1,
+        0.2
+      ]
+    },
+    {
+      "bounds_extent": [
+        120.0,
+        80.0,
+        80.0
+      ],
+      "bounds_max": [
+        -15.0,
+        1080.0,
+        1330.0
+      ],
+      "bounds_min": [
+        -255.0,
+        920.0,
+        1170.0
+      ],
+      "bounds_origin": [
+        -135.0,
+        1000.0,
+        1250.0
+      ],
+      "class": "DecalActor",
+      "components": [
+        {
+          "class": "DecalComponent",
+          "decal_material": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_PeelingPlaster1.MI_REW_Decal_PeelingPlaster1",
+          "decal_size": [
+            128.0,
+            256.0,
+            256.0
+          ],
+          "name": "NewDecalComponent",
+          "visible": true
+        }
+      ],
+      "label": "4C_Decal_05_PeelingPlaster1",
+      "location": [
+        -255.0,
+        1000.0,
+        1250.0
+      ],
+      "name": "DecalActor_5",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.312,
+        0.215,
+        0.352
+      ]
+    },
+    {
+      "bounds_extent": [
+        5.0,
+        57.5,
+        105.0
+      ],
+      "bounds_max": [
+        -250.0,
+        1110.5,
+        1415.0
+      ],
+      "bounds_min": [
+        -260.0,
+        995.5,
+        1205.0
+      ],
+      "bounds_origin": [
+        -255.0,
+        1053.0,
+        1310.0
+      ],
+      "class": "RewindCodeLock",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAllDynamic",
+          "materials": [
+            "/Game/Art/Materials/Stairwell/MI_StairDoor.MI_StairDoor"
+          ],
+          "mobility": "MOVABLE",
+          "name": "Mesh",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        }
+      ],
+      "label": "4C_CodeDoor_7312",
+      "location": [
+        -255.0,
+        1023.0,
+        1310.0
+      ],
+      "name": "RewindCodeLock_0",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "bounds_extent": [
+        10.0,
+        60.0,
+        79.0
+      ],
+      "bounds_max": [
+        -260.0,
+        1108.0,
+        1580.0
+      ],
+      "bounds_min": [
+        -280.0,
+        988.0,
+        1422.0
+      ],
+      "bounds_origin": [
+        -270.0,
+        1048.0,
+        1501.0
+      ],
+      "class": "StaticMeshActor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Game/Art/Materials/Surfaces/MI_REW_PlasterGreen_Aged.MI_REW_PlasterGreen_Aged"
+          ],
+          "mobility": "STATIC",
+          "name": "StaticMeshComponent0",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        }
+      ],
+      "label": "4C_Shell_Wall_Back_DoorHead",
+      "location": [
+        -270.0,
+        1048.0,
+        1501.0
+      ],
+      "name": "StaticMeshActor_6",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.2,
+        1.2,
+        1.58
+      ]
+    },
+    {
+      "bounds_extent": [
+        0.634,
+        57.999,
+        110.778
+      ],
+      "bounds_max": [
+        -249.376,
+        1105.848,
+        1421.557
+      ],
+      "bounds_min": [
+        -250.644,
+        989.851,
+        1200.0
+      ],
+      "bounds_origin": [
+        -250.01,
+        1047.85,
+        1310.778
+      ],
+      "class": "StaticMeshActor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "StaticMeshComponent0",
+          "static_mesh": "/Game/Props/Chapter1/door/Meshy_AI_door_3d_0825162626_image-to-3d-texture.Meshy_AI_door_3d_0825162626_image-to-3d-texture",
+          "visible": true
+        }
+      ],
+      "label": "Meshy_AI_door_3d_0825162626_image-to-3d-texture",
+      "location": [
+        -250.0,
+        1048.0,
+        1200.0
+      ],
+      "name": "StaticMeshActor_25",
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        1.51,
+        0.1,
+        1.165
+      ]
+    },
+    {
+      "bounds_extent": [
+        120.0,
+        80.0,
+        80.0
+      ],
+      "bounds_max": [
+        180.0,
+        1128.0,
+        1284.0
+      ],
+      "bounds_min": [
+        -60.0,
+        968.0,
+        1124.0
+      ],
+      "bounds_origin": [
+        60.0,
+        1048.0,
+        1204.0
+      ],
+      "class": "DecalActor",
+      "components": [
+        {
+          "class": "DecalComponent",
+          "decal_material": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_LeaksRust4.MI_REW_Decal_LeaksRust4",
+          "decal_size": [
+            128.0,
+            256.0,
+            256.0
+          ],
+          "name": "NewDecalComponent",
+          "visible": true
+        }
+      ],
+      "label": "4C_Decal_16_LeaksRust4",
+      "location": [
+        -60.0,
+        1048.0,
+        1204.0
+      ],
+      "name": "DecalActor_16",
+      "rotation": [
+        0.0,
+        0.0,
+        90.0
+      ],
+      "scale": [
+        0.312,
+        0.43,
+        0.586
+      ]
+    },
+    {
+      "bounds_extent": [
+        91.53,
+        91.53,
+        120.0
+      ],
+      "bounds_max": [
+        -138.47,
+        1151.53,
+        1449.0
+      ],
+      "bounds_min": [
+        -321.53,
+        968.47,
+        1209.0
+      ],
+      "bounds_origin": [
+        -230.0,
+        1060.0,
+        1329.0
+      ],
+      "class": "SpotLight",
+      "components": [
+        {
+          "attenuation_radius": 521.3644409179688,
+          "cast_shadows": true,
+          "class": "SpotLightComponent",
+          "color": [
+            180,
+            243,
+            255
+          ],
+          "intensity": 30.0,
+          "name": "LightComponent0",
+          "visible": true
+        }
+      ],
+      "label": "SpotLight",
+      "location": [
+        -230.0,
+        1060.0,
+        1449.0
+      ],
+      "name": "SpotLight_1",
+      "rotation": [
+        -90.0,
+        -9.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "bounds_extent": [
+        120.0,
+        80.0,
+        80.0
+      ],
+      "bounds_max": [
+        -15.0,
+        1200.0,
+        1460.0
+      ],
+      "bounds_min": [
+        -255.0,
+        1040.0,
+        1300.0
+      ],
+      "bounds_origin": [
+        -135.0,
+        1120.0,
+        1380.0
+      ],
+      "class": "DecalActor",
+      "components": [
+        {
+          "class": "DecalComponent",
+          "decal_material": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_PeelingPlaster2.MI_REW_Decal_PeelingPlaster2",
+          "decal_size": [
+            128.0,
+            256.0,
+            256.0
+          ],
+          "name": "NewDecalComponent",
+          "visible": true
+        }
+      ],
+      "label": "4C_Decal_06_PeelingPlaster2",
+      "location": [
+        -255.0,
+        1120.0,
+        1380.0
+      ],
+      "name": "DecalActor_6",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.312,
+        0.234,
+        0.469
+      ]
+    },
+    {
+      "bounds_extent": [
+        120.0,
+        80.0,
+        80.0
+      ],
+      "bounds_max": [
+        -15.0,
+        1220.0,
+        1310.0
+      ],
+      "bounds_min": [
+        -255.0,
+        1060.0,
+        1150.0
+      ],
+      "bounds_origin": [
+        -135.0,
+        1140.0,
+        1230.0
+      ],
+      "class": "DecalActor",
+      "components": [
+        {
+          "class": "DecalComponent",
+          "decal_material": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_PeelingPlaster3.MI_REW_Decal_PeelingPlaster3",
+          "decal_size": [
+            128.0,
+            256.0,
+            256.0
+          ],
+          "name": "NewDecalComponent",
+          "visible": true
+        }
+      ],
+      "label": "4C_Decal_07_PeelingPlaster3",
+      "location": [
+        -255.0,
+        1140.0,
+        1230.0
+      ],
+      "name": "DecalActor_7",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.312,
+        0.195,
+        0.273
+      ]
+    },
+    {
+      "bounds_extent": [
+        9.393,
+        30.895,
+        94.974
+      ],
+      "bounds_max": [
+        -230.655,
+        1180.901,
+        1489.948
+      ],
+      "bounds_min": [
+        -249.442,
+        1119.111,
+        1300.0
+      ],
+      "bounds_origin": [
+        -240.049,
+        1150.006,
+        1394.974
+      ],
+      "class": "StaticMeshActor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "StaticMeshComponent0",
+          "static_mesh": "/Game/Props/Chapter1/coathanger/Meshy_AI_coat_3d_0825162710_image-to-3d-texture.Meshy_AI_coat_3d_0825162710_image-to-3d-texture",
+          "visible": true
+        }
+      ],
+      "label": "Meshy_AI_coat_3d_0825162710_image-to-3d-texture",
+      "location": [
+        -240.0,
+        1150.0,
+        1300.0
+      ],
+      "name": "StaticMeshActor_17",
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "bounds_extent": [
+        20.0,
+        15.0,
+        190.0
+      ],
+      "bounds_max": [
+        -160.0,
+        1193.0,
+        1580.0
+      ],
+      "bounds_min": [
+        -200.0,
+        1163.0,
+        1200.0
+      ],
+      "bounds_origin": [
+        -180.0,
+        1178.0,
+        1390.0
+      ],
+      "class": "StaticMeshActor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Game/Art/Materials/Surfaces/MI_REW_BrickDark_Aged.MI_REW_BrickDark_Aged"
+          ],
+          "mobility": "STATIC",
+          "name": "StaticMeshComponent0",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        }
+      ],
+      "label": "4C_Shell_Bay_Column_1",
+      "location": [
+        -180.0,
+        1178.0,
+        1390.0
+      ],
+      "name": "StaticMeshActor_16",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.4,
+        0.3,
+        3.8
+      ]
+    },
+    {
+      "bounds_extent": [
+        120.0,
+        80.0,
+        80.0
+      ],
+      "bounds_max": [
+        82.0,
+        1258.0,
+        1430.0
+      ],
+      "bounds_min": [
+        -158.0,
+        1098.0,
+        1270.0
+      ],
+      "bounds_origin": [
+        -38.0,
+        1178.0,
+        1350.0
+      ],
+      "class": "DecalActor",
+      "components": [
+        {
+          "class": "DecalComponent",
+          "decal_material": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_WallCracks3.MI_REW_Decal_WallCracks3",
+          "decal_size": [
+            128.0,
+            256.0,
+            256.0
+          ],
+          "name": "NewDecalComponent",
+          "visible": true
+        }
+      ],
+      "label": "4C_Decal_13_WallCracks3",
+      "location": [
+        -158.0,
+        1178.0,
+        1350.0
+      ],
+      "name": "DecalActor_13",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.234,
+        0.07,
+        0.586
+      ]
+    },
+    {
+      "bounds_extent": [
+        6.0,
+        6.0,
+        14.0
+      ],
+      "bounds_max": [
+        -244.0,
+        1186.0,
+        1364.0
+      ],
+      "bounds_min": [
+        -256.0,
+        1174.0,
+        1336.0
+      ],
+      "bounds_origin": [
+        -250.0,
+        1180.0,
+        1350.0
+      ],
+      "class": "RewindFuse",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_ONLY",
+          "collision_profile": "Custom",
+          "materials": [
+            "/Game/Art/Materials/Stairwell/MI_StairDoor.MI_StairDoor"
+          ],
+          "mobility": "MOVABLE",
+          "name": "Mesh",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        }
+      ],
+      "label": "4C_Fuse",
+      "location": [
+        -250.0,
+        1180.0,
+        1350.0
+      ],
+      "name": "RewindFuse_0",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "bounds_extent": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_max": [
+        -262.0,
+        1190.0,
+        1420.0
+      ],
+      "bounds_min": [
+        -262.0,
+        1190.0,
+        1420.0
+      ],
+      "bounds_origin": [
+        -262.0,
+        1190.0,
+        1420.0
+      ],
+      "class": "PointLight",
+      "components": [
+        {
+          "attenuation_radius": 260.0,
+          "cast_shadows": true,
+          "class": "PointLightComponent",
+          "color": [
+            242,
+            46,
+            158
+          ],
+          "intensity": 24.0,
+          "name": "LightComponent0",
+          "visible": true
+        }
+      ],
+      "label": "4C_SignLight",
+      "location": [
+        -262.0,
+        1190.0,
+        1420.0
+      ],
+      "name": "PointLight_15",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "bounds_extent": [
+        2.625,
+        25.0,
+        25.0
+      ],
+      "bounds_max": [
+        -247.375,
+        1215.0,
+        1445.0
+      ],
+      "bounds_min": [
+        -252.625,
+        1165.0,
+        1395.0
+      ],
+      "bounds_origin": [
+        -250.0,
+        1190.0,
+        1420.0
+      ],
+      "class": "StaticMeshActor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "StaticMeshComponent0",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        }
+      ],
+      "label": "Cube3",
+      "location": [
+        -250.0,
+        1190.0,
+        1420.0
+      ],
+      "name": "StaticMeshActor_3",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.052,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "bounds_extent": [
+        3.005,
+        19.016,
+        15.104
+      ],
+      "bounds_max": [
+        -247.006,
+        1209.04,
+        1450.208
+      ],
+      "bounds_min": [
+        -253.017,
+        1171.008,
+        1420.0
+      ],
+      "bounds_origin": [
+        -250.011,
+        1190.024,
+        1435.104
+      ],
+      "class": "StaticMeshActor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "StaticMeshComponent0",
+          "static_mesh": "/Game/Props/Chapter1/signs/Meshy_AI_neon_sign_3d_0825162358_image-to-3d-texture.Meshy_AI_neon_sign_3d_0825162358_image-to-3d-texture",
+          "visible": true
+        }
+      ],
+      "label": "Meshy_AI_neon_sign_3d_0825162358_image-to-3d-texture",
+      "location": [
+        -250.0,
+        1190.0,
+        1420.0
+      ],
+      "name": "StaticMeshActor_23",
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        0.2,
+        0.2,
+        0.2
+      ]
+    },
+    {
+      "bounds_extent": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_max": [
+        -110.0,
+        1190.0,
+        1420.0
+      ],
+      "bounds_min": [
+        -110.0,
+        1190.0,
+        1420.0
+      ],
+      "bounds_origin": [
+        -110.0,
+        1190.0,
+        1420.0
+      ],
+      "class": "PointLight",
+      "components": [
+        {
+          "attenuation_radius": 320.0,
+          "cast_shadows": true,
+          "class": "PointLightComponent",
+          "color": [
+            249,
+            193,
+            255
+          ],
+          "intensity": 16.0,
+          "name": "LightComponent0",
+          "visible": true
+        }
+      ],
+      "label": "PointLight",
+      "location": [
+        -110.0,
+        1190.0,
+        1420.0
+      ],
+      "name": "PointLight_16",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "bounds_extent": [
+        4.631,
+        21.687,
+        23.187
+      ],
+      "bounds_max": [
+        -242.437,
+        1216.687,
+        1367.187
+      ],
+      "bounds_min": [
+        -251.7,
+        1173.313,
+        1320.813
+      ],
+      "bounds_origin": [
+        -247.069,
+        1195.0,
+        1344.0
+      ],
+      "class": "RewindFuseSocket",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_ONLY",
+          "collision_profile": "Custom",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "MOVABLE",
+          "name": "Mesh",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        },
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "NO_COLLISION",
+          "collision_profile": "Custom",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "MOVABLE",
+          "name": "SeatedFuse",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        }
+      ],
+      "label": "4C_BuildingFuseSocket",
+      "location": [
+        -246.0,
+        1195.0,
+        1344.0
+      ],
+      "name": "RewindFuseSocket_0",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.237,
+        0.867,
+        0.927
+      ]
+    },
+    {
+      "bounds_extent": [
+        0.0,
+        17.664,
+        20.72
+      ],
+      "bounds_max": [
+        -246.0,
+        1206.0,
+        1443.44
+      ],
+      "bounds_min": [
+        -246.0,
+        1170.672,
+        1402.0
+      ],
+      "bounds_origin": [
+        -246.0,
+        1188.336,
+        1422.72
+      ],
+      "class": "TextRenderActor",
+      "components": [],
+      "label": "4C_Sign_Letters",
+      "location": [
+        -246.0,
+        1206.0,
+        1402.0
+      ],
+      "name": "TextRenderActor_0",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.012,
+        1.215,
+        1.48
+      ]
+    },
+    {
+      "bounds_extent": [
+        120.0,
+        80.0,
+        80.0
+      ],
+      "bounds_max": [
+        -15.0,
+        1310.0,
+        1480.0
+      ],
+      "bounds_min": [
+        -255.0,
+        1150.0,
+        1320.0
+      ],
+      "bounds_origin": [
+        -135.0,
+        1230.0,
+        1400.0
+      ],
+      "class": "DecalActor",
+      "components": [
+        {
+          "class": "DecalComponent",
+          "decal_material": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_WallCracks1.MI_REW_Decal_WallCracks1",
+          "decal_size": [
+            128.0,
+            256.0,
+            256.0
+          ],
+          "name": "NewDecalComponent",
+          "visible": true
+        }
+      ],
+      "label": "4C_Decal_09_WallCracks1",
+      "location": [
+        -255.0,
+        1230.0,
+        1400.0
+      ],
+      "name": "DecalActor_9",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.312,
+        0.273,
+        0.508
+      ]
+    },
+    {
+      "bounds_extent": [
+        136.617,
+        108.332,
+        80.0
+      ],
+      "bounds_max": [
+        272.528,
+        1379.391,
+        1284.0
+      ],
+      "bounds_min": [
+        -0.706,
+        1162.726,
+        1124.0
+      ],
+      "bounds_origin": [
+        135.911,
+        1271.058,
+        1204.0
+      ],
+      "class": "DecalActor",
+      "components": [
+        {
+          "class": "DecalComponent",
+          "decal_material": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_LeaksRust6.MI_REW_Decal_LeaksRust6",
+          "decal_size": [
+            128.0,
+            256.0,
+            256.0
+          ],
+          "name": "NewDecalComponent",
+          "visible": true
+        }
+      ],
+      "label": "4C_Decal_19_LeaksRust6",
+      "location": [
+        20.0,
+        1240.0,
+        1204.0
+      ],
+      "name": "DecalActor_19",
+      "rotation": [
+        0.0,
+        15.0,
+        90.0
+      ],
+      "scale": [
+        0.312,
+        0.547,
+        0.703
+      ]
+    },
+    {
+      "bounds_extent": [
+        18.154,
+        30.393,
+        17.42
+      ],
+      "bounds_max": [
+        -211.872,
+        1280.339,
+        1339.839
+      ],
+      "bounds_min": [
+        -248.181,
+        1219.553,
+        1305.0
+      ],
+      "bounds_origin": [
+        -230.027,
+        1249.946,
+        1322.42
+      ],
+      "class": "StaticMeshActor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "StaticMeshComponent0",
+          "static_mesh": "/Game/Props/Chapter1/Radio/Meshy_AI_radio_3d_0825162448_image-to-3d-texture.Meshy_AI_radio_3d_0825162448_image-to-3d-texture",
+          "visible": true
+        }
+      ],
+      "label": "Meshy_AI_radio_3d_0825162448_image-to-3d-texture",
+      "location": [
+        -230.0,
+        1250.0,
+        1305.0
+      ],
+      "name": "StaticMeshActor_13",
+      "rotation": [
+        0.0,
+        -75.0,
+        0.0
+      ],
+      "scale": [
+        0.3,
+        0.3,
+        0.3
+      ]
+    },
+    {
+      "bounds_extent": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_max": [
+        -210.0,
+        1300.0,
+        1240.0
+      ],
+      "bounds_min": [
+        -210.0,
+        1300.0,
+        1240.0
+      ],
+      "bounds_origin": [
+        -210.0,
+        1300.0,
+        1240.0
+      ],
+      "class": "StaticMeshActor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [],
+          "mobility": "STATIC",
+          "name": "StaticMeshComponent0",
+          "static_mesh": null,
+          "visible": true
+        }
+      ],
+      "label": "Meshy_AI_desk_3d_0825162439_image-to-3d-texture",
+      "location": [
+        -210.0,
+        1300.0,
+        1240.0
+      ],
+      "name": "StaticMeshActor_9",
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "bounds_extent": [
+        80.0,
+        140.0,
+        92.0
+      ],
+      "bounds_max": [
+        130.0,
+        1340.0,
+        1388.0
+      ],
+      "bounds_min": [
+        -30.0,
+        1060.0,
+        1204.0
+      ],
+      "bounds_origin": [
+        50.0,
+        1200.0,
+        1296.0
+      ],
+      "class": "PlayerStart",
+      "components": [],
+      "label": "Stairwell_PlayerStart",
+      "location": [
+        50.0,
+        1300.0,
+        1296.0
+      ],
+      "name": "PlayerStart_0",
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "bounds_extent": [
+        120.0,
+        80.0,
+        80.0
+      ],
+      "bounds_max": [
+        -15.0,
+        1410.0,
+        1380.0
+      ],
+      "bounds_min": [
+        -255.0,
+        1250.0,
+        1220.0
+      ],
+      "bounds_origin": [
+        -135.0,
+        1330.0,
+        1300.0
+      ],
+      "class": "DecalActor",
+      "components": [
+        {
+          "class": "DecalComponent",
+          "decal_material": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_WallCracks2.MI_REW_Decal_WallCracks2",
+          "decal_size": [
+            128.0,
+            256.0,
+            256.0
+          ],
+          "name": "NewDecalComponent",
+          "visible": true
+        }
+      ],
+      "label": "4C_Decal_10_WallCracks2",
+      "location": [
+        -255.0,
+        1330.0,
+        1300.0
+      ],
+      "name": "DecalActor_10",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.312,
+        0.312,
+        0.586
+      ]
+    },
+    {
+      "bounds_extent": [
+        1010.0,
+        1010.0,
+        1010.0
+      ],
+      "bounds_max": [
+        1760.0,
+        2340.0,
+        2340.0
+      ],
+      "bounds_min": [
+        -260.0,
+        320.0,
+        320.0
+      ],
+      "bounds_origin": [
+        750.0,
+        1330.0,
+        1330.0
+      ],
+      "class": "CineCameraActor",
+      "components": [
+        {
+          "cast_shadow": false,
+          "class": "CameraProxyMeshComponent",
+          "collision_enabled": "NO_COLLISION",
+          "collision_profile": "NoCollision",
+          "materials": [
+            "/Engine/EditorMaterials/Camera/MI_CineMat_CameraBody.MI_CineMat_CameraBody",
+            "/Engine/EditorMaterials/Camera/MI_CineMat_CamViewFinder.MI_CineMat_CamViewFinder"
+          ],
+          "mobility": "MOVABLE",
+          "name": "CameraProxyMeshComponent_0",
+          "static_mesh": "/Engine/EditorMeshes/Camera/SM_CineCam.SM_CineCam",
+          "visible": true
+        }
+      ],
+      "label": "4c_camera",
+      "location": [
+        750.0,
+        1330.0,
+        1330.0
+      ],
+      "name": "CineCameraActor_1",
+      "rotation": [
+        0.0,
+        180.0,
+        -0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "bounds_extent": [
+        2.0,
+        3.0,
+        1.5
+      ],
+      "bounds_max": [
+        -223.0,
+        1343.0,
+        1261.5
+      ],
+      "bounds_min": [
+        -227.0,
+        1337.0,
+        1258.5
+      ],
+      "bounds_origin": [
+        -225.0,
+        1340.0,
+        1260.0
+      ],
+      "class": "RewindRadio",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_ONLY",
+          "collision_profile": "Custom",
+          "materials": [
+            "/Game/Art/Materials/Stairwell/MI_StairMetal.MI_StairMetal"
+          ],
+          "mobility": "MOVABLE",
+          "name": "Mesh",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        }
+      ],
+      "label": "4C_Radio",
+      "location": [
+        -225.0,
+        1340.0,
+        1260.0
+      ],
+      "name": "RewindRadio_0",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "bounds_extent": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_max": [
+        -120.0,
+        1354.0,
+        1300.0
+      ],
+      "bounds_min": [
+        -120.0,
+        1354.0,
+        1300.0
+      ],
+      "bounds_origin": [
+        -120.0,
+        1354.0,
+        1300.0
+      ],
+      "class": "PointLight",
+      "components": [
+        {
+          "attenuation_radius": 420.0,
+          "cast_shadows": true,
+          "class": "PointLightComponent",
+          "color": [
+            255,
+            222,
+            189
+          ],
+          "intensity": 12.0,
+          "name": "LightComponent0",
+          "visible": true
+        }
+      ],
+      "label": "PointLight2",
+      "location": [
+        -120.0,
+        1354.0,
+        1300.0
+      ],
+      "name": "PointLight_18",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "bounds_extent": [
+        120.0,
+        80.0,
+        80.0
+      ],
+      "bounds_max": [
+        -15.0,
+        1530.0,
+        1320.0
+      ],
+      "bounds_min": [
+        -255.0,
+        1370.0,
+        1160.0
+      ],
+      "bounds_origin": [
+        -135.0,
+        1450.0,
+        1240.0
+      ],
+      "class": "DecalActor",
+      "components": [
+        {
+          "class": "DecalComponent",
+          "decal_material": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_WallCracks6.MI_REW_Decal_WallCracks6",
+          "decal_size": [
+            128.0,
+            256.0,
+            256.0
+          ],
+          "name": "NewDecalComponent",
+          "visible": true
+        }
+      ],
+      "label": "4C_Decal_12_WallCracks6",
+      "location": [
+        -255.0,
+        1450.0,
+        1240.0
+      ],
+      "name": "DecalActor_12",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.312,
+        0.234,
+        0.352
+      ]
+    },
+    {
+      "bounds_extent": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_max": [
+        100.0,
+        1460.0,
+        1350.0
+      ],
+      "bounds_min": [
+        100.0,
+        1460.0,
+        1350.0
+      ],
+      "bounds_origin": [
+        100.0,
+        1460.0,
+        1350.0
+      ],
+      "class": "PointLight",
+      "components": [
+        {
+          "attenuation_radius": 260.0,
+          "cast_shadows": true,
+          "class": "PointLightComponent",
+          "color": [
+            46,
+            92,
+            255
+          ],
+          "intensity": 14.0,
+          "name": "LightComponent0",
+          "visible": true
+        }
+      ],
+      "label": "4C_Radio_Cool",
+      "location": [
+        100.0,
+        1460.0,
+        1350.0
+      ],
+      "name": "PointLight_6",
+      "rotation": [
+        63.0,
+        -6.0,
+        -0.0
+      ],
+      "scale": [
+        1.337,
+        1.355,
+        1.217
+      ]
+    },
+    {
+      "bounds_extent": [
+        10.0,
+        371.0,
+        190.0
+      ],
+      "bounds_max": [
+        -260.0,
+        1850.0,
+        1580.0
+      ],
+      "bounds_min": [
+        -280.0,
+        1108.0,
+        1200.0
+      ],
+      "bounds_origin": [
+        -270.0,
+        1479.0,
+        1390.0
+      ],
+      "class": "StaticMeshActor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Game/Art/Materials/Surfaces/MI_REW_PlasterGreen_Aged.MI_REW_PlasterGreen_Aged"
+          ],
+          "mobility": "STATIC",
+          "name": "StaticMeshComponent0",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        }
+      ],
+      "label": "4C_Shell_Wall_Back_B",
+      "location": [
+        -270.0,
+        1479.0,
+        1390.0
+      ],
+      "name": "StaticMeshActor_7",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.2,
+        7.42,
+        3.8
+      ]
+    },
+    {
+      "bounds_extent": [
+        123.219,
+        142.566,
+        80.0
+      ],
+      "bounds_max": [
+        133.933,
+        1751.323,
+        1284.0
+      ],
+      "bounds_min": [
+        -112.505,
+        1466.191,
+        1124.0
+      ],
+      "bounds_origin": [
+        10.714,
+        1608.757,
+        1204.0
+      ],
+      "class": "DecalActor",
+      "components": [
+        {
+          "class": "DecalComponent",
+          "decal_material": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_PeelingPlaster2.MI_REW_Decal_PeelingPlaster2",
+          "decal_size": [
+            128.0,
+            256.0,
+            256.0
+          ],
+          "name": "NewDecalComponent",
+          "visible": true
+        }
+      ],
+      "label": "4C_Decal_18_PeelingPlaster2",
+      "location": [
+        -40.0,
+        1500.0,
+        1204.0
+      ],
+      "name": "DecalActor_18",
+      "rotation": [
+        -0.0,
+        65.0,
+        90.0
+      ],
+      "scale": [
+        0.312,
+        0.625,
+        0.781
+      ]
+    },
+    {
+      "bounds_extent": [
+        20.0,
+        15.0,
+        190.0
+      ],
+      "bounds_max": [
+        -160.0,
+        1518.0,
+        1580.0
+      ],
+      "bounds_min": [
+        -200.0,
+        1488.0,
+        1200.0
+      ],
+      "bounds_origin": [
+        -180.0,
+        1503.0,
+        1390.0
+      ],
+      "class": "StaticMeshActor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Game/Art/Materials/Surfaces/MI_REW_BrickDark_Aged.MI_REW_BrickDark_Aged"
+          ],
+          "mobility": "STATIC",
+          "name": "StaticMeshComponent0",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        }
+      ],
+      "label": "4C_Shell_Bay_Column_2",
+      "location": [
+        -180.0,
+        1503.0,
+        1390.0
+      ],
+      "name": "StaticMeshActor_18",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.4,
+        0.3,
+        3.8
+      ]
+    },
+    {
+      "bounds_extent": [
+        120.0,
+        80.0,
+        80.0
+      ],
+      "bounds_max": [
+        82.0,
+        1583.0,
+        1380.0
+      ],
+      "bounds_min": [
+        -158.0,
+        1423.0,
+        1220.0
+      ],
+      "bounds_origin": [
+        -38.0,
+        1503.0,
+        1300.0
+      ],
+      "class": "DecalActor",
+      "components": [
+        {
+          "class": "DecalComponent",
+          "decal_material": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_WallCracks5.MI_REW_Decal_WallCracks5",
+          "decal_size": [
+            128.0,
+            256.0,
+            256.0
+          ],
+          "name": "NewDecalComponent",
+          "visible": true
+        }
+      ],
+      "label": "4C_Decal_14_WallCracks5",
+      "location": [
+        -158.0,
+        1503.0,
+        1300.0
+      ],
+      "name": "DecalActor_14",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.234,
+        0.07,
+        0.664
+      ]
+    },
+    {
+      "bounds_extent": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_max": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_min": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_origin": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "class": "RewindCameraRegion",
+      "components": [],
+      "label": "Apartment4C_Region",
+      "location": [
+        -2.5,
+        1503.0,
+        1390.0
+      ],
+      "name": "RewindCameraRegion_4",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "bounds_extent": [
+        715.0,
+        670.0,
+        10.0
+      ],
+      "bounds_max": [
+        1150.0,
+        2173.0,
+        1600.0
+      ],
+      "bounds_min": [
+        -280.0,
+        833.0,
+        1580.0
+      ],
+      "bounds_origin": [
+        435.0,
+        1503.0,
+        1590.0
+      ],
+      "class": "StaticMeshActor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Game/Art/Materials/Surfaces/MI_REW_PlasterGray_Aged.MI_REW_PlasterGray_Aged"
+          ],
+          "mobility": "STATIC",
+          "name": "StaticMeshComponent0",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        }
+      ],
+      "label": "4C_Shell_Ceiling",
+      "location": [
+        435.0,
+        1503.0,
+        1590.0
+      ],
+      "name": "StaticMeshActor_2",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        14.3,
+        13.4,
+        0.2
+      ]
+    },
+    {
+      "bounds_extent": [
+        715.0,
+        670.0,
+        10.0
+      ],
+      "bounds_max": [
+        1150.0,
+        2173.0,
+        1200.0
+      ],
+      "bounds_min": [
+        -280.0,
+        833.0,
+        1180.0
+      ],
+      "bounds_origin": [
+        435.0,
+        1503.0,
+        1190.0
+      ],
+      "class": "StaticMeshActor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Game/Art/Materials/Surfaces/MI_REW_FloorTile_Interior.MI_REW_FloorTile_Interior"
+          ],
+          "mobility": "STATIC",
+          "name": "StaticMeshComponent0",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        }
+      ],
+      "label": "4C_Shell_Floor",
+      "location": [
+        435.0,
+        1503.0,
+        1190.0
+      ],
+      "name": "StaticMeshActor_0",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        14.3,
+        13.4,
+        0.2
+      ]
+    },
+    {
+      "bounds_extent": [
+        120.0,
+        80.0,
+        80.0
+      ],
+      "bounds_max": [
+        -15.0,
+        1640.0,
+        1530.0
+      ],
+      "bounds_min": [
+        -255.0,
+        1480.0,
+        1370.0
+      ],
+      "bounds_origin": [
+        -135.0,
+        1560.0,
+        1450.0
+      ],
+      "class": "DecalActor",
+      "components": [
+        {
+          "class": "DecalComponent",
+          "decal_material": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_WallCracks4.MI_REW_Decal_WallCracks4",
+          "decal_size": [
+            128.0,
+            256.0,
+            256.0
+          ],
+          "name": "NewDecalComponent",
+          "visible": true
+        }
+      ],
+      "label": "4C_Decal_11_WallCracks4",
+      "location": [
+        -255.0,
+        1560.0,
+        1450.0
+      ],
+      "name": "DecalActor_11",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.312,
+        0.352,
+        0.469
+      ]
+    },
+    {
+      "bounds_extent": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_max": [
+        -190.0,
+        1655.0,
+        1320.0
+      ],
+      "bounds_min": [
+        -190.0,
+        1655.0,
+        1320.0
+      ],
+      "bounds_origin": [
+        -190.0,
+        1655.0,
+        1320.0
+      ],
+      "class": "PointLight",
+      "components": [
+        {
+          "attenuation_radius": 760.0,
+          "cast_shadows": true,
+          "class": "PointLightComponent",
+          "color": [
+            255,
+            232,
+            203
+          ],
+          "intensity": 130.0,
+          "name": "LightComponent0",
+          "visible": true
+        }
+      ],
+      "label": "PointLight5",
+      "location": [
+        -190.0,
+        1655.0,
+        1320.0
+      ],
+      "name": "PointLight_21",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "bounds_extent": [
+        25.744,
+        25.731,
+        58.992
+      ],
+      "bounds_max": [
+        -164.3,
+        1680.743,
+        1580.0
+      ],
+      "bounds_min": [
+        -215.787,
+        1629.281,
+        1462.016
+      ],
+      "bounds_origin": [
+        -190.043,
+        1655.012,
+        1521.008
+      ],
+      "class": "StaticMeshActor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "StaticMeshComponent0",
+          "static_mesh": "/Game/Props/Chapter1/Lamp/Meshy_AI_pendant_lamp_3d_0825174536_image-to-3d-texture.Meshy_AI_pendant_lamp_3d_0825174536_image-to-3d-texture",
+          "visible": true
+        }
+      ],
+      "label": "Meshy_AI_pendant_lamp_3d_0825174536_image-to-3d-texture2",
+      "location": [
+        -190.0,
+        1655.031,
+        1462.016
+      ],
+      "name": "StaticMeshActor_32",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.62,
+        0.62,
+        0.62
+      ]
+    },
+    {
+      "bounds_extent": [
+        95.038,
+        90.389,
+        16.847
+      ],
+      "bounds_max": [
+        185.038,
+        1755.389,
+        1233.694
+      ],
+      "bounds_min": [
+        -5.038,
+        1574.611,
+        1200.0
+      ],
+      "bounds_origin": [
+        90.0,
+        1665.0,
+        1216.847
+      ],
+      "class": "StaticMeshActor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "StaticMeshComponent0",
+          "static_mesh": "/Game/Props/Chapter1/sofatable/Meshy_AI_footstool_3d_0825175833_image-to-3d-texture.Meshy_AI_footstool_3d_0825175833_image-to-3d-texture",
+          "visible": true
+        }
+      ],
+      "label": "Meshy_AI_footstool_3d_0825175833_image-to-3d-texture",
+      "location": [
+        90.029,
+        1664.911,
+        1200.0
+      ],
+      "name": "StaticMeshActor_34",
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        0.682
+      ]
+    },
+    {
+      "bounds_extent": [
+        95.972,
+        54.628,
+        45.656
+      ],
+      "bounds_max": [
+        -14.023,
+        1719.832,
+        1291.312
+      ],
+      "bounds_min": [
+        -205.968,
+        1610.577,
+        1200.0
+      ],
+      "bounds_origin": [
+        -109.995,
+        1665.205,
+        1245.656
+      ],
+      "class": "StaticMeshActor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "StaticMeshComponent0",
+          "static_mesh": "/Game/Props/Chapter1/sofa/Meshy_AI_sofa_3d_0825162856_image-to-3d-texture.Meshy_AI_sofa_3d_0825162856_image-to-3d-texture",
+          "visible": true
+        }
+      ],
+      "label": "Meshy_AI_sofa_3d_0825162856_image-to-3d-texture",
+      "location": [
+        -110.0,
+        1665.0,
+        1200.0
+      ],
+      "name": "StaticMeshActor_15",
+      "rotation": [
+        0.0,
+        -179.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "bounds_extent": [
+        120.0,
+        80.0,
+        80.0
+      ],
+      "bounds_max": [
+        -15.0,
+        1780.0,
+        1410.0
+      ],
+      "bounds_min": [
+        -255.0,
+        1620.0,
+        1250.0
+      ],
+      "bounds_origin": [
+        -135.0,
+        1700.0,
+        1330.0
+      ],
+      "class": "DecalActor",
+      "components": [
+        {
+          "class": "DecalComponent",
+          "decal_material": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_PeelingPlaster4.MI_REW_Decal_PeelingPlaster4",
+          "decal_size": [
+            128.0,
+            256.0,
+            256.0
+          ],
+          "name": "NewDecalComponent",
+          "visible": true
+        }
+      ],
+      "label": "4C_Decal_08_PeelingPlaster4",
+      "location": [
+        -255.0,
+        1700.0,
+        1330.0
+      ],
+      "name": "DecalActor_8",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.312,
+        0.352,
+        0.547
+      ]
+    },
+    {
+      "bounds_extent": [
+        1645.271,
+        1947.25,
+        2500.0
+      ],
+      "bounds_max": [
+        377.153,
+        3724.774,
+        4216.0
+      ],
+      "bounds_min": [
+        -2913.39,
+        -169.727,
+        -784.0
+      ],
+      "bounds_origin": [
+        -1268.118,
+        1777.523,
+        1716.0
+      ],
+      "class": "StaticMeshActor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "StaticMeshComponent0",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        }
+      ],
+      "label": "Cube8",
+      "location": [
+        -1268.118,
+        1777.523,
+        1716.0
+      ],
+      "name": "StaticMeshActor_22",
+      "rotation": [
+        0.0,
+        50.0,
+        0.0
+      ],
+      "scale": [
+        50.0,
+        1.0,
+        50.0
+      ]
+    },
+    {
+      "bounds_extent": [
+        20.0,
+        15.0,
+        190.0
+      ],
+      "bounds_max": [
+        -160.0,
+        1843.0,
+        1580.0
+      ],
+      "bounds_min": [
+        -200.0,
+        1813.0,
+        1200.0
+      ],
+      "bounds_origin": [
+        -180.0,
+        1828.0,
+        1390.0
+      ],
+      "class": "StaticMeshActor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Game/Art/Materials/Surfaces/MI_REW_BrickDark_Aged.MI_REW_BrickDark_Aged"
+          ],
+          "mobility": "STATIC",
+          "name": "StaticMeshComponent0",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        }
+      ],
+      "label": "4C_Shell_Bay_Column_3",
+      "location": [
+        -180.0,
+        1828.0,
+        1390.0
+      ],
+      "name": "StaticMeshActor_20",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.4,
+        0.3,
+        3.8
+      ]
+    },
+    {
+      "bounds_extent": [
+        120.0,
+        80.0,
+        80.0
+      ],
+      "bounds_max": [
+        82.0,
+        1908.0,
+        1480.0
+      ],
+      "bounds_min": [
+        -158.0,
+        1748.0,
+        1320.0
+      ],
+      "bounds_origin": [
+        -38.0,
+        1828.0,
+        1400.0
+      ],
+      "class": "DecalActor",
+      "components": [
+        {
+          "class": "DecalComponent",
+          "decal_material": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_WallCracks3.MI_REW_Decal_WallCracks3",
+          "decal_size": [
+            128.0,
+            256.0,
+            256.0
+          ],
+          "name": "NewDecalComponent",
+          "visible": true
+        }
+      ],
+      "label": "4C_Decal_15_WallCracks3",
+      "location": [
+        -158.0,
+        1828.0,
+        1400.0
+      ],
+      "name": "DecalActor_15",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.234,
+        0.07,
+        0.547
+      ]
+    },
+    {
+      "bounds_extent": [
+        10.0,
+        10.0,
+        190.0
+      ],
+      "bounds_max": [
+        -240.0,
+        1860.0,
+        1580.0
+      ],
+      "bounds_min": [
+        -260.0,
+        1840.0,
+        1200.0
+      ],
+      "bounds_origin": [
+        -250.0,
+        1850.0,
+        1390.0
+      ],
+      "class": "StaticMeshActor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Game/Art/Materials/Stairwell/MI_StairWall_Upper.MI_StairWall_Upper"
+          ],
+          "mobility": "STATIC",
+          "name": "StaticMeshComponent0",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        }
+      ],
+      "label": "Cube10",
+      "location": [
+        -250.0,
+        1850.0,
+        1390.0
+      ],
+      "name": "StaticMeshActor_29",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.2,
+        0.2,
+        3.8
+      ]
+    },
+    {
+      "bounds_extent": [
+        120.0,
+        80.0,
+        80.0
+      ],
+      "bounds_max": [
+        -15.0,
+        1960.0,
+        1520.0
+      ],
+      "bounds_min": [
+        -255.0,
+        1800.0,
+        1360.0
+      ],
+      "bounds_origin": [
+        -135.0,
+        1880.0,
+        1440.0
+      ],
+      "class": "DecalActor",
+      "components": [
+        {
+          "class": "DecalComponent",
+          "decal_material": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_LeaksRust1.MI_REW_Decal_LeaksRust1",
+          "decal_size": [
+            128.0,
+            256.0,
+            256.0
+          ],
+          "name": "NewDecalComponent",
+          "visible": true
+        }
+      ],
+      "label": "4C_Decal_00_LeaksRust1",
+      "location": [
+        -255.0,
+        1880.0,
+        1440.0
+      ],
+      "name": "DecalActor_0",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.312,
+        0.234,
+        0.508
+      ]
+    },
+    {
+      "bounds_extent": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bounds_max": [
+        -300.0,
+        1950.0,
+        1375.0
+      ],
+      "bounds_min": [
+        -300.0,
+        1950.0,
+        1375.0
+      ],
+      "bounds_origin": [
+        -300.0,
+        1950.0,
+        1375.0
+      ],
+      "class": "PointLight",
+      "components": [
+        {
+          "attenuation_radius": 330.0,
+          "cast_shadows": true,
+          "class": "PointLightComponent",
+          "color": [
+            255,
+            208,
+            231
+          ],
+          "intensity": 60.0,
+          "name": "LightComponent0",
+          "visible": true
+        }
+      ],
+      "label": "4C_Rear_Warm",
+      "location": [
+        -300.0,
+        1950.0,
+        1375.0
+      ],
+      "name": "PointLight_7",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "bounds_extent": [
+        26.171,
+        95.175,
+        44.454
+      ],
+      "bounds_max": [
+        -222.847,
+        2085.175,
+        1288.909
+      ],
+      "bounds_min": [
+        -275.19,
+        1894.825,
+        1200.0
+      ],
+      "bounds_origin": [
+        -249.018,
+        1990.0,
+        1244.454
+      ],
+      "class": "StaticMeshActor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "StaticMeshComponent0",
+          "static_mesh": "/Game/Props/Chapter1/windowrail/Meshy_AI_railing_plant_3d_0825162751_image-to-3d-texture.Meshy_AI_railing_plant_3d_0825162751_image-to-3d-texture",
+          "visible": true
+        }
+      ],
+      "label": "Meshy_AI_railing_plant_3d_0825162751_image-to-3d-texture",
+      "location": [
+        -250.0,
+        1989.831,
+        1200.0
+      ],
+      "name": "StaticMeshActor_27",
+      "rotation": [
+        0.0,
+        -90.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.1,
+        1.1
+      ]
+    },
+    {
+      "bounds_extent": [
+        142.925,
+        80.0,
+        124.508
+      ],
+      "bounds_max": [
+        -69.22,
+        2070.0,
+        1391.904
+      ],
+      "bounds_min": [
+        -355.07,
+        1910.0,
+        1142.887
+      ],
+      "bounds_origin": [
+        -212.145,
+        1990.0,
+        1267.395
+      ],
+      "class": "SpotLight",
+      "components": [
+        {
+          "attenuation_radius": 1000.0,
+          "cast_shadows": true,
+          "class": "SpotLightComponent",
+          "color": [
+            255,
+            143,
+            242
+          ],
+          "intensity": 46.0,
+          "name": "LightComponent0",
+          "visible": true
+        }
+      ],
+      "label": "SpotLight2",
+      "location": [
+        -320.0,
+        1990.0,
+        1320.0
+      ],
+      "name": "SpotLight_3",
+      "rotation": [
+        -26.0,
+        0.0,
+        -0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "bounds_extent": [
+        10.0,
+        140.0,
+        50.0
+      ],
+      "bounds_max": [
+        -260.0,
+        2130.0,
+        1580.0
+      ],
+      "bounds_min": [
+        -280.0,
+        1850.0,
+        1480.0
+      ],
+      "bounds_origin": [
+        -270.0,
+        1990.0,
+        1530.0
+      ],
+      "class": "StaticMeshActor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Game/Art/Materials/Surfaces/MI_REW_PlasterGreen_Aged.MI_REW_PlasterGreen_Aged"
+          ],
+          "mobility": "STATIC",
+          "name": "StaticMeshComponent0",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        }
+      ],
+      "label": "4C_Shell_Wall_Back_BalcHead",
+      "location": [
+        -270.0,
+        1990.0,
+        1530.0
+      ],
+      "name": "StaticMeshActor_8",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.2,
+        2.8,
+        1.0
+      ]
+    },
+    {
+      "bounds_extent": [
+        10.0,
+        123.0,
+        25.0
+      ],
+      "bounds_max": [
+        -250.0,
+        2113.0,
+        1479.0
+      ],
+      "bounds_min": [
+        -270.0,
+        1867.0,
+        1429.0
+      ],
+      "bounds_origin": [
+        -260.0,
+        1990.0,
+        1454.0
+      ],
+      "class": "StaticMeshActor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "mobility": "STATIC",
+          "name": "StaticMeshComponent0",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        }
+      ],
+      "label": "Cube7",
+      "location": [
+        -260.0,
+        1990.0,
+        1454.0
+      ],
+      "name": "StaticMeshActor_21",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.2,
+        2.46,
+        0.5
+      ]
+    },
+    {
+      "bounds_extent": [
+        120.0,
+        80.0,
+        80.0
+      ],
+      "bounds_max": [
+        -15.0,
+        2070.0,
+        1580.0
+      ],
+      "bounds_min": [
+        -255.0,
+        1910.0,
+        1420.0
+      ],
+      "bounds_origin": [
+        -135.0,
+        1990.0,
+        1500.0
+      ],
+      "class": "DecalActor",
+      "components": [
+        {
+          "class": "DecalComponent",
+          "decal_material": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_LeaksRust5.MI_REW_Decal_LeaksRust5",
+          "decal_size": [
+            128.0,
+            256.0,
+            256.0
+          ],
+          "name": "NewDecalComponent",
+          "visible": true
+        }
+      ],
+      "label": "4C_Decal_02_LeaksRust5",
+      "location": [
+        -255.0,
+        1990.0,
+        1500.0
+      ],
+      "name": "DecalActor_2",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.312,
+        0.508,
+        0.312
+      ]
+    },
+    {
+      "bounds_extent": [
+        143.923,
+        129.282,
+        80.0
+      ],
+      "bounds_max": [
+        127.846,
+        2179.282,
+        1284.0
+      ],
+      "bounds_min": [
+        -160.0,
+        1920.718,
+        1124.0
+      ],
+      "bounds_origin": [
+        -16.077,
+        2050.0,
+        1204.0
+      ],
+      "class": "DecalActor",
+      "components": [
+        {
+          "class": "DecalComponent",
+          "decal_material": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_LeaksRust2.MI_REW_Decal_LeaksRust2",
+          "decal_size": [
+            128.0,
+            256.0,
+            256.0
+          ],
+          "name": "NewDecalComponent",
+          "visible": true
+        }
+      ],
+      "label": "4C_Decal_17_LeaksRust2",
+      "location": [
+        -120.0,
+        1990.0,
+        1204.0
+      ],
+      "name": "DecalActor_17",
+      "rotation": [
+        0.0,
+        30.0,
+        90.0
+      ],
+      "scale": [
+        0.312,
+        0.508,
+        0.664
+      ]
+    },
+    {
+      "bounds_extent": [
+        120.0,
+        80.0,
+        80.0
+      ],
+      "bounds_max": [
+        -15.0,
+        2180.0,
+        1500.0
+      ],
+      "bounds_min": [
+        -255.0,
+        2020.0,
+        1340.0
+      ],
+      "bounds_origin": [
+        -135.0,
+        2100.0,
+        1420.0
+      ],
+      "class": "DecalActor",
+      "components": [
+        {
+          "class": "DecalComponent",
+          "decal_material": "/Game/Art/Materials/Decals/Instances/MI_REW_Decal_LeaksRust3.MI_REW_Decal_LeaksRust3",
+          "decal_size": [
+            128.0,
+            256.0,
+            256.0
+          ],
+          "name": "NewDecalComponent",
+          "visible": true
+        }
+      ],
+      "label": "4C_Decal_01_LeaksRust3",
+      "location": [
+        -255.0,
+        2100.0,
+        1420.0
+      ],
+      "name": "DecalActor_1",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.312,
+        0.215,
+        0.586
+      ]
+    },
+    {
+      "bounds_extent": [
+        10.0,
+        10.0,
+        190.0
+      ],
+      "bounds_max": [
+        -240.0,
+        2140.0,
+        1580.0
+      ],
+      "bounds_min": [
+        -260.0,
+        2120.0,
+        1200.0
+      ],
+      "bounds_origin": [
+        -250.0,
+        2130.0,
+        1390.0
+      ],
+      "class": "StaticMeshActor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Game/Art/Materials/Stairwell/MI_StairWall_Upper.MI_StairWall_Upper"
+          ],
+          "mobility": "STATIC",
+          "name": "StaticMeshComponent0",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        }
+      ],
+      "label": "Cube9",
+      "location": [
+        -250.0,
+        2130.0,
+        1390.0
+      ],
+      "name": "StaticMeshActor_28",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.2,
+        0.2,
+        3.8
+      ]
+    },
+    {
+      "bounds_extent": [
+        10.0,
+        11.5,
+        190.0
+      ],
+      "bounds_max": [
+        -260.0,
+        2153.0,
+        1580.0
+      ],
+      "bounds_min": [
+        -280.0,
+        2130.0,
+        1200.0
+      ],
+      "bounds_origin": [
+        -270.0,
+        2141.5,
+        1390.0
+      ],
+      "class": "StaticMeshActor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Game/Art/Materials/Surfaces/MI_REW_PlasterGreen_Aged.MI_REW_PlasterGreen_Aged"
+          ],
+          "mobility": "STATIC",
+          "name": "StaticMeshComponent0",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        }
+      ],
+      "label": "4C_Shell_Wall_Back_C",
+      "location": [
+        -270.0,
+        2141.5,
+        1390.0
+      ],
+      "name": "StaticMeshActor_10",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.2,
+        0.23,
+        3.8
+      ]
+    },
+    {
+      "bounds_extent": [
+        260.0,
+        10.0,
+        190.0
+      ],
+      "bounds_max": [
+        240.0,
+        2173.0,
+        1580.0
+      ],
+      "bounds_min": [
+        -280.0,
+        2153.0,
+        1200.0
+      ],
+      "bounds_origin": [
+        -20.0,
+        2163.0,
+        1390.0
+      ],
+      "class": "StaticMeshActor",
+      "components": [
+        {
+          "cast_shadow": true,
+          "class": "StaticMeshComponent",
+          "collision_enabled": "QUERY_AND_PHYSICS",
+          "collision_profile": "BlockAll",
+          "materials": [
+            "/Game/Art/Materials/Surfaces/MI_REW_PlasterGreen_Aged.MI_REW_PlasterGreen_Aged"
+          ],
+          "mobility": "STATIC",
+          "name": "StaticMeshComponent0",
+          "static_mesh": "/Engine/BasicShapes/Cube.Cube",
+          "visible": true
+        }
+      ],
+      "label": "4C_Shell_Wall_End_Far",
+      "location": [
+        -20.0,
+        2163.0,
+        1390.0
+      ],
+      "name": "StaticMeshActor_14",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        5.2,
+        0.2,
+        3.8
+      ]
+    }
+  ],
+  "room_query_max": [
+    1200.0,
+    2300.0,
+    1650.0
+  ],
+  "room_query_min": [
+    -400.0,
+    750.0,
+    1120.0
+  ],
+  "task": "REW-0039"
+}
