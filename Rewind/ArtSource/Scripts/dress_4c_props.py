@@ -16,7 +16,8 @@ Run with the editor closed:
 import unreal
 
 MASTER = "/Game/Art/Materials/Surfaces/M_REW_Surface"
-TEX = "/Game/Art/Textures/Surfaces/T_REW_Surface_{}_BC"
+TEX = "/Game/Art/Textures/Surfaces/T_REW_Surface_{}_{}"
+MAPS = ("BC", "N", "R")   # base colour, normal, roughness
 MI_DIR = "/Game/Props/Chapter1/Materials"
 
 # (asset path, surface, tint RGB, roughness, world tiling size in cm)
@@ -77,12 +78,23 @@ def run():
     sca_names = list(lib.get_scalar_parameter_names(master))
     log(f"master params: tex={tex_names} vec={vec_names} scalar={sca_names}")
 
-    p_tex = pick(tex_names, "base", "color", "albedo", "diffuse") or (
+    p_tex = pick(tex_names, "basecolor", "base", "albedo", "diffuse") or (
         tex_names[0] if tex_names else None)
+    p_norm = pick(tex_names, "normal")
+    p_roughtex = pick(tex_names, "rough")
     p_tint = pick(vec_names, "tint", "color")
-    p_size = pick(vec_names, "size", "tiling", "scale")
+    # REW-0031 moved TileSize from a vector parameter to a scalar. Look in the
+    # scalars first and fall back to the vectors, so this script keeps working
+    # against either master rather than silently writing an override that no
+    # longer exists.
+    p_size = pick(sca_names, "size", "tiling", "scale")
+    p_size_is_scalar = p_size is not None
+    if not p_size:
+        p_size = pick(vec_names, "size", "tiling", "scale")
     p_rough = pick(sca_names, "rough")
-    log(f"using tex={p_tex} tint={p_tint} size={p_size} rough={p_rough}")
+    log(f"using tex={p_tex} normal={p_norm} roughtex={p_roughtex} "
+        f"tint={p_tint} size={p_size} (scalar={p_size_is_scalar}) "
+        f"rough={p_rough}")
 
     # Preload once, and fail loudly here rather than per prop: a wrong texture
     # path is otherwise invisible, because a material instance with an unset
@@ -92,12 +104,13 @@ def run():
     surfaces = sorted({surface for _, surface, _, _, _ in PLAN})
     cache = {}
     for s_name in surfaces:
-        t = unreal.EditorAssetLibrary.load_asset(TEX.format(s_name))
-        if t:
-            cache[s_name] = t
-        else:
-            log(f"  FATAL: no texture asset {TEX.format(s_name)}")
-    log(f"preloaded {len(cache)}/{len(surfaces)} surface textures")
+        for suffix in MAPS:
+            t = unreal.EditorAssetLibrary.load_asset(TEX.format(s_name, suffix))
+            if t:
+                cache[(s_name, suffix)] = t
+            elif suffix == "BC":
+                log(f"  FATAL: no texture {TEX.format(s_name, suffix)}")
+    log(f"preloaded {len(cache)} maps across {len(surfaces)} surfaces")
 
     tools = unreal.AssetToolsHelpers.get_asset_tools()
     unreal.EditorAssetLibrary.make_directory(MI_DIR)
@@ -123,13 +136,16 @@ def run():
             continue
         lib.set_material_instance_parent(mi, master)
 
-        if p_tex and surface in cache:
-            lib.set_material_instance_texture_parameter_value(
-                mi, p_tex, cache[surface])
+        for param, suffix in ((p_tex, "BC"), (p_norm, "N"), (p_roughtex, "R")):
+            t = cache.get((surface, suffix))
+            if param and t:
+                lib.set_material_instance_texture_parameter_value(mi, param, t)
         if p_tint:
             lib.set_material_instance_vector_parameter_value(
                 mi, p_tint, unreal.LinearColor(tint[0], tint[1], tint[2], 1.0))
-        if p_size:
+        if p_size and p_size_is_scalar:
+            lib.set_material_instance_scalar_parameter_value(mi, p_size, size)
+        elif p_size:
             lib.set_material_instance_vector_parameter_value(
                 mi, p_size, unreal.LinearColor(size, size, size, 1.0))
         if p_rough:
@@ -168,7 +184,10 @@ def run():
             f"{MI_DIR}/MI_REW_Prop_{short}")
         got = lib.get_material_instance_texture_parameter_value(
             mi, p_tex) if (mi and p_tex) else None
+        nrm = lib.get_material_instance_texture_parameter_value(
+            mi, p_norm) if (mi and p_norm) else None
         name = got.get_name() if got else "NONE"
+        name += " +N" if (nrm and surface in nrm.get_name()) else " -N"
         ok = surface in name
         if not ok:
             bad += 1
