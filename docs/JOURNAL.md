@@ -4,6 +4,59 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-26 — REW-0034, Chapter 2 Conduit design authority
+
+- Date: 2026-08-26
+- Author: codex-gdd
+- Task: REW-0034
+- Branch: `codex/rew-0034-chapter2-gdd`
+- Pull request: #37 against `main`; not merged by this actor
+- Change: accepted `docs/design/chapter-2-authored.md` and C2-01 through C2-25
+  in `docs/acceptance/chapter-2-conduit-test.md`. Conduit is five connected
+  spaces — platforms, East tunnel, pressure conduit, relay/inspection aisle
+  and signal control — with nine discrete challenges and eight learning-run
+  shapes. Collection indexes list both documents.
+- ADR-0002 resolution: route 1. The Conductor has a fixed 48-second patrol and
+  a fixed 12-second response selected by a detection made in the current loop.
+  Detection time and response are LoopWorld. It reads no loop count, saved
+  route, earlier-loop alert or death location, so no ADR-0013 is proposed.
+- False information: railway displays are truthful for railway operations and
+  misleading to a pedestrian. `LINE CLEAR` coincides with live traction. The
+  public board says scheduled East until the phase-144 interlock decision;
+  trolley occupation then diverts alternating trains West. The correction
+  leaves 8 seconds to door opening while the crossover takes 10, so the player
+  must predict rather than react.
+- Timing: four independent 72-, 60-, 48- and 180-second schedules have a
+  720-second joint horizon. The 12-second trolley isolation window contains a
+  nine-second tunnel crossing. The learned route causes East detection at
+  `t = 64`, uses the door during `[68,72)`, commits signal inputs at
+  `t = 72,74,76,78`, reaches West by `t = 85` and boards during `[152,160)`.
+  Approach-lock arithmetic gives West at `t = 144/504` and East at
+  `t = 324/684`.
+- State boundary: trolley, purge, relay, Conductor, signal, authorization and
+  train state are LoopWorld; PlayerBody returns to Intake. The existing
+  `radio_code_7312` knowledge and `courtyard_gate_open` Anchor persist, but
+  Conduit creates no fact, Anchor, Insight or second store. Invalid signal
+  commit and a missed authorized departure each run an exact two-second causal
+  prelude; deaths are immediate; there is no global timeout.
+- Phase boundary: `PROJECT_BRIEF.md` now records the owner's documentation-only
+  exception. Accepted Chapter 2 design and acceptance do not authorize code,
+  maps, assets or implementation planning. Those remain a later owner decision
+  and bounded task.
+- Verification: explicit PowerShell assertions passed for the LCM, distances,
+  windows, response phases, signal timings, approach diversions and platform
+  lead; counts are 9 challenges, 8 learning loops and 25 unique acceptance
+  ids. Changed-document relative links resolve, fences close, design ownership
+  was reviewed manually, `git diff --check origin/main...HEAD` was clean and
+  the path audit found no `Rewind/`, baseline, imported legacy,
+  `CURRENT_STATUS.md`, `SYSTEMDOC.md` or `FILESTRUCTURE.md` change.
+- Not run: Unreal build, editor, PIE, automation tests and packaged build. The
+  task is documentation-only and explicitly forbids editor work; no build
+  claim is made.
+- Open owner decisions: Conductor fiction, campaign-completion persistence and
+  the implementation phase gate. Each carries a recommendation in the design.
+- Signature: codex-gdd
+
 ## 2026-08-26 — REW-0033, Chapter 1 audio: radio voice, station static and footsteps
 
 - Date: 2026-08-26
