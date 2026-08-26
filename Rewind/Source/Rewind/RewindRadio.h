@@ -43,6 +43,8 @@ public:
 	int32 GetChannel() const { return Channel; }
 	int32 GetCurrentBedSoundIndex() const;
 	int32 GetAppliedBedSoundIndex() const;
+	class UAudioComponent* GetRadioBedComponent() const { return RadioBed; }
+	class USoundAttenuation* GetDigitAttenuation() const { return DigitAttenuation; }
 
 private:
 	/** Whether a pawn is close enough to hear, and on the right channel. */

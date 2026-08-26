@@ -111,19 +111,19 @@ boundary, delivered as a reviewed pull request.
 - [x] Verify branch `codex/rew-0037-audio-listener-runtime` at base
       `c4c18af74ac0b60aa562bacfc68d5d0a9c26b283`.
 - [x] Populate this charter from the template and freeze it In Progress.
-- [ ] Commit the charter as the first meaningful checkpoint.
-- [ ] Apply Unreal's audio-listener override from the possessed player's
+- [x] Commit the charter as the first meaningful checkpoint.
+- [x] Apply Unreal's audio-listener override from the possessed player's
       root/capsule with authored-camera orientation, including after
       SnapToPlayer / possession change.
-- [ ] Keep `ARewindCameraRig` as the view target; do not move the camera or
+- [x] Keep `ARewindCameraRig` as the view target; do not move the camera or
       change radio range, channels, timing or 2D interaction sounds.
-- [ ] Expose the smallest testable listener contract (attachment, requested
+- [x] Expose the smallest testable listener contract (attachment, requested
       world position, camera orientation, refresh after reset/possession).
-- [ ] Add focused automation that fails if the listener silently follows the
+- [x] Add focused automation that fails if the listener silently follows the
       detached camera; keep existing radio audio tests.
-- [ ] Build `RewindEditor Win64 Development` with the editor closed.
-- [ ] Run focused listener/radio tests, then the complete `Rewind.*` suite.
-- [ ] Update `docs/CURRENT_STATUS.md` and `docs/SYSTEMDOC.md`.
+- [x] Build `RewindEditor Win64 Development` with the editor closed.
+- [x] Run focused listener/radio tests, then the complete `Rewind.*` suite.
+- [x] Update `docs/CURRENT_STATUS.md` and `docs/SYSTEMDOC.md`.
 - [ ] Archive this task, restore the template, prepend a signed journal entry.
 - [ ] `git diff --check`, inspect the full diff against the ownership list,
       commit explicit paths, push and open a pull request against `main`.
@@ -160,17 +160,38 @@ Only non-semantic corrections are allowed after `Ready`.
 
 ## Verification
 
-- [ ] Build `RewindEditor Win64 Development` with Unreal Editor closed.
-- [ ] Focused listener/radio tests and the complete `Rewind.*` suite.
-- [ ] Runtime class / named test state for the audio component and
+- [x] Build `RewindEditor Win64 Development` with Unreal Editor closed.
+- [x] Focused listener/radio tests and the complete `Rewind.*` suite.
+- [x] Runtime class / named test state for the audio component and
       player-relative listener contract.
-- [ ] `git diff --check` and full-diff ownership review.
+- [x] `git diff --check` and full-diff ownership review.
 - Skipped: interactive PIE and heard-output. The operator owns those.
+- Build: with no `UnrealEditor.exe` process, UE 5.8
+  `Build.bat RewindEditor Win64 Development` succeeded in 49.50 seconds; the
+  final test-fixture rebuild succeeded in 9.10 seconds.
+- Focused listener: `Rewind.Audio.Listener` found one test;
+  `PlayerPositionCameraOrientation` passed and the process reported
+  `TEST COMPLETE. EXIT CODE: 0`.
+- Focused radio: `Rewind.Radio.Audio` found two tests; `DigitSelection` and
+  `ResetAtRewind` passed and the process reported exit code `0`.
+- Complete suite: `Automation RunTests Rewind` found 25 tests; 25 passed,
+  0 failed, and the process reported `TEST COMPLETE. EXIT CODE: 0`.
+- Runtime evidence: the listener test calls UE 5.8's public
+  `APlayerController::GetAudioListenerPosition` and compares its resulting
+  world position/front/right vectors against the possessed root and detached
+  camera through initial possession, possession replacement and reset snap.
+  The radio reset test reads back the `RadioBed` component, shared attenuation
+  asset, channel-3 station selection and Baseline static restoration.
+- An initial focused listener run failed because the isolated `CreateWorld`
+  fixture had not registered its controller in the world's player-zero list.
+  The fixture now establishes the runtime relationship with `AddController`;
+  the production path was unchanged, rebuilt and passed both focused and full
+  reruns.
 
 ## Documentation Updates
 
-- [ ] `docs/CURRENT_STATUS.md`
-- [ ] `docs/SYSTEMDOC.md`
+- [x] `docs/CURRENT_STATUS.md`
+- [x] `docs/SYSTEMDOC.md`
 - [ ] `docs/JOURNAL.md`
 - [ ] `docs/FILESTRUCTURE.md` when structure changes
 - [ ] ADRs when long-lived decisions change
