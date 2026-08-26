@@ -14,6 +14,7 @@ Run WITHOUT -NullRHI; there is nothing to capture with a null renderer:
       -unattended -nopause -nosplash
 """
 import os
+import time
 import unreal
 
 MAP = "/Game/Maps/FiveLoops_Stairwell_Blockout"
@@ -33,6 +34,14 @@ STANDIN_MESH = "/Game/Characters/Returner/Returner"
 STANDIN_AT = "Stairwell_PlayerStart"
 W = int(os.environ.get("REW_W", "1600"))
 H = int(os.environ.get("REW_H", "900"))
+# Default non-zero on purpose. A SceneCapture taken before async shader
+# compilation finishes renders fallback materials, so back-to-back captures of
+# the SAME state can differ. A zero default is a trap: it makes every capture
+# look like evidence while some of them are not. This cost the project a whole
+# investigation -- a material-swap bisect that captured immediately after
+# swapping .uasset files, and drew confident conclusions from noise.
+# Set REW_WARMUP_SECONDS=0 only when you know the shaders are already warm.
+WARMUP_SECONDS = float(os.environ.get("REW_WARMUP_SECONDS", "45"))
 OUT = unreal.Paths.project_saved_dir() + "Screenshots"
 
 
@@ -56,6 +65,9 @@ def get_world():
 
 def run():
     unreal.EditorLoadingAndSavingUtils.load_map(MAP)
+    if WARMUP_SECONDS > 0:
+        log(f"waiting {WARMUP_SECONDS:.1f}s for async shader compilation before capture")
+        time.sleep(WARMUP_SECONDS)
     world = get_world()
     if not world:
         log("FATAL: no editor world")
