@@ -4,6 +4,48 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-26 — REW-0031, surface normal and roughness maps (in progress)
+
+- Date: 2026-08-26
+- Author: codex-normals
+- Task: REW-0031
+- Branch: `codex/rew-0031-surface-normals`
+- Change: generated eight 1254 × 1254 Sobel normal PNGs and eight
+  material-tuned grayscale roughness PNGs from the tracked project-owned
+  `EnvironmentTextureKit-v1` base-colour JPEGs. The sources live under
+  `Derived_REW-0031/`; `generate_surface_detail_maps.py` and
+  `import_surface_detail_maps.py` reproduce the source generation, import and
+  binding without opening or saving a map. Imported `T_REW_Surface_*_N`
+  textures use `TC_Normalmap`/non-sRGB; `_R` textures use
+  `TC_Masks`/non-sRGB, are wrapped, and cap at 2048.
+- Material/binding evidence: the headless importer rebuilt `M_REW_Surface`
+  with `BaseColorTex`, `NormalTex` and `RoughnessTex` sharing its world-space
+  `TileSize` coordinate path, and multiplies the roughness texture by the
+  retained `Roughness` scalar. Saved-asset read-back logged master defaults
+  for all three texture parameters, the required settings on every new texture
+  and explicit, surface-specific `NormalTex`/`RoughnessTex` values on all
+  eight `MI_REW_*` instances. No `LogMaterial: Error` occurred in that run.
+- Render evidence and blocker: `REW-0031_Apartment4C_before.png` and
+  `REW-0031_Apartment4C_after.png` were captured at the region camera with
+  manual -0.7 EV and copied to `Rewind/ArtSource/Screenshots/`. A read-only
+  map inspection confirms the 4C shell components use the eight updated
+  surface instances. For the baseline, all eight bindings were persistently
+  replaced with `/Engine/EngineMaterials/DefaultNormal` and white roughness,
+  captured from a fresh commandlet, then restored by the importer before the
+  after capture. The decoded before/after pixels are nevertheless identical.
+  The required visible-difference gate is therefore not met; this task is not
+  archived, staged, committed or submitted for PR.
+- Verification: final importer pass ended `VERIFY PASS: 16 linear maps and 8
+  explicit per-instance parameter bindings read back` and `DONE`; `git diff
+  --check` is clean. An earlier master-expression reflection check used a
+  protected Unreal property and failed; it was removed, then the final clean
+  importer pass above was run. No map was edited.
+- Handoff: diagnose the final-colour scene-capture/material render path that
+  makes persisted flat and derived bindings render identically, then replace
+  the non-demonstrative screenshot pair before completing the REW-0031
+  charter.
+- Signature: codex-normals
+
 ## 2026-08-26 — REW-0028, grime decal instances from environment-kit atlases
 
 - Date: 2026-08-26
