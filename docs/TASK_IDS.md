@@ -63,3 +63,5 @@ still the protocol extraction; that identity stays taken. New claims use `REW`.
 | REW-0033 | Chapter 1 audio: radio voice, station static and footsteps | codex-audio | 2026-08-26 | docs/CURRENT_TASK.md |
 | REW-0034 | Chapter 2 GDD: Conduit and the transit tunnels | codex-gdd | 2026-08-26 | docs/CURRENT_TASK.md |
 | REW-0035 | Wire Chapter 1 audio into gameplay | codex-audiowire | 2026-08-26 | docs/CURRENT_TASK.md |
+| REW-0036 | Operator: recover and prove Chapter 1 audio | codex-supervisor | 2026-08-26 | docs/CURRENT_TASK.md |
+| REW-0037 | Make Chapter 1 audio audible under the authored camera | codex-audio-runtime | 2026-08-26 | docs/CURRENT_TASK.md |
