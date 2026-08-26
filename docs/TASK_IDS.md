@@ -61,3 +61,4 @@ still the protocol extraction; that identity stays taken. New claims use `REW`.
 | REW-0031 | Surface normal and roughness maps for the environment kit | codex-normals | 2026-08-26 | docs/CURRENT_TASK.md |
 | REW-0032 | Surface detail maps that do not break decal rendering | codex-surfaces2 | 2026-08-26 | docs/CURRENT_TASK.md |
 | REW-0033 | Chapter 1 audio: radio voice, station static and footsteps | codex-audio | 2026-08-26 | docs/CURRENT_TASK.md |
+| REW-0034 | Chapter 2 GDD: Conduit and the transit tunnels | codex-gdd | 2026-08-26 | docs/CURRENT_TASK.md |
