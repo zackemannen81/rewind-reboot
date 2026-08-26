@@ -24,6 +24,13 @@ SHOT = os.environ.get("REW_SHOT", "region")
 # REW_EV forces manual exposure so geometry can be judged separately from
 # lighting; leave it unset for the exposure the game actually runs.
 EV = os.environ.get("REW_EV")
+# REW_STANDIN=1 drops the player mesh at the PlayerStart before capturing.
+# A room shot with nothing human in it says nothing about whether the camera
+# distance is playable -- the whole point of a fixed camera is how the player
+# reads inside it, and this camera moved from 687 to 1972.
+STANDIN = os.environ.get("REW_STANDIN") == "1"
+STANDIN_MESH = "/Game/Characters/Returner/Returner"
+STANDIN_AT = "Stairwell_PlayerStart"
 W = int(os.environ.get("REW_W", "1600"))
 H = int(os.environ.get("REW_H", "900"))
 OUT = unreal.Paths.project_saved_dir() + "Screenshots"
@@ -76,6 +83,30 @@ def run():
     # RTF_RGBA8 on purpose. The default target is float, and export_render_target
     # then writes an EXR regardless of the filename you give it -- a .png that
     # no image viewer will open.
+    stand = None
+    if STANDIN:
+        mesh = unreal.EditorAssetLibrary.load_asset(STANDIN_MESH)
+        start = None
+        for a in sub.get_all_level_actors():
+            if a.get_actor_label() == STANDIN_AT:
+                start = a
+                break
+        if mesh and start:
+            loc = start.get_actor_location()
+            # The capsule pivot sits 96 above the feet; the mesh is authored
+            # with its origin at the feet, so drop it to stand on the floor.
+            stand = sub.spawn_actor_from_class(
+                unreal.SkeletalMeshActor,
+                unreal.Vector(loc.x, loc.y, loc.z - 96.0),
+                unreal.Rotator(0.0, 0.0, -90.0))
+            if stand:
+                stand.skeletal_mesh_component.set_skeletal_mesh(mesh)
+                o, e = stand.get_actor_bounds(False)
+                log(f"stand-in at ({loc.x:.0f},{loc.y:.0f},{loc.z - 96:.0f}), "
+                    f"{e.z * 2:.0f} cm tall")
+        else:
+            log(f"stand-in skipped: mesh={bool(mesh)} start={bool(start)}")
+
     rt = unreal.RenderingLibrary.create_render_target2d(
         world, W, H, unreal.TextureRenderTargetFormat.RTF_RGBA8)
     if not rt:
@@ -118,6 +149,9 @@ def run():
     comp.capture_scene()
     unreal.RenderingLibrary.export_render_target(world, rt, OUT, SHOT + ".png")
     sub.destroy_actor(cap)
+    if stand:
+        # Never saved: this is a measuring stick, not level content.
+        sub.destroy_actor(stand)
 
     path = os.path.join(OUT, SHOT + ".png")
     if os.path.exists(path):
