@@ -243,4 +243,3 @@ Only non-semantic corrections are allowed after `Ready`.
 - Add a signed `docs/JOURNAL.md` entry.
 - If Goal or Definition of Done changed, supersede this task instead of
   rewriting it.
-
