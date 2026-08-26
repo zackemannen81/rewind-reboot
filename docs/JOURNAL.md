@@ -4,6 +4,41 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-26 — REW-0032, surface detail maps without losing 4C decals
+
+- Date: 2026-08-26
+- Author: codex-surfaces2
+- Task: REW-0032
+- Branch: `codex/rew-0032-surface-detail-redo`
+- Change: retained REW-0031's sixteen derived source maps unchanged, reimported
+  them as non-sRGB wrapped `TC_Normalmap`/`TC_Masks` textures, and bound every
+  one explicitly to its matching kit instance. The master keeps REW-0027's
+  `BaseColorTex` TextureObject → `WorldAlignedTexture` graph and its **vector**
+  `TileSize`; REW-0030 prop instances therefore remain compatible. Roughness
+  uses the same world-aligned projection. The normal uses a
+  `SAMPLERTYPE_NORMAL` tangent-space sample: both tested world-aligned normal
+  outputs made the decals vanish.
+- Bisect evidence: with a fresh commandlet process after explicit
+  `recompile_material`, old master + new instance detail bindings rendered the
+  same decal-bearing wall as old master + old instances. The earlier contrary
+  result was stale material/shader state, not an instance texture override.
+  Extending the master isolated the actual incompatibility to world-aligned
+  normal output. The tangent-space normal route keeps the decals.
+- Render evidence: `Rewind/ArtSource/Screenshots/REW-0032_Apartment4C_before_worldaligned.png`
+  and `REW-0032_Apartment4C_after_detailmaps.png` are 1600 × 900 captures of
+  `Apartment4C_Region` at manual −0.7 EV. The paired 2× crops
+  `REW-0032_Apartment4C_before_decal_crop_2x.png` and
+  `REW-0032_Apartment4C_after_decal_crop_2x.png` cover the identical wall
+  region: cracks and peeling-plaster decals remain plainly visible in the
+  detail-enabled result. The neon-lit `MI_REW_BrickDark_Aged` bay column remains
+  purple/dark brick rather than turning into REW-0031's white strip.
+- Verification: `verify_surface_bindings.py` read back the vector TileSize
+  contract, tangent normal sampler, all sixteen texture settings and all eight
+  expected instance values. The material-update and verification commandlet
+  logs contain no `LogMaterial: Error`; `git diff --check` is clean and no map
+  path changed. No checks were skipped.
+- Signature: codex-surfaces2
+
 ## 2026-08-26 — REW-0031 reverted: the surface rebuild eats every decal
 
 Reverted from main. The normal and roughness maps do work -- wall relief and
