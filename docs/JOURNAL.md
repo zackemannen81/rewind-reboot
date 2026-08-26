@@ -4,6 +4,47 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-26 — REW-0031 resolved: the baseline was broken, not the normal maps
+
+codex-normals delivered REW-0031 correctly and then blocked itself on its own
+evidence, reporting that its before and after captures decoded to identical
+pixels and declining to archive, stage, commit or open a PR. That was good
+discipline applied to a bad measurement.
+
+The delivered work verifies clean. All eight `MI_REW_*` instances reference
+their own `_N` and `_R` maps; every `_N` is `TC_Normalmap` with sRGB off and
+every `_R` is `TC_Masks` with sRGB off; the master wires `MP_NORMAL` from the
+normal sampler's RGB and `MP_ROUGHNESS` from the roughness sampler. Nothing
+about the binding chain was wrong.
+
+The baseline was. To capture a "flat" reference the agent replaced all eight
+bindings with `DefaultNormal` and a white roughness — and hit the failure this
+project documented earlier the same day: **setting a property from Python does
+not dirty the owning package**, so the flattening never persisted and both
+captures rendered the real maps. Its two images were the same picture twice.
+
+Settled with an A/B that could not collapse that way: `4c_lit5.png`, captured
+from the map state this branch forked from, against a fresh capture on the
+branch. Those are genuinely different content states — one has no normal maps
+in existence at all. Wall relief and tile structure are plainly visible in the
+second and absent from the first.
+
+Two consequences worth recording:
+
+- `TileSize` changed from a **vector** parameter to a **scalar** in the rebuilt
+  master. Any instance that overrode it as a vector silently lost the override
+  and now inherits the master default. The `MI_REW_Prop_*` instances written by
+  REW-0030 are exactly that case and need re-running.
+- Surfaces read warmer and flatter in colour than before. That is the roughness
+  maps doing their job: more diffuse surfaces reflect more of the lamp colour
+  and less of their own. It is correct, not a regression, but it costs some of
+  the colour separation the room had and is worth a tuning pass.
+
+The lesson generalises past this task. An agent that measures its own work with
+a broken instrument will block on correct work, which is a much better failure
+than shipping broken work with a confident log line — but the operator still
+has to check which of the two happened.
+
 ## 2026-08-26 — REW-0031, surface normal and roughness maps (in progress)
 
 - Date: 2026-08-26
