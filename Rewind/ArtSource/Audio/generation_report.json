@@ -1,0 +1,154 @@
+{
+  "task": "REW-0033",
+  "seed": 7312,
+  "files": {
+    "A_REW_Radio_Digit_7.wav": {
+      "duration_seconds": 1.8143764172335601,
+      "peak_dbfs": -3.000097173025577,
+      "rms_dbfs": -22.84029706560878,
+      "sample_rate": 44100,
+      "channels": 1,
+      "pcm_bits": 16
+    },
+    "A_REW_Radio_Digit_3.wav": {
+      "duration_seconds": 1.5693877551020408,
+      "peak_dbfs": -3.000097173025577,
+      "rms_dbfs": -20.639425646032898,
+      "sample_rate": 44100,
+      "channels": 1,
+      "pcm_bits": 16
+    },
+    "A_REW_Radio_Digit_1.wav": {
+      "duration_seconds": 1.6093877551020408,
+      "peak_dbfs": -3.000097173025577,
+      "rms_dbfs": -21.67121089333665,
+      "sample_rate": 44100,
+      "channels": 1,
+      "pcm_bits": 16
+    },
+    "A_REW_Radio_Digit_2.wav": {
+      "duration_seconds": 1.4043990929705215,
+      "peak_dbfs": -3.000097173025577,
+      "rms_dbfs": -21.042269088977342,
+      "sample_rate": 44100,
+      "channels": 1,
+      "pcm_bits": 16
+    },
+    "A_REW_Radio_Station_Loop.wav": {
+      "duration_seconds": 10.0,
+      "peak_dbfs": -3.000097173025577,
+      "rms_dbfs": -14.066112328914198,
+      "sample_rate": 44100,
+      "channels": 1,
+      "pcm_bits": 16,
+      "wrap_sample_delta_pcm": 0
+    },
+    "A_REW_Radio_Static_Loop.wav": {
+      "duration_seconds": 10.0,
+      "peak_dbfs": -3.000097173025577,
+      "rms_dbfs": -16.400844062310185,
+      "sample_rate": 44100,
+      "channels": 1,
+      "pcm_bits": 16,
+      "wrap_sample_delta_pcm": 0
+    },
+    "A_REW_Radio_Click_On.wav": {
+      "duration_seconds": 0.11,
+      "peak_dbfs": -3.000097173025577,
+      "rms_dbfs": -19.213690220337813,
+      "sample_rate": 44100,
+      "channels": 1,
+      "pcm_bits": 16
+    },
+    "A_REW_Radio_Click_Off.wav": {
+      "duration_seconds": 0.11,
+      "peak_dbfs": -3.000097173025577,
+      "rms_dbfs": -19.391464689962092,
+      "sample_rate": 44100,
+      "channels": 1,
+      "pcm_bits": 16
+    },
+    "A_REW_Radio_Tune.wav": {
+      "duration_seconds": 0.11,
+      "peak_dbfs": -3.000097173025577,
+      "rms_dbfs": -19.05906820236577,
+      "sample_rate": 44100,
+      "channels": 1,
+      "pcm_bits": 16
+    },
+    "A_REW_Step_Interior_01.wav": {
+      "duration_seconds": 0.2519954648526077,
+      "peak_dbfs": -3.000097173025577,
+      "rms_dbfs": -17.230640667647968,
+      "sample_rate": 44100,
+      "channels": 1,
+      "pcm_bits": 16
+    },
+    "A_REW_Step_Interior_02.wav": {
+      "duration_seconds": 0.2639909297052154,
+      "peak_dbfs": -3.000097173025577,
+      "rms_dbfs": -18.604068830483644,
+      "sample_rate": 44100,
+      "channels": 1,
+      "pcm_bits": 16
+    },
+    "A_REW_Step_Interior_03.wav": {
+      "duration_seconds": 0.27598639455782314,
+      "peak_dbfs": -3.000097173025577,
+      "rms_dbfs": -18.255582946071495,
+      "sample_rate": 44100,
+      "channels": 1,
+      "pcm_bits": 16
+    },
+    "A_REW_Step_Interior_04.wav": {
+      "duration_seconds": 0.28798185941043086,
+      "peak_dbfs": -3.000097173025577,
+      "rms_dbfs": -18.80057252135817,
+      "sample_rate": 44100,
+      "channels": 1,
+      "pcm_bits": 16
+    },
+    "A_REW_Step_Interior_05.wav": {
+      "duration_seconds": 0.3,
+      "peak_dbfs": -3.000097173025577,
+      "rms_dbfs": -21.008167409800357,
+      "sample_rate": 44100,
+      "channels": 1,
+      "pcm_bits": 16
+    },
+    "A_REW_Step_Interior_06.wav": {
+      "duration_seconds": 0.3119954648526077,
+      "peak_dbfs": -3.000097173025577,
+      "rms_dbfs": -18.96900949520785,
+      "sample_rate": 44100,
+      "channels": 1,
+      "pcm_bits": 16
+    }
+  },
+  "bandpass": {
+    "A_REW_Radio_Digit_7.wav": {
+      "above_4khz_before_fraction": 0.002232998026398959,
+      "above_4khz_after_fraction": 5.4311702107634424e-05
+    },
+    "A_REW_Radio_Digit_3.wav": {
+      "above_4khz_before_fraction": 0.0016164069993044193,
+      "above_4khz_after_fraction": 1.6225887375107556e-05
+    },
+    "A_REW_Radio_Digit_1.wav": {
+      "above_4khz_before_fraction": 0.0015888990846720083,
+      "above_4khz_after_fraction": 4.793351128302623e-05
+    },
+    "A_REW_Radio_Digit_2.wav": {
+      "above_4khz_before_fraction": 0.031101822837410333,
+      "above_4khz_after_fraction": 0.0004799478208895912
+    },
+    "A_REW_Radio_Station_Loop.wav": {
+      "above_4khz_before_fraction": 0.202548948436809,
+      "above_4khz_after_fraction": 6.902310084241498e-05
+    },
+    "A_REW_Radio_Static_Loop.wav": {
+      "above_4khz_before_fraction": 0.8189756888289322,
+      "above_4khz_after_fraction": 0.0017209402539176781
+    }
+  }
+}

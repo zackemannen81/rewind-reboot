@@ -4,6 +4,42 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-26 — REW-0033, Chapter 1 audio: radio voice, station static and footsteps
+
+- Date: 2026-08-26
+- Author: codex-audio
+- Task: REW-0033
+- Branch: `codex/rew-0033-chapter1-audio`
+- Change: generated and imported 15 project-owned mono 44.1 kHz, 16-bit PCM
+  SoundWaves under `/Game/Audio/Chapter1/`: four separately schedulable Zira
+  radio digits for `7312`, two 10-second radio beds, three dry mechanical radio
+  interactions and six varied hard-interior footsteps. No C++ or map changed.
+  `Rewind/ArtSource/Scripts/generate_chapter1_audio.py` is seed-fixed at 7312;
+  it uses only offline Windows SAPI plus numpy/scipy and includes the old-radio
+  band-pass, AM wobble, flanger, small Schroeder reverb, filtered hiss/crackle
+  and final -3 dBFS headroom chain. The separate importer saves only the two
+  `_Loop` SoundWaves with their `looping` property true.
+- Provenance: `Rewind/ArtSource/Audio/README.md` declares local SAPI Zira and
+  deterministic synthesis; no downloaded or third-party sound source entered
+  the repository, satisfying ADR-0011.
+- WAV evidence: the committed `generation_report.json` read every written WAV
+  back. All 15 report mono/44.1 kHz/16-bit PCM and peak `-3.000097 dBFS`; their
+  individual durations and RMS readings are retained in the archived task.
+  The station/static loops are 10.000000 s with wrap sample delta `0` PCM
+  units. Above-4-kHz FFT-power fractions fell from `0.2025489484` to
+  `0.0000690231` for station and from `0.8189756888` to `0.0017209403` for
+  static; individual speech measurements are in the archive. Two generator
+  runs had byte-identical SHA-256 results across all WAVs (2,507,260 bytes
+  total).
+- Unreal evidence: headless `UnrealEditor-Cmd` import at
+  `2026.08.26-02.15.07` through `02.15.08` logged every import then
+  `VERIFY PASS: 15 SoundWaves exist; only ['A_REW_Radio_Static_Loop',
+  'A_REW_Radio_Station_Loop'] loop` in `Rewind/Saved/Logs/Rewind.log`.
+  Saved-asset duration read-back matched each WAV, and every non-loop asset
+  reported `looping=False`.
+- Verification limits: this task intentionally performed no runtime or PIE
+  playback because radio trigger wiring and footstep animation notifies are
+  outside its frozen scope. The commandlet did not open or edit a map.
 ## 2026-08-26 — REW-0032, surface detail maps without losing 4C decals
 
 - Date: 2026-08-26
