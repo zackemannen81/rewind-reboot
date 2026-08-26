@@ -4,6 +4,79 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-26 — REW-0030, Apartment 4C had no room in it
+
+The brief was to grow 4C to the concept topology. The room turned out not to
+exist. `inspect_4c_shell.py` found no floor, no walls and no ceiling anywhere
+near it: every cube in range was a small fixture — a counter, a fusebox plate,
+a balcony lintel, four thin posts — and the only enclosure was `Cube8`, the
+3291×3895×5000 building envelope the whole level sits inside. The props stood
+against a wall line that existed only in their placement data.
+
+That reframed the task from resizing to building. The shell is now 500 deep ×
+1300 wide × 380 tall, four bays of 325 with structural columns on the interior
+boundaries, the door held at Y 1048 and the balcony opening moved to bay 4.
+Scale came from the owner's own metric, a 1.8 m player.
+
+The camera moved from 687 back to 1972 on the same 37.5° lens. Distance now
+follows the rule the stairwell regions already used —
+`width / (2·tan(fov/2))` plus about 3% margin — which means the earlier
+"too zoomed in" complaint was the **distance**, not the lens. Floor and ceiling
+run out to X 1150 so their near edges fall outside the frustum; without that, a
+1300×380 room in a 16:9 frame leaves roughly a fifth of the shot empty above
+and another fifth below.
+
+### The lighting was the actual problem
+
+The geometry was never why the room looked wrong. The level runs **manual**
+exposure at −0.7 EV from an unbound `Stairwell_BlockoutExposure` volume — no
+auto-exposure, no adaptation — so light intensities are absolute. The two
+pendant lamps meant to light the apartment were authored at **1.4 and 2.3 cd**
+while their neighbours sat at 110 and 160. The room rendered black because it
+was black. No amount of texturing would have fixed that.
+
+### Four bugs, each caught only by looking at the result
+
+This is the entry's real content. Every one of these reported success.
+
+- **A material instance with an unset texture parameter falls back silently to
+  the engine's `DefaultTexture`.** The prop-dressing script reported twelve
+  props dressed while all twelve were untextured — the kit's textures live in
+  `Art/Textures/Surfaces/`, not `Art/Textures/`. Only a read-back of the
+  assigned parameters caught it.
+- **`set_editor_property("light_color", …)` stores the value but never pushes
+  it into the component's render state.** `set_light_color()` does.
+- **Setting a component property from Python does not dirty the map package.**
+  `save_dirty_packages` therefore wrote nothing, returned `True`, and an entire
+  colour-grading pass was lost. The evidence was a render that came back
+  byte-for-byte identical to the previous one. Actors are now `modify()`'d
+  before their components are touched.
+- **Props floated 20 to 110 cm above the floor.** Invisible while there was no
+  floor to float above.
+
+The common thread: a log line saying the work was done is not evidence the work
+was done. `capture_region.py` exists now for exactly this — it renders a
+region's authored shot to PNG headlessly, through the region's own
+`CameraOffset` and `FieldOfView`, so look-and-feel is judged from the image.
+
+### Also
+
+Prop footprint went from 580 MB to 3.1 MB. The previous pass shipped the
+FBX-embedded 4K texture sets and capped them with `MaxTextureSize`, which is the
+wrong tool: it caps what the renderer *builds* while the `.uasset` still stores
+the full-resolution source. The props are untextured now and dressed from
+instances of the shared `M_REW_Surface`, which also makes them read as one
+building rather than twelve separate downloads.
+
+REW-0028's eighteen decal instances had never been placed. Twenty are now
+placed to the building's own logic — water under the balcony header, peeling
+plaster where hands reach, cracks radiating from the fusebox and down the
+columns, grime along the walking line.
+
+Follow-on charted as REW-0031: the environment kit ships base colour only. There
+is not one normal or roughness map in it, so every surface in the game is
+perfectly flat.
+
 ## 2026-08-26 — REW-0028, grime decal instances from environment-kit atlases
 
 - Date: 2026-08-26
