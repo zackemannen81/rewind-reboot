@@ -65,3 +65,5 @@ still the protocol extraction; that identity stays taken. New claims use `REW`.
 | REW-0035 | Wire Chapter 1 audio into gameplay | codex-audiowire | 2026-08-26 | docs/CURRENT_TASK.md |
 | REW-0036 | Operator: recover and prove Chapter 1 audio | codex-supervisor | 2026-08-26 | docs/CURRENT_TASK.md |
 | REW-0037 | Make Chapter 1 audio audible under the authored camera | codex-audio-runtime | 2026-08-26 | docs/CURRENT_TASK.md |
+| REW-0038 | Operator: bring Apartment 4C to the supplied concept target | codex-supervisor | 2026-08-26 | docs/CURRENT_TASK.md |
+| REW-0039 | Apartment 4C concept-match environment art pass | codex-4c-art | 2026-08-26 | docs/CURRENT_TASK.md |
