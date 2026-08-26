@@ -10,7 +10,7 @@ rewind-reboot/
 ├── .gitignore                      Unreal generated and local-only paths
 ├── .gitattributes                  Git LFS types for Unreal binaries, ADR-0005
 ├── .mcp.json                       the running editor's MCP endpoint; works only while the editor is open
-├── .codex/config.toml              project-scoped Codex client for the same editor endpoint
+├── .codex/config.toml              project-scoped Codex clients for Unreal and the local Docs-First agent orchestrator
 ├── Rewind/                         Unreal Engine 5.8 blank C++ project
 │   ├── Rewind.uproject             engine 5.8; runtime and editor modules; MCP/toolset plugins
 │   ├── Source/Rewind/              loop, session, Chapter 1, authored camera, courtyard, player messages and named runtime tests
@@ -63,6 +63,7 @@ rewind-reboot/
 │   ├── JOURNAL.md                  dated, signed work waves, append-only
 │   ├── FILESTRUCTURE.md            this file
 │   ├── TASK_IDS.md                 identity claims, allocation only
+│   ├── waves/                      frozen delegated-agent allocation, ownership, locks and recovery plans
 │   ├── adr/                        decisions, including event-driven loop termination
 │   ├── design/                     game design authority
 │   │   ├── loop-and-determinism.md

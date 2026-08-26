@@ -27,18 +27,18 @@ wrong and must be corrected.
 | `Rewind/Content/Maps/Reference/FiveLoops_Handmade2_Reference.umap` | Stable untouched Git LFS reference copy. Its 26-actor inventory and stair camera transform match the owner source at REW-0010 completion |
 | `Rewind/Content/FiveLoops_Handmade.umap` and `FiveLoops_Handmade2.umap` | Tracked owner-authored construction maps preserved through Git LFS. They are spatial source material, not runtime defaults or design-rule authority |
 | `docs/design/` | Nine accepted documents. Ownership in `docs/design/README.md`; `player-messages.md` owns the player-facing text channel and states that the debug overlay is not UI; `tutorial-and-first-run.md` owns first-run copy, the naming rule, and first-time gating |
-| `Rewind/Content/Audio/Chapter1/` | Fifteen generated SoundWaves from REW-0033: four radio digit one-shots, a station carrier and a static bed, three interaction clicks, six footstep variations. Synthesised on this machine, Windows SAPI for the voice and numpy/scipy for the old-radio chain, so nothing is downloaded and nothing carries a third-party licence. Measured independently at -3 dBFS, digits at 0.0% energy above 4 kHz, both loop seams at 0.0000 sample delta. REW-0035 plays all of them: digits, beds, clicks and footsteps |
+| `Rewind/Content/Audio/Chapter1/` | Fifteen generated SoundWaves from REW-0033: four radio digit one-shots, a station carrier and a static bed, three interaction clicks, six footstep variations. Synthesised on this machine, Windows SAPI for the voice and numpy/scipy for the old-radio chain, so nothing is downloaded and nothing carries a third-party licence. Measured independently at -3 dBFS, digits at 0.0% energy above 4 kHz, both loop seams at 0.0000 sample delta. REW-0035 source routes all of them to gameplay events. The first post-merge PIE inspection found the canonical clone running an older DLL whose radio had no audio component, so that run is evidence of no loaded REW-0035 playback code, not evidence that the source wiring works in play |
 | `Rewind/Content/Art/Textures/Surfaces/` | Eight base colours plus eight normal and eight roughness maps. REW-0031 generated the detail maps and was reverted because its rebuilt master killed every decal in 4C and blew out the brick column; REW-0032 restored them by extending the existing WorldAlignedTexture graph rather than replacing it, and keeping the normal tangent-space. A world-aligned normal output is what regresses decals |
 | `docs/design/chapter-2-authored.md` | Accepted design authority for Chapter 2, "Conduit": five spaces, nine puzzles, eight loops, with published route arithmetic consistent with the game's 200 cm/s walk speed. The legacy seed's "reactive AI that learns" was resolved inside ADR-0002 rather than superseding it, so no ADR-0013 was proposed. Design authority only; implementation is not authorised |
 | `docs/acceptance/chapter-2-conduit-test.md` | Accepted. Checkable acceptance criteria for Chapter 2. No build evidence exists for any of them |
 | `docs/acceptance/five-loops-test.md` | Accepted. Criteria FL-01 to FL-18. Existing playtests remain evidence for their timer-driven builds and pre-2026-08-24 wording; no build evidence exists for amended FL-01, FL-02, FL-03 or FL-07, or for FL-18. REW-0020 recorded PIE evidence for the three FL-17 checkpoint outcomes on the authored map |
 | `docs/playtests/` | Evidence from named runs of named builds. The earlier complete Five Loops record remains; REW-0007 adds a Chapter 1 three-loop record; REW-0019 adds before/after 4C renderer frames and 1080p frame time; REW-0020 adds the authored-courtyard FL-17 record |
-| `.codex/config.toml` and `.mcp.json` | Project-scoped clients for the running editor's MCP endpoint on localhost. They resolve only while this project's editor is open |
+| `.codex/config.toml` and `.mcp.json` | Project-scoped clients for the running editor's MCP endpoint on localhost. Codex additionally registers the already-built local Docs-First PowerShell Agent MCP stdio server for isolated worker process control; a fresh session is required after configuration changes |
 | `docs/EDITOR_AUTOMATION.md` | Canonical engine, editor, MCP, plugin, toolset, build and agent-playtest procedure |
 | `docs/concepts_sandbox/legacy-rewind/` | Imported design, roadmaps and task files from the previous project, plus a verified code inventory and a conflict register. Non-authority |
 | `docs/baseline/acme-2026-08-19/` | Frozen provenance for the working model itself. Never edited, never authority |
 | `.gitignore` / `.gitattributes` | Ignore generated UE output. LFS tracks Unreal binaries, including the Tier 1 character assets |
-| `docs/CURRENT_TASK.md` | Restored task template. REW-0016 to REW-0024 are complete and archived; no task is active on this branch |
+| `docs/CURRENT_TASK.md` | REW-0036 is active as the process supervisor for the bounded Chapter 1 audio recovery wave; REW-0037 is claimed and frozen in `docs/waves/REW-0036_chapter-1-audio-recovery.md`, not yet launched |
 | `docs/concept/` | Nine owner-produced target and construction-reference images: 4C, fuse box, stairwell, lift, three circulation/interaction sketches and the settled top- and ground-floor plans. Targets and blockout clarification, never game rules |
 | `docs/finished/REW-0004_...md` | Superseded by REW-0006 after its frozen scope conflicted with the lift-or-stairs branch decided by REW-0005 |
 | `Rewind/Source/Rewind/RewindCameraRig.cpp` | The authored camera of ADR-0007. Regions declare rotation, X/Y/Z travel axis, bounds, dead zone, player volume and explicit FOV. Half-open volumes give shared thresholds exactly one owner. The procedural proof has eleven regions; the authored building slice plus courtyard has nine |
@@ -97,12 +97,14 @@ wrong and must be corrected.
   references to them. A fresh clone of the default map therefore opens without
   those packages. Apartment 4C is no longer undressed: twelve generated props are placed and
   dressed, at 3.1 MB total.
-- **Heard evidence for the audio.** REW-0035 wired all fifteen sounds into
-  gameplay and the suite passes 24/24, including a digit-selection test and a
-  rewind-cleanliness test. The radio's digit attenuation was read back at a
-  320 cm falloff against `RadioRange = 320.0`, so audibility and hearing credit
-  cannot disagree. None of that is evidence that the room sounds right: nobody
-  has heard it in play.
+- **Heard evidence for the audio.** REW-0035 source wires all fifteen sounds
+  and its isolated suite passed 24/24. The first canonical PIE inspection
+  falsified the stronger claim: its DLL predated REW-0035 and the loaded radio
+  had no audio component. Source inspection also found a second defect waiting
+  after rebuild: hearing credit measures player-to-radio distance, but Unreal's
+  default listener follows the authored camera, which was about 22 m from the
+  radio while the player was inside the 320 cm range. REW-0036/0037 own the
+  bounded recovery. Nobody has yet heard the integrated result in play.
 - **PIE evidence for the rebuilt Apartment 4C.** Every judgement about the
   room this session came from headless `SceneCapture` renders through the
   region's own camera, not from play. The automation suite passes 22/22

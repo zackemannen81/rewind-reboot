@@ -377,8 +377,13 @@ standard PIE start/stop, project player input, viewport capture, and named
 automation-test discovery/execution/results. The server itself runs inside the
 editor on localhost port 8000 and does not exist while the editor is closed.
 `.codex/config.toml` is the Codex project client; `.mcp.json` files retain the
-same endpoint for clients that use that format. `docs/EDITOR_AUTOMATION.md`
-owns the exact operator sequence and troubleshooting boundary.
+same endpoint for clients that use that format. The Codex config also registers
+the local Docs-First PowerShell Agent MCP stdio server from
+`C:\code\docs-first-multiagent-orchestrator-addon`. That process plane may
+launch, observe, steer and halt isolated worker CLIs, but repository charters,
+task IDs, ownership, review and verification remain the authority.
+`docs/EDITOR_AUTOMATION.md` owns the exact Unreal operator sequence and
+troubleshooting boundary; frozen delegated-wave plans live under `docs/waves/`.
 
 ## This repository's own structure
 
@@ -391,6 +396,7 @@ rewind-reboot/
 ├── docs/                  live working state
 │   ├── design/            game rules, one ownership area per document
 │   ├── acceptance/        proof criteria
+│   ├── waves/             delegated worker allocation, locks and recovery
 │   ├── baseline/          frozen working-model provenance
 │   └── concepts_sandbox/  legacy import and excluded ideas
 ```

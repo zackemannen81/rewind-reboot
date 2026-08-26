@@ -1,12 +1,12 @@
 # Current Task
 
-Task ID:
+Task ID: REW-0036
 Parent Task: None
-Status: Draft
-Owner:
-Created:
-Last updated:
-Charter frozen at:
+Status: In Progress
+Owner: Codex (process supervisor)
+Created: 2026-08-26
+Last updated: 2026-08-26
+Charter frozen at: 2026-08-26
 
 ## Read First
 
@@ -16,15 +16,31 @@ Charter frozen at:
 - `docs/CONTRIBUTING.md`
 - `docs/CURRENT_STATUS.md`
 - `docs/SYSTEMDOC.md`
-- `docs/JOURNAL.md`
+- `docs/JOURNAL.md` — REW-0016, REW-0033 and REW-0035
 - `docs/FILESTRUCTURE.md`
-- Relevant ADRs under `docs/adr/`
+- `docs/EDITOR_AUTOMATION.md`
+- `docs/design/chapter-1-authored.md` — Radio and code
+- `docs/design/camera-and-movement.md`
+- `docs/finished/REW-0016_operator-finish-chapter-1-through-delegated-agents.md`
+- `docs/finished/REW-0035_wire-chapter-1-audio-into-gameplay.md`
+- `docs/waves/REW-0036_chapter-1-audio-recovery.md`
+- `C:\code\docs-first-multiagent-orchestrator-addon\README.md`
+- `C:\code\docs-first-multiagent-orchestrator-addon\templates\MASTER_AGENT_PROMPT.md`
+- `C:\code\docs-first-multiagent-orchestrator-addon\templates\OPERATOR_TASK.md`
 
 ## Task Summary
-A task is never considered done until:
-JOURNAL.md, SYSTEMDOC.md, CURRENT_STATUS.md is a jour.
 
-Describe the task, why it is being done now and the intended outcome.
+REW-0035 merged Chapter 1 audio wiring without an interactive playback pass.
+The first operator PIE inspection after merge falsified two assumptions: the
+canonical clone was running a DLL older than the merged source, and the new
+spatial radio sounds use a 320 cm attenuation boundary while the authored
+camera — Unreal's default audio listener — is about 22 m from the radio even
+when the player is inside the 320 cm hearing-credit range.
+
+This task is the process-supervisor role for the bounded recovery wave. It
+owns the child charter, isolated clone, process launch, monitoring, decisions,
+review, merge, canonical rebuild, interactive editor and integrated evidence.
+It does not implement the child task's source changes.
 
 ## Task Charter
 
@@ -33,76 +49,172 @@ The charter is editable while status is `Draft` and immutable once status is
 
 ### Goal
 
-Define one primary outcome.
+Land REW-0037 through an isolated delegated agent and prove on the integrated
+canonical build that Chapter 1 audio renders from the player's hearing frame
+under the authored camera, including the channel-3 station and `7312` digits.
 
 ### Primary Deliverable
 
-Name the concrete artifact or behavior that completes the task.
+REW-0037 merged to `main` with a fresh canonical `RewindEditor` build,
+complete `Rewind.*` automation results and a clean standard-PIE audio record
+showing the radio bed, channel interactions, all four scheduled digits and
+player footsteps through the intended runtime events.
 
 ### In Scope
 
-- List work required for the primary deliverable.
+- Freeze, brief and delegate REW-0037 through the Docs-First PowerShell Agent
+  MCP server at `C:\code\docs-first-multiagent-orchestrator-addon`.
+- Assign one clean physical clone, one branch and an exclusive file boundary
+  to the child; the operator retains task IDs, canonical integration, merge
+  authority, the interactive Unreal editor and shared build/test resources.
+- Decide the audio-listener correction: spatial gameplay audio is evaluated
+  from the possessed player's position while retaining the authored camera's
+  orientation and view target.
+- Require the child to preserve the accepted channel, digit timing, hearing
+  range, loop reset and deterministic-world rules.
+- Review the child against its frozen charter, merge only sufficient work and
+  run combined verification after merge.
+- Correct durable status claims falsified by the stale DLL and detached-camera
+  listener evidence.
 
 ### Out of Scope
 
-- List adjacent work that must not be absorbed.
+- Writing REW-0037 implementation code in the supervisor branch.
+- New audio sources, replacement voice, music, final sound mix, reverb,
+  occlusion or broad sound-design work.
+- Changing radio channel count, code, phases, cycle, sequence length,
+  `RadioRange`, loop rules, player speed or camera composition.
+- Editing `.umap` or existing audio `.uasset` content.
+- Changing Windows' default playback device or other machine-wide audio
+  settings; the evidence must name the device Unreal actually selected.
+- Chapter 2 implementation or unrelated Chapter 1 polish.
 
 ### Definition of Done
 
-- Define objective, verifiable completion conditions.
+- REW-0037 is merged to `main`, archived under `docs/finished/`, and carries a
+  signed journal entry with named verification evidence.
+- A fresh canonical editor-closed build loads the REW-0037 class shape; the
+  PIE radio exposes its audio component rather than the stale pre-REW-0035
+  `Root`/`Mesh`-only shape.
+- Radio hearing credit and spatial playback use the same player-relative
+  320 cm boundary despite the detached authored camera.
+- A standard-PIE run reaches channel 3 and records the station bed, interaction
+  sounds, `7312` at phases 4/9/14/19 and distance-driven footsteps; the owner
+  confirms audible output on the named playback device.
+- The complete integrated `Rewind.*` suite passes, documentation states what
+  was and was not heard, and no worker branch remains unmerged without a
+  stated reason.
 
 ### Minimum Verification Gates
 
-- [ ] Define checks that may be strengthened but not removed after `Ready`.
+- [ ] The ownership matrix is checked before launch and no worker shares the
+      canonical clone, editor, task-ID register or merge authority.
+- [ ] The MCP process plane passes a harmless smoke task before REW-0037 is
+      launched.
+- [ ] REW-0037 passes an editor-closed `RewindEditor Win64 Development` build
+      and its focused audio tests in its isolated clone.
+- [ ] The supervisor reviews the complete child diff and evidence against the
+      frozen child charter before merge.
+- [ ] After merge, the canonical clone receives a fresh editor-closed build
+      and the complete `Rewind.*` automation suite passes.
+- [ ] Standard PIE is driven through `RewindEditor.RewindPIEInputToolset`, all
+      held keys are released before PIE stops, and runtime component/listener,
+      channel-3 and digit evidence is recorded.
+- [ ] The selected Windows playback device is named and an owner-heard check
+      distinguishes actual output from logs or active-source state.
+- [ ] `git diff --check` is clean and unrelated local files remain untouched.
 
 ## References
 
-- Add relevant documents, code, decisions and external contracts.
+- `docs/waves/REW-0036_chapter-1-audio-recovery.md`
+- `Rewind/Source/Rewind/RewindCameraRig.cpp`
+- `Rewind/Source/Rewind/RewindRadio.cpp`
+- `Rewind/Source/Rewind/RewindRadioAudioTest.cpp`
+- `Rewind/Source/Rewind/RewindCharacter.cpp`
+- `/Game/Audio/Chapter1/A_REW_Radio_Attenuation`
+- `C:\code\docs-first-multiagent-orchestrator-addon`
+- `C:\code\rewind-multiagents\rewind-reboot3`
 
 ## Checklist
 
-- [ ] Break work into concrete, ordered steps.
-- [ ] Keep this checklist aligned with actual progress.
-- [ ] Add verification and documentation steps.
+- [x] Re-read repository authority, REW-0016 and the add-on operator model.
+- [x] Reproduce and classify the missing-audio report in standard PIE.
+- [x] Claim REW-0036 and REW-0037 on `main` and push the claims.
+- [x] Freeze the supervisor charter and wave ownership plan.
+- [ ] Register and smoke-test the Docs-First PowerShell Agent MCP process plane.
+- [ ] Synchronize the isolated worker clone and write the verbatim REW-0037 brief.
+- [ ] Launch and monitor REW-0037; make all scope and implementation decisions.
+- [ ] Review the worker branch and send back named defects until sufficient.
+- [ ] Merge REW-0037 and run the canonical combined gates.
+- [ ] Run the standard-PIE channel-3/audio scenario and obtain the owner-heard check.
+- [ ] Correct durable documentation, archive the task and restore the template.
 
 ## Decisions and Notes
-- A checkpoint after each step or substep is required. Checklist is therefore updated along the work and `CURRENT_STATUS.md` is always updated when changes affect the behavior.
-- Record decisions and assumptions within the frozen charter.
-- Classify discoveries using `docs/TASK_WORKFLOW.md`.
+
+- A checkpoint after each step or substep is required. The checklist remains
+  truthful and `CURRENT_STATUS.md` changes with observed behavior.
+- The add-on's two-plane model is binding for this wave: repository state is
+  authority; MCP state and worker output are process signals only.
+- Only one implementation child exists. Stale build state, listener placement,
+  radio playback and its regression evidence are one coupled runtime boundary;
+  parallel source tasks would overlap the same files without independent goals.
+- The operator decision is player-position audio with authored-camera
+  orientation. Moving the camera, widening `RadioRange`, making spatial sounds
+  globally 2D or changing the puzzle's hearing rule are rejected.
+- The current Codex session did not expose the five process tools. The project
+  config is therefore updated to register the already-built stdio server; a
+  fresh session must discover it before worker launch. No bridge or unrecorded
+  substitute is treated as the steady-state process plane.
+- The Unreal editor is operator-owned. It must be closed for canonical builds
+  and reopened from the repository root for PIE evidence.
 
 ## Charter Amendment Log
 
 Only non-semantic corrections are allowed after `Ready`.
 
--none
+- none
 
 ## Verification
 
-- [ ] Define task-appropriate technical checks.
-- [ ] Define manual or scenario validation when relevant.
-- [ ] Document skipped checks and reasons.
+- [x] Observed PIE player `(50, 1300, 1298)`, radio `(-225, 1340, 1260)` and
+      authored camera near `(1970, 1300, 1390)`; the player was inside 320 cm
+      while the default listener/view target was about 22 m from the radio.
+- [x] Observed the loaded PIE radio exposing only `Root` and `Mesh`; the merged
+      source declares `RadioBed`.
+- [x] Compared timestamps: canonical `UnrealEditor-Rewind.dll` was built at
+      01:05 local, before REW-0035 source at 05:07 local.
+- [x] Unreal log named `LG TV (NVIDIA High Definition Audio)` as the active
+      WASAPI render device for the diagnostic run.
+- [ ] Worker, merged build, automation, final PIE and heard-output gates pending.
 
 ## Documentation Updates
 
-- [ ] `docs/CURRENT_STATUS.md`
-- [ ] `docs/SYSTEMDOC.md`
-- [ ] `docs/JOURNAL.md`
-- [ ] `docs/FILESTRUCTURE.md` when structure changes
-- [ ] ADRs when long-lived decisions change
+- [x] `docs/CURRENT_STATUS.md`
+- [x] `docs/SYSTEMDOC.md`
+- [x] `docs/JOURNAL.md`
+- [x] `docs/FILESTRUCTURE.md`
+- [ ] REW-0037 archive and final behavior corrections after merge
+- [ ] ADRs only if review finds a long-lived decision not already owned
 
 ## Handoff and Follow-ups
 
-- Current state:
-- Next recommended step:
-- Blockers:
-- Child tasks:
-- Resume condition:
-- Open questions:
+- Current state: supervisor wave activated; claims are on `main`; the process
+  server is built and project registration is committed on this branch.
+- Next recommended step: restart the Codex session from this repository root,
+  verify all five `docs_first_agents` tools and run the harmless smoke task.
+- Blockers: the current session cannot hot-load the newly registered stdio MCP
+  server; worker launch waits for a fresh session exposing its five tools.
+- Child tasks: REW-0037, frozen in the wave plan and not launched.
+- Resume condition: a session from the repository root exposes `run-agent`,
+  `run-agent-task`, `about-agent`, `interrupt-agent` and `halt-agent`.
+- Open questions: none about product or implementation direction. The final
+  heard-output gate requires the owner to confirm what reaches the named device.
 
 ## Finalize When Complete
 
-- Archive this file under `docs/finished/`.
-- Restore this template or populate the next approved task.
-- Add a signed `docs/JOURNAL.md` entry.
+- Archive this file as
+  `docs/finished/REW-0036_operator-recover-and-prove-chapter-1-audio.md`.
+- Restore `docs/CURRENT_TASK.md` from the template.
+- Add a signed `docs/JOURNAL.md` completion entry.
 - If Goal or Definition of Done changed, supersede this task instead of
   rewriting it.

@@ -4,6 +4,42 @@ Newest first. Append only: entries are never edited or reflowed, because other
 records cite them and because their value is that they record what was believed
 at the time.
 
+## 2026-08-26 — REW-0036 activated, Chapter 1 audio recovery supervisor
+
+- Date: 2026-08-26
+- Author: Codex (process supervisor)
+- Task: REW-0036
+- Branch: `codex/rew-0036-audio-recovery-supervisor`
+- Trigger: the owner reported that nothing was heard after tuning the radio to
+  channel 3 and asked for a new master/operator wave through the Docs-First
+  multi-agent orchestrator add-on.
+- Observed diagnosis: standard PIE loaded `RewindCharacter_0` at approximately
+  `(50,1300,1298)`, `RewindRadio_0` at `(-225,1340,1260)` and the authored
+  camera near `(1970,1300,1390)`. The player was inside `RadioRange = 320`, but
+  the camera/default audio listener was about 22 m from the radio. The loaded
+  radio exposed `Root` and `Mesh` only, not the `RadioBed` declared by merged
+  source. The canonical `UnrealEditor-Rewind.dll` timestamp was 01:05 local;
+  REW-0035 source was written at 05:07. Unreal selected `LG TV (NVIDIA High
+  Definition Audio)` as its WASAPI render device. PIE keys were released and
+  PIE was stopped cleanly.
+- Control-plane setup: REW-0036 and child REW-0037 were claimed on `main` and
+  pushed as `c4c18af`. The frozen wave plan gives REW-0037 one physical clone,
+  one branch, one worker and exclusive camera/radio/test ownership. The
+  operator keeps the canonical clone, task-ID register, editor, merge authority
+  and combined verification.
+- Decision: spatial gameplay audio uses the possessed player's position and
+  the authored camera's orientation. The camera remains the view target;
+  `RadioRange`, channel/timing rules and audio assets do not change.
+- Process plane: the already-built stdio server at
+  `C:\code\docs-first-multiagent-orchestrator-addon` is registered in the
+  project Codex config. This running session cannot hot-load its five tools, so
+  worker launch waits for a fresh repository-root session and a harmless MCP
+  smoke task. Repository state, not this process note, is the recovery
+  authority.
+- Not yet verified: no REW-0037 worker has launched; no fresh canonical build,
+  automation suite, corrected PIE run or owner-heard output exists yet.
+- Signature: Codex (process supervisor)
+
 ## 2026-08-26 — REW-0035, Wire Chapter 1 audio into gameplay
 
 - Date: 2026-08-26
