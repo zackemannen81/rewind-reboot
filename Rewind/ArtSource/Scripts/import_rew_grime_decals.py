@@ -17,7 +17,7 @@ import unreal
 
 
 ROOT = os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "Textures",
-                                    "EnvironmentKitV1", "Decals_Emissive"))
+                                    "EnvironmentTextureKit-v1", "Decals_Emissive"))
 TEXTURE_DESTINATION = "/Game/Art/Textures/Decals"
 INSTANCE_DESTINATION = "/Game/Art/Materials/Decals/Instances"
 MASTER_PATH = "/Game/Art/Materials/Decals/M_REW_GrimeDecal"

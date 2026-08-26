@@ -17,7 +17,7 @@ rewind-reboot/
 │   ├── Source/RewindEditor/        editor-only MCP PIE-input and clean screenshot toolset
 │   ├── ArtSource/Textures/         owner-authored 4c_* JPEG sources, plus the generated kit:
 │   │   ├── EnvironmentTextureKit-v1/ REW-0027 JPEG surface/backdrop import sources
-│   │   └── EnvironmentKitV1/       REW-0028 decal atlas and neon PNG sources
+│   │       └── Decals_Emissive/  REW-0028 decal atlas and neon PNG sources
 │   │                               both outside Content/ so the editor never scans them
 │   ├── ArtSource/Characters/Returner/
 │   │                               owner-generated Returner source FBX and provenance
@@ -102,8 +102,9 @@ Generated Unreal output (`Binaries/`, `Intermediate/`, `Saved/`,
 The stairwell and building-slice material family uses only project-authored
 Unreal assets under `Rewind/Content/Art/Materials/`. The owner's hand-authored `4c_*` texture sources are tracked at
 `Rewind/ArtSource/Textures/`, 76 KB. REW-0028 also tracks six supplied
-EnvironmentKitV1 decal/neon PNG sources there, with their import settings and
-grid evidence recorded in `EnvironmentKitV1/REW-0028-decal-provenance.md`.
+decal/neon PNG sources under `EnvironmentTextureKit-v1/Decals_Emissive/`,
+with their import settings and grid evidence recorded in
+`EnvironmentTextureKit-v1/Decals_Emissive/REW-0028-decal-provenance.md`.
 Locally imported Fab, OldWall and
 PaintedBrickWall working material remains untracked and local: ADR-0011
 decided that third-party packs stay outside the tracked dependency closure,
