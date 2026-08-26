@@ -258,6 +258,19 @@ cm, the same as the code-credit `RadioRange`, while on/off/tune clicks are dry
 2D sounds. Player footsteps select among six interior sounds by travelled
 distance and never choose the immediately preceding variation.
 
+The authored camera remains player zero's visual view target. It also owns the
+spatial listener correction: every tick, and immediately from `SnapToPlayer`
+after loop/player placement, it attaches Unreal's listener override to the
+possessed pawn's root with zero location offset. UE 5.8 composes an attached
+override as component rotation plus rotation offset and component location plus
+the rotated location offset, so the rig supplies camera-world rotation minus
+root-world rotation. The resulting listener world position is exactly the root
+position while its front/right orientation is exactly the camera component's
+current world orientation. A possession change replaces the attachment on the
+next tick; ending the rig clears the override. The visual camera does not move,
+and the radio's 320 cm attenuation and player-relative hearing-credit rule are
+unchanged.
+
 The fuse is one LoopWorld actor whose state is at rest, carried, seated in the
 building socket or seated in the courtyard socket. It owns that state, so two
 sockets cannot both be occupied. Carrying disables its collision and follows

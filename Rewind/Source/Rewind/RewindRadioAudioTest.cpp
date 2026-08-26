@@ -3,6 +3,7 @@
 #if WITH_DEV_AUTOMATION_TESTS
 
 #include "Engine/World.h"
+#include "Components/AudioComponent.h"
 #include "Misc/AutomationTest.h"
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
@@ -45,6 +46,17 @@ bool FRewindRadioAudioResetTest::RunTest(const FString& Parameters)
 	TestNotNull(TEXT("radio"), Radio);
 	if (Radio)
 	{
+		TestNotNull(TEXT("radio owns its spatial bed audio component"),
+			Radio->GetRadioBedComponent());
+		TestNotNull(TEXT("radio loads the 320 cm attenuation asset"),
+			Radio->GetDigitAttenuation());
+		if (Radio->GetRadioBedComponent())
+		{
+			TestTrue(TEXT("bed and digit playback use the same attenuation asset"),
+				Radio->GetRadioBedComponent()->GetAttenuationSettingsAsset()
+					== Radio->GetDigitAttenuation());
+		}
+
 		Radio->TryInteract(nullptr); // channel 1 -> 2
 		Radio->TryInteract(nullptr); // channel 2 -> 3 (station bed)
 		TestEqual(TEXT("tuned radio selects the station bed"),
