@@ -8,7 +8,6 @@
 #include "RewindGenerator.h"
 #include "RewindIds.h"
 #include "RewindLog.h"
-#include "Components/DirectionalLightComponent.h"
 #include "Components/PointLightComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/CollisionProfile.h"
@@ -191,15 +190,14 @@ ARewindAuthoredCourtyard::ARewindAuthoredCourtyard()
 		FVector(1100.f, 1100.f, 6.f),
 		ESurface::Floor);
 
-	MoonKey = CreateDefaultSubobject<UDirectionalLightComponent>(TEXT("MoonKey"));
-	MoonKey->SetupAttachment(Root);
-	MoonKey->SetRelativeRotation(FRotator(-48.f, 28.f, 0.f));
-	MoonKey->SetMobility(EComponentMobility::Stationary);
-	MoonKey->SetIntensity(1600.f);
-	MoonKey->bUseTemperature = true;
-	MoonKey->Temperature = 4100.f;
-	MoonKey->SetAtmosphereSunLight(false);
-	MoonKey->SetCastShadows(true);
+	// This actor used to carry its own 1600 lux directional moon key. A
+	// directional light has no position, so it lit the whole level rather than
+	// the courtyard: the authored map's own key is 10 lux, the fourth-floor
+	// hall outside 4C rendered white under the level's manual -0.7 EV
+	// exposure, and UE logged that several directional lights were competing
+	// for forward shading every time PIE started. The courtyard keeps its
+	// practicals and takes the level's single authored key like every other
+	// space; a night exterior does not need a second sun.
 
 	AddPointLight(TEXT("ThresholdPractical"), FVector(0.f, Approach - 40.f, 250.f), 1800.f, 900.f, 3200.f);
 	AddPointLight(TEXT("GeneratorPractical"), FVector(GeneratorX - 200.f, GeneratorY, 230.f), 1600.f, 800.f, 3200.f);

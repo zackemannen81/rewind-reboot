@@ -77,9 +77,6 @@ private:
 	UPROPERTY()
 	TObjectPtr<class UMaterialInterface> DoorMaterial;
 
-	UPROPERTY(VisibleAnywhere)
-	TObjectPtr<class UDirectionalLightComponent> MoonKey;
-
 	UPROPERTY()
 	TObjectPtr<ARewindCameraRegion> ApproachRegion;
 

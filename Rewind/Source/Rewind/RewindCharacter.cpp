@@ -398,12 +398,28 @@ IRewindInteractable* ARewindCharacter::FindInteractable() const
 		FCollisionShape::MakeSphere(160.f),
 		Params);
 
+	// The nearest one wins. Returning whichever overlap the physics query
+	// happened to list first made interaction unpredictable wherever two
+	// interactables share a sphere: the 4C fuse sat 19 cm from the building
+	// socket it belongs in, and which of them answered a keypress was not a
+	// property of where the player stood.
+	IRewindInteractable* Nearest = nullptr;
+	double NearestSq = TNumericLimits<double>::Max();
+	const FVector From = GetActorLocation();
 	for (const FOverlapResult& Hit : Hits)
 	{
-		if (IRewindInteractable* Interactable = Cast<IRewindInteractable>(Hit.GetActor()))
+		AActor* HitActor = Hit.GetActor();
+		IRewindInteractable* Interactable = Cast<IRewindInteractable>(HitActor);
+		if (!Interactable)
 		{
-			return Interactable;
+			continue;
+		}
+		const double DistSq = FVector::DistSquared(From, HitActor->GetActorLocation());
+		if (DistSq < NearestSq)
+		{
+			NearestSq = DistSq;
+			Nearest = Interactable;
 		}
 	}
-	return nullptr;
+	return Nearest;
 }
