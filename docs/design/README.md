@@ -26,3 +26,6 @@ is not a rule. It is a proposal.
 | [`player-messages.md`](player-messages.md) | Accepted | When the game speaks in text, how long a line stays, and that the debug overlay is not UI |
 | [`tutorial-and-first-run.md`](tutorial-and-first-run.md) | Accepted | First-run copy, what it may say, and first-time gating |
 | [`chapter-2-authored.md`](chapter-2-authored.md) | Accepted | Chapter 2 fiction, spaces, clocks, puzzles, antagonist, false information, entry and exit |
+| [`echo.md`](echo.md) | Proposed | What an Echo is, what it may and may not do, how it is staged, and the order its meaning is revealed |
+| [`the-macro-loop.md`](the-macro-loop.md) | Proposed | The macro-cycle frame, what of it is fiction and what is mechanism, and the position on determinism and freedom |
+| [`planted-details.md`](planted-details.md) | Proposed | The register of details authored early because they pay off later, and the rule that protects them |

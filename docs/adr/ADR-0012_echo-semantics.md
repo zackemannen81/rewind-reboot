@@ -75,6 +75,41 @@ be amended later on evidence; an open question cannot be built against at all.
   that is evidence for amending this record, and the presentation-only option
   above is where to start.
 
+## Amendment, 2026-08-27
+
+**An authored Echo performance is permitted. Derivation from the player is
+not.**
+
+The original text says what Echo is not: not a recording, not replayed, nothing
+samples the player's transform, nothing persists a path, and nothing renders a
+ghost following a route the player previously took. Every one of those clauses
+stands unchanged.
+
+What it never said is what Echo may be, and the owner's Chapter 2 script work
+needs that line drawn. A hand-placed silent figure performing a hand-animated
+action is not a recording and does not follow a route the player took: it was
+composed before the player arrived. It is staging, in the same sense that a
+decal or a light is staging. This amendment records that it is allowed, so the
+question is a rule rather than an argument the next reader has to have.
+
+The boundary, stated once:
+
+- **Permitted:** authored figures, authored actions, keyed to loop time or to a
+  knowledge fact, identical every time they play.
+- **Not permitted:** anything derived from what the player did — sampling a
+  transform, storing a path, replaying a route, reacting to the player, or
+  varying with loop count.
+
+Nothing in the Consequences section above changes. `URewindSessionSubsystem`
+still gains no recording bucket, save size stays bounded by knowledge facts and
+Anchors, and Anchors remain the only route by which anything crosses a loop
+boundary. An authored Echo costs animation and staging, and no state at all.
+
+The game rule this permits is owned by
+[`../design/echo.md`](../design/echo.md), which did not exist when this record
+was written. The frame those performances reveal is owned by
+[`../design/the-macro-loop.md`](../design/the-macro-loop.md).
+
 ## Status of related records
 
 [`echo-semantics.md`](../backlog/echo-semantics.md) is resolved by this record.
