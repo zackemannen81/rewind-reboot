@@ -42,6 +42,8 @@ namespace
 	constexpr int32 RadioChannelCount = 4;
 	constexpr int32 RadioCodeChannel = 3;
 	constexpr int32 RadioOffChannel = 0;
+	// Authored baseline. See `chapter-1-authored.md`, "Radio and code".
+	constexpr int32 RadioBaselineChannel = 2;
 	constexpr int32 StationBedSoundIndex = 0;
 	constexpr int32 StaticBedSoundIndex = 1;
 
@@ -127,12 +129,18 @@ void ARewindRadio::BeginPlay()
 
 void ARewindRadio::RestoreFromBaseline()
 {
-	Channel = 1;
+	// Two, not one. `chapter-1-authored.md` authors the radio as already tuned
+	// when the loop starts: one step short of the channel that carries the
+	// code, so the first tuning press lands on the voice, and not the channel a
+	// radio sits on when nobody has touched it. Why it is tuned at all is a
+	// planted detail, registered in `docs/design/planted-details.md`.
+	Channel = RadioBaselineChannel;
 	ListeningSince = -1.0;
 	bWasInSequence = false;
 	FragmentsReported = 0;
 	UpdateBedAudio();
-	RewindLog::Baseline(TEXT("Radio: channel 1, static"));
+	RewindLog::Baseline(FString::Printf(
+		TEXT("Radio: channel %d, static"), RadioBaselineChannel));
 }
 
 void ARewindRadio::ApplyAnchorOverride(FName AnchorId)

@@ -65,6 +65,23 @@ that a commit survives a loop boundary, and it does. What this record says is
 that the thing being committed was not yet worth committing, which is a design
 gap and is exactly what the playtest measured.
 
+## Note, 2026-08-27
+
+The section above was written against the chain as it stood on 2026-08-23. The
+contested-fuse chain it names as the version that passes has since been
+implemented: one carried fuse, two exclusive sockets, the building socket
+powering the lift and the ground socket enabling the generator. `ADR-0008`'s
+test is therefore met by the implementation, and `docs/CURRENT_STATUS.md`
+records it as met.
+
+The section is left as written, because the reasoning is the point and because
+other records cite it. This note exists so that the next reader does not take a
+statement about August 23rd as a statement about now.
+
+What remains open is evidence rather than design: FL-18 has no recorded PIE
+run, so a first-time commit of `courtyard_gate_open` has been implemented and
+tested in automation but never played.
+
 ## Alternatives considered
 
 **Leave the reason unstated.** Rejected. The gap produced a Five Loops Test that

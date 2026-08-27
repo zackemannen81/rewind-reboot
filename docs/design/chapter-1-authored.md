@@ -74,6 +74,21 @@ interaction. Which channel is the right one is not a stored fact and is
 never written to a save; the player remembers it, exactly as they remember
 the patrol's timing.
 
+**The radio is already tuned when the loop starts.** Baseline is **channel 2**,
+one step from the channel that carries the code. It is not the channel a radio
+sits on when nobody has touched it, and it is not the channel that answers: the
+first tuning press lands on the voice, so finding the broadcast costs one
+interaction rather than a search through four. What the player has to work out
+is still the whole of the puzzle — that the voice repeats, when it speaks, and
+that a full sequence has to be stood through.
+
+Why the radio is on that channel at all is not a Chapter 1 rule and is not
+explained here. It is registered as a planted detail in
+[`planted-details.md`](planted-details.md).
+
+Decided 2026-08-27. The baseline was channel 1 until then, which was the
+implementation's default rather than an authored choice.
+
 **The sequence speaks four digits.** The code sequence takes **20 seconds**
 of elapsed loop time and repeats every **50 seconds**. Phase is `t` modulo
 50. The four digits of `7312` are spoken at phases **4, 9, 14 and 19**, in

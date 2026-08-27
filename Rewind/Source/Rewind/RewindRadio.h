@@ -93,7 +93,7 @@ private:
 	 * Selected channel. Channel zero is off; one through four are the authored
 	 * receiver positions. LoopWorld: it returns to the authored default at loop start.
 	 */
-	int32 Channel = 1;
+	int32 Channel = 2;
 
 	/** Elapsed loop time when unbroken listening began, or -1 when not listening. */
 	double ListeningSince = -1.0;

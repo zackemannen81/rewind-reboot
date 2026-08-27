@@ -103,11 +103,18 @@ test, and it applies unchanged at this scale: **name the resource the cycle
 must otherwise commit, and name its two uses.** If either cannot be named, the
 macro Anchor is a shortcut wearing a costume, exactly as a local one would be.
 
-One prerequisite, recorded because it is easy to forget: ADR-0008 states that
-`courtyard_gate_open` **does not currently pass that test** — holding the gate
-open only makes existing routes faster. The tutorial's Anchor has to
-demonstrate the mechanic before the finale can escalate it. The macro Anchor
-cannot be designed around a local one that does not yet work.
+One note, because the record is easy to misread. ADR-0008's "consequence"
+section says `courtyard_gate_open` does not pass its own test, and that section
+was written on 2026-08-23 against the chain as it then stood, where holding the
+gate open only made existing routes faster. The contested-fuse chain has since
+been implemented: one fuse, two exclusive sockets, the building socket powering
+the lift and the ground socket enabling the generator. That is the version
+ADR-0008 says passes, and `docs/CURRENT_STATUS.md` records it as implemented.
+
+What is still missing is play evidence, not design. FL-18 — a first-time commit
+of `courtyard_gate_open` ending a loop — has never been recorded in PIE. The
+macro Anchor should not be designed before the local one has been *seen* to
+work, which is a smaller gap than a broken mechanic but not a closed one.
 
 Structurally, then, the ending is: understand why the cycle exists, and find
 the single intervention that lies outside its reset boundary.
@@ -137,8 +144,10 @@ Two rules follow:
 2. **How many chapters?** Recommendation: build for the length the references
    imply and treat chapters three to five as an extension rather than a
    commitment. See ["Scale discipline"](#scale-discipline).
-3. **What is the resource the macro Anchor contests?** Unanswered, and it
-   cannot be answered before the local Anchor passes ADR-0008's test.
+3. **What is the resource the macro Anchor contests?** Unanswered. The local
+   Anchor meets ADR-0008's test in the implementation; what it lacks is a
+   recorded play of FL-18. Answer this after the local mechanic has been seen
+   to work, not before.
 4. **How much does the game say out loud?** The reference set contains a
    contradiction: the point-and-click tradition retains through density of
    authored response, and the cinematic tradition says almost nothing.

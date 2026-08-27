@@ -57,7 +57,8 @@ bool FRewindRadioAudioResetTest::RunTest(const FString& Parameters)
 					== Radio->GetDigitAttenuation());
 		}
 
-		Radio->TryInteract(nullptr); // channel 1 -> 2
+		// One press, not two. The authored baseline is channel 2, one step short
+		// of the code channel, so the first tuning press lands on the voice.
 		Radio->TryInteract(nullptr); // channel 2 -> 3 (station bed)
 		TestEqual(TEXT("tuned radio selects the station bed"),
 			Radio->GetCurrentBedSoundIndex(), 0);
@@ -65,7 +66,7 @@ bool FRewindRadioAudioResetTest::RunTest(const FString& Parameters)
 			Radio->GetAppliedBedSoundIndex(), 0);
 
 		Radio->RestoreFromBaseline();
-		TestEqual(TEXT("rewind restores authored channel"), Radio->GetChannel(), 1);
+		TestEqual(TEXT("rewind restores authored channel"), Radio->GetChannel(), 2);
 		TestEqual(TEXT("rewind replaces station bed with static"),
 			Radio->GetCurrentBedSoundIndex(), 1);
 		TestEqual(TEXT("rewind applies static to the audio component"),

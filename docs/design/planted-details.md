@@ -60,12 +60,12 @@ and frozen. `paid` — the payoff has shipped, and the entry is history.
 
 | | |
 | --- | --- |
-| Detail | The radio is already tuned to a channel at loop start. Nobody in the fiction set it. |
+| Detail | The radio is already tuned to channel 2 at loop start — one step short of the channel that carries the code. Nobody in the fiction set it, and whoever did stopped one step early. |
 | Where | Apartment 4C. Gameplay actor `4C_Radio`; visible prop `Meshy_AI_rad_o-3d-texture`, on the desk at `(-240, 1530, 1319)` |
 | First seen | Chapter 1, first loop |
 | Paid off in | Unassigned. Requires the rung-3 or rung-4 chapter — see [`echo.md`](echo.md#the-reveal-ladder) |
 | What it means then | Someone prepared Chapter 1. Later: the Returner prepared Chapter 1, in an earlier cycle. |
-| Status | `planned` — the baseline channel is not yet fixed by [`chapter-1-authored.md`](chapter-1-authored.md), which owns the radio's rule. Decide the channel there, then register it here as `authored`. |
+| Status | `authored` and frozen. The owner delegated the choice on 2026-08-27; channel 2 is now the rule in [`chapter-1-authored.md`](chapter-1-authored.md), which owns the radio, and `ARewindRadio::RestoreFromBaseline` restores it. The channel number is what must not drift. |
 
 ### PD-002
 

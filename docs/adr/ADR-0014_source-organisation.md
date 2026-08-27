@@ -1,6 +1,6 @@
 # ADR-0014 — Source organisation and the cost of a new class
 
-Status: Proposed
+Status: Accepted
 
 Date: 2026-08-26
 
@@ -159,9 +159,11 @@ that grows behaviour is a class with worse tooling.
 - A reviewer gains one question that is cheap to ask and hard to argue with:
   *what rule does this class own that no other class owns?*
 
-## What acceptance requires
+## Acceptance
 
-The owner approves this record, or names what to change. Until the status line
-reads `Accepted`, the tree stays flat and no task may cite this record. The
-file move itself is a separate task, because a rename of 83 files and a
-behaviour change must never share a commit.
+Accepted by the owner on 2026-08-27. The admission test in point 3 applies from
+now: a class is justified by a new rule, never by a new object.
+
+The tree is still flat. Moving 83 files is a separate task, because a rename of
+that size and a behaviour change must never share a commit, and it is not
+chartered by this record.

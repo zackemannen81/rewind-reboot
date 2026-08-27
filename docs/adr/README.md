@@ -35,8 +35,8 @@ or moved.
 | [`ADR-0010_renderer-configuration.md`](ADR-0010_renderer-configuration.md) | Accepted | Which renderer features are on, the frame-time budget and the hardware floor |
 | [`ADR-0011_asset-source-and-provenance.md`](ADR-0011_asset-source-and-provenance.md) | Accepted | Where art assets come from, and what may enter the tracked dependency closure |
 | [`ADR-0012_echo-semantics.md`](ADR-0012_echo-semantics.md) | Accepted | What Echo is, and what it is not |
-| [`ADR-0013_third-party-asset-adoption.md`](ADR-0013_third-party-asset-adoption.md) | Proposed | When a third-party asset may enter the tracked closure, and the cost, licence and performance tests it must pass |
-| [`ADR-0014_source-organisation.md`](ADR-0014_source-organisation.md) | Proposed | How C++ under `Rewind/Source/` is laid out and named, and the test a new class must pass |
+| [`ADR-0013_third-party-asset-adoption.md`](ADR-0013_third-party-asset-adoption.md) | Accepted | When a third-party asset may enter the tracked closure, and the cost, licence and performance tests it must pass |
+| [`ADR-0014_source-organisation.md`](ADR-0014_source-organisation.md) | Accepted | How C++ under `Rewind/Source/` is laid out and named, and the test a new class must pass |
 
 ## Decisions that are open
 

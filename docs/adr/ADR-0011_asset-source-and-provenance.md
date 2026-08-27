@@ -103,6 +103,28 @@ what should never have been unbound.
 The decision itself is unchanged. Third-party packs stay outside the tracked
 closure. This amendment corrects which content that sentence was ever about.
 
+## Amendment, 2026-08-27
+
+**Points 2 and 4 are superseded in part by
+[`ADR-0013`](ADR-0013_third-party-asset-adoption.md).**
+
+Point 4 said a third-party asset may be adopted later, but only by amending
+this record. ADR-0013 is that amendment, written as its own record because it
+adds an admission test a future task has to run rather than a sentence a reader
+has to remember.
+
+What changed: a third-party asset may now enter the tracked closure when it is
+free to acquire, licensed for commercial use, recorded with its provenance, and
+inside ADR-0013's performance ceiling. What did not change: **only the
+referenced dependency closure is tracked, never the pack.** `/Game/Fab/` and
+`/Game/Deko_MatrixDemo/` remain large untracked local libraries exactly as
+point 2 leaves them; their referenced subsets become tracked so a fresh clone
+reproduces the map without reproducing the shop.
+
+The rule on the first line of this record still stands and is still the
+default. RE:WIND's art is project-owned or generated. ADR-0013 is the exception
+this record anticipated, not a replacement for it.
+
 ## Status of related records
 
 [`untracked-fab-dependency.md`](../backlog/untracked-fab-dependency.md) is
