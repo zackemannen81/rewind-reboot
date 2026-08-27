@@ -62,6 +62,8 @@ boundary, and the design documents under `docs/design/` that the task names.
 - `docs/TASK_WORKFLOW.md`: task states, scope freeze, routing, identity.
 - `docs/PROJECT_BRIEF.md`: approved product direction and fixed scope.
 - `docs/CURRENT_STATUS.md`: what exists now and what does not.
+- `docs/ROADMAP.md`: the order work is done in, and each phase's gate.
+  Sequence only. It never states scope, direction or a game rule.
 - `docs/SYSTEMDOC.md`: the durable shape of the game's systems and of this
   repository.
 - `docs/JOURNAL.md`: dated, signed work waves. Append-only.

@@ -61,6 +61,7 @@ rewind-reboot/
 │   ├── SYSTEMDOC.md                durable shape of repo and, later, game systems
 │   ├── EDITOR_AUTOMATION.md        editor, MCP, plugins, toolsets, build and agent playtests
 │   ├── JOURNAL.md                  dated, signed work waves, append-only
+│   ├── ROADMAP.md                  phase order and the gate each phase must pass
 │   ├── FILESTRUCTURE.md            this file
 │   ├── TASK_IDS.md                 identity claims, allocation only
 │   ├── waves/                      frozen delegated-agent allocation, ownership, locks and recovery plans
