@@ -76,7 +76,7 @@ and frozen. `paid` — the payoff has shipped, and the entry is history.
 | First seen | Chapter 1, first loop |
 | Paid off in | Unassigned |
 | What it means then | The room was set up for someone who would need it. |
-| Status | `planned`, and **already disturbed once.** On 2026-08-26 the fuse was moved from `(-250, 1280, 1350)`, inside the `electrical_panel` prop, to `(-215, 1435, 1316)` on the desk. The reason was mechanical and good: at the old position it sat 6 cm outside the Apartment4C player volume and 19 cm from the building socket, so interaction was unreliable. The reason was also made without knowing this detail was load-bearing, because this register did not exist. The owner decides whether "where it sits" means the panel or the desk, and the answer is registered here before any further dressing. |
+| Status | `authored` and frozen at the desk. On 2026-08-26 the fuse was moved from `(-250, 1280, 1350)`, inside the `electrical_panel` prop, to `(-215, 1435, 1316)` on the desk. The move was made for a mechanical reason — at the old position it sat 6 cm outside the Apartment4C player volume and 19 cm from the building socket, so interaction was unreliable — and it was made without knowing the detail was load-bearing, because this register did not exist. The owner ruled on 2026-08-27 that the desk is correct: a fuse left out reads as prepared, a fuse already seated in its own box does not. The desk position is now the planted detail. It still needs a mesh; it is currently an engine cube. |
 
 ### PD-003
 
@@ -115,11 +115,10 @@ anything.
 
 ## Open questions for the owner
 
-1. **PD-002: panel or desk?** Recommendation: the desk. A fuse lying out where
-   someone left it reads as *prepared* far better than a fuse already seated in
-   the box it belongs in, and it is also the position that makes the puzzle
-   work. If the panel is what the image needs, the interaction problem has to
-   be solved another way.
+1. ~~**PD-002: panel or desk?**~~ Answered by the owner on 2026-08-27: the
+   desk. A fuse lying out where someone left it reads as prepared; one already
+   seated in its own box does not. Recorded in the entry, and the position is
+   frozen.
 2. **Should the register carry a payoff chapter before that chapter is
    designed?** Recommendation: no. Leave `Unassigned` and let the chapter claim
    it. A detail assigned early tends to be written to fit the assignment.
@@ -130,5 +129,5 @@ anything.
 
 ## What acceptance requires
 
-The owner approves this document, or names what to change, and answers PD-002.
-Until then it is a proposal, and the register protects nothing.
+The owner approves this document, or names what to change. PD-002 is already
+answered. Until then it is a proposal, and the register protects nothing.
