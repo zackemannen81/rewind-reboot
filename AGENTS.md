@@ -68,6 +68,8 @@ boundary, and the design documents under `docs/design/` that the task names.
   repository.
 - `docs/JOURNAL.md`: dated, signed work waves. Append-only.
 - `docs/FILESTRUCTURE.md`: repository map.
+- `docs/DELEGATION.md`: how a delegated worker wave is set up and run here.
+  Local wiring, launch commands, locks and monitoring.
 - `docs/TASK_IDS.md`: identity claims. Allocation only, never status.
 - `docs/adr/`: decisions, alternatives and consequences.
 - `docs/design/`: game design authority, split by semantics. Each document owns
